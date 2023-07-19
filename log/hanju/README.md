@@ -4,8 +4,8 @@
 
 ## 2. [TypeScript](./TIL/TS.md)
 
-## 3. [React + TS]()
+## 3. [React + TS](./TIL/React-Typescript.md)
 
-## 4. [Redux]()
+## 4. [Zustand](./TIL/Zustand.md)
 
 
