@@ -6,14 +6,15 @@ import lombok.*;
 
 import javax.persistence.*;
 
-@Entity
-// lombok의 Annotation을 사용해 Getter, Setter를 작성
-@Getter
-//@Setter
-// 접근제어자가 public인 기본 생성자를 별도의 코드 없이 생성
-@NoArgsConstructor(access = AccessLevel.PUBLIC)
+@Entity // Database 테이블과 매핑될 클래스를 엔티티로 지정
+@Getter // Getter를 작성해주는 lombok의 Annotation
+@NoArgsConstructor(access = AccessLevel.PROTECTED) // 접근제어자가 PROTECTED인 기본 생성자를 생성하는 Annotation
+//@AllArgsConstructor // 모든 필드 값을 파라미터로 받는 생성자
+//@RequiredArgsConstructor // final이나 @NonNull인 필드 값만 파라미터로 받는 생성자
 //@ApiModel(value = "UserDto : 사용자 정보", description = "사용자의 정보를 나타낸다.")
+@Table(name="MEMBER") // 처음에 Table 명을 USER 그대로 하니까 SQL 오류가 계속 발생하였음.
 public class User {
+    // @Id가 적용된 맴버변수는 실제 매핑될 테이블의 식별자 값인 PK를 의미한다.
     @Id
     // 기본키 자동으로 1씩 증가, AUTO_INCREMENT 같은 느낌
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -35,7 +36,7 @@ public class User {
 //    @ApiModelProperty(value = "사용자의 별명")
     private String nickname;
 
-    @Column(name = "number", nullable = false)
+    @Column(name = "phone", nullable = false)
 //    @ApiModelProperty(value = "사용자의 전화번호")
     private int number;
 
@@ -59,46 +60,10 @@ public class User {
         this.number = number;
     }
 
-//    // 기본 생성자
-//    public User() {}
-//
-//    public Long getId() {
-//        return id;
-//    }
-//
-//    public void setId(Long id) {
-//        this.id = id;
-//    }
-//
-//    public String getUser_id() {
-//        return user_id;
-//    }
-//
-//    public void setUser_id(String user_id) {
-//        this.user_id = user_id;
-//    }
-//
-//    public String getPassword() {
-//        return password;
-//    }
-//
-//    public void setPassword(String password) {
-//        this.password = password;
-//    }
-//
-//    public String getNickname() {
-//        return nickname;
-//    }
-//
-//    public void setNickname(String nickname) {
-//        this.nickname = nickname;
-//    }
-//
-//    public int getNumber() {
-//        return number;
-//    }
-//
-//    public void setNumber(int number) {
-//        this.number = number;
-//    }
+    public void update(String user_id, String password, String nickname, int number) {
+        this.user_id = user_id;
+        this.password = password;
+        this.nickname = nickname;
+        this.number = number;
+    }
 }
