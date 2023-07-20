@@ -1,0 +1,11 @@
+{
+  "user":[
+    {
+      "id" : 1,
+      "userId" : "hanju",
+      "nickName" : "ㅇㅅㅇ",
+      "phoneNumber": "010-6555-1715",
+      "password" : 1004
+    }
+  ]
+}
