@@ -1,9 +1,14 @@
 .Header {
+  color: white;
   background-color: #5cb15a;
   margin-top: 0px;
   position: fixed;
   left: 0;
   right: 0;
   top: 0;
-  height: 10vh;
+  height: 7vh;
+}
+
+.pageName {
+  margin: 0px;
 }
