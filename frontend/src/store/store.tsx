@@ -1,14 +1,15 @@
 import {create} from 'zustand'
 import {persist} from 'zustand/middleware'
 
+// 유저 정보
 interface userInfoState {
   id: number;
   userId: string;
   nickName: string;
   phoneNumber: string;
+  // login: (userInfo: userInfoState) => void;
 }
 
-// 유저 정보 저장
 export const userInfoStore = create<userInfoState>()(
   persist(
     set => ({
@@ -16,9 +17,21 @@ export const userInfoStore = create<userInfoState>()(
       userId: "",
       nickName: "",
       phoneNumber: "",
-      // 상태 정보 갱신 함수들
       login: (userInfo: userInfoState) => set(userInfo)
     }),
     {name: 'userInfo'}
   )
+)
+
+
+// 현재 페이지
+interface nowPageState {
+  pageName: string;
+  setPage: (nowPage: string) => void;
+}
+
+export const nowPageStore = create<nowPageState>()(set => ({
+      pageName: 'Test',
+      setPage:(nowPage: string) => set({pageName: nowPage})
+    })
 )
