@@ -1,5 +1,10 @@
 .App {
   text-align: center;
+  width: 100%;
+  padding-top: 10vh;
+  padding-bottom: 10vh;
+  /* background-image: url(./assets/background.png);
+  background-size: cover; */
 }
 
 .App-logo {
@@ -36,3 +41,4 @@
     transform: rotate(360deg);
   }
 }
+

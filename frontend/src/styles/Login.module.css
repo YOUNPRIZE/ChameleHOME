@@ -1,0 +1,12 @@
+.additionalLink {
+  text-decoration: none;
+  color:#5cb15a;
+  font-weight: bold;
+}
+
+.loginBtn{
+  width: 100%;
+  margin-top: 3vh;
+  background-color: #5cb15a;
+  color: black;
+}
