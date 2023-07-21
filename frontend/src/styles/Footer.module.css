@@ -5,5 +5,16 @@
   left: 0;
   right: 0;
   bottom: 0;
-  height: 10vh;
+  height: 8vh;
+  padding-left: 5vw;
+  padding-right: 5vw;
+}
+
+.footerIcon {
+  font-size: 4vh
+}
+
+.needLogin {
+  color: white;
+  font-size: 3vh;
 }
