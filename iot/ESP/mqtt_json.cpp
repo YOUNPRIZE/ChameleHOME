@@ -26,9 +26,9 @@ float temp, hum;
 int light, set_light;
 
 EspMQTTClient client(
-  "MULTI_GUEST_2",
-  "guest1357",
-  "70.12.246.56",  // MQTT Broker server ip
+  "wifiname",
+  "pw",
+  "broker",  // MQTT Broker server ip
   "MQTTUsername",   // Can be omitted if not needed
   "MQTTPassword",   // Can be omitted if not needed
   "ESP32",     // Client name that uniquely identify your device
