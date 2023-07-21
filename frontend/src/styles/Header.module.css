@@ -3,10 +3,13 @@
   background-color: #5cb15a;
   margin-top: 0px;
   position: fixed;
-  left: 0;
-  right: 0;
+  width: 100vw;
   top: 0;
   height: 7vh;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0px 10vw;
 }
 
 .pageName {
@@ -14,4 +17,8 @@
   /* font-weight: bold; */
   text-shadow: 2px 2px 2px gray;
   font-size: 3vh
+}
+
+.headerIcon {
+  font-size: 3vh;
 }
