@@ -2,12 +2,13 @@ import {create} from 'zustand'
 import {persist} from 'zustand/middleware'
 
 // 유저 정보
-interface userInfoState {
+export interface userInfoState {
   id: number;
-  userId: string;
+  userId: string | undefined;
   nickName: string;
   phoneNumber: string;
-  // login: (userInfo: userInfoState) => void;
+  login: (inputId: string|undefined, inputPW: string|undefined) => void;
+  logout: () => void;
 }
 
 export const userInfoStore = create<userInfoState>()(
@@ -17,7 +18,28 @@ export const userInfoStore = create<userInfoState>()(
       userId: "",
       nickName: "",
       phoneNumber: "",
-      login: (userInfo: userInfoState) => set(userInfo)
+      // 로그인 메서드
+      login: (inputId:string|undefined, inputPW: string|undefined) =>
+        {
+          return set((state) => ({
+            ...state,
+            id:1,
+            userId:inputId,
+            nickName: 'Test',
+            phoneNumber: '010-0000-0000'
+          }))
+        },
+      // 로그아웃 메서드
+      logout: () => 
+        { 
+          return set((state) => ({
+            ...state,
+            id:0,
+            userId:"",
+            nickName:"",
+            phoneNumber:""
+          }))
+        }
     }),
     {name: 'userInfo'}
   )
@@ -25,13 +47,17 @@ export const userInfoStore = create<userInfoState>()(
 
 
 // 현재 페이지
-interface nowPageState {
+export interface nowPageState {
   pageName: string;
   setPage: (nowPage: string) => void;
 }
 
-export const nowPageStore = create<nowPageState>()(set => ({
+export const nowPageStore = create<nowPageState>()(
+  persist(
+  set => ({
       pageName: 'Test',
       setPage:(nowPage: string) => set({pageName: nowPage})
-    })
+    }),
+  {name:'pageName'}
+  )
 )

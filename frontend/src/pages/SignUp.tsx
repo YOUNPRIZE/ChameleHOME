@@ -1,13 +1,24 @@
+import {useRef, useEffect} from 'react'
+import { Link, useNavigate } from 'react-router-dom'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import style from '../styles/Login.module.css'
 import { nowPageStore } from '../store/store';
 
+// 회원가입 페이지
 export default function SignUp():JSX.Element {
   // 페이지명 변경
   const changePage = nowPageStore(state => state.setPage);
-  changePage("회원 가입")
+  useEffect(() => {
+    changePage("회원 가입");
+  })
+
+  // 로그인
+
+
+  // 회원가입
+  
 
   return (
     <div className={style.authForm}>
@@ -32,6 +43,7 @@ export default function SignUp():JSX.Element {
           <Form.Label className={style.textSize}>전화번호</Form.Label>
           <Form.Control className={`bg-secondary-subtle ${style.inputForm}`} type="text" placeholder="전화번호를 입력하세요"/>
         </Form.Group>
+        <Link to='/Login' className={style.additionalLink}>이미 계정이 있으신가요?</Link>
         <Button variant='success' size="lg" className={style.loginBtn}>회원가입</Button>
       </Form>
     </div>
