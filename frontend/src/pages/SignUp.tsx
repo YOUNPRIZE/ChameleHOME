@@ -5,6 +5,7 @@ import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import style from '../styles/Login.module.css'
 import { nowPageStore } from '../store/store';
+import { userInfoStore, userInfoState } from '../store/userInfoStore';
 
 // 회원가입 페이지
 export default function SignUp():JSX.Element {
@@ -19,7 +20,8 @@ export default function SignUp():JSX.Element {
 
   // 회원가입
   
-
+  
+  // 페이지 렌더링
   return (
     <div className={style.authForm}>
       <Form className='w-75 h-100 mx-auto d-flex flex-column justify-content-center'>

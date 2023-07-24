@@ -1,6 +1,7 @@
 import {useRef, useEffect} from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import { nowPageStore, userInfoStore, userInfoState } from '../store/store';
+import { nowPageStore } from '../store/store';
+import { userInfoStore, userInfoState } from '../store/userInfoStore';
 import reptile01 from '../assets/retile01.png'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import Form from 'react-bootstrap/Form';
@@ -33,6 +34,7 @@ export default function Login():JSX.Element {
     }
   }, [userInfo.id])
 
+  // 페이지 렌더링
   return (
     <div className={style.authForm}>
       <Form className='w-75 h-100 mx-auto d-flex flex-column justify-content-center align-items-center'>

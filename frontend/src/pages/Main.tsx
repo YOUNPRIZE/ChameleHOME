@@ -1,29 +1,65 @@
-import { useNavigate } from 'react-router-dom';
+// 훅 import 
+import { useNavigate, Link } from 'react-router-dom';
 import { useEffect, useState } from 'react'
-import { nowPageStore, userInfoStore, userInfoState } from '../store/store';
+// 상태 정보 import
+import { nowPageStore } from '../store/store';
+import { userInfoStore, userInfoState } from '../store/userInfoStore';
+import { myCage, myCagesStore } from '../store/myCageStore';
+// 스타일 import
+import style from '../styles/Main.module.css'
+import 'bootstrap/dist/css/bootstrap.min.css'
+// 컴포넌트 import
+import MainCage from '../components/MainCage';
 
-// 메인페이지
+
 export default function Main():JSX.Element {
   // 상태 정보 받아오기
   const userInfo = userInfoStore();
-  // hooks 불러오기
-  const navigate = useNavigate();
-  // 로그인이 안 되어있는 경우 로그인 페이지로 이동
-  useEffect(() => {
-    if (userInfo.id === 0) {
-      navigate(`/Login`);
-    }
-  }, [userInfo.id])
+  const myCages = myCagesStore(state => (state.cages));
+
   // 페이지명 변경
   const changePage = nowPageStore(state => state.setPage);
   useEffect(() => {
     changePage("홈");
   })
 
+  // 메인 페이지 케이지 표시 컨트롤
+  const [mainCageOrder, setMainCageOrder] = useState(0);
+  const handleCageOrder = (move:number):void => {
+    const numberCage = myCages.length
+    const tmpOrder = numberCage !== 0 ? (mainCageOrder + move + numberCage) % numberCage : 0
+    setMainCageOrder(Math.floor(tmpOrder))
+  }
+
+  // 페이지 렌더링
   return (
     <>
-      <h1>Home</h1>
-      {userInfo.userId}
+      {/* 케이지 보기 컨테이너 */}
+      <div className={`${style.mainContainer} ${style.mainCages}`}>
+        {/* 케이지 보기 상단바 */}
+        <div className={`${style.cagesTop}`}>
+          <p>내 케이지들</p>
+          <Link to='/Cages' className={style.noDeco}>목록 보기</Link>
+        </div>
+        {/* 케이지 보기 캐러셀 */}
+        <div className={`carousel slide carousel-dark`} id="carouselExample">
+          <div className="carousel-inner">
+            {myCages.map((cage, index) => (
+              <MainCage key={cage.cageId} cage={cage} index={index} order={mainCageOrder}/>
+            ))}
+          </div>
+          <button className="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev" onClick={() => handleCageOrder(-1)}>
+            <span className="carousel-control-prev-icon" aria-hidden="true"></span>
+          </button>
+          <button className="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next" onClick={() => handleCageOrder(1)}>
+            <span className="carousel-control-next-icon" aria-hidden="true"></span>
+          </button>
+        </div>
+      </div>
+      {/* 도감 보기 컨테이너 */}
+      <div className={`${style.mainContainer} ${style.mainDic}`}>오늘의 도감</div>
+      {/* 관련 상품 보기 컨테이너 */}
+      <div className={`${style.mainContainer} ${style.mainShops}`}>추천 상품</div>
     </>
   )
 }

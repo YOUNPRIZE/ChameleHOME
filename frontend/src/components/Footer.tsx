@@ -1,22 +1,20 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { userInfoStore, userInfoState } from '../store/store';
+import { nowPageStore } from '../store/store';
+import { userInfoStore, userInfoState } from '../store/userInfoStore';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faHouse,faUser } from '@fortawesome/free-solid-svg-icons'
 import style from '../styles/Footer.module.css'
 import 'bootstrap/dist/css/bootstrap.min.css'
 
-export default function Footer():JSX.Element {
-  // 로그인 여부 판단
-  const [isLogged, setIsLogged] = useState(false)
-  const userInfo = userInfoStore(state => (state.id));
-  useEffect(() => {
-    setIsLogged(userInfo !== 0)
-  }, [userInfo])
+interface Props {
+  isLogged : boolean
+}
 
+export default function Footer(props:Props):JSX.Element {
   return (
     <div className={`${style.Footer} d-flex align-items-center justify-content-center`}>
-      {isLogged ? (
+      {props.isLogged ? (
         <div className='w-100 d-flex align-items-center justify-content-between'>
           <Link to='/'><FontAwesomeIcon icon={faHouse} style={{color: "#ffffff",}} className={style.footerIcon} /></Link>
           <Link to='/MyPage'><FontAwesomeIcon icon={faUser} style={{color: "#ffffff",}} className={style.footerIcon}/></Link>

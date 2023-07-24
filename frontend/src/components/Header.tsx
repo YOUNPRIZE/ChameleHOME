@@ -20,7 +20,6 @@ export default function Header():JSX.Element {
 
   // 뒤로 가기 함수
   const navigate = useNavigate();
-
   const handleGoBack = () => {
     navigate(-1); // -1을 전달하여 뒤로 이동
   };
