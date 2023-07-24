@@ -61,6 +61,5 @@ struct MQTT {
     JsonVarient error_temp = doc["temp"];
     JsonVarient error_humid = doc["humid"];
     JsonVarient error_uv = doc["uv"];
-
   }
 };
