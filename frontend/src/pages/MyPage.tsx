@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import { nowPageStore, userInfoStore, userInfoState } from '../store/store';
+import { nowPageStore } from '../store/store';
+import { userInfoStore, userInfoState } from '../store/userInfoStore';
 import style from '../styles/MyPage.module.css'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -12,11 +13,7 @@ export default function MyPage():JSX.Element {
   // 로그인이 안 되어있는 경우 로그인 페이지로 이동
   const navigate = useNavigate();
   const userInfo:userInfoState = userInfoStore();
-  useEffect(() => {
-    if (userInfo.id === 0) {
-      navigate(`/Login`);
-    }
-  }, [userInfo.id])
+  
 
   // 페이지 명 변경
   const changePage = nowPageStore(state => state.setPage);
@@ -30,6 +27,7 @@ export default function MyPage():JSX.Element {
     navigate('/Login')
   }
 
+  // 페이지 렌더링
   return(
     <>
       {/* 이미지 영역 */}
