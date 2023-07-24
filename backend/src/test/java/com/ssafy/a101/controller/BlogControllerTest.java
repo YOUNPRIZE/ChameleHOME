@@ -1,9 +1,7 @@
 package com.ssafy.a101.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.ssafy.a101.db.entity.Article;
 import com.ssafy.a101.db.repository.BlogRepository;
-import com.ssafy.a101.api.request.AddArticleRequest;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
