@@ -5,6 +5,8 @@ import { myCage } from '../store/myCageStore';
 // 스타일 import
 import 'bootstrap/dist/css/bootstrap.min.css'
 import style from '../styles/Cages.module.css'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faTemperatureThreeQuarters, faDroplet, faLightbulb } from '@fortawesome/free-solid-svg-icons'
 
 
 interface Props {
@@ -45,11 +47,20 @@ export default function EachCage(props:Props):JSX.Element {
         <img src={imgUrl} alt="" className={style.img}/>
       </div>
       <div className={` ${style.infoContainer}`}>
-        <h4>{props.cage.cageName}</h4>
-        <div>
-          <span>현재 온도 : {nowTem} </span>
-          <span>현재 습도 : {nowHum} </span>
-          <span>UV등 : {nowUv? 'on' : 'off'} </span>
+        <p className={style.cageName}>{props.cage.cageName}</p>
+        <div className={style.cageInfo}>
+          <div className={style.eachInfo}>
+            <FontAwesomeIcon icon={faTemperatureThreeQuarters} style={{color: "#000000",}} />
+            <span> {nowTem}</span>
+          </div>
+          <div className={style.eachInfo}>
+            <FontAwesomeIcon icon={faDroplet} style={{color: "#000000",}} />
+            <span> {nowHum}</span>
+          </div>
+          <div className={style.eachInfo}>
+            <FontAwesomeIcon icon={faLightbulb} style={{color: "#000000",}} />
+            <span> {nowUv? 'on' : 'off'}</span>
+          </div>
         </div>
       </div>
     </div>

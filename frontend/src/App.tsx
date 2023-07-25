@@ -15,6 +15,7 @@ import Login from "./pages/Login";
 import SignUp from "./pages/SignUp";
 import MyPage from "./pages/MyPage";
 import Cages from "./pages/Cages";
+import AddCage from "./pages/AddCage";
 
 
 function App(): JSX.Element {
@@ -37,6 +38,7 @@ function App(): JSX.Element {
           <Route path="/" element={isLoggedIn? <Main /> : <Navigate replace to="/login"/>} />
           <Route path="/MyPage" element={isLoggedIn?<MyPage />: <Navigate replace to="/login"/>} />
           <Route path="/Cages" element={isLoggedIn?<Cages />: <Navigate replace to="/login"/>} />
+          <Route path="/AddCage" element={isLoggedIn?<AddCage />: <Navigate replace to="/login"/>} />
         </Routes>
         <Footer isLogged={isLoggedIn}/>
       </div>

@@ -7,17 +7,17 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 
 interface Props {
   cage: myCage;
-  index: Number;
-  order: Number;
+  index: number;
+  order: number;
 }
 
 export default function MainCage(props:Props):JSX.Element {
   const imgUrl:string = process.env.PUBLIC_URL+`/images/${props.cage.cageImg}`
   return (
     <>
-      <div className={`carousel-item ${props.index == props.order ? 'active': ''} ${style.cagesContent}`}>
-        {props.cage.cageName}
-        <img src={imgUrl} className="d-block w-25 mx-auto" alt="..."></img>
+      <div className={`${Math.floor(props.index / 2) !== props.order ? 'd-none': ''} ${style.cageContent}`}>
+        <img src={imgUrl} className={style.cageImg} alt="..."></img>
+        <p className={`my-0 ${style.cageName}`}>{props.cage.cageName}</p>
       </div>
     </>
   )

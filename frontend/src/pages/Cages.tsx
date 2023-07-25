@@ -23,12 +23,18 @@ export default function Cages():JSX.Element {
     changePage("케이지 목록");
   })
 
+  // 페이지 추가하기로 이동
+  const navigate = useNavigate();
+  function handleNavAddCage():void {
+    navigate('/AddCage')
+  }
+
   return (
     <div>
       {myCages.map((cage) => (
         <EachCage key={cage.cageId} cage={cage}/>
       ))}
-      <button className={style.addCage}>케이지 추가하기</button>
+      <button className={style.addCage} onClick={handleNavAddCage}>케이지 추가하기</button>
     </div>
   )
 }

@@ -8,6 +8,8 @@ import { myCage, myCagesStore } from '../store/myCageStore';
 // 스타일 import
 import style from '../styles/Main.module.css'
 import 'bootstrap/dist/css/bootstrap.min.css'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons'
 // 컴포넌트 import
 import MainCage from '../components/MainCage';
 
@@ -26,9 +28,10 @@ export default function Main():JSX.Element {
   // 메인 페이지 케이지 표시 컨트롤
   const [mainCageOrder, setMainCageOrder] = useState(0);
   const handleCageOrder = (move:number):void => {
-    const numberCage = myCages.length
-    const tmpOrder = numberCage !== 0 ? (mainCageOrder + move + numberCage) % numberCage : 0
-    setMainCageOrder(Math.floor(tmpOrder))
+    const numberCage = Math.floor(myCages.length / 2)
+    if (numberCage !== 0) {
+      setMainCageOrder((mainCageOrder + move + numberCage + 1) % (numberCage + 1))
+    }
   }
 
   // 페이지 렌더링
@@ -38,22 +41,22 @@ export default function Main():JSX.Element {
       <div className={`${style.mainContainer} ${style.mainCages}`}>
         {/* 케이지 보기 상단바 */}
         <div className={`${style.cagesTop}`}>
-          <p>내 케이지들</p>
+          <span>내 케이지들</span>
           <Link to='/Cages' className={style.noDeco}>목록 보기</Link>
         </div>
-        {/* 케이지 보기 캐러셀 */}
-        <div className={`carousel slide carousel-dark`} id="carouselExample">
-          <div className="carousel-inner">
+        {/* 케이지 정보*/}
+        <div className={`row ${style.cagesContent} d-flex `}>
+          <div className={`col-1 ${style.moveIcon}`}>
+            <FontAwesomeIcon icon={faChevronLeft} style={{color: "#000000",}} onClick={() => handleCageOrder(-1)}/>
+          </div>
+          <div className='d-flex justify-content-center col-10 mx-0 px-0 gx-5'>
             {myCages.map((cage, index) => (
               <MainCage key={cage.cageId} cage={cage} index={index} order={mainCageOrder}/>
             ))}
           </div>
-          <button className="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev" onClick={() => handleCageOrder(-1)}>
-            <span className="carousel-control-prev-icon" aria-hidden="true"></span>
-          </button>
-          <button className="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next" onClick={() => handleCageOrder(1)}>
-            <span className="carousel-control-next-icon" aria-hidden="true"></span>
-          </button>
+          <div className={`col-1 ${style.moveIcon} justify-content-end`}>
+            <FontAwesomeIcon icon={faChevronRight} style={{color: "#000000",}} onClick={() => handleCageOrder(1)}/>
+          </div>
         </div>
       </div>
       {/* 도감 보기 컨테이너 */}
