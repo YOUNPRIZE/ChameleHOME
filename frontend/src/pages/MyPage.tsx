@@ -14,7 +14,6 @@ export default function MyPage():JSX.Element {
   const navigate = useNavigate();
   const userInfo:userInfoState = userInfoStore();
   
-
   // 페이지 명 변경
   const changePage = nowPageStore(state => state.setPage);
   useEffect(() => {
