@@ -13,10 +13,8 @@ import { faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons
 // 컴포넌트 import
 import MainCage from '../components/MainCage';
 
-
 export default function Main():JSX.Element {
   // 상태 정보 받아오기
-  const userInfo = userInfoStore();
   const myCages = myCagesStore(state => (state.cages));
 
   // 페이지명 변경
@@ -28,9 +26,9 @@ export default function Main():JSX.Element {
   // 메인 페이지 케이지 표시 컨트롤
   const [mainCageOrder, setMainCageOrder] = useState(0);
   const handleCageOrder = (move:number):void => {
-    const numberCage = Math.floor(myCages.length / 2)
+    const numberCage = Math.ceil(myCages.length / 2)
     if (numberCage !== 0) {
-      setMainCageOrder((mainCageOrder + move + numberCage + 1) % (numberCage + 1))
+      setMainCageOrder((mainCageOrder + move + numberCage) % (numberCage))
     }
   }
 
@@ -49,10 +47,10 @@ export default function Main():JSX.Element {
           <div className={`col-1 ${style.moveIcon}`}>
             <FontAwesomeIcon icon={faChevronLeft} style={{color: "#000000",}} onClick={() => handleCageOrder(-1)}/>
           </div>
-          <div className='d-flex justify-content-center col-10 mx-0 px-0 gx-5'>
-            {myCages.map((cage, index) => (
+          <div className='d-flex justify-content-center align-items-center col-10 mx-0 px-0 gx-5'>
+            {myCages.length!==0? myCages.map((cage, index) => (
               <MainCage key={cage.cageId} cage={cage} index={index} order={mainCageOrder}/>
-            ))}
+            )): <h1 className={style.noCage}>등록된 케이지가 없습니다!</h1> }
           </div>
           <div className={`col-1 ${style.moveIcon} justify-content-end`}>
             <FontAwesomeIcon icon={faChevronRight} style={{color: "#000000",}} onClick={() => handleCageOrder(1)}/>

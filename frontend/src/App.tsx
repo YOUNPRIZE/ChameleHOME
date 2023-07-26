@@ -16,7 +16,7 @@ import SignUp from "./pages/SignUp";
 import MyPage from "./pages/MyPage";
 import Cages from "./pages/Cages";
 import AddCage from "./pages/AddCage";
-
+import CageDeatil from "./pages/CageDetail";
 
 function App(): JSX.Element {
   // 로그인 여부 판단
@@ -36,9 +36,10 @@ function App(): JSX.Element {
           <Route path="/SignUp" element={<SignUp />} />
           {/* 이 밑으론 로그인 후에 접속 가능 */}
           <Route path="/" element={isLoggedIn? <Main /> : <Navigate replace to="/login"/>} />
-          <Route path="/MyPage" element={isLoggedIn?<MyPage />: <Navigate replace to="/login"/>} />
-          <Route path="/Cages" element={isLoggedIn?<Cages />: <Navigate replace to="/login"/>} />
-          <Route path="/AddCage" element={isLoggedIn?<AddCage />: <Navigate replace to="/login"/>} />
+          <Route path="/MyPage" element={isLoggedIn? <MyPage /> : <Navigate replace to="/login"/>} />
+          <Route path="/Cages" element={isLoggedIn? <Cages /> : <Navigate replace to="/login"/>} />
+          <Route path="/AddCage" element={isLoggedIn? <AddCage /> : <Navigate replace to="/login"/>} />
+          <Route path="/CageDetail/:cageId" element={isLoggedIn? <CageDeatil /> : <Navigate replace to="/login"/>} />
         </Routes>
         <Footer isLogged={isLoggedIn}/>
       </div>

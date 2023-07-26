@@ -7,10 +7,10 @@ export interface myCage {
   cageId : number;
   cageName : string;
   alarm: Array<Date>;
-  setTemp : Number;
-  setHum : Number;
-  setUv : Boolean;
-  using : Boolean;
+  setTemp : number;
+  setHum : number;
+  setUv : boolean;
+  using : boolean;
   createdAt : Date; 
   cageImg: string
 }
@@ -19,6 +19,7 @@ export interface myCage {
 interface myCages {
   cages : Array<myCage>;
   addCage : (cage:myCage) => void;
+  updateCage : (cage:myCage) => void;
   deleteCage : (id:Number) => void;
   setCages: (cages:Array<myCage>) => void;
 }
@@ -35,6 +36,7 @@ export const myCagesStore = create<myCages>() (
         {id : 1, cageId : 5, cageName: '5번', alarm : [new Date("2023-07-24")], setTemp : 30, setHum : 60, setUv : true, using : true, createdAt : new Date(), cageImg: 'Burmese_Python.jpg'},
       ],
       addCage : (cage:myCage) => console.log(cage),
+      updateCage : (cage:myCage) => console.log(cage),
       deleteCage : (id:Number) => console.log(id),
       setCages: (cages:Array<myCage>) => console.log(cages),
       }),

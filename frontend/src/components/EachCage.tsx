@@ -1,4 +1,5 @@
 // 함수 import
+import { useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 // 상태정보 import
 import { myCage } from '../store/myCageStore';
@@ -14,6 +15,9 @@ interface Props {
 }
 
 export default function EachCage(props:Props):JSX.Element {
+  // 이미지 변수
+  const imgUrl:string = process.env.PUBLIC_URL+`/images/${props.cage.cageImg}`
+
   // 케이지 내부 환경 정보
   const [nowTem, setNowTem] = useState(0);
   const [nowHum, setNowHum] = useState(0);
@@ -37,12 +41,15 @@ export default function EachCage(props:Props):JSX.Element {
     return () => clearInterval(intervalId);
   }, []);
 
-  // 이미지 변수
-  const imgUrl:string = process.env.PUBLIC_URL+`/images/${props.cage.cageImg}`
+  // 클릭하면 케이지 상세페이지로 이동
+  const navigate = useNavigate();
+  const handleMoveDetail = () => {
+    navigate(`/CageDetail/${props.cage.cageId}`)
+  }
 
   // 렌더링
   return (
-    <div className={style.cageContainer}>
+    <div className={style.cageContainer} onClick={handleMoveDetail}>
       <div className={`${style.imgContainer}`}>
         <img src={imgUrl} alt="" className={style.img}/>
       </div>
