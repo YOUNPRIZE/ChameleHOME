@@ -86,4 +86,6 @@ Story : 세부 기능
 ### 1. 받침대 설계
 ### 2. 받침대 구현
 
-[!img]("../images/cage.jpg")
+<p >
+    <img src="../images/cage.jpg"> 
+</p>
