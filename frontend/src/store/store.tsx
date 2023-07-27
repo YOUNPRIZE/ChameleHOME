@@ -1,37 +1,21 @@
 import {create} from 'zustand'
 import {persist} from 'zustand/middleware'
 
-// 유저 정보
-interface userInfoState {
-  id: number;
-  userId: string;
-  nickName: string;
-  phoneNumber: string;
-  // login: (userInfo: userInfoState) => void;
+// 현재 페이지
+// 형재 페이지 정의
+export interface nowPageState {
+  pageName: string;
+  setPage: (nowPage: string) => void;
 }
-
-export const userInfoStore = create<userInfoState>()(
+// 현재 페이지 상태 정보
+export const nowPageStore = create<nowPageState>()(
   persist(
-    set => ({
-      id: 0,
-      userId: "",
-      nickName: "",
-      phoneNumber: "",
-      login: (userInfo: userInfoState) => set(userInfo)
+  set => ({
+      pageName: 'Test',
+      setPage:(nowPage: string) => set({pageName: nowPage})
     }),
-    {name: 'userInfo'}
+  {name:'pageName'}
   )
 )
 
 
-// 현재 페이지
-interface nowPageState {
-  pageName: string;
-  setPage: (nowPage: string) => void;
-}
-
-export const nowPageStore = create<nowPageState>()(set => ({
-      pageName: 'Test',
-      setPage:(nowPage: string) => set({pageName: nowPage})
-    })
-)
