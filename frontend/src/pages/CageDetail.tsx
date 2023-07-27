@@ -15,7 +15,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { IconDefinition } from '@fortawesome/fontawesome-svg-core'
 import { faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons'
 import { faTemperatureThreeQuarters, faDroplet, faLightbulb, faCaretUp, faCaretDown } from '@fortawesome/free-solid-svg-icons'
-import { faTv, faClock, faBellConcierge } from '@fortawesome/free-solid-svg-icons'
+import { faTv, faClock, faBellConcierge, faPencil } from '@fortawesome/free-solid-svg-icons'
 
 
 export default function CageDeatil():JSX.Element {
@@ -63,6 +63,11 @@ export default function CageDeatil():JSX.Element {
   // 페이지 렌더링
   return (
     <>
+    {/* 케이지 이름 */}
+    <div className={style.cageName}>
+      <span>{myCage?.cageName} 케이지 </span>
+      <div className={style.editContainer}><FontAwesomeIcon icon={faPencil} /></div>
+    </div>
     {/* 동물 컨테이너 */}
     <div className={`${style.animalContainer} ${style.mainContainer}`}>
       {/* 동물 보기 상단바 */}
@@ -80,7 +85,7 @@ export default function CageDeatil():JSX.Element {
           myAnimals.map((animal, index) => (
             <EachAnimal key={animal.animalId} animal={animal} index={index} order={mainCageOrder}/>
           ))
-          : <h1 className={style.noCage}>케이지 안에 동물들이 없어요!</h1> }
+          : <h1 className={style.noCage}>케이지가 비었어요!</h1> }
         </div>
         <div className={`col-1 ${style.moveIcon} justify-content-end`}>
           <FontAwesomeIcon icon={faChevronRight} style={{color: "#000000",}} onClick={() => handleCageOrder(1)}/>
@@ -111,7 +116,7 @@ function EachCageInfo(props: { live: string | undefined, setting: string | undef
     <div className={`${style.eachInfoContainer}`}>
       <FontAwesomeIcon icon={props.icon} style={{ color: "#000000", fontSize:"5vh" }}/>
       <div>
-        <div className={`${style.eachInfoText}`}>실시간 : {props.live}</div>
+        <div className={`${style.eachInfoText}`}>현재 : {props.live}</div>
         <div className={`${style.eachInfoText}`}>설정 : {props.setting}</div>
       </div>
       <FontAwesomeIcon icon={faCaretUp} style={{ color: "green" , fontSize:"7vh" }} />
@@ -127,7 +132,7 @@ function SettingBtn(props: {cageId: number, link:string, feature:string, icon: I
   return (
     <div className={`${style.settingBtn}`}>
       <FontAwesomeIcon icon={props.icon} style={{fontSize:"5vh"}}/>
-      <div style={{fontSize:"2vh"}}>{props.feature}</div>
+      <div style={{fontSize:"1.5vh"}}>{props.feature}</div>
     </div>
   )
 }
