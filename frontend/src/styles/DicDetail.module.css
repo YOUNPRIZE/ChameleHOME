@@ -1,0 +1,32 @@
+/* 공통 */
+.containerBox {
+  width: 90%;
+  margin: 2vh auto;
+  padding: 2vh 5vw;
+  border-radius: 20px 20px;
+  box-shadow: 4px 4px 10px 3px lightgray;
+}
+
+/* 이미지 및 종이름 컨테이너 */
+.dicImgContainer {
+  height: 35vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.dicImg {
+  width: 100%;
+  object-fit: contain;
+}
+
+.dicSpecies {
+  margin: 0px 0px;
+  font-weight: bold;
+  font-size: 3.5vh;
+}
+
+/* 정보 항목 컨테이너 */
+.categoryContainer {
+    height: 10vh;
+}
