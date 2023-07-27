@@ -24,8 +24,6 @@ public class UserController {
 
     @PostMapping("/api/user")
     public ResponseEntity<User> createUser(@RequestBody CreateUserReq req) {
-        System.out.println("asdfasdfasdfasdfasdf");
-        System.out.println(req);
         User createdUser = us.create(req);
 
         return ResponseEntity.status(HttpStatus.CREATED).body(createdUser);

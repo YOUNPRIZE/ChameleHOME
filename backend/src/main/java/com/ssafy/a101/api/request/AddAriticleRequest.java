@@ -5,19 +5,20 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-@NoArgsConstructor
-@AllArgsConstructor
+@NoArgsConstructor//기본생성자 설정
+@AllArgsConstructor // 모든 필드 값을 파라미터로 받는 생성자 추가
 @Getter
-public class AddArticleRequest {
+public class AddAriticleRequest {
+
     private String title;
     private String content;
 
-    // toEntity는 빌더 패턴을 사용해 DTO를 엔티티로 만들어주는 메서드이다.
-    // 해당 메서드는 추후에 글을 추가할 때 저장할 엔티티로 변환하는 용도로 사용함
-    public Article toEntity() {
+    public Article toEntity(){
         return Article.builder()
                 .title(title)
                 .content(content)
                 .build();
     }
+
+
 }
