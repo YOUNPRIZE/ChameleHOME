@@ -1,6 +1,7 @@
 #qt
 from PySide2.QtWidgets import *
 from kiosk import Ui_MainWindow
+from PyQt2.QtCore import *
 
 #mqtt communication
 import paho.mqtt.client as mqtt
@@ -8,7 +9,7 @@ import json
 
 #multi threading
 import threading
-import time
+
 
 '''
 global led_status 
@@ -30,34 +31,35 @@ def is_off(i):
     else:
         return False
 
+common_topic = "serialnumber"
+lock = threading.Lock()
+
 def on_connect(client, userdata, flags, rc):
+    client.subscribe("serialnumber/sensorval")
+
+def on_connect2(client2, userdata, flags, rc):
     client.subscribe("actstatus")
 
-
 def on_message(client, userdata, msg):
+    global lock
+    data = json.loads(msg.payload.decode('utf-8', 'ignore'))
+    if msg.topic == "serialnumber/sensorval":
+        lock.acquire()
+        win.temp_val.setPlainText(data["Temp"][0:2])
+        win.humid_val.setPlainText(data["Humid"][0:2])
+        lock.release()
+    print(data)
+
+def on_message2(client, userdata, msg):
+    global lock
     data = json.loads(msg.payload.decode('utf-8', 'ignore'))
     if msg.topic == "actstatus":
-        win.temp_val.setText(data["Temp"][0:2])
-        win.humid_val.setText(data["Humid"][0:2])
-        if is_off(data["cooling_fan"]):
-            win.fan_btn.setText("ON")
-        else:
-            win.fan_btn.setText("OFF")
-
-        if is_off(data["waterfall"]):
-            win.waterfall_btn.setText("ON")
-        else:
-            win.waterfall_btn.setText("OFF")
-
-        if is_off(data["humidifier"]):
-            win.humidifier_btn.setText("ON")
-        else:
-            win.humidifier_btn.setText("OFF")
-
-        if is_off(data["heat_pad"]):
-            win.heat_btn.setText("ON")
-        else:
-            win.heat_btn.setText("OFF")
+        lock.acquire()
+        win.fan_btn.setText(data["cooling_fan"])
+        win.waterfall_btn.setText(data["waterfall"])
+        win.humidifier_btn.setText(data["humidifier"])
+        win.heat_btn.setText(data["heat_pad"])
+        lock.release()
     print(data)
 
 '''
@@ -70,6 +72,10 @@ def on_message(client, userdata, msg):
 def mqtt_thread():
     while True:
         client.loop_forever()
+
+def mqtt_thread2():
+    while True:
+        client2.loop_forever()
 
 def on_publish(client, userdata, mid):
     print("In on_pub callback mid= ", mid)
@@ -99,7 +105,6 @@ class MyApp(QMainWindow, Ui_MainWindow):
         else:
             self.fan_btn.setText("ON")
         act_publish(self)
-        time.sleep(0.5)
 
     def heat_on(self):
         print("heat")
@@ -108,7 +113,6 @@ class MyApp(QMainWindow, Ui_MainWindow):
         else:
             self.heat_btn.setText("ON")
         act_publish(self)
-        time.sleep(0.5)
 
     def humidifier_on(self):
         print("humi")
@@ -117,7 +121,6 @@ class MyApp(QMainWindow, Ui_MainWindow):
         else:
             self.humidifier_btn.setText("ON")
         act_publish(self) 
-        time.sleep(0.5)
 
     def waterfall_on(self):
         print("water")
@@ -126,7 +129,6 @@ class MyApp(QMainWindow, Ui_MainWindow):
         else:
             self.waterfall_btn.setText("ON")
         act_publish(self)
-        time.sleep(0.5)
 
     def temp_lock(self):
         print("tlock")
@@ -140,22 +142,32 @@ client.on_message = on_message
 client.connect("18.233.166.123", 1883, 60)
 
 
+client2 = mqtt.Client()
+client2.on_connect = on_connect2
+client2.on_message = on_message2
+client2.connect("18.233.166.123", 1883, 60)
+
+
 app = QApplication()
 win = MyApp()
 
+win.show()
 
 def main():
     try:
         t1 = threading.Thread(target=mqtt_thread)
         t1.start()
-        win.show()
+        t2 = threading.Thread(target=mqtt_thread2)
+        t2.start()
         app.exec_()
 
     except KeyboardInterrupt:
         t1.join()
+        t2.join()
 
 if __name__ == '__main__':
     main()
+
 
 
 

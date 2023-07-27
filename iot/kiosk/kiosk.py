@@ -15,9 +15,10 @@ from PySide2.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QFont, QFontDatabase, QGradient, QIcon,
     QImage, QKeySequence, QLinearGradient, QPainter,
     QPalette, QPixmap, QRadialGradient, QTransform)
-from PySide2.QtWidgets import (QApplication, QColumnView, QFrame, QMainWindow,
-    QMenuBar, QPlainTextEdit, QPushButton, QSizePolicy,
-    QSlider, QStatusBar, QTextBrowser, QWidget)
+from PySide2.QtWidgets import (QApplication, QColumnView, QFrame, QLabel,
+    QMainWindow, QMenuBar, QPlainTextEdit, QPushButton,
+    QSizePolicy, QSlider, QStatusBar, QTextBrowser,
+    QWidget)
 import icon_rc
 import icon_rc
 
@@ -62,9 +63,9 @@ class Ui_MainWindow(object):
         self.humid_unit.setGeometry(QRect(250, 10, 131, 121))
         self.humid_unit.setStyleSheet(u"background-color: rgb(255, 255, 255);\n"
 "border-radius: 25%")
-        self.humid_val = QPlainTextEdit(self.widget_2)
+        self.humid_val = QLabel(self.widget_2)
         self.humid_val.setObjectName(u"humid_val")
-        self.humid_val.setGeometry(QRect(120, 10, 151, 131))
+        self.humid_val.setGeometry(QRect(130, 30, 121, 71))
         self.humid_val.setStyleSheet(u"background-color: rgb(255, 255, 255);\n"
 "color: \"#778465\";\n"
 "font-weight: \"Bolder\";\n"
@@ -88,9 +89,9 @@ class Ui_MainWindow(object):
         self.temp_unit.setStyleSheet(u"background-color: rgb(255, 255, 255);\n"
 "border-image: url(:/newPrefix/temperature_celsius_icon_137115.png);\n"
 "border-radius: 25%")
-        self.temp_val = QPlainTextEdit(self.widget_3)
+        self.temp_val = QLabel(self.widget_3)
         self.temp_val.setObjectName(u"temp_val")
-        self.temp_val.setGeometry(QRect(110, 10, 151, 121))
+        self.temp_val.setGeometry(QRect(124, 30, 121, 71))
         self.temp_val.setStyleSheet(u"background-color: rgb(255, 255, 255);\n"
 "color: \"#778465\";\n"
 "font-weight: \"Bolder\";\n"
@@ -224,7 +225,7 @@ class Ui_MainWindow(object):
 "li.checked::marker { content: \"\\2612\"; }\n"
 "</style></head><body style=\" font-family:'\ub9d1\uc740 \uace0\ub515'; font-size:9pt; font-weight:400; font-style:normal;\">\n"
 "<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'Sans Serif'; font-size:70pt; font-weight:600; color:#72836e;\">%</span></p></body></html>", None))
-        self.humid_val.setPlainText(QCoreApplication.translate("MainWindow", u"23", None))
+        self.humid_val.setText(QCoreApplication.translate("MainWindow", u"23", None))
         self.temp_unit.setHtml(QCoreApplication.translate("MainWindow", u"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><meta charset=\"utf-8\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"
@@ -233,7 +234,7 @@ class Ui_MainWindow(object):
 "li.checked::marker { content: \"\\2612\"; }\n"
 "</style></head><body style=\" font-family:'\ub9d1\uc740 \uace0\ub515'; font-size:9pt; font-weight:400; font-style:normal;\">\n"
 "<p align=\"center\" style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><br /></p></body></html>", None))
-        self.temp_val.setPlainText(QCoreApplication.translate("MainWindow", u"23", None))
+        self.temp_val.setText(QCoreApplication.translate("MainWindow", u"23", None))
         self.fan_btn.setText(QCoreApplication.translate("MainWindow", u"ON", None))
         self.heat_btn.setText(QCoreApplication.translate("MainWindow", u"ON", None))
         self.waterfall_btn.setText(QCoreApplication.translate("MainWindow", u"ON", None))

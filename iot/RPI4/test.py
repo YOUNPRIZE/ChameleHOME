@@ -152,7 +152,7 @@ def on_message(client, userdata, msg):
 client = mqtt.Client()
 client.on_connect = on_connect
 client.on_message = on_message
-client.connect("54.211.131.113", 1883, 60)
+client.connect("18.233.166.123", 1883, 60)
 
 def mqtt_thread():
     # inifinite loop for mqtt communication
