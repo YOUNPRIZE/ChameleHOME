@@ -17,7 +17,11 @@ public class TestController {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                String msg = "sendmsgfromjava";
+                // 50 ~ 130
+                String msg = "{\"temp\":\"23\", "
+                        + "\"humid\":\"23\","
+                        + "\"uv\":\"on\","
+                        + "}";
                 config.send("test/j", msg);
                 config.close(); // 작업 완료되면 종료
             }
