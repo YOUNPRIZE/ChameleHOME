@@ -14,8 +14,8 @@
 
 .pageName {
   margin: 0px;
-  /* font-weight: bold; */
-  text-shadow: 2px 2px 2px gray;
+  font-weight: bold;
+
   font-size: 3vh
 }
 
