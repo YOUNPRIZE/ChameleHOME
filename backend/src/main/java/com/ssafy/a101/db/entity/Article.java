@@ -1,19 +1,17 @@
 package com.ssafy.a101.db.entity;
 
-import lombok.AccessLevel;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 
 @Entity
 @Getter
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@Setter
 public class Article {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", updatable = false)
+    @Column(name ="id" , updatable = false)
     private Long id;
 
     @Column(name = "title", nullable = false)
@@ -28,8 +26,7 @@ public class Article {
         this.content = content;
     }
 
-    public void update(String title, String  content) {
-        this.title = title;
-        this.content = content;
+    // 기본 생성자 정의
+    public Article() {
     }
 }
