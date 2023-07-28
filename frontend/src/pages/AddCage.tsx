@@ -45,7 +45,7 @@ export default function AddCage():JSX.Element {
       {/* 케이지에 넣을 동물 리스트 드롭다운 */}
       <Dropdown>
         <Dropdown.Toggle variant="light" className={`${style.inputCageInfo} ${style.boxShadow}`}>
-          {animalToBreed === '알 수 없음' ? '어떤 동물이 살 케이지입니까?' : animalToBreed}
+          {animalToBreed === '알 수 없음' ? '어떤 파충류가 살 케이지입니까?' : animalToBreed}
         </Dropdown.Toggle>
         <Dropdown.Menu className={`${style.dropdownItems}`}>
           {

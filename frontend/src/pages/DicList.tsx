@@ -35,6 +35,7 @@ export default function DicList():JSX.Element {
 function DicItem(props: {dicItem:dicAnimal}):JSX.Element {
   // 변수 설정
   const imgUrl:string = process.env.PUBLIC_URL+`/images/${props.dicItem.photo}`
+  
   // 항목 상세보기 이동 함수
   const navigate = useNavigate();
   const handleDicDetail = () => {
@@ -43,7 +44,7 @@ function DicItem(props: {dicItem:dicAnimal}):JSX.Element {
 
   // 컴포넌트 렌더링
   return (
-      <div className={`${style.dicItemContainer} col-5`} onClick={handleDicDetail}>
+      <div className={`${style.dicItemContainer}`} onClick={handleDicDetail}>
         <div className={`${style.dicImgContainer}`}>
           <img src={imgUrl} alt="" className={`${style.dicImg}`}/>
         </div>

@@ -3,8 +3,7 @@ import { useNavigate, Link } from 'react-router-dom';
 import { useEffect, useState } from 'react'
 // 상태 정보 import
 import { nowPageStore } from '../store/store';
-import { userInfoStore, userInfoState } from '../store/userInfoStore';
-import { myCage, myCagesStore } from '../store/myCageStore';
+import { myCagesStore } from '../store/myCageStore';
 import {animalDicStore} from '../store/animalDicStore'
 // 스타일 import
 import style from '../styles/Main.module.css'
@@ -35,14 +34,16 @@ export default function Main():JSX.Element {
   }
 
   // 도감 표시 컨트롤
-  const [todayDic, setTodayDic] = useState(0)
-  const [imgUrl, setimgUrl] = useState(process.env.PUBLIC_URL+`/images/${animalDic[0].photo}`)
-  const [dicName, setDicName] = useState(animalDic[0].species)
-  const numberDic:number = animalDic.length
+  const [dicIdx, setDicIdx] = useState(0);
   const handleDicOrder = (move:number):void => {
-    setTodayDic((todayDic + numberDic + move) % (numberDic))
-    setimgUrl(process.env.PUBLIC_URL+`/images/${animalDic[todayDic].photo}`)
-    setDicName(animalDic[todayDic].species)
+    const numberDic:number = animalDic.length
+    setDicIdx((dicIdx + numberDic + move) % numberDic);
+  }
+
+  // 도감 상세보기로 이동
+  const navigate = useNavigate();
+  const handleDicDetail = () => {
+    navigate(`/DicDetail/${animalDic[dicIdx].species}`, {state : animalDic[dicIdx]} )
   }
 
   // 페이지 렌더링
@@ -80,10 +81,13 @@ export default function Main():JSX.Element {
           <div className={`col-1 ${style.moveIcon}`}>
             <FontAwesomeIcon icon={faChevronLeft} style={{color: "#000000",}} onClick={() => handleDicOrder(-1)}/>
           </div>
-          <div className={`${style.dicContent} col-10`}>
-            <h3 className={style.dicText}>{dicName}</h3>
-            <img src={imgUrl} alt="" className={style.dicImg}/>
-          </div>
+          {animalDic.map((item, index) => (
+            <div key={index} className={`${style.dicContent} ${index==dicIdx? "":"d-none"} col-10`}>
+              <img src={process.env.PUBLIC_URL+`/images/${item.photo}`} alt="" 
+              className={`${style.dicImg}`} onClick={handleDicDetail}/>
+              <h3 className={style.dicText}>{item.species}</h3>
+            </div>
+          ))}
           <div className={`col-1 ${style.moveIcon} justify-content-end`}>
             <FontAwesomeIcon icon={faChevronRight} style={{color: "#000000",}} onClick={() => handleDicOrder(1)}/>
           </div>
