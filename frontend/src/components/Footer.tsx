@@ -13,7 +13,7 @@ interface Props {
 
 export default function Footer(props:Props):JSX.Element {
   return (
-    <div className={`${style.Footer} d-flex align-items-center justify-content-center`}>
+    <div className={`${style.Footer} d-flex align-items-center justify-content-center z-3`}>
       {props.isLogged ? (
         <div className='w-100 d-flex align-items-center justify-content-between'>
           <Link to='/'><FontAwesomeIcon icon={faHouse} style={{color: "#ffffff",}} className={style.footerIcon} /></Link>

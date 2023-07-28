@@ -3,7 +3,6 @@ import { useNavigate, Link, useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react'
 // 상태 정보 import
 import { nowPageStore } from '../store/store';
-import { userInfoStore, userInfoState } from '../store/userInfoStore';
 import { myCage, myCagesStore } from '../store/myCageStore';
 import { Animal, MyAnimal, myAnimalStore } from '../store/myAnimalStore';
 // 컴포넌트 import
@@ -73,7 +72,7 @@ export default function CageDeatil():JSX.Element {
       {/* 동물 보기 상단바 */}
       <div className={`${style.animalTop}`}>
         <span>내 파충류들</span>
-        <a className={style.noDeco}>목록 보기</a>
+        <Link to={`/AnimalList/${cageId}`} className={style.noDeco}>목록 보기</Link>
       </div>
       {/* 각 동물 정보*/}
       <div className={`row ${style.animalsContent} d-flex `}>
