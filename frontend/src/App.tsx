@@ -19,6 +19,7 @@ import AddCage from "./pages/AddCage";
 import CageDeatil from "./pages/CageDetail";
 import DicList from "./pages/DicList";
 import DicDetail from "./pages/DicDetail";
+import AnimalList from "./pages/AnimalList";
 
 function App(): JSX.Element {
   // 로그인 여부 판단
@@ -44,6 +45,7 @@ function App(): JSX.Element {
           <Route path="/DicList" element={isLoggedIn? <DicList /> : <Navigate replace to="/login"/>} />
           <Route path="/CageDetail/:cageId" element={isLoggedIn? <CageDeatil /> : <Navigate replace to="/login"/>} />
           <Route path="/DicDetail/:species" element={isLoggedIn? <DicDetail /> : <Navigate replace to="/login"/>} />
+          <Route path="/AnimalList/:cageId" element={isLoggedIn? <AnimalList /> : <Navigate replace to="/login"/>} />
         </Routes>
         <Footer isLogged={isLoggedIn}/>
       </div>
