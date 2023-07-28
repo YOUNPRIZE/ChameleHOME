@@ -24,3 +24,7 @@
 <p align="center">
     <img src="../images/cage.jpg">
 </p>
+
+### 23.07.28
+1. 발표 시연 영상 촬영을 했다.
+2. 발표 평가를 했다.
