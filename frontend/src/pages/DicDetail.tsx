@@ -1,11 +1,14 @@
 // 훅 import
 import { useLocation, useNavigate } from "react-router-dom"
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 // 상태정보 import
 import { dicAnimal } from "../store/animalDicStore";
 import { nowPageStore } from '../store/store';
 // 스타일 import
 import style from '../styles/DicDetail.module.css'
+import Accordion from 'react-bootstrap/Accordion';
+import 'bootstrap/dist/css/bootstrap.min.css';
+
 
 
 export default function DicDetail():JSX.Element {
@@ -18,6 +21,19 @@ export default function DicDetail():JSX.Element {
     changePage("도감 상세보기");
   })
 
+  // 표시할 정보
+  const infoToShow = {
+    "수명" : dicItemInfo?.lifespan,
+    "서식지": dicItemInfo?.from,
+    "먹이" : dicItemInfo?.feed,
+    "먹이주기" : dicItemInfo?.feedCycle,
+    "온도" : dicItemInfo?.temp,
+    "습도" : dicItemInfo?.humidity,
+    "조명" : dicItemInfo?.lighting,
+    "주거 환경" : dicItemInfo?.environment,
+    "추가 정보" : dicItemInfo?.info,
+  }
+
   // 잘못된 접근일 경우
   if (dicItemInfo === null) {
     return (
@@ -27,19 +43,21 @@ export default function DicDetail():JSX.Element {
     )
   }
 
-  // 이미지 주소
-  const imgUrl:string = process.env.PUBLIC_URL+`/images/${dicItemInfo.photo}` 
-  
   // 올바른 접근일 경우 페이지 렌더링
   return (
     <>
       <div className={`${style.dicImgContainer} ${style.containerBox}`}>
-        <img src={imgUrl} alt="" className={`${style.dicImg}`}/>
         <p className={`${style.dicSpecies}`}>{dicItemInfo.species}</p>
+        <img src={process.env.PUBLIC_URL+`/images/${dicItemInfo.photo}`} alt="" className={`${style.dicImg}`}/>
       </div>
-      <div className={`${style.containerBox} ${style.categoryContainer}`}>
-
-      </div>
+      <Accordion className={`${style.containerBox}`}>
+        {Object.entries(infoToShow).map((info, index) => (
+          <Accordion.Item eventKey={String(index)} key={index}>
+            <Accordion.Header><b>{info[0]}</b></Accordion.Header>
+            <Accordion.Body className="fw-bold">{info[1]}</Accordion.Body>
+          </Accordion.Item>
+        ))}
+      </Accordion>
     </>
   )
 }
