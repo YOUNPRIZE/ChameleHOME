@@ -5,9 +5,20 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="07907a7c-73af-49d8-8612-1b4f9639a8cb" name="Changes" comment="[Add]&#10;Jira : 127&#10;1. make springboot project">
+      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/ssafy/a101/api/controller/BlogApiController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/ssafy/a101/api/request/AddAriticleRequest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/ssafy/a101/api/response/ArticleResponse.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/ssafy/a101/api/service/BlogService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/ssafy/a101/db/entity/Article.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/test/java/com/ssafy/a101/api/controller/BlogApiControllerTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/backend/build.gradle" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/ssafy/a101/db/entity/Store.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/ssafy/a101/db/repository/BlogRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/ssafy/a101/db/repository/BlogRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/test/java/com/ssafy/a101/controller/BlogControllerTest.java" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -69,6 +80,7 @@
       <list>
         <option value="HTML File" />
         <option value="Interface" />
+        <option value="JUnit5 Test Class" />
         <option value="Class" />
       </list>
     </option>
@@ -83,6 +95,9 @@
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
   </component>
   <component name="ProjectId" id="2SgeBAl3j1omiHEy0PlB9FxBzZt" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
@@ -99,7 +114,10 @@
     &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary&quot;: &quot;JUnit5&quot;,
+    &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5&quot;: &quot;&quot;,
     &quot;last_opened_file_path&quot;: &quot;C:/Users/SSAFY/Desktop/git/S09P12A101&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
@@ -113,6 +131,14 @@
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
+  <component name="RecentsManager">
+    <key name="CreateTestDialog.Recents.Supers">
+      <recent name="" />
+    </key>
+    <key name="CreateTestDialog.RecentsKey">
+      <recent name="com.ssafy.a101.api.controller" />
+    </key>
+  </component>
   <component name="RunManager" selected="Spring Boot.A101Application">
     <configuration name="backend [buildEnvironment]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
@@ -164,8 +190,10 @@
       <workItem from="1689915676245" duration="16000" />
       <workItem from="1689915992948" duration="701000" />
       <workItem from="1689916712830" duration="714000" />
-      <workItem from="1689917437394" duration="6838000" />
-      <workItem from="1690244621008" duration="4643000" />
+      <workItem from="1689917437394" duration="5646000" />
+      <workItem from="1690359344700" duration="13717000" />
+      <workItem from="1690434186457" duration="1420000" />
+      <workItem from="1690436055507" duration="613000" />
     </task>
     <servers />
   </component>
