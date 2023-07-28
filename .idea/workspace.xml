@@ -5,20 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="07907a7c-73af-49d8-8612-1b4f9639a8cb" name="Changes" comment="[Add]&#10;Jira : 127&#10;1. make springboot project">
-      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/ssafy/a101/api/controller/BlogApiController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/ssafy/a101/api/request/AddAriticleRequest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/ssafy/a101/api/response/ArticleResponse.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/ssafy/a101/api/service/BlogService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/ssafy/a101/db/entity/Article.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/src/test/java/com/ssafy/a101/api/controller/BlogApiControllerTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/backend/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/ssafy/a101/db/entity/Store.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/ssafy/a101/db/repository/BlogRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/ssafy/a101/db/repository/BlogRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/test/java/com/ssafy/a101/controller/BlogControllerTest.java" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -193,7 +182,9 @@
       <workItem from="1689917437394" duration="5646000" />
       <workItem from="1690359344700" duration="13717000" />
       <workItem from="1690434186457" duration="1420000" />
-      <workItem from="1690436055507" duration="613000" />
+      <workItem from="1690436055507" duration="1218000" />
+      <workItem from="1690504671205" duration="786000" />
+      <workItem from="1690520131768" duration="282000" />
     </task>
     <servers />
   </component>

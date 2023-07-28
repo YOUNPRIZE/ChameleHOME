@@ -41,7 +41,7 @@ dependencies {
 
 
 
-	implementation 'mysql:mysql-connector-java:8.0.26' // MySQL JDBC 드라이버 의존성 추가
+	//implementation 'mysql:mysql-connector-java:8.0.26' // MySQL JDBC 드라이버 의존성 추가
 
 
 }
@@ -49,3 +49,5 @@ dependencies {
 tasks.named('test') {
 	useJUnitPlatform()
 }
+
+// 발표준비를 하였습니다.
