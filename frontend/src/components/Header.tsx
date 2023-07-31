@@ -26,7 +26,7 @@ export default function Header():JSX.Element {
 
 
   return (
-    <div className={style.Header}>
+    <div className={`${style.Header} z-3`}>
       <FontAwesomeIcon icon={faArrowLeft} className={style.headerIcon} onClick={handleGoBack}/>
       <h1 className={style.pageName}>{pageName}</h1> 
       <FontAwesomeIcon icon={faBell} className={style.headerIcon}/>
