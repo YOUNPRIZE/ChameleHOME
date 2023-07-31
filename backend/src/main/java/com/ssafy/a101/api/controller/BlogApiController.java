@@ -7,10 +7,7 @@ import com.ssafy.a101.db.entity.Article;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -41,6 +38,25 @@ public class BlogApiController {
 
         return ResponseEntity.ok()
                 .body(articles);
+    }
+
+    @GetMapping("/api/article/{id}")
+    //url에서 경로를 추출한다.
+    public ResponseEntity<ArticleResponse> findArticle(@PathVariable long id){
+        Article article = blogService.findById(id);
+
+        return ResponseEntity.ok()
+                .body(new ArticleResponse(article));
+        //id에 들어온 값을 조회한다.
+    }
+
+    // 요청이 들어오면 지우기
+    @DeleteMapping("/api/article/{id}")
+    public  ResponseEntity<Void> deleteArticle(@PathVariable long id){
+        blogService.delete(id);
+
+        return ResponseEntity.ok()
+                .build();
     }
 
 }

@@ -5,9 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="07907a7c-73af-49d8-8612-1b4f9639a8cb" name="Changes" comment="[Add]&#10;Jira : 127&#10;1. make springboot project">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/ssafy/a101/api/request/UpdateArticleRequest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/backend/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/ssafy/a101/api/controller/BlogApiController.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/ssafy/a101/api/controller/BlogApiController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/ssafy/a101/api/service/BlogService.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/ssafy/a101/api/service/BlogService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/ssafy/a101/db/entity/Article.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/ssafy/a101/db/entity/Article.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/test/java/com/ssafy/a101/api/controller/BlogApiControllerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/test/java/com/ssafy/a101/api/controller/BlogApiControllerTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -82,6 +85,10 @@
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/backend/out/production/classes/com/ssafy/a101/api/controller/BlogApiController.class" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/backend/out/production/classes/com/ssafy/a101/api/service/BlogService.class" root0="FORCE_HIGHLIGHTING" />
+  </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
@@ -115,7 +122,7 @@
     &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
     &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
     &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;reference.settingsdialog.project.gradle&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;Template Data Languages&quot;,
     &quot;spring.configuration.checksum&quot;: &quot;5a6fd4a2c99bea32be0fd6c59c954fc9&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
@@ -124,11 +131,14 @@
     <key name="CreateTestDialog.Recents.Supers">
       <recent name="" />
     </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\SSAFY\Desktop\git\S09P12A101\backend\.gradle\vcs-1" />
+    </key>
     <key name="CreateTestDialog.RecentsKey">
       <recent name="com.ssafy.a101.api.controller" />
     </key>
   </component>
-  <component name="RunManager" selected="Spring Boot.A101Application">
+  <component name="RunManager" selected="JUnit.BlogApiControllerTest">
     <configuration name="backend [buildEnvironment]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
@@ -151,6 +161,21 @@
       <ForceTestExec>false</ForceTestExec>
       <method v="2" />
     </configuration>
+    <configuration name="BlogApiControllerTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="A101.test" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.ssafy.a101.api.controller.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.ssafy.a101.api.controller" />
+      <option name="MAIN_CLASS_NAME" value="com.ssafy.a101.api.controller.BlogApiControllerTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="A101Application" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
       <module name="A101.main" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="com.ssafy.a101.A101Application" />
@@ -160,6 +185,7 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.BlogApiControllerTest" />
         <item itemvalue="Gradle.backend [buildEnvironment]" />
       </list>
     </recent_temporary>
@@ -184,7 +210,12 @@
       <workItem from="1690434186457" duration="1420000" />
       <workItem from="1690436055507" duration="1218000" />
       <workItem from="1690504671205" duration="786000" />
-      <workItem from="1690520131768" duration="282000" />
+      <workItem from="1690520131768" duration="884000" />
+      <workItem from="1690762668812" duration="2733000" />
+      <workItem from="1690765411771" duration="679000" />
+      <workItem from="1690766100550" duration="45000" />
+      <workItem from="1690766153031" duration="23000" />
+      <workItem from="1690766289765" duration="3079000" />
     </task>
     <servers />
   </component>
