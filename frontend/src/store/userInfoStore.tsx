@@ -9,6 +9,7 @@ export interface userInfoState {
   userId: string | undefined;
   nickName: string;
   phoneNumber: string;
+  isLoggedIn:boolean;
   login: (inputId: string|undefined, inputPW: string|undefined) => void;
   logout: () => void;
 }
@@ -21,6 +22,7 @@ export const userInfoStore = create<userInfoState>()(
       userId: "",
       nickName: "",
       phoneNumber: "",
+      isLoggedIn: false,
       // 로그인 메서드
       login: (inputId:string|undefined, inputPW: string|undefined) =>
         {
@@ -29,7 +31,8 @@ export const userInfoStore = create<userInfoState>()(
             id:1,
             userId:inputId,
             nickName: 'Test',
-            phoneNumber: '010-0000-0000'
+            phoneNumber: '010-0000-0000',
+            isLoggedIn: true
           }))
         },
       // 로그아웃 메서드
@@ -40,7 +43,8 @@ export const userInfoStore = create<userInfoState>()(
             id:0,
             userId:"",
             nickName:"",
-            phoneNumber:""
+            phoneNumber:"",
+            isLoggedIn: false
           }))
         }
     }),

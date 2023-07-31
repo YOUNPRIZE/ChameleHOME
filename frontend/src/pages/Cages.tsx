@@ -6,7 +6,7 @@ import { nowPageStore } from '../store/store';
 import { userInfoStore, userInfoState } from '../store/userInfoStore';
 import { myCage, myCagesStore } from '../store/myCageStore';
 // 컴포넌트 import
-import EachCage from '../components/EachCage';
+import EachCage2 from '../components/EachCage2';
 // 스타일 import
 import style from '../styles/Cages.module.css'
 import 'bootstrap/dist/css/bootstrap.min.css'
@@ -32,7 +32,7 @@ export default function Cages():JSX.Element {
   return (
     <div>
       {myCages.map((cage) => (
-        <EachCage key={cage.cageId} cage={cage}/>
+        <EachCage2 key={cage.cageId} cage={cage}/>
       ))}
       <button className={style.addCage} onClick={handleNavAddCage}>케이지 추가하기</button>
     </div>

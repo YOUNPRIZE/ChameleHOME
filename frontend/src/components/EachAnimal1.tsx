@@ -15,7 +15,7 @@ interface Props {
   order: number;
 }
 
-export default function EachAnimal(props:Props):JSX.Element {
+export default function EachAnimal1(props:Props):JSX.Element {
 
   // 이미지 주소
   const species:string = props.animal.species
@@ -25,7 +25,7 @@ export default function EachAnimal(props:Props):JSX.Element {
   // 동물 상세보기로 이동
   const navigate = useNavigate();
   const handleDetail = ():void => {
-    navigate(`/AnimalDetail/${props.cageId}/${props.animal.animalId}`)
+    navigate(`../AnimalDetail/${props.animal.animalId}`)
   }
 
   return (

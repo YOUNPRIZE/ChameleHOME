@@ -24,7 +24,7 @@ export default function Header():JSX.Element {
     navigate(-1); // -1을 전달하여 뒤로 이동
   };
 
-
+  // 컴포넌트 렌더링
   return (
     <div className={`${style.Header} z-3`}>
       <FontAwesomeIcon icon={faArrowLeft} className={style.headerIcon} onClick={handleGoBack}/>
