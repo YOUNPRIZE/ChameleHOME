@@ -28,7 +28,7 @@ export default function AddCage():JSX.Element {
     setanimalImg(process.env.PUBLIC_URL+`/images/${url}`)
   }
 
-  // 페이지 추가하기 함수
+  // 케이지 추가하기 함수
   const addCage = () => {
     console.log(animalToBreed);
     console.log(cageName.current?.value);

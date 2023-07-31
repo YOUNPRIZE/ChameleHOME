@@ -52,7 +52,7 @@ export default function DicDetail():JSX.Element {
       </div>
       <Accordion className={`${style.containerBox}`}>
         {Object.entries(infoToShow).map((info, index) => (
-          <Accordion.Item eventKey={String(index)} key={index}>
+          <Accordion.Item eventKey={String(index)} key={index} >
             <Accordion.Header className="z-0"><b>{info[0]}</b></Accordion.Header>
             <Accordion.Body className="fw-bold">{info[1]}</Accordion.Body>
           </Accordion.Item>

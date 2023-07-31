@@ -7,6 +7,7 @@ import { myCage, myCagesStore } from '../store/myCageStore';
 import { Animal, MyAnimal, myAnimalStore } from '../store/myAnimalStore';
 // 컴포넌트 import
 import EachAnimal from '../components/EachAnimal';
+import CageInfoTop from '../components/cageInfoTop';
 // 스타일 import
 import style from '../styles/CageDetail.module.css'
 import 'bootstrap/dist/css/bootstrap.min.css'
@@ -62,11 +63,7 @@ export default function CageDeatil():JSX.Element {
   // 페이지 렌더링
   return (
     <>
-    {/* 케이지 이름 */}
-    <div className={style.cageName}>
-      <span>{myCage?.cageName} 케이지 </span>
-      <div className={style.editContainer}><FontAwesomeIcon icon={faPencil} /></div>
-    </div>
+    <CageInfoTop cage={myCage}/>
     {/* 동물 컨테이너 */}
     <div className={`${style.animalContainer} ${style.mainContainer}`}>
       {/* 동물 보기 상단바 */}
@@ -82,7 +79,7 @@ export default function CageDeatil():JSX.Element {
         <div className='d-flex justify-content-center align-items-center col-10 mx-0 px-0 gx-5'>
           {myAnimals.length !== 0 ? 
           myAnimals.map((animal, index) => (
-            <EachAnimal key={animal.animalId} animal={animal} index={index} order={mainCageOrder}/>
+            <EachAnimal key={animal.animalId} cageId={cageId} animal={animal} index={index} order={mainCageOrder}/>
           ))
           : <h1 className={style.noCage}>케이지가 비었어요!</h1> }
         </div>
@@ -135,3 +132,4 @@ function SettingBtn(props: {cageId: number, link:string, feature:string, icon: I
     </div>
   )
 }
+
