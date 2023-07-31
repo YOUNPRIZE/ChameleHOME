@@ -14,7 +14,7 @@ interface Props {
   cage: myCage;
 }
 
-export default function EachCage(props:Props):JSX.Element {
+export default function EachCage2(props:Props):JSX.Element {
   // 이미지 변수
   const imgUrl:string = process.env.PUBLIC_URL+`/images/${props.cage.cageImg}`
 

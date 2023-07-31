@@ -11,7 +11,7 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons'
 // 컴포넌트 import
-import MainCage from '../components/MainCage';
+import EachCage1 from '../components/EachCage1';
 
 export default function Main():JSX.Element {
   // 상태 정보 받아오기
@@ -63,7 +63,7 @@ export default function Main():JSX.Element {
           </div>
           <div className='d-flex justify-content-center align-items-center col-10 mx-0 px-0 gx-5'>
             {myCages.length!==0? myCages.map((cage, index) => (
-              <MainCage key={cage.cageId} cage={cage} index={index} order={mainCageOrder}/>
+              <EachCage1 key={cage.cageId} cage={cage} index={index} order={mainCageOrder}/>
             )): <h1 className={style.noCage}>등록된 케이지가 없습니다!</h1>}
           </div>
           <div className={`col-1 ${style.moveIcon} justify-content-end`}>

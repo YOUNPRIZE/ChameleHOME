@@ -19,18 +19,11 @@ import AddCage from "./pages/AddCage";
 import CageDeatil from "./pages/CageDetail";
 import DicList from "./pages/DicList";
 import DicDetail from "./pages/DicDetail";
-import AnimalList from "./pages/AnimalList";
-import AddAnimal from "./pages/AddAnimal";
-import AnimalDetail from "./pages/AnimalDetail";
 
 
 function App(): JSX.Element {
   // 로그인 여부 판단
-  const userInfo = userInfoStore();
-  const [isLoggedIn, setIsLoggedIn] = useState(userInfo.id !== 0);
-  useEffect(() => {
-    setIsLoggedIn(userInfo.id !== 0);
-  }, [userInfo.id]);
+  const isLoggedIn = userInfoStore(state => state.isLoggedIn)
 
   // 랜더링
   return (
@@ -38,8 +31,8 @@ function App(): JSX.Element {
       <div className="App">
         <Header />
         <Routes>
-          <Route path="/Login" element={<Login />} />
-          <Route path="/SignUp" element={<SignUp />} />
+          <Route path="/Login" element={isLoggedIn?  <Main /> : <Login />} />
+          <Route path="/SignUp" element={isLoggedIn?  <Main /> : <SignUp />} />
           {/* 이 밑으론 로그인 후에 접속 가능 */}
           <Route path="/" element={isLoggedIn? <Main /> : <Navigate replace to="/login"/>} />
           <Route path="/MyPage" element={isLoggedIn? <MyPage /> : <Navigate replace to="/login"/>} />
@@ -47,10 +40,7 @@ function App(): JSX.Element {
           <Route path="/DicDetail/:species" element={isLoggedIn? <DicDetail /> : <Navigate replace to="/login"/>} />
           <Route path="/Cages" element={isLoggedIn? <Cages /> : <Navigate replace to="/login"/>} />
           <Route path="/AddCage" element={isLoggedIn? <AddCage /> : <Navigate replace to="/login"/>} />
-          <Route path="/CageDetail/:cageId" element={isLoggedIn? <CageDeatil /> : <Navigate replace to="/login"/>} />
-          <Route path="/AnimalList/:cageId" element={isLoggedIn? <AnimalList /> : <Navigate replace to="/login"/>} />
-          <Route path="/AddAnimal/:cageId" element={isLoggedIn? <AddAnimal /> : <Navigate replace to="/login"/>} />
-          <Route path="/AnimalDetail/:cageId/:animalId" element={isLoggedIn? <AnimalDetail /> : <Navigate replace to="/login"/>} />
+          <Route path="/CageDetail/:cageId/*" element={isLoggedIn? <CageDeatil /> : <Navigate replace to="/login"/>} />
         </Routes>
         <Footer isLogged={isLoggedIn}/>
       </div>

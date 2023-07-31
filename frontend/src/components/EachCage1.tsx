@@ -13,7 +13,7 @@ interface Props {
   order: number;
 }
 
-export default function MainCage(props:Props):JSX.Element {
+export default function EachCage1(props:Props):JSX.Element {
   // 이미지 주소
   const imgUrl:string = process.env.PUBLIC_URL+`/images/${props.cage.cageImg}`
 

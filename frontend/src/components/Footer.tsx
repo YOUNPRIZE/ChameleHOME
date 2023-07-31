@@ -12,6 +12,8 @@ interface Props {
 }
 
 export default function Footer(props:Props):JSX.Element {
+
+  // 컴포넌트 렌더링
   return (
     <div className={`${style.Footer} d-flex align-items-center justify-content-center z-3`}>
       {props.isLogged ? (

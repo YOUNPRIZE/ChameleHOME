@@ -2,17 +2,12 @@
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import { useEffect, useState, useRef } from 'react'
 // 상태 정보 import
-import { nowPageStore } from '../store/store';
-import { animalDicStore } from '../store/animalDicStore'
-import { myCage, myCagesStore } from '../store/myCageStore';
-// 컴포넌트 import
-import CageInfoTop from '../components/cageInfoTop';
+import { nowPageStore } from '../../store/store';
+import { animalDicStore } from '../../store/animalDicStore'
 // 스타일 import
 import 'bootstrap/dist/css/bootstrap.min.css'
-import style from '../styles/AddAnimal.module.css'
+import style from '../../styles/AddAnimal.module.css'
 import Dropdown from 'react-bootstrap/Dropdown'
-import Form from 'react-bootstrap/Form';
-import InputGroup from 'react-bootstrap/InputGroup';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faMars, faVenus } from '@fortawesome/free-solid-svg-icons';
 
@@ -20,7 +15,6 @@ export default function AddAnimal():JSX.Element {
   // 상태 정보 Props 로드
   const cageId = Number(useParams().cageId);
   const animalDic = animalDicStore(state => state.dictionary);
-  const myCage = myCagesStore(state => (state.cages)).find((cage) => (cage.cageId === cageId));
 
   // 페이지명 변경
   const changePage = nowPageStore(state => state.setPage);
@@ -60,8 +54,6 @@ export default function AddAnimal():JSX.Element {
 
   return (
     <>
-      {/* 케이지 */}
-      <CageInfoTop cage={myCage}/>
       {/* 도감 이미지 표시 */}
       <div className={`${style.cageImgContainer} ${style.boxShadow}`}>
         <img src={image} alt="" className={style.cageImg}/>
@@ -86,8 +78,8 @@ export default function AddAnimal():JSX.Element {
       </Dropdown>
       {/* 동물 이름 + 성별 입력 */}
       <div className={`${style.inputsContainer}`} >
-          {/* 생일 */}
-          <Dropdown>
+        {/* 생일 */}
+        <Dropdown>
           <Dropdown.Toggle variant="light" className={`${style.inputInContainer} ${style.boxShadow}`} style={{width:"15vw"}} >
             {gender === 'male' ? <MaleIcon/> : <FemaleIcon/>}
           </Dropdown.Toggle>

@@ -9,7 +9,7 @@ const test = {
       cageId : 1,
       species : "공비단뱀",
       name : "뱀1",
-      gender : "male",
+      gender : "female",
       age : 5,
       birth : new Date("2022-02-01"),
       issue : "특이사항 없음",
