@@ -2,7 +2,7 @@
 import { useNavigate, Link } from 'react-router-dom';
 import { useEffect, useState, useRef } from 'react'
 // 상태 정보 import
-import { nowPageStore } from '../store/store';
+import { nowPageStore } from '../store/myPageStore';
 import data from '../constants/AnimalToImage.json'
 // 스타일 import
 import 'bootstrap/dist/css/bootstrap.min.css'

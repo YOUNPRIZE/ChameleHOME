@@ -6,23 +6,14 @@ import { myCage } from "../store/myCageStore"
 import style from '../styles/Main.module.css'
 import 'bootstrap/dist/css/bootstrap.min.css'
 
-
-interface Props {
-  cage: myCage;
-  index: number;
-  order: number;
-}
-
-export default function EachCage1(props:Props):JSX.Element {
+export default function EachCage1(props:{cage: myCage, index: number, order: number}):JSX.Element {
   // 이미지 주소
   const imgUrl:string = process.env.PUBLIC_URL+`/images/${props.cage.cageImg}`
-
   // 클릭하면 케이지 상세페이지로 이동
   const navigate = useNavigate();
   const handleMoveDetail = () => {
     navigate(`/CageDetail/${props.cage.cageId}`)
   }
-
   return (
     <>
       <div className={`${Math.floor(props.index / 2) !== props.order ? 'd-none': ''} ${style.cageContent}`} onClick={handleMoveDetail}>

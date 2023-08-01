@@ -1,17 +1,19 @@
 // 훅 import 
 import { useParams, Routes, Route } from 'react-router-dom';
-import { useEffect, useState } from 'react'
 // 상태 정보 import
-import { myCagesStore } from '../store/myCageStore';
-import { myAnimalStore } from '../store/myAnimalStore';
+import { myCagesStore } from '../../store/myCageStore';
+import { myAnimalStore } from '../../store/myAnimalStore';
 // 컴포넌트 import
-import CageInfo from './CageDetail/CageInfo';
-import AnimalList from './CageDetail/AnimalList';
-import AddAnimal from './CageDetail/AddAnimal';
-import AnimalDetail from './CageDetail/AnimalDetail';
+import CageInfo from './CageInfo';
+import AnimalList from './AnimalList';
+import AddAnimal from './AddAnimal';
+import AnimalDetail from './AnimalDetail';
+import LiveVideo from './LiveVideo';
+import AlarmSetting from './AlarmSetting';
+import AutoSetting from './AutoSetting';
 // 스타일 import
 import 'bootstrap/dist/css/bootstrap.min.css'
-import style from '../styles/CageDetail.module.css'
+import style from '../../styles/CageDetail/CageDetail.module.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPencil } from '@fortawesome/free-solid-svg-icons'
 
@@ -31,6 +33,9 @@ export default function CageDeatil():JSX.Element {
     </div>
     <Routes>
       <Route path='/' element={<CageInfo/>}></Route>
+      <Route path='/LiveVideo' element={<LiveVideo/>}></Route>
+      <Route path='/AutoSetting' element={<AutoSetting/>}></Route>
+      <Route path='/AlarmSetting' element={<AlarmSetting/>}></Route>
       <Route path='/AnimalList' element={<AnimalList/>}></Route>
       <Route path='/AddAnimal' element={<AddAnimal/>}></Route>
       <Route path='/AnimalDetail/:animalId' element={<AnimalDetail/>}></Route>

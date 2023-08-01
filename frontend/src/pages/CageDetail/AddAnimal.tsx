@@ -2,11 +2,11 @@
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import { useEffect, useState, useRef } from 'react'
 // 상태 정보 import
-import { nowPageStore } from '../../store/store';
+import { nowPageStore } from '../../store/myPageStore';
 import { animalDicStore } from '../../store/animalDicStore'
 // 스타일 import
 import 'bootstrap/dist/css/bootstrap.min.css'
-import style from '../../styles/AddAnimal.module.css'
+import style from '../../styles/CageDetail/AddAnimal.module.css'
 import Dropdown from 'react-bootstrap/Dropdown'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faMars, faVenus } from '@fortawesome/free-solid-svg-icons';
@@ -78,12 +78,12 @@ export default function AddAnimal():JSX.Element {
       </Dropdown>
       {/* 동물 이름 + 성별 입력 */}
       <div className={`${style.inputsContainer}`} >
-        {/* 생일 */}
+        {/* 성별 */}
         <Dropdown>
           <Dropdown.Toggle variant="light" className={`${style.inputInContainer} ${style.boxShadow}`} style={{width:"15vw"}} >
             {gender === 'male' ? <MaleIcon/> : <FemaleIcon/>}
           </Dropdown.Toggle>
-          <Dropdown.Menu>
+          <Dropdown.Menu className={style.genderItem}>
             <Dropdown.Item onClick={() => handleGender('male')}><MaleIcon/></Dropdown.Item>
             <Dropdown.Item onClick={() => handleGender('female')}><FemaleIcon/></Dropdown.Item>
           </Dropdown.Menu>

@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { Animal } from "../store/myAnimalStore"
 import data from "../constants/AnimalToImage.json"
 // 스타일 import
-import style from '../styles/CageDetail.module.css'
+import style from '../styles/CageDetail/CageDetail.module.css'
 import 'bootstrap/dist/css/bootstrap.min.css'
 
 

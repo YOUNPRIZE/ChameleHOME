@@ -56,8 +56,9 @@
 }
 
 /* 특이사항 정보 */
-.issueContatiner {
-  height: vh;
+.issue {
+  text-align: center;
+  font-size: 10vh;
 }
 
 

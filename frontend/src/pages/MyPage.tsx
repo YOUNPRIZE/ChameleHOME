@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import { nowPageStore } from '../store/store';
+import { nowPageStore } from '../store/myPageStore';
 import { userInfoStore, userInfoState } from '../store/userInfoStore';
 import style from '../styles/MyPage.module.css'
 import 'bootstrap/dist/css/bootstrap.min.css'

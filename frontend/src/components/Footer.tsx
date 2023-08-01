@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { nowPageStore } from '../store/store';
+import { nowPageStore } from '../store/myPageStore';
 import { userInfoStore, userInfoState } from '../store/userInfoStore';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faHouse,faUser } from '@fortawesome/free-solid-svg-icons'

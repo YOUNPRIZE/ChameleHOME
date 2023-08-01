@@ -48,8 +48,10 @@
 
 /* 도감 드롭다운 */
 .dropdownItems {
+  width: 90vw;
   font-size: 1.5vh;
   font-weight: bold;
+  text-align: center;
 }
 
 /* 생일 정보*/

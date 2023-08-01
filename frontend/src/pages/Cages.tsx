@@ -2,7 +2,7 @@
 import { useNavigate, Link } from 'react-router-dom';
 import { useEffect, useState } from 'react'
 // 상태 정보 import
-import { nowPageStore } from '../store/store';
+import { nowPageStore } from '../store/myPageStore';
 import { userInfoStore, userInfoState } from '../store/userInfoStore';
 import { myCage, myCagesStore } from '../store/myCageStore';
 // 컴포넌트 import

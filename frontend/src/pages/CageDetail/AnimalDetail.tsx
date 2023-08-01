@@ -2,7 +2,7 @@
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import { useEffect, useState, useRef } from 'react'
 // 상태 정보 import
-import { nowPageStore } from '../../store/store';
+import { nowPageStore } from '../../store/myPageStore';
 import { animalDicStore } from '../../store/animalDicStore'
 import { myAnimalStore, Animal } from '../../store/myAnimalStore';
 import { myCage, myCagesStore } from '../../store/myCageStore';
@@ -62,7 +62,7 @@ export default function AnimalDetail():JSX.Element {
       <Accordion className={`${style.infoContainer}`}>
         <Accordion.Item eventKey="0">
           <Accordion.Header className={`z-0`}><b>특이사항</b></Accordion.Header>
-          <Accordion.Body className="fw-bold">{myAnimal?.issue}</Accordion.Body>
+          <Accordion.Body className={`fw-bold`}>{myAnimal?.issue}</Accordion.Body>
         </Accordion.Item>
       </Accordion>
     </>
