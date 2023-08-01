@@ -1,17 +1,5 @@
 version: "2"
 services:
-  # jenkins:
-  #   container_name: jenkins-compose
-  #   build:
-  #     context: jenkins-dockerfile
-  #     dockerfile: Dockerfile
-  #   user: root
-  #   ports:
-  #     - 8000:8080
-  #     - 8888:50000
-  #   volumes:
-  #     - /home/ubuntu/compose/jenkins:/var/jenkins_home
-  #     - /home/ubuntu/compose/.ssh:/root/.ssh
   spring:
     # 컨테이너 이름
     container_name: spring-container
@@ -26,4 +14,4 @@ services:
       - 8000:8000
     volumes:
       # - /home/ubuntu/compose/jenkins/workspace/spring-boot-ci-cd/build/libs:/deploy
-      - /jenkins/workspace/ChameleHOME/backend/build/libs/ChameleHOME-0.0.1-SNAPSHOT.jar
+      - /jenkins/workspace/ChameleHOME/backend/build/libs:/deploy
