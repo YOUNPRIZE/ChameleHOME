@@ -28,7 +28,7 @@ public class BlogService {
     public Article findById(Long id){
         return blogRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("not found : " + id));
-        // 아이디 값이 없으면 예외 처리르 해주는 코드다.
+        // 아이디 값이 없으면 예외 처리르 해주는 코드다.W
     }
 
     //지우기
@@ -40,9 +40,10 @@ public class BlogService {
     @Transactional
     public Article update(long id, UpdateArticleRequest request){
         Article article = blogRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("not found : " + id));
+                .orElseThrow(() -> new IllegalArgumentException("not found 업데이트: " + id));
 
         article.update(request.getTitle(), request.getContent());
         return article;
     }
+
 }

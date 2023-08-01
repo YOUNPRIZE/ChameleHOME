@@ -1,6 +1,7 @@
 package com.ssafy.a101.api.controller;
 
 import com.ssafy.a101.api.request.AddAriticleRequest;
+import com.ssafy.a101.api.request.UpdateArticleRequest;
 import com.ssafy.a101.api.response.ArticleResponse;
 import com.ssafy.a101.api.service.BlogService;
 import com.ssafy.a101.db.entity.Article;
@@ -57,6 +58,16 @@ public class BlogApiController {
 
         return ResponseEntity.ok()
                 .build();
+    }
+
+    // 글 수정 메서드
+    @PutMapping("/api/articles/{id}")
+    public ResponseEntity<Article> updateArtilce(@PathVariable long id,
+                 @RequestBody UpdateArticleRequest request) {
+        Article updatedArticle = blogService.update(id, request);
+
+        return ResponseEntity.ok()
+                .body(updatedArticle);
     }
 
 }
