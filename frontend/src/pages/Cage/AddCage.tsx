@@ -2,11 +2,13 @@
 import { useNavigate, Link } from 'react-router-dom';
 import { useEffect, useState, useRef } from 'react'
 // 상태 정보 import
-import { nowPageStore } from '../store/myPageStore';
-import data from '../constants/AnimalToImage.json'
+import { nowPageStore } from 'store/myPageStore';
+import data from 'constants/AnimalToImage.json'
+// 컴포넌트 import
+import AddBtn from 'components/Shared/AddBtn';
 // 스타일 import
 import 'bootstrap/dist/css/bootstrap.min.css'
-import style from '../styles/AddCage.module.css'
+import style from 'styles/Cage/AddCage.module.css'
 import Dropdown from 'react-bootstrap/Dropdown'
 
 export default function AddCage():JSX.Element {
@@ -64,9 +66,7 @@ export default function AddCage():JSX.Element {
       <input type="text" placeholder='시리얼 넘버를 입력해주세요.' 
       className={`${style.inputCageInfo} ${style.boxShadow}`} ref={cageSerial}/>
       {/* 케이지 추가하기 버튼 */}
-      <button className={`${style.inputCageInfo} ${style.boxShadow} ${style.addBtn}`} onClick={addCage}>
-        케이지 추가하기
-      </button>
+      <AddBtn feature={addCage}/>
     </div>
   )
 }

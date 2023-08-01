@@ -2,13 +2,13 @@
 import { useNavigate, Link, useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react'
 // 상태 정보 import
-import { nowPageStore } from '../../store/myPageStore';
-import { myCagesStore } from '../../store/myCageStore';
-import { myAnimalStore } from '../../store/myAnimalStore';
+import { nowPageStore } from 'store/myPageStore';
+import { myCagesStore } from 'store/myCageStore';
+import { myAnimalStore } from 'store/myAnimalStore';
 // 컴포넌트 import
-import EachAnimal1 from '../../components/EachAnimal1';
+import EachAnimal1 from 'components/EachAnimal1';
 // 스타일 import
-import style from '../../styles/CageDetail/CageDetail.module.css'
+import style from 'styles/CageDetail/CageDetail.module.css'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { IconDefinition } from '@fortawesome/fontawesome-svg-core'

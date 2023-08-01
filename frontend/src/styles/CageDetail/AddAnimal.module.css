@@ -61,10 +61,3 @@
   width: 90vw;
   height: 30vh;
 }
-
-/* 추가버튼 */
-.addBtn {
-  margin-top: 3vh;
-  background-color: #5cb15a;
-  color: white;
-}

@@ -2,10 +2,10 @@
 import { useLocation, useNavigate } from "react-router-dom"
 import { useEffect, useState } from 'react';
 // 상태정보 import
-import { dicAnimal } from "../store/animalDicStore";
-import { nowPageStore } from '../store/myPageStore';
+import { dicAnimal } from "store/animalDicStore";
+import { nowPageStore } from 'store/myPageStore';
 // 스타일 import
-import style from '../styles/DicDetail.module.css'
+import style from 'styles/Dictionary/DicDetail.module.css'
 import Accordion from 'react-bootstrap/Accordion';
 import 'bootstrap/dist/css/bootstrap.min.css';
 

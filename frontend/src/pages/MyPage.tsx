@@ -1,12 +1,15 @@
+// 훅 import
 import { useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import { nowPageStore } from '../store/myPageStore';
-import { userInfoStore, userInfoState } from '../store/userInfoStore';
-import style from '../styles/MyPage.module.css'
+// 상태정보 import
+import { nowPageStore } from 'store/myPageStore';
+import { userInfoStore, userInfoState } from 'store/userInfoStore';
+// 스타일 import
+import style from 'styles/MyPage.module.css'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faArrowRightToBracket, faSpellCheck, faPhone } from '@fortawesome/free-solid-svg-icons'
-import testImg from '../assets/test.jpg'
+import testImg from 'assets/test.jpg'
 
 
 export default function MyPage():JSX.Element {

@@ -1,8 +1,8 @@
 // 훅 import 
 import { useParams, Routes, Route } from 'react-router-dom';
 // 상태 정보 import
-import { myCagesStore } from '../../store/myCageStore';
-import { myAnimalStore } from '../../store/myAnimalStore';
+import { myCagesStore } from 'store/myCageStore';
+import { myAnimalStore } from 'store/myAnimalStore';
 // 컴포넌트 import
 import CageInfo from './CageInfo';
 import AnimalList from './AnimalList';
@@ -13,7 +13,7 @@ import AlarmSetting from './AlarmSetting';
 import AutoSetting from './AutoSetting';
 // 스타일 import
 import 'bootstrap/dist/css/bootstrap.min.css'
-import style from '../../styles/CageDetail/CageDetail.module.css'
+import style from 'styles/CageDetail/CageDetail.module.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPencil } from '@fortawesome/free-solid-svg-icons'
 
