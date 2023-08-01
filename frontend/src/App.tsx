@@ -16,7 +16,7 @@ import SignUp from "./pages/SignUp";
 import MyPage from "./pages/MyPage";
 import Cages from "./pages/Cages";
 import AddCage from "./pages/AddCage";
-import CageDeatil from "./pages/CageDetail";
+import CageDeatil from "./pages/CageDetail/CageDetail";
 import DicList from "./pages/DicList";
 import DicDetail from "./pages/DicDetail";
 

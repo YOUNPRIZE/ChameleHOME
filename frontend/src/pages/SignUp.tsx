@@ -4,7 +4,7 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import style from '../styles/Login.module.css'
-import { nowPageStore } from '../store/store';
+import { nowPageStore } from '../store/myPageStore';
 import { userInfoStore, userInfoState } from '../store/userInfoStore';
 
 // 회원가입 페이지

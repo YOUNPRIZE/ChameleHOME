@@ -1,6 +1,6 @@
 import { useState,useEffect } from 'react';
 import { useNavigate } from 'react-router-dom'
-import { nowPageStore } from '../store/store';
+import { nowPageStore } from '../store/myPageStore';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBell, faArrowLeft } from '@fortawesome/free-solid-svg-icons'
 import style from '../styles/Header.module.css';

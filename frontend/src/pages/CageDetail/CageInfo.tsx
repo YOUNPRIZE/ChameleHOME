@@ -2,13 +2,13 @@
 import { useNavigate, Link, useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react'
 // 상태 정보 import
-import { nowPageStore } from '../../store/store';
+import { nowPageStore } from '../../store/myPageStore';
 import { myCagesStore } from '../../store/myCageStore';
 import { myAnimalStore } from '../../store/myAnimalStore';
 // 컴포넌트 import
 import EachAnimal1 from '../../components/EachAnimal1';
 // 스타일 import
-import style from '../../styles/CageDetail.module.css'
+import style from '../../styles/CageDetail/CageDetail.module.css'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { IconDefinition } from '@fortawesome/fontawesome-svg-core'
@@ -23,6 +23,9 @@ export default function CageInfo():JSX.Element {
   useEffect(() => {
     changePage("케이지 정보");
   })
+
+  // 네비게이터 선언
+  const navigate = useNavigate();
 
   // 케이지, 동물들 정보
   const cageId = Number(useParams().cageId);
@@ -94,9 +97,9 @@ export default function CageInfo():JSX.Element {
     </div>
     {/* 추가 세팅 컨테이너 */}
     <div className={`${style.btnContainer}`}>
-      <SettingBtn cageId={cageId} link={"a"} feature={"실시간 영상"} icon={faTv}/>
-      <SettingBtn cageId={cageId} link={"a"} feature={"자동화 설정"} icon={faClock}/>
-      <SettingBtn cageId={cageId} link={"a"} feature={"알람 설정"} icon={faBellConcierge}/>
+      <SettingBtn link={"LiveVideo"} feature={"실시간 영상"} icon={faTv} />
+      <SettingBtn link={"AutoSetting"} feature={"자동화 설정"} icon={faClock}/>
+      <SettingBtn link={"AlarmSetting"} feature={"알람 설정"} icon={faBellConcierge}/>
     </div>
     </>
   )
@@ -121,10 +124,15 @@ function EachCageInfo(props: { live: string | undefined, setting: string | undef
 
 
 // 추가 세팅 버튼 컴포넌트
-function SettingBtn(props: {cageId: number, link:string, feature:string, icon: IconDefinition}): JSX.Element {
+function SettingBtn(props: {link:string, feature:string, icon: IconDefinition}): JSX.Element {
+  // 페이지 이동 함수
+  const navigate = useNavigate();
+  const handleLink = ():void => {
+    navigate(`./${props.link}`)
+  }
   // 컴포넌트 렌더링
   return (
-    <div className={`${style.settingBtn}`}>
+    <div className={`${style.settingBtn}`} onClick={handleLink}>
       <FontAwesomeIcon icon={props.icon} style={{fontSize:"5vh"}}/>
       <div style={{fontSize:"1.5vh"}}>{props.feature}</div>
     </div>

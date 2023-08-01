@@ -1,6 +1,6 @@
 import {useRef, useEffect} from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import { nowPageStore } from '../store/store';
+import { nowPageStore } from '../store/myPageStore';
 import { userInfoStore, userInfoState } from '../store/userInfoStore';
 import reptile01 from '../assets/retile01.png'
 import 'bootstrap/dist/css/bootstrap.min.css'
