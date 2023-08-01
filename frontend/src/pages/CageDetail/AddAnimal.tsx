@@ -1,12 +1,14 @@
 // 훅 import 
-import { useParams, useNavigate, Link } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { useEffect, useState, useRef } from 'react'
 // 상태 정보 import
-import { nowPageStore } from '../../store/myPageStore';
-import { animalDicStore } from '../../store/animalDicStore'
+import { nowPageStore } from 'store/myPageStore';
+import { animalDicStore } from 'store/animalDicStore'
+// 컴포넌트 import
+import AddBtn from 'components/Shared/AddBtn';
 // 스타일 import
 import 'bootstrap/dist/css/bootstrap.min.css'
-import style from '../../styles/CageDetail/AddAnimal.module.css'
+import style from 'styles/CageDetail/AddAnimal.module.css'
 import Dropdown from 'react-bootstrap/Dropdown'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faMars, faVenus } from '@fortawesome/free-solid-svg-icons';
@@ -44,7 +46,7 @@ export default function AddAnimal():JSX.Element {
   } 
 
   // 동물 추가하기 함수
-  const addCage = () => {
+  const addAnimal = () => {
     console.log(species);
     console.log(gender);
     console.log(name.current?.value);
@@ -103,10 +105,7 @@ export default function AddAnimal():JSX.Element {
       <input placeholder='특이사항을 입력해주세요.' ref={issue}
       className={`${style.inputInContainer} ${style.issueInput} ${style.boxShadow} ${style.alignCenter}`} />
       {/* 추가버튼 */}
-      <button className={`${style.inputInContainer} ${style.boxShadow} ${style.addBtn} ${style.alignCenter}`} 
-      onClick={addCage} style={{width:"90vw"}}>
-        동물 추가하기
-      </button>
+      <AddBtn feature={addAnimal}/>
     </>
   )
 }

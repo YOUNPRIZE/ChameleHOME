@@ -1,9 +1,9 @@
 import { useState,useEffect } from 'react';
 import { useNavigate } from 'react-router-dom'
-import { nowPageStore } from '../store/myPageStore';
+import { nowPageStore } from 'store/myPageStore';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBell, faArrowLeft } from '@fortawesome/free-solid-svg-icons'
-import style from '../styles/Header.module.css';
+import style from 'styles/Header.module.css';
 import 'bootstrap/dist/css/bootstrap.min.css'
 
 export default function Header():JSX.Element {

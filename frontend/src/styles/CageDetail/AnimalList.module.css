@@ -42,18 +42,6 @@
   font-size: 1.7vh;
 }
 
-.addCage {
-  width: 90%;
-  height: 5vh;
-  color: white;
-  background-color: #5cb15a;
-  box-shadow: 2px 2px 2px 1px lightgray;
-  margin: 1vh;
-  border-radius: 10px;
-  font-size: 2.5vh;
-  border: none;
-}
-
 .animalText {
   margin: 0px 0px;
 }

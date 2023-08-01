@@ -1,0 +1,97 @@
+/* 자동화 설정 목록 */
+.settingContainer {
+  width: 90vw;
+  height: 15vh;
+  margin: 3vh auto;
+  padding: 1.5vh 5vw;
+  border-radius: 10px 10px;
+  background-color: white;
+  box-shadow: 4px 4px 10px 3px lightgray;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.topContent {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.operIcon{
+  font-size: 3vh;
+  margin-left: 5vw;
+}
+
+.settingTime {
+  font-weight: bold;
+  font-size: 4vh;
+  margin: 0px 0px;
+}
+
+.bottomContent {
+  display: flex;
+  justify-content: space-between;
+}
+
+.selected {
+  background-color: #5cb15a;
+}
+
+.item {
+  width: 25vw;
+  height: 4vh;
+  border-radius: 10px 10px;
+  background-color: white;
+  box-shadow: 4px 4px 10px 3px lightgray;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 2vh;
+}
+
+.selected {
+  background-color: #5cb15a;
+}
+
+.settingIcon {
+  margin: 0px 1vw;
+}
+
+
+/* 자동화 설정 모달 */
+.modalTitle {
+  font-size: 3vh;
+  font-weight: bold;
+}
+
+.inputBox {
+  margin: 3vh auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.iconBox {
+  width: 10vh;
+  height: 10vh;
+  margin: 0px 0px;
+  padding: 2vh 3vw;
+  border-radius: 10px 10px;
+  background-color: white;
+  box-shadow: 4px 4px 10px 3px lightgray;
+  font-size: 7vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.inputTag {
+  width: 50%;
+  font-weight: bold;
+}
+
+
+
+
+

@@ -1,15 +1,14 @@
 // 훅 import 
-import { useParams, useNavigate, Link } from 'react-router-dom';
-import { useEffect, useState, useRef } from 'react'
+import { useParams } from 'react-router-dom';
+import { useEffect } from 'react'
 // 상태 정보 import
-import { nowPageStore } from '../../store/myPageStore';
-import { animalDicStore } from '../../store/animalDicStore'
-import { myAnimalStore, Animal } from '../../store/myAnimalStore';
-import { myCage, myCagesStore } from '../../store/myCageStore';
-import data from '../../constants/AnimalToImage.json'
+import { nowPageStore } from 'store/myPageStore';
+// import { animalDicStore } from 'store/animalDicStore'
+import { myAnimalStore, Animal } from 'store/myAnimalStore';
+import data from 'constants/AnimalToImage.json'
 // 스타일 import
 import 'bootstrap/dist/css/bootstrap.min.css'
-import style from '../../styles/CageDetail/AnimalDetail.module.css'
+import style from 'styles/CageDetail/AnimalDetail.module.css'
 import Accordion from 'react-bootstrap/Accordion';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faMars, faVenus } from '@fortawesome/free-solid-svg-icons';

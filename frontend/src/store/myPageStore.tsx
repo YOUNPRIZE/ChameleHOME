@@ -7,6 +7,7 @@ export interface nowPageState {
   pageName: string;
   setPage: (nowPage: string) => void;
 }
+
 // 현재 페이지 상태 정보
 export const nowPageStore = create<nowPageState>()(
   persist(

@@ -2,12 +2,14 @@
 import { useNavigate, Link, useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react'
 // 상태 정보 import
-import { Animal, myAnimalStore } from '../../store/myAnimalStore';
-import { nowPageStore } from '../../store/myPageStore';
-import { myCagesStore } from '../../store/myCageStore';
-import imgList from '../../constants/AnimalToImage.json'
+import { Animal, myAnimalStore } from 'store/myAnimalStore';
+import { nowPageStore } from 'store/myPageStore';
+import { myCagesStore } from 'store/myCageStore';
+import imgList from 'constants/AnimalToImage.json'
+// 컴포넌트 import
+import AddBtn from 'components/Shared/AddBtn';
 // 스타일 import
-import style from '../../styles/CageDetail/AnimalList.module.css'
+import style from 'styles/CageDetail/AnimalList.module.css'
 
 export default function AnimalList():JSX.Element {
   // 페이지명 변경
@@ -50,7 +52,7 @@ export default function AnimalList():JSX.Element {
         </div>
       ))}
       {/* 동물 추가하기로 이동 */}
-      <Link to={`../AddAnimal`}><button className={style.addCage}>동물 추가하기</button></Link>
+      <AddBtn feature={() => {navigate('../AddAnimal')}} />
     </>
   )
 }

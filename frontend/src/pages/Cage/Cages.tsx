@@ -2,13 +2,13 @@
 import { useNavigate, Link } from 'react-router-dom';
 import { useEffect, useState } from 'react'
 // 상태 정보 import
-import { nowPageStore } from '../store/myPageStore';
-import { userInfoStore, userInfoState } from '../store/userInfoStore';
-import { myCage, myCagesStore } from '../store/myCageStore';
+import { nowPageStore } from 'store/myPageStore';
+import { userInfoStore, userInfoState } from 'store/userInfoStore';
+import { myCage, myCagesStore } from 'store/myCageStore';
 // 컴포넌트 import
-import EachCage2 from '../components/EachCage2';
+import CageItemLong from 'components/Cage/CageItemLong';
+import AddBtn from 'components/Shared/AddBtn';
 // 스타일 import
-import style from '../styles/Cages.module.css'
 import 'bootstrap/dist/css/bootstrap.min.css'
 
 
@@ -23,18 +23,15 @@ export default function Cages():JSX.Element {
     changePage("케이지 목록");
   })
 
-  // 페이지 추가하기로 이동
+  // 훅 함수
   const navigate = useNavigate();
-  function handleNavAddCage():void {
-    navigate('/AddCage')
-  }
 
   return (
     <div>
       {myCages.map((cage) => (
-        <EachCage2 key={cage.cageId} cage={cage}/>
+        <CageItemLong key={cage.cageId} cage={cage}/>
       ))}
-      <button className={style.addCage} onClick={handleNavAddCage}>케이지 추가하기</button>
+      <AddBtn feature={() => navigate('../AddCage')}/>
     </div>
   )
 }

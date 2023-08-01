@@ -2,10 +2,10 @@
 import { useParams } from 'react-router-dom';
 import { useEffect } from 'react'
 // 상태 정보 import
-import { nowPageStore } from '../../store/myPageStore';
-import { myCagesStore } from '../../store/myCageStore';
+import { nowPageStore } from 'store/myPageStore';
+import { myCagesStore } from 'store/myCageStore';
 // 스타일 import
-import style from '../../styles/CageDetail/LiveViedo.module.css'
+import style from 'styles/CageDetail/LiveViedo.module.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCaretDown, faCaretLeft, faCaretRight, faCaretUp, faCamera } from '@fortawesome/free-solid-svg-icons'
 

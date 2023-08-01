@@ -1,12 +1,16 @@
+// 훅 import
 import {useRef, useEffect} from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import { nowPageStore } from '../store/myPageStore';
-import { userInfoStore, userInfoState } from '../store/userInfoStore';
-import reptile01 from '../assets/retile01.png'
+// 상태정보 import
+import { nowPageStore } from 'store/myPageStore';
+import { userInfoStore, userInfoState } from 'store/userInfoStore';
+// 스태틱 데이터 import
+import reptile01 from 'assets/retile01.png'
+// 스타일 import
+import style from 'styles/Auth/Login.module.css';
 import 'bootstrap/dist/css/bootstrap.min.css'
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
-import style from '../styles/Login.module.css';
 
 // 로그인 페이지
 export default function Login():JSX.Element {

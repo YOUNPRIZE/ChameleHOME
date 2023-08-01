@@ -11,14 +11,14 @@ import Header from './components/Header';
 import Footer from './components/Footer';
 // 페이지 import
 import Main from "./pages/Main";
-import Login from "./pages/Login";
-import SignUp from "./pages/SignUp";
+import Login from "./pages/Auth/Login";
+import SignUp from "./pages/Auth/SignUp";
 import MyPage from "./pages/MyPage";
-import Cages from "./pages/Cages";
-import AddCage from "./pages/AddCage";
+import Cages from "./pages/Cage/Cages";
+import AddCage from "./pages/Cage/AddCage";
 import CageDeatil from "./pages/CageDetail/CageDetail";
-import DicList from "./pages/DicList";
-import DicDetail from "./pages/DicDetail";
+import DicList from "./pages/Dictionary/DicList";
+import DicDetail from "./pages/Dictionary/DicDetail";
 
 
 function App(): JSX.Element {

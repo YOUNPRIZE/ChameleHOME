@@ -2,10 +2,10 @@
 import { useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 // 상태정보 import
-import { myCage } from '../store/myCageStore';
+import { myCage } from 'store/myCageStore';
 // 스타일 import
 import 'bootstrap/dist/css/bootstrap.min.css'
-import style from '../styles/Cages.module.css'
+import style from 'styles/Cage/Cages.module.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTemperatureThreeQuarters, faDroplet, faLightbulb } from '@fortawesome/free-solid-svg-icons'
 
@@ -14,7 +14,7 @@ interface Props {
   cage: myCage;
 }
 
-export default function EachCage2(props:Props):JSX.Element {
+export default function CageItemLong(props:Props):JSX.Element {
   // 이미지 변수
   const imgUrl:string = process.env.PUBLIC_URL+`/images/${props.cage.cageImg}`
 

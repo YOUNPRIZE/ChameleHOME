@@ -2,16 +2,16 @@
 import { useNavigate, Link } from 'react-router-dom';
 import { useEffect, useState } from 'react'
 // 상태 정보 import
-import { nowPageStore } from '../store/myPageStore';
-import { myCagesStore } from '../store/myCageStore';
-import {animalDicStore} from '../store/animalDicStore'
+import { nowPageStore } from 'store/myPageStore';
+import { myCagesStore } from 'store/myCageStore';
+import {animalDicStore} from 'store/animalDicStore'
 // 스타일 import
-import style from '../styles/Main.module.css'
+import style from 'styles/Main.module.css'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons'
 // 컴포넌트 import
-import EachCage1 from '../components/EachCage1';
+import EachCage1 from 'components/EachCage1';
 
 export default function Main():JSX.Element {
   // 상태 정보 받아오기

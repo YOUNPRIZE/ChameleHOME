@@ -2,10 +2,10 @@
 import { useNavigate} from 'react-router-dom';
 import { useEffect } from 'react'
 // 상태 정보 import
-import { nowPageStore } from '../store/myPageStore';
-import { animalDicStore, dicAnimal } from '../store/animalDicStore'
+import { nowPageStore } from 'store/myPageStore';
+import { animalDicStore, dicAnimal } from 'store/animalDicStore'
 // 스타일 import
-import style from '../styles/DicList.module.css'
+import style from 'styles/Dictionary/DicList.module.css'
 import 'bootstrap/dist/css/bootstrap.min.css'
 
 
