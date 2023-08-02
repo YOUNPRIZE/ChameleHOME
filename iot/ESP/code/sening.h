@@ -11,7 +11,7 @@ struct Sensor {
     dht.temperature().getSensor(&sensor);
     dht.humidity().getSensor(&sensor);
   }
-
+  // get now temperature and humidity
   Info sensing() {
     sensors_event_t event;
     dht.temperature().getEvent(&event);
@@ -19,7 +19,6 @@ struct Sensor {
     
     dht.humidity().getEvent(&event);
     data.humid = event.relative_humidity;
-
     return data;
   }
 };

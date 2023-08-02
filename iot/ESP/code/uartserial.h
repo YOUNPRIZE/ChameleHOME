@@ -1,3 +1,4 @@
+#pragma once
 #include "header.h"
 
 HardwareSerial mySerial(2);
@@ -15,7 +16,7 @@ struct UartSerial {
 
   void statusTx(const char* send_data) {
     mySerial.write(send_data);
-    // Serial.println(send_data);
+    Serial.println(send_data);
   }
 
   Status statusRx() {
@@ -23,6 +24,7 @@ struct UartSerial {
     if (mySerial.available() > 0) {
       data = mySerial.readString();
       Serial.println(data);
+      // read json data
       StaticJsonDocument<200> doc;
       deserializeJson(doc, data);
 
