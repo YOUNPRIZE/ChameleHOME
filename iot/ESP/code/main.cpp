@@ -41,7 +41,7 @@ void onConnectionEstablished()
     // Error check
     err_flag = mqtt.errorCheck(doc);
     if(err_flag) {
-      mqtt.errorTx(error_topic, "There is no key");
+      // mqtt.errorTx(error_topic, "There is no key");
       err_flag = 0;
       return;
     }
@@ -65,7 +65,7 @@ void autoSet(Status set_flag) {
     autoHumid(set_val, now_val, humidifier, cool_fan, humid_flag, err_flag);
   }
   if(err_flag) {
-    mqtt.errorTx(error_topic, "Desired value is out of range");
+    // mqtt.errorTx(error_topic, "Desired value is out of range");
     err_flag = 0;
     humid_flag = temp_flag = 0;
   }
@@ -97,7 +97,7 @@ void loop() {
   set_flag = userial.rx();
   err_flag = userial.errorCheck();
   if(err_flag) {
-    userial.tx("error _There is no key_");
+    // userial.tx("error _There is no key_");
     err_flag = 0;
   }
 
