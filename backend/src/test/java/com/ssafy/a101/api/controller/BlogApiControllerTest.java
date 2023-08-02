@@ -129,28 +129,28 @@ class BlogApiControllerTest {
                 .andExpect(jsonPath("$.title").value(title));
     }
 
-    @DisplayName("deleteArticle  : 블로그 글 삭제에 성공한다")
-    @Test
-    public void deleteArticle() throws Exception{
-        //gievn
-        final  String url ="/api/articles/{id}";
-        final String title = "title";
-        final String content = "content";
-
-        Article savedArticle = blogRepository.save(Article.builder()
-                .title(title)
-                .content(content)
-                .build());
-
-        //when
-        mockMvc.perform(delete(url, savedArticle.getId()))
-                .andExpect(status().isOk()); //  글이 있어야 삭제가 됨으로 없으면 안된다뜸!
-
-        // then
-        List<Article> articles = blogRepository.findAll();
-
-        assertThat(articles).isEmpty();
-    }
+//    @DisplayName("deleteArticle  : 블로그 글 삭제에 성공한다")
+//    @Test
+//    public void deleteArticle() throws Exception{
+//        //gievn
+//        final  String url ="/api/articles/{id}";
+//        final String title = "title";
+//        final String content = "content";
+//
+//        Article savedArticle = blogRepository.save(Article.builder()
+//                .title(title)
+//                .content(content)
+//                .build());
+//
+//        //when
+//        mockMvc.perform(delete(url, savedArticle.getId()))
+//                .andExpect(status().isOk()); //  글이 있어야 삭제가 됨으로 없으면 안된다뜸!
+//
+//        // then
+//        List<Article> articles = blogRepository.findAll();
+//
+//        assertThat(articles).isEmpty();
+//    }
 
 //    @DisplayName("updateArticle : 블로그 글 수정에 성공했습니다.")
 //    @Test

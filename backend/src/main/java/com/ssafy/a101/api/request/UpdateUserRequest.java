@@ -1,15 +1,19 @@
 package com.ssafy.a101.api.request;
 
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
-public class UpdateUserReq {
+@Setter
+public class UpdateUserRequest {
+    private Long id;
     private String user_id;
     private String password;
     private String nickname;
-    private int number;
+    private Long number;
 }

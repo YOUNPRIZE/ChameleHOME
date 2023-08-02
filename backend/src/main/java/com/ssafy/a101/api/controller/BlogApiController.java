@@ -29,6 +29,8 @@ public class BlogApiController {
                 .body(savedArticle);
     }
 
+
+    // 전체 블로그를 조회한다.
     @GetMapping("/api/articles")
     public ResponseEntity<List<ArticleResponse>> findAllArticles(){
         List<ArticleResponse> articles = blogService.findALL()
@@ -41,6 +43,7 @@ public class BlogApiController {
                 .body(articles);
     }
 
+    // 특정 값만 조회를 한다.
     @GetMapping("/api/article/{id}")
     //url에서 경로를 추출한다.
     public ResponseEntity<ArticleResponse> findArticle(@PathVariable long id){
