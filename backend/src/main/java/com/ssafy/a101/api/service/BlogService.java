@@ -21,10 +21,12 @@ public class BlogService {
         return blogRepository.save(request.toEntity());
     }
 
+    // 전체 조회
     public List<Article> findALL(){
         return blogRepository.findAll();
     }
 
+    // 특정 값 조회
     public Article findById(Long id){
         return blogRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("not found : " + id));

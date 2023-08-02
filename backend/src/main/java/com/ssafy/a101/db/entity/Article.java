@@ -1,7 +1,6 @@
 package com.ssafy.a101.db.entity;
 
 import lombok.*;
-
 import javax.persistence.*;
 
 @Entity
