@@ -1,106 +1,69 @@
 #pragma once
-#include "header.h"
 
-// Set topics to communicate
-char* topic = "serialnumber/sensorval";
-char* get_topic = "serialnumber/setval";
-char* common_topic = "actset";
-char* status_topic = "actstatus";
-char* error_topic = "error";
+// Header files
+#include "EspMQTTClient.h"
+#include <Adafruit_Sensor.h>
+#include <ArduinoJson.h>
+#include <DHT.h>
+#include <DHT_U.h>
+#include <iostream>
+#include <HardwareSerial.h>
 
-// Define client
-EspMQTTClient client(
-  WIFINAME,
-  WIFIPW,
-  BROCKERIP,
-  "MQTTUsername",
-  "MQTTPassword",
-  "ESP32",
-  PORT
-);
+// Macros
+#define DHTPIN 13     // Digital pin connected to the DHT sensor 
+#define DHTTYPE DHT11     // DHT 11
+#define BROCKERIP "" // MQTT Broker server IP
+#define WIFINAME "" // WiFi name
+#define WIFIPW "" // WiFi password
+#define PORT 1883 // The MQTT port
+#define MINTEMP 20 // Minimum temperature
+#define MAXTEMP 50 // Maximum temperature
+#define MINHUMID 20 // Minimum humidity
+#define MAXHUMID 50 // Maximum humidity
+#define TXD_PIN 17 // Serial transmit pin
+#define RXD_PIN 16 // Serial receive pin
 
-// Class for MQTT
-struct MQTT {
-  Info val;
-  Info set_val;
-  String data;
+// Struct
+struct Info {
+  float temp, humid;
+  bool light;
 
-  MQTT() {
-    data = "";
-  }
-
-  // Initialize the MQTT client
-  void init() {
-    client.enableDebuggingMessages();
-    client.enableHTTPWebUpdater();
-    client.enableOTA();
-  }
-
-  // Convert data to JSON format for sensor values
-  void makeJson() {
-    data = "";
-    DynamicJsonDocument doc(200);
-
-    char res[20] = { 0, };
-    sprintf(res, "%.1f", val.temp);
-    doc["Temp"] = res;
-    sprintf(res, "%.1f", val.humid);
-    doc["Humid"] = res;
-    doc["uv"] = String(val.light);
-
-    // Serialize JSON data
-    serializeJson(doc, data);
-  }
-
-  // Convert data to JSON format for RPI4 status
-  String makeStatusJson(Status status) {
-    DynamicJsonDocument doc(200);
-
-    char res[20] = { 0, };
-    sprintf(res, "%d", status.led);
-    doc["LED"] = res;
-
-    doc["heat_pad"] = status.heat;
-    doc["cooling_fan"] = status.cooling;
-    doc["humidifier"] = status.humidifier;
-    doc["waterfall"] = status.waterfall;
-
-    sprintf(res, "%.1f", val.temp);
-    doc["Temp"] = res;
-    sprintf(res, "%.1f", val.humid);
-    doc["Humid"] = res;
-
-    // Serialize JSON data and return as String
-    serializeJson(doc, data);
-    return data;
-  }
-
-  // Update sensor data
-  void updateData(Info info) {
-    val.temp = info.temp;
-    val.humid = info.humid;
-    val.light = info.light;
-  }
-
-  // Transmit function if error occurs
-  void errorTx(char* err_topic, char* err_type) {
-    client.publish(err_topic, err_type);
-  }
-
-  // Transmit sensor data
-  void tx() {
-    client.publish(topic, data);
-    data = "";
-  }
-
-  // Error check for required keys in JSON data
-  bool errorCheck(StaticJsonDocument<200>& doc) {
-    // Check if the "Temp", "Humid", and "uv" keys exist in the JSON data
-    bool has_temp = doc.containsKey("Temp");
-    bool has_humid = doc.containsKey("Humid");
-    bool has_uv = doc.containsKey("uv");
-
-    // Return true if any of the required keys are missing
-    return !(has_temp && has_humid && has_uv);
+  Info() {
+    temp = 0.0f;
+    humid = 0.0f;
+    light = false;
   }
 };
+
+// Actuator status
+struct Status {
+  bool cooling;
+  bool waterfall;
+  bool heat;
+  bool humidifier;
+  int led;
+  bool islock;
+};
+
+// Timer
+unsigned long prev_time = 0;
+const unsigned long interval_time = 2000; // Wait time in milliseconds
+
+// Water pump motor
+extern const int AA = 27;
+extern const int AB = 26;
+
+// Humidifier module
+extern const int hud_pin = 25;
+
+// Cooling fan
+extern const int cool_pin = 12;
+
+// Heat pad
+extern const int heat_pin = 14;
+
+// LED
+const int freq = 5000;
+const int ch = 0;
+const int resolution = 8;
+const int LED = 2;
