@@ -1,11 +1,14 @@
 #pragma once
 #include "header.h"
-// set topics to communicate
+
+// Set topics to communicate
 char* topic = "serialnumber/sensorval";
 char* get_topic = "serialnumber/setval";
 char* common_topic = "actset";
 char* status_topic = "actstatus";
-// define client
+char* error_topic = "error";
+
+// Define client
 EspMQTTClient client(
   WIFINAME,
   WIFIPW,
@@ -15,7 +18,8 @@ EspMQTTClient client(
   "ESP32",
   PORT
 );
-// class for mqtt
+
+// Class for MQTT
 struct MQTT {
   Info val;
   Info set_val;
@@ -25,13 +29,14 @@ struct MQTT {
     data = "";
   }
 
+  // Initialize the MQTT client
   void init() {
-    client.enableDebuggingMessages(); 
-    client.enableHTTPWebUpdater(); 
+    client.enableDebuggingMessages();
+    client.enableHTTPWebUpdater();
     client.enableOTA();
   }
 
-  //data to JSON format
+  // Convert data to JSON format for sensor values
   void makeJson() {
     data = "";
     DynamicJsonDocument doc(200);
@@ -43,12 +48,11 @@ struct MQTT {
     doc["Humid"] = res;
     doc["uv"] = String(val.light);
 
-    // Serial.print("Json data : ");
-    // serializeJson(doc, Serial);
-    // Serial.println();
+    // Serialize JSON data
     serializeJson(doc, data);
   }
-  //data to JSON format - for RPI4 
+
+  // Convert data to JSON format for RPI4 status
   String makeStatusJson(Status status) {
     DynamicJsonDocument doc(200);
 
@@ -65,36 +69,38 @@ struct MQTT {
     doc["Temp"] = res;
     sprintf(res, "%.1f", val.humid);
     doc["Humid"] = res;
-    // Serial.print("Json data : ");
-    // serializeJson(doc, Serial);
-    // Serial.println();
+
+    // Serialize JSON data and return as String
     serializeJson(doc, data);
     return data;
   }
-  // update data
-  void updataData(Info info) {
+
+  // Update sensor data
+  void updateData(Info info) {
     val.temp = info.temp;
     val.humid = info.humid;
     val.light = info.light;
   }
-  
+
+  // Transmit function if error occurs
   void errorTx(char* err_topic, char* err_type) {
     client.publish(err_topic, err_type);
   }
-  // transmit function
+
+  // Transmit sensor data
   void tx() {
     client.publish(topic, data);
     data = "";
   }
 
-  // bool errorCheck(StaticJsonDocument<200> doc) {
-  //   JsonVarient error_temp = doc["temp"];
-  //   JsonVarient error_humid = doc["humid"];
-  //   JsonVarient error_uv = doc["uv"];
+  // Error check for required keys in JSON data
+  bool errorCheck(StaticJsonDocument<200>& doc) {
+    // Check if the "Temp", "Humid", and "uv" keys exist in the JSON data
+    bool has_temp = doc.containsKey("Temp");
+    bool has_humid = doc.containsKey("Humid");
+    bool has_uv = doc.containsKey("uv");
 
-  //   if(error_temp.isNull() || error_humid.isNull() || error_uv.isNull()) {
-  //     return 1;
-  //   }
-  //   return 0;
-  // }
+    // Return true if any of the required keys are missing
+    return !(has_temp && has_humid && has_uv);
+  }
 };
