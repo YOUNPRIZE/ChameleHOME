@@ -10,7 +10,6 @@ export interface myCage {
   setTemp : number;
   setHum : number;
   setUv : boolean;
-  using : boolean;
   createdAt : Date; 
   cageImg: string
 }
