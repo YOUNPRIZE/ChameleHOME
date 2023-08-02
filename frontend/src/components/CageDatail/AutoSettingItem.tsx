@@ -1,7 +1,6 @@
-// 훅 import 
+
 // 상태 정보 import
 import { autoSetting } from 'store/mySettingStore';
-// 컴포넌트 import
 // 스타일 import
 import style from 'styles/CageDetail/CageSetting.module.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -18,7 +17,7 @@ export default function AutoSettingItem(props:{setting:autoSetting}):JSX.Element
         {/* 시간 표시 */}
         <h1 className={`${style.settingTime}`}>{setting.time}</h1>
         {/* 수정, 삭제 버튼 */}
-        <div className={`${style.operIcon}`}>
+        <div>
           <FontAwesomeIcon icon={faPenToSquare} color="black" className={`${style.operIcon}`}/>
           <FontAwesomeIcon icon={faTrash} color="red" className={`${style.operIcon}`}/>
         </div>
