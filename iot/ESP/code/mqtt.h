@@ -1,11 +1,11 @@
 #pragma once
 #include "header.h"
-
+// set topics to communicate
 char* topic = "serialnumber/sensorval";
 char* get_topic = "serialnumber/setval";
 char* common_topic = "actset";
 char* status_topic = "actstatus";
-
+// define client
 EspMQTTClient client(
   WIFINAME,
   WIFIPW,
@@ -15,7 +15,7 @@ EspMQTTClient client(
   "ESP32",
   PORT
 );
-
+// class for mqtt
 struct MQTT {
   Info val;
   Info set_val;
@@ -48,27 +48,18 @@ struct MQTT {
     // Serial.println();
     serializeJson(doc, data);
   }
-
+  //data to JSON format - for RPI4 
   String makeStatusJson(Status status) {
     DynamicJsonDocument doc(200);
 
     char res[20] = { 0, };
     sprintf(res, "%d", status.led);
-    doc["LED"] 
-    = res;
-    String tmp = "";
-    if(status.heat) tmp = "ON";
-    else tmp = "OFF";
-    doc["heat_pad"] = tmp;
-    if(status.cooling) tmp = "ON";
-    else tmp = "OFF";
-    doc["cooling_fan"] = tmp;
-    if(status.humidifier) tmp = "ON";
-    else tmp = "OFF";
-    doc["humidifier"] = tmp;
-    if(status.waterfall) tmp = "ON";
-    else tmp = "OFF";
-    doc["waterfall"] = tmp;
+    doc["LED"] = res;
+
+    doc["heat_pad"] = status.heat;
+    doc["cooling_fan"] = status.cooling;
+    doc["humidifier"] = status.humidifier;
+    doc["waterfall"] = status.waterfall;
 
     sprintf(res, "%.1f", val.temp);
     doc["Temp"] = res;
@@ -80,24 +71,22 @@ struct MQTT {
     serializeJson(doc, data);
     return data;
   }
-  
+  // update data
   void updataData(Info info) {
     val.temp = info.temp;
     val.humid = info.humid;
     val.light = info.light;
   }
-
+  
   void errorTx(char* err_topic, char* err_type) {
     client.publish(err_topic, err_type);
   }
+  // transmit function
   void tx() {
     client.publish(topic, data);
     data = "";
   }
-  void statustx() {
-    client.publish(status_topic, data);
-    data = "";
-  }
+
   // bool errorCheck(StaticJsonDocument<200> doc) {
   //   JsonVarient error_temp = doc["temp"];
   //   JsonVarient error_humid = doc["humid"];
