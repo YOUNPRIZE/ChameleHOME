@@ -28,9 +28,9 @@ export default function AutoSetting():JSX.Element {
   
   return (
     <>
-      {autoSettings.map(((setting, index) => (
+      {autoSettings.map((setting, index) => (
         <AutoSettingItem setting={setting} key={setting.setting_pk}/>
-      )))}
+      ))}
       <AddBtn feature={() => setmodalShow(true)}/>
       <AutoSettingModal modalShow={modalShow} setModalShow={setmodalShow}/>
     </>
