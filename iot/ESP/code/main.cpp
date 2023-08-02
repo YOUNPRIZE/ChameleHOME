@@ -4,26 +4,32 @@
 #include "actuator.h"
 #include "uartSerial.h"
 
+// Instances of classes
 MQTT mqtt;
 UartSerial userial;
 Sensor sensor;
-Info now_val, set_val;
-// to control actuator
 WaterMotor water_motor;
 CoolingFan cool_fan;
 HeatPad heat_pad;
 Humidifier humidifier;
 LEDControl led_ctrl;
-bool temp_flag, humid_flag;
-// actuator status
-Status status_flag;
-// error
-bool err_flag;
-// timer 
-uint32_t delay_ms;
-// data
-String data = "";
 
+// Sensor data and setpoint
+Info now_val, set_val;
+
+// Flags for controlling actuator
+bool temp_flag, humid_flag;
+
+// Actuator status
+Status status_flag;
+
+// Error flag
+bool err_flag;
+
+// Timer 
+uint32_t delay_ms;
+
+// MQTT subscribe callback
 void onConnectionEstablished()
 {
   client.subscribe(get_topic, [](const String& payload) {
@@ -31,17 +37,26 @@ void onConnectionEstablished()
     StaticJsonDocument<200> doc;
     deserializeJson(doc, payload);
     serializeJson(doc, Serial);
-
-    // temperature, humidity, LED
+    
+    // Error check
+    err_flag = mqtt.errorCheck(doc);
+    if(err_flag) {
+      mqtt.errorTx(error_topic, "There is no key");
+      err_flag = 0;
+      return;
+    }
+    // Extract temperature, humidity, and LED values from payload
     set_val.temp = doc["temp"];
     set_val.humid = doc["humid"];
     set_val.light = doc["uv"];
 
-    if(set_val.temp) temp_flag = 1;
-    if(set_val.humid) humid_flag = 1;
+    // Set flags based on received values
+    if(set_val.temp) temp_flag = true;
+    if(set_val.humid) humid_flag = true;
   });
 }
 
+// Function to operate modules based on web settings
 void autoSet(Status set_flag) {
   if(temp_flag && set_flag.islock) {
     autoTemp(set_val, now_val, heat_pad, cool_fan, temp_flag, err_flag);
@@ -49,52 +64,74 @@ void autoSet(Status set_flag) {
   if(humid_flag && set_flag.islock) {
     autoHumid(set_val, now_val, humidifier, cool_fan, humid_flag, err_flag);
   }
-  if(!status_flag.led && set_val.light) {led_ctrl.on();}
-  if(status_flag.led && !set_val.light) {led_ctrl.off();}
+  if(err_flag) {
+    mqtt.errorTx(error_topic, "Desired value is out of range");
+    err_flag = 0;
+    humid_flag = temp_flag = 0;
+  }
+  if(!status_flag.led && set_val.light) { led_ctrl.on(); }
+  if(status_flag.led && !set_val.light) { led_ctrl.off(); }
 }
 
 void setup() {
   Serial.begin(115200);
+
+  // Initialize sensor delay
   sensor_t sensor_tmp;
-  delay_ms = sensor_tmp.min_delay/1000;
+  delay_ms = sensor_tmp.min_delay / 1000;
+
+  // Initialize classes and modules
   mqtt.init();
   sensor.init(sensor_tmp);
   actuatorInit();
   userial.init();
-  status_flag.islock = 1;
+  status_flag.islock = true;
 }
 
 void loop() {
-  // current time
   unsigned long cur_time = millis();
-  // receive RPI4 data
+  String data = "";
+  
+  // Read RPI4 data
   Status set_flag;
-  set_flag = userial.statusRx();
-  // actuate by RPI4
+  set_flag = userial.rx();
+  err_flag = userial.errorCheck();
+  if(err_flag) {
+    userial.tx("error _There is no key_");
+    err_flag = 0;
+  }
+
+  // Operate actuators based on RPI4 data
   if(set_flag.led != -1 && !set_flag.islock) {
     actuate(set_flag, water_motor, humidifier, heat_pad, cool_fan, led_ctrl);
     status_flag = getStatus(water_motor, humidifier, heat_pad, cool_fan, led_ctrl);
-     // transmit status data to RPI4
-    data = mqtt.makeStatusJson(status_flag);
-    data += "\n";
-    userial.statusTx(data.c_str());
+
+    // Transmit status data to RPI4
+    data = mqtt.makeStatusJson(status_flag) + "\n";
+    userial.tx(data.c_str());
   }
-  // actuate by web setting
+
+  // Operate actuators based on web settings
   autoSet(set_flag);
 
   if (cur_time - prev_time >= interval_time) {
     prev_time = cur_time;
-    // get temperature and humidity
-    now_val = sensor.sensing();
-    mqtt.updataData(now_val);
-    now_val.light = status_flag.led;
-    // // transmit status data to RPI4
+
+    // Update actuator status
     status_flag = getStatus(water_motor, humidifier, heat_pad, cool_fan, led_ctrl);
-    data = mqtt.makeStatusJson(status_flag);
-    data += "\n";
-    userial.statusTx(data.c_str());
-    data = "";
-    // transmit temperature and humidity data to web
+
+    // Get temperature and humidity data from sensors
+    now_val = sensor.sensing();
+
+    // Update data for MQTT and web
+    mqtt.updateData(now_val);
+    now_val.light = status_flag.led;
+
+    // Transmit status data to RPI4 
+    data = mqtt.makeStatusJson(status_flag) + "\n";
+    userial.tx(data.c_str());
+
+    // Transmit temperature and humidity data to web
     mqtt.makeJson();
     mqtt.tx();
   }
