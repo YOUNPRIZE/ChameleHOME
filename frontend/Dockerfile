@@ -35,5 +35,5 @@ COPY --from=builder /app/build /app/build
 #COPY --from=builder /app/build /usr/share/nginx/html	#builder로 부터 /app/build를 복사해옵니다.
 
 # 3000번 포트를 노출한다고 써놨지만, 이는 명시하기 위한 것으로 반드시 docker run의 옵션으로 포트 매핑을 해야함.
-EXPOSE 3000
+EXPOSE 80
 CMD ["nginx", "-g", "daemon off;"]
