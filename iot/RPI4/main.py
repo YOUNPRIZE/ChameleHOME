@@ -24,8 +24,10 @@ def generate_frames():
     cap = cv2.VideoCapture(0)
 
     # Set width and height  320,240
-    cap.set(3,1024)
-    cap.set(4,768)
+    #cap.set(3,512)
+    #cap.set(4,384)
+    cap.set(3,512)
+    cap.set(4,384)
 
     # Start loop 
     while True:
