@@ -101,6 +101,9 @@ struct MQTT {
     bool has_uv = doc.containsKey("uv");
 
     // Return true if any of the required keys are missing
-    return !(has_temp && has_humid && has_uv);
+    if(has_temp && !(has_humid && has_uv)) return true;
+    if(has_humid && !(has_temp && has_uv)) return true;
+    if(has_uv && !(has_temp && has_uv)) return true;
+    return false;
   }
 };

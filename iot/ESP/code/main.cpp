@@ -41,8 +41,8 @@ void onConnectionEstablished()
     // Error check
     err_flag = mqtt.errorCheck(doc);
     if(err_flag) {
-      // mqtt.errorTx(error_topic, "There is no key");
-      err_flag = 0;
+      mqtt.errorTx(error_topic, "There is no key");
+      err_flag = false;
       return;
     }
     // Extract temperature, humidity, and LED values from payload
@@ -64,10 +64,10 @@ void autoSet(Status set_flag) {
   if(humid_flag && set_flag.islock) {
     autoHumid(set_val, now_val, humidifier, cool_fan, humid_flag, err_flag);
   }
-  if(err_flag) {
-    // mqtt.errorTx(error_topic, "Desired value is out of range");
-    err_flag = 0;
-    humid_flag = temp_flag = 0;
+  if((temp_flag || humid_flag) && err_flag) {
+    mqtt.errorTx(error_topic, "Desired value is out of range");
+    err_flag = false;
+    humid_flag = temp_flag = false;
   }
   if(!status_flag.led && set_val.light) { led_ctrl.on(); }
   if(status_flag.led && !set_val.light) { led_ctrl.off(); }
@@ -96,9 +96,9 @@ void loop() {
   Status set_flag;
   set_flag = userial.rx();
   err_flag = userial.errorCheck();
-  if(err_flag) {
-    // userial.tx("error _There is no key_");
-    err_flag = 0;
+  if(!status_flag.islock && err_flag) {
+    userial.tx("error _There is no key_");
+    err_flag = false;
   }
 
   // Operate actuators based on RPI4 data
