@@ -43,10 +43,6 @@
   font-size: 3vh;
 }
 
-.infoSpace {
-  width: 20px;
-}
-
 .infoText {
   font-size: 2vh;
 }
@@ -58,7 +54,9 @@
 }
 
 .infoContainer {
+  padding: 0vh 3vw;
   display: flex;
+  justify-content: space-between;
   align-items: center;
 }
 

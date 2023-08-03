@@ -53,8 +53,6 @@
   object-fit: contain;
 }
 
-
-
 .cageName {
   font-size : 1.5vh;
   font-weight: bold;
@@ -62,7 +60,9 @@
 
 .noCage {
   font-size: 2vmax;
+  font-weight: bold;
 }
+
 
 /* 도감 컨테이너 */
 .mainDic {
@@ -70,9 +70,11 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  padding-bottom: 1vh;
 }
 
 .dicContainer {
+  margin: 2vh 0px 0px;
   height: 25vh;
 }
 
@@ -89,6 +91,7 @@
 .dicText {
   font-size: 2vh;
   font-weight: bold;
+  margin: 0px 0px;
 }
 
 /* 추천 상품 컨테이너 */
