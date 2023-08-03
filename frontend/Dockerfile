@@ -12,10 +12,12 @@ ENV PATH /app/node_modules/.bin:$PATH
 COPY . /app	
 
 # package.json에 명시된 의존성 설치
-RUN npm install	
+RUN npm install	--force
 
 # 빌드 시작
-RUN npm run build	
+# RUN npm run build
+
+RUN npm start
 
 # nginx 
 FROM nginx:latest
