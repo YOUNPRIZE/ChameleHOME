@@ -17,7 +17,6 @@ RUN npm install
 # 빌드 시작
 RUN npm run build	
 
-
 # nginx 
 FROM nginx:latest
 RUN mkdir /app
