@@ -24,28 +24,15 @@ export default function AnimalDetail():JSX.Element {
   const cageId:number = Number(useParams().cageId);
   const animalId:number = Number(useParams().animalId);
   const myAnimal = myAnimalStore(state => (state.animalsInCages[cageId])).find((animal) => (animal.animalId === animalId));
-  const genderIcon = ():JSX.Element => {
-    if (myAnimal?.gender === 'male') {
-      return <FontAwesomeIcon icon={faMars} color='blue' />
-    } else {
-      return <FontAwesomeIcon icon={faVenus} color='red' />
-    }
-  }
   
   // 이미지 불러오기
-  const matchImg = (animal:Animal|undefined):string => {
-    if (animal === undefined) {
-      return process.env.PUBLIC_URL+`/images/Not_Choosed.jpg`
-    }
-    const imgFileName = data[animal.species as keyof typeof data]
-    return process.env.PUBLIC_URL+`/images/${imgFileName}`
-  }
+  const imgUrl = process.env.PUBLIC_URL+`/images/${myAnimal?.photo}`
 
   return (
     <>
     {/* 이미지 */}
     <div className={`${style.infoContainer} ${style.imgContainer}`}>
-      <img src={matchImg(myAnimal)} alt="" className={`${style.infoImg}`}/>
+      <img src={imgUrl} alt="" className={`${style.infoImg}`}/>
     </div>
     {/* 기본 정보 */}
     <div className={`${style.infoContainer} ${style.basicInfoContainer}`}>

@@ -16,7 +16,7 @@ interface Props {
 
 export default function CageItemLong(props:Props):JSX.Element {
   // 이미지 변수
-  const imgUrl:string = process.env.PUBLIC_URL+`/images/${props.cage.cageImg}`
+  const imgUrl:string = process.env.PUBLIC_URL+`/images/${props.cage.category}.jpeg`
 
   // 케이지 내부 환경 정보
   const [nowTem, setNowTem] = useState(0);

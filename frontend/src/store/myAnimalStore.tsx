@@ -10,10 +10,10 @@ const test = {
       species : "공비단뱀",
       name : "뱀1",
       gender : "female",
-      age : 5,
       birth : new Date("2022-02-01"),
       issue : "특이사항 없음",
       created_at : new Date(),
+      photo: "Ball_Python.jpg"
     },
     {
       animalId : 2,
@@ -21,10 +21,10 @@ const test = {
       species : "서부구렁이",
       name : "뱀2",
       gender : "male",
-      age : 5,
       birth : new Date("2022-02-01"),
       issue : "특이사항 없음",
       created_at : new Date(),
+      photo:"Black_Rat_Snake.jpg"
     },
     {
       animalId : 3,
@@ -32,10 +32,10 @@ const test = {
       species : "왕뱀",
       name : "뱀3",
       gender : "male",
-      age : 5,
       birth : new Date("2022-02-01"),
       issue : "특이사항 없음",
       created_at : new Date(),
+      photo:"Boa_Constrictor.jpg"
     },
     {
       animalId : 4,
@@ -43,10 +43,10 @@ const test = {
       species : "모렐리아브레들리",
       name : "뱀4",
       gender : "male",
-      age : 5,
       birth : new Date("2022-02-01"),
       issue : "특이사항 없음",
       created_at : new Date(),
+      photo:"Bredl's_Python.jpg"
     },
   ],
   2: [
@@ -60,6 +60,7 @@ const test = {
       birth : new Date("2022-02-01"),
       issue : "특이사항 없음",
       created_at : new Date(),
+      photo: "Burmese_Python.jpg"
     },
   ],
   3 : [],
@@ -74,10 +75,10 @@ export interface Animal {
   species : string;
   name : string;
   gender : string;
-  age : number;
   birth : Date;
   issue : string;
   created_at : Date;
+  photo: string;
 }
 
 // 케이지별 동물들 리스트 정의

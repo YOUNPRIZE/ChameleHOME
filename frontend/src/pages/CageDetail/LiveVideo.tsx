@@ -1,6 +1,6 @@
 // 훅 import 
 import { useParams } from 'react-router-dom';
-import { useEffect } from 'react'
+import { useEffect, useRef } from 'react'
 // 상태 정보 import
 import { nowPageStore } from 'store/myPageStore';
 import { myCagesStore } from 'store/myCageStore';
@@ -30,10 +30,12 @@ export default function LiveVideo():JSX.Element {
     console.log("capture")
   }
 
+  // 영상 크기 조절
+
   return (
     <>
       <div className={`${style.videoContainer}`}>
-        <h1>비디오를 넣어주세오</h1>
+        <iframe src="http://192.168.114.97:5000/" className={style.liveVideo}/>
       </div>
       <div className={`${style.btnContainer}`}>
         <div className={`${style.btnRow}`}>   

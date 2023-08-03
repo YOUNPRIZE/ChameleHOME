@@ -13,6 +13,7 @@ export default function AddBtn(props:{feature:Function}):JSX.Element {
     margin: "1vh",
     borderRadius: '10px',
     fontSize: "2.5vh",
+    fontWeight: "bold",
     Border: "none"
   }
   return (

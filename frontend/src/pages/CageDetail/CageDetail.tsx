@@ -5,9 +5,9 @@ import { myCagesStore } from 'store/myCageStore';
 import { myAnimalStore } from 'store/myAnimalStore';
 // 컴포넌트 import
 import CageInfo from './CageInfo';
-import AnimalList from './AnimalList';
-import AddAnimal from './AddAnimal';
-import AnimalDetail from './AnimalDetail';
+import AnimalList from './Animal/AnimalList';
+import AddAnimal from './Animal/AddAnimal';
+import AnimalDetail from './Animal/AnimalDetail';
 import LiveVideo from './LiveVideo';
 import AlarmSetting from './AlarmSetting';
 import AutoSetting from './AutoSetting';

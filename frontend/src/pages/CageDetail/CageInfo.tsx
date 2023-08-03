@@ -1,12 +1,13 @@
 // 훅 import 
 import { useNavigate, Link, useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react'
+import { Client, Message } from 'paho-mqtt';
 // 상태 정보 import
 import { nowPageStore } from 'store/myPageStore';
 import { myCagesStore } from 'store/myCageStore';
 import { myAnimalStore } from 'store/myAnimalStore';
 // 컴포넌트 import
-import EachAnimal1 from 'components/EachAnimal1';
+import AnimalItemShort from 'components/CageDatail/Animal/AnimalItemShort';
 // 스타일 import
 import style from 'styles/CageDetail/CageDetail.module.css'
 import 'bootstrap/dist/css/bootstrap.min.css'
@@ -24,9 +25,6 @@ export default function CageInfo():JSX.Element {
     changePage("케이지 정보");
   })
 
-  // 네비게이터 선언
-  const navigate = useNavigate();
-
   // 케이지, 동물들 정보
   const cageId = Number(useParams().cageId);
   const myCage = myCagesStore(state => (state.cages)).find((cage) => (cage.cageId === cageId));
@@ -42,24 +40,41 @@ export default function CageInfo():JSX.Element {
   }
 
   // 실시간 케이지 내부 환경 정보
-  const [nowTem, setNowTem] = useState(25);
-  const [nowHum, setNowHum] = useState(50);
-  const [nowUv, setnowUv] = useState("On");
+  const [nowTem, setNowTem] = useState(0);
+  const [nowHum, setNowHum] = useState(0);
+  const [nowUv, setNowUv] = useState("");
+
   useEffect(() => {
-    // 실시간 정보 받아오기(코드 변경해야함)
-    let idx: number = 0;
-    const setCircum = () => {
-      const tmpTem: number[] = [30, 31, 32, 31];
-      const tmpHum: number[] = [50, 60, 70, 60];
-      const tmpUv: boolean[] = [true, false, true, false];
-      idx = (idx + 1) % 4;
-      // 변수 확정
-      setNowTem(tmpTem[idx]);
-      setNowHum(tmpHum[idx]);
-      setnowUv(tmpUv[idx]? "On":"Off");
+    // MQTT 브로커에 커넥트
+    const client = new Client("18.233.166.123", 3000, "client");
+    client.connect({
+      // 커넥트에 성공
+      onSuccess: () => {
+        console.log("MQTT Connection Success");
+        client.subscribe("serialnumber/sensorval"); // 센서 정보를 받을 토픽
+      },
+      // 
+      onFailure: (err) => {
+        console.log("MQTT Connection Error:", err);
+      }
+    });
+
+    // 토픽에서 메시지를 받을 때 실행되는 콜백 함수
+    client.onMessageArrived = (message: Message) => {
+      const topic = message.destinationName;
+      const payload = message.payloadString;
+      // 토픽에 따라 상태 정보 업데이트
+      const sensorInfo = JSON.parse(payload);
+      setNowTem(Number(sensorInfo.Temp));
+      setNowHum(Number(sensorInfo.Humid));
+      setNowUv(sensorInfo.uv === "0"? "Off" : "On");
+      console.log(sensorInfo)
     };
-    const intervalId = setInterval(setCircum, 1000);
-    return () => clearInterval(intervalId);
+
+    // 컴포넌트가 언마운트되면 MQTT 연결 해제
+    return () => {
+      client.disconnect();
+    };
   }, []);
 
   // 페이지 렌더링
@@ -80,7 +95,7 @@ export default function CageInfo():JSX.Element {
         <div className='d-flex justify-content-center align-items-center col-10 mx-0 px-0 gx-5'>
           {myAnimals.length !== 0 ? 
           myAnimals.map((animal, index) => (
-            <EachAnimal1 key={animal.animalId} cageId={cageId} animal={animal} index={index} order={mainCageOrder}/>
+            <AnimalItemShort key={animal.animalId} cageId={cageId} animal={animal} index={index} order={mainCageOrder}/>
           ))
           : <h1 className={style.noCage}>케이지가 비었어요!</h1> }
         </div>

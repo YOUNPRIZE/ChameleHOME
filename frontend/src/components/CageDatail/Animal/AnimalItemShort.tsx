@@ -1,10 +1,10 @@
 // 함수 import
 import { useNavigate } from "react-router-dom";
 // 상태정보 import
-import { Animal } from "../store/myAnimalStore"
-import data from "../constants/AnimalToImage.json"
+import { Animal } from "store/myAnimalStore"
+import data from "constants/AnimalToImage.json"
 // 스타일 import
-import style from '../styles/CageDetail/CageDetail.module.css'
+import style from 'styles/CageDetail/CageDetail.module.css'
 import 'bootstrap/dist/css/bootstrap.min.css'
 
 
@@ -15,7 +15,7 @@ interface Props {
   order: number;
 }
 
-export default function EachAnimal1(props:Props):JSX.Element {
+export default function AnimalItemShort(props:Props):JSX.Element {
 
   // 이미지 주소
   const species:string = props.animal.species
