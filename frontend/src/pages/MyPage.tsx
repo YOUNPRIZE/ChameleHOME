@@ -1,12 +1,15 @@
+// 훅 import
 import { useEffect } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
-import { nowPageStore } from '../store/store';
-import { userInfoStore, userInfoState } from '../store/userInfoStore';
-import style from '../styles/MyPage.module.css'
+import { useNavigate } from 'react-router-dom';
+// 상태정보 import
+import { nowPageStore } from 'store/myPageStore';
+import { userInfoStore, userInfoState } from 'store/userInfoStore';
+// 스타일 import
+import style from 'styles/MyPage.module.css'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faArrowRightToBracket, faSpellCheck, faPhone } from '@fortawesome/free-solid-svg-icons'
-import testImg from '../assets/test.jpg'
+import testImg from 'assets/test.jpg'
 
 
 export default function MyPage():JSX.Element {
@@ -33,8 +36,8 @@ export default function MyPage():JSX.Element {
       <div className={style.imgContainer}>
         <img src={testImg} alt="" className={style.profileImg}/>
       </div>
+      {/* 카드(사용자 정보 영역) */}
       <div className={style.cardContainer}>
-        {/* 카드(사용자 정보 영역) */}
         <div className={style.myInfo}>
           <div className={style.farContainer}>
             <h2 className={style.myName}>{userInfo.userId}</h2>
@@ -44,12 +47,10 @@ export default function MyPage():JSX.Element {
           </div>
           <div className={style.infoContainer}>
             <FontAwesomeIcon icon={faSpellCheck} className={style.infoIcon}/>
-            <span className={style.infoSpace}></span>
             <span className={style.infoText}>{userInfo.nickName}</span>
           </div>
           <div className={style.infoContainer}>
             <FontAwesomeIcon icon={faPhone} className={style.infoIcon}/>
-            <span className={style.infoSpace}></span>
             <span className={style.infoText}>{userInfo.phoneNumber}</span>
           </div>
         </div>
