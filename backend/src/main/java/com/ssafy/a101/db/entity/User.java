@@ -27,20 +27,24 @@ public class User {
     @Column(name = "number", updatable = false)
     private Long number;
 
+    @Column(name = "user_img", updatable = true)
+    private String user_img;
+
     @Builder
-    public User(Long id, String user_id, String password, String nickname, Long  number){
-        this.id = id;
+    public User( String user_id, String password, String nickname, Long  number, String user_img){
         this.user_id = user_id;
         this.password = password;
         this.nickname = nickname;
         this.number = number;
+        this.user_img = user_img;
     }
 
-    public void update(String user_id, String password, String nickname, Long  number){
+    public void update(String user_id, String password, String nickname, Long  number, String user_img){
         this.user_id = user_id;
         this.password = password;
         this.nickname = nickname;
         this.number = number;
+        this.user_img = user_img;
     }
 
 

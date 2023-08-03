@@ -17,15 +17,16 @@ public class AddUserRequest {
     private  String password;
     private String nickname;
     private Long number;
+    private String user_img;
 
 
     public User toEntity(){
         return User.builder()
-                .id(id)
                 .user_id(user_id)
                 .password(password)
                 .nickname(nickname)
                 .number(number)
+                .user_img(user_img)
                 .build();
     }
 
