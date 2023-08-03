@@ -1,16 +1,14 @@
 package com.ssafy.a101.api.controller;
 
 import com.ssafy.a101.api.request.AddAriticleRequest;
+import com.ssafy.a101.api.request.UpdateArticleRequest;
 import com.ssafy.a101.api.response.ArticleResponse;
 import com.ssafy.a101.api.service.BlogService;
 import com.ssafy.a101.db.entity.Article;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -31,6 +29,8 @@ public class BlogApiController {
                 .body(savedArticle);
     }
 
+
+    // 전체 블로그를 조회한다.
     @GetMapping("/api/articles")
     public ResponseEntity<List<ArticleResponse>> findAllArticles(){
         List<ArticleResponse> articles = blogService.findALL()
@@ -41,6 +41,36 @@ public class BlogApiController {
 
         return ResponseEntity.ok()
                 .body(articles);
+    }
+
+    // 특정 값만 조회를 한다.
+    @GetMapping("/api/article/{id}")
+    //url에서 경로를 추출한다.
+    public ResponseEntity<ArticleResponse> findArticle(@PathVariable long id){
+        Article article = blogService.findById(id);
+
+        return ResponseEntity.ok()
+                .body(new ArticleResponse(article));
+        //id에 들어온 값을 조회한다.
+    }
+
+    // 요청이 들어오면 지우기
+    @DeleteMapping("/api/article/{id}")
+    public  ResponseEntity<Void> deleteArticle(@PathVariable long id){
+        blogService.delete(id);
+
+        return ResponseEntity.ok()
+                .build();
+    }
+
+    // 글 수정 메서드
+    @PutMapping("/api/articles/{id}")
+    public ResponseEntity<Article> updateArtilce(@PathVariable long id,
+                 @RequestBody UpdateArticleRequest request) {
+        Article updatedArticle = blogService.update(id, request);
+
+        return ResponseEntity.ok()
+                .body(updatedArticle);
     }
 
 }

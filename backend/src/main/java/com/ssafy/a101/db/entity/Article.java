@@ -1,7 +1,6 @@
 package com.ssafy.a101.db.entity;
 
 import lombok.*;
-
 import javax.persistence.*;
 
 @Entity
@@ -23,6 +22,11 @@ public class Article {
     @Builder
     public Article(String title, String content) {
         this.title = title;
+        this.content = content;
+    }
+
+    public void update(String title, String content){
+        this.title =title;
         this.content = content;
     }
 
