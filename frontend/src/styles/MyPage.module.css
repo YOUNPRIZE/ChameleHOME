@@ -1,0 +1,83 @@
+.imgContainer{
+  width: 100%;
+  height: 40vh;
+}
+
+.profileImg {
+  width: 100vw;
+  height: 100%;
+  object-fit: cover;
+}
+
+.cardContainer {
+  position: fixed;
+  top: 40vh;
+  background-color: white;
+  width: 100%;
+  height: 50vh;
+  border-radius: 185px / 50px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 5vh;
+}
+
+.myInfo {
+  background-color: white;
+  width: 90%;
+  height: 25vh;
+  border-radius: 50px / 50px;
+  box-shadow: 3px 3px 20px 3px gray;
+  padding: 2vh 10vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.myName {
+  font-weight: bold;
+  font-size: 4vh;
+}
+
+.infoIcon {
+  font-size: 3vh;
+}
+
+.infoText {
+  font-size: 2vh;
+}
+
+.logOut {
+  font-size: 2vh;
+  text-decoration: none;
+  color: red;
+}
+
+.infoContainer {
+  padding: 0vh 3vw;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.farContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.btnContainer {
+  width: 80%;
+  margin-top: 5vh;
+  height: 5vh;
+}
+
+.btn {
+  width: 40%;
+  height: 100%;
+  border-radius: 30px / 30px;
+  background-color: white;
+  box-shadow: 4px 4px 5px 3px lightgray;
+  border: none;
+  font-size: 3vmin;
+}
