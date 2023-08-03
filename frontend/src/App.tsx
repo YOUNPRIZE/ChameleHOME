@@ -11,22 +11,18 @@ import Header from './components/Header';
 import Footer from './components/Footer';
 // 페이지 import
 import Main from "./pages/Main";
-import Login from "./pages/Login";
-import SignUp from "./pages/SignUp";
+import Login from "./pages/Auth/Login";
+import SignUp from "./pages/Auth/SignUp";
 import MyPage from "./pages/MyPage";
-import Cages from "./pages/Cages";
-import AddCage from "./pages/AddCage";
-import CageDeatil from "./pages/CageDetail";
-import DicList from "./pages/DicList";
-import DicDetail from "./pages/DicDetail";
+import Cages from "./pages/Cage/Cages";
+import AddCage from "./pages/Cage/AddCage";
+import CageDeatil from "./pages/CageDetail/CageDetail";
+import Dictionray from "pages/Dictionary/Dictionary";
+
 
 function App(): JSX.Element {
   // 로그인 여부 판단
-  const userInfo = userInfoStore();
-  const [isLoggedIn, setIsLoggedIn] = useState(userInfo.id !== 0);
-  useEffect(() => {
-    setIsLoggedIn(userInfo.id !== 0);
-  }, [userInfo.id]);
+  const isLoggedIn = userInfoStore(state => state.isLoggedIn)
 
   // 랜더링
   return (
@@ -34,16 +30,15 @@ function App(): JSX.Element {
       <div className="App">
         <Header />
         <Routes>
-          <Route path="/Login" element={<Login />} />
-          <Route path="/SignUp" element={<SignUp />} />
+          <Route path="/Login" element={isLoggedIn?  <Main /> : <Login />} />
+          <Route path="/SignUp" element={isLoggedIn?  <Main /> : <SignUp />} />
           {/* 이 밑으론 로그인 후에 접속 가능 */}
           <Route path="/" element={isLoggedIn? <Main /> : <Navigate replace to="/login"/>} />
           <Route path="/MyPage" element={isLoggedIn? <MyPage /> : <Navigate replace to="/login"/>} />
+          <Route path="/Dictionary/*" element={isLoggedIn? <Dictionray /> : <Navigate replace to="/login"/>} />
           <Route path="/Cages" element={isLoggedIn? <Cages /> : <Navigate replace to="/login"/>} />
           <Route path="/AddCage" element={isLoggedIn? <AddCage /> : <Navigate replace to="/login"/>} />
-          <Route path="/DicList" element={isLoggedIn? <DicList /> : <Navigate replace to="/login"/>} />
-          <Route path="/CageDetail/:cageId" element={isLoggedIn? <CageDeatil /> : <Navigate replace to="/login"/>} />
-          <Route path="/DicDetail/:species" element={isLoggedIn? <DicDetail /> : <Navigate replace to="/login"/>} />
+          <Route path="/CageDetail/:cageId/*" element={isLoggedIn? <CageDeatil /> : <Navigate replace to="/login"/>} />
         </Routes>
         <Footer isLogged={isLoggedIn}/>
       </div>
