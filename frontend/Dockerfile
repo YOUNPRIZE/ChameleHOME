@@ -9,15 +9,14 @@ ENV NODE_ENV development
 ENV PATH /app/node_modules/.bin:$PATH
 
 # 현재 파일을 이미지의 /app 위치에 복사
-COPY . /app	
+COPY  package.json .
+COPY . .
 
 # package.json에 명시된 의존성 설치
 RUN npm install	--force
 
 # 빌드 시작
-# RUN npm run build
-
-RUN npm start
+RUN npm run build
 
 # nginx 
 FROM nginx:latest
