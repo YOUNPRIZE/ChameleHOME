@@ -17,8 +17,7 @@ import MyPage from "./pages/MyPage";
 import Cages from "./pages/Cage/Cages";
 import AddCage from "./pages/Cage/AddCage";
 import CageDeatil from "./pages/CageDetail/CageDetail";
-import DicList from "./pages/Dictionary/DicList";
-import DicDetail from "./pages/Dictionary/DicDetail";
+import Dictionray from "pages/Dictionary/Dictionary";
 
 
 function App(): JSX.Element {
@@ -36,8 +35,7 @@ function App(): JSX.Element {
           {/* 이 밑으론 로그인 후에 접속 가능 */}
           <Route path="/" element={isLoggedIn? <Main /> : <Navigate replace to="/login"/>} />
           <Route path="/MyPage" element={isLoggedIn? <MyPage /> : <Navigate replace to="/login"/>} />
-          <Route path="/DicList" element={isLoggedIn? <DicList /> : <Navigate replace to="/login"/>} />
-          <Route path="/DicDetail/:species" element={isLoggedIn? <DicDetail /> : <Navigate replace to="/login"/>} />
+          <Route path="/Dictionary/*" element={isLoggedIn? <Dictionray /> : <Navigate replace to="/login"/>} />
           <Route path="/Cages" element={isLoggedIn? <Cages /> : <Navigate replace to="/login"/>} />
           <Route path="/AddCage" element={isLoggedIn? <AddCage /> : <Navigate replace to="/login"/>} />
           <Route path="/CageDetail/:cageId/*" element={isLoggedIn? <CageDeatil /> : <Navigate replace to="/login"/>} />

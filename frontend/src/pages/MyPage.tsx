@@ -1,6 +1,6 @@
 // 훅 import
 import { useEffect } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 // 상태정보 import
 import { nowPageStore } from 'store/myPageStore';
 import { userInfoStore, userInfoState } from 'store/userInfoStore';
@@ -36,8 +36,8 @@ export default function MyPage():JSX.Element {
       <div className={style.imgContainer}>
         <img src={testImg} alt="" className={style.profileImg}/>
       </div>
+      {/* 카드(사용자 정보 영역) */}
       <div className={style.cardContainer}>
-        {/* 카드(사용자 정보 영역) */}
         <div className={style.myInfo}>
           <div className={style.farContainer}>
             <h2 className={style.myName}>{userInfo.userId}</h2>
@@ -47,12 +47,10 @@ export default function MyPage():JSX.Element {
           </div>
           <div className={style.infoContainer}>
             <FontAwesomeIcon icon={faSpellCheck} className={style.infoIcon}/>
-            <span className={style.infoSpace}></span>
             <span className={style.infoText}>{userInfo.nickName}</span>
           </div>
           <div className={style.infoContainer}>
             <FontAwesomeIcon icon={faPhone} className={style.infoIcon}/>
-            <span className={style.infoSpace}></span>
             <span className={style.infoText}>{userInfo.phoneNumber}</span>
           </div>
         </div>
