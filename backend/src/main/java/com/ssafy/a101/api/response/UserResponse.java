@@ -1,19 +1,27 @@
 package com.ssafy.a101.api.response;
 
+
 import com.ssafy.a101.db.entity.User;
 import lombok.Getter;
 
 @Getter
-public class UserRes {
+public class UserResponse {
+
+    private final Long id;
     private final String user_id;
     private final String password;
     private final String nickname;
-    private final int number;
+    private final Long number;
+    private final String user_img;
 
-    public UserRes(User user) {
+    public UserResponse(User user){
+        this.id = user.getId();
         this.user_id = user.getUser_id();
         this.password = user.getPassword();
         this.nickname = user.getNickname();
         this.number = user.getNumber();
+        this.user_img = user.getUser_img();
+
+
     }
 }
