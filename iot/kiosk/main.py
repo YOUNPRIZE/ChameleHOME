@@ -1,22 +1,18 @@
+#!/usr/bin/env python3 
+
 #qt
 from PySide2.QtWidgets import *
 from kiosk import Ui_MainWindow
+from PySide2.QtCore import Qt
 
-#mqtt communication
-import paho.mqtt.client as mqtt
+#uart communication
+import serial
 import json
 
 #multi threading
 import threading
-import time
+from time import sleep
 
-'''
-global led_status 
-global waterfall_status 
-global humidity_status 
-global fan_status 
-global heater_status 
-'''
 
 def is_on(i):
     if i == "ON":
@@ -24,129 +20,130 @@ def is_on(i):
     else:
         return False
 
+
 def is_off(i):
     if i == "OFF":
         return True
     else:
         return False
 
-def on_connect(client, userdata, flags, rc):
-    client.subscribe("actstatus")
 
-
-def on_message(client, userdata, msg):
-    data = json.loads(msg.payload.decode('utf-8', 'ignore'))
-    if msg.topic == "actstatus":
-        win.temp_val.setText(data["Temp"][0:2])
-        win.humid_val.setText(data["Humid"][0:2])
-        if is_off(data["cooling_fan"]):
-            win.fan_btn.setText("ON")
-        else:
-            win.fan_btn.setText("OFF")
-
-        if is_off(data["waterfall"]):
-            win.waterfall_btn.setText("ON")
-        else:
-            win.waterfall_btn.setText("OFF")
-
-        if is_off(data["humidifier"]):
-            win.humidifier_btn.setText("ON")
-        else:
-            win.humidifier_btn.setText("OFF")
-
-        if is_off(data["heat_pad"]):
-            win.heat_btn.setText("ON")
-        else:
-            win.heat_btn.setText("OFF")
-    print(data)
-
-'''
-        fan_status = is_on(data["cooling_fan"])
-        waterfall_status = is_on(data["waterfall"])
-        humidity_status = is_on(data["humidifier"])
-        heater_status = is_on(data["heat_pad"])
-'''
-
-def mqtt_thread():
+# thread for recieving Actuator and sense data from ESP32 with Serial
+def recieve_thread():
     while True:
-        client.loop_forever()
+        if ser.readable():
+            res = ser.readline()
+            data = json.loads(res.decode()[:-1])
+            print(data)
+            win.temp_val.setText(data["Temp"][0:2])
+            win.humid_val.setText(data["Humid"][0:2])
+            
+            win.fan_btn.setChecked(data["cooling_fan"])
+            win.waterfall_btn.setChecked(data["waterfall"])
+            win.humidifier_btn.setChecked(data["humidifier"])
+            win.heat_btn.setChecked(data["heat_pad"])
 
-def on_publish(client, userdata, mid):
-    print("In on_pub callback mid= ", mid)
 
-def act_publish(i):
-    pub_data = { "LED" : 0, "heat_pad" : False, "cooling_fan" : False, "humidifier" : False, "waterfall" : False }
-    pub_data["heat_pad"] = is_off(i.heat_btn.text())
-    pub_data["cooling_fan"] = is_off(i.fan_btn.text())
-    pub_data["humidifier"] = is_off(i.humidifier_btn.text())
-    pub_data["waterfall"] = is_off(i.waterfall_btn.text())
+#transmit Actuator data to ESP32 with Serial
+def act_publish():
+    pub_data = { "LED" : 0, "heat_pad" : False, "cooling_fan" : False, "humidifier" : False, "waterfall" : False, "lock" : 1}
+    if not win.lock_btn.isChecked():
+        return
+    else:
+        pub_data["lock"] =  0
+    pub_data["LED"] = win.horizontalSlider.value()
+    pub_data["heat_pad"] = win.heat_btn.isChecked()
+    pub_data["cooling_fan"] = win.fan_btn.isChecked()
+    pub_data["humidifier"] = win.humidifier_btn.isChecked()
+    pub_data["waterfall"] = win.waterfall_btn.isChecked()
     pub_data = json.dumps(pub_data)
-    client.publish("actset", pub_data)
-
+    ser.write(pub_data.encode('utf-8'))
+    
 class MyApp(QMainWindow, Ui_MainWindow):
     def __init__(self):
         super().__init__()
         Ui_MainWindow.setupUi(self, self)
         self.main()
-
+         
     def main(self):
+        self.showFullScreen()
+        self.setCursor(Qt.BlankCursor)
         pass
-    
+   
+    #btn signal function for actuator
     def fan_on(self):
-        print("fan")
-        if is_on(self.fan_btn.text()):
-            self.fan_btn.setText("OFF")
-        else:
-            self.fan_btn.setText("ON")
-        act_publish(self)
-        time.sleep(0.5)
+        if win.lock_btn.isChecked():
+            print("fan")
+            act_publish()
+            sleep(1)
+            return
+        win.fan_btn.setChecked(not win.fan_btn.isChecked())
+        print("locked")
 
     def heat_on(self):
-        print("heat")
-        if is_on(self.heat_btn.text()):
-            self.heat_btn.setText("OFF")
-        else:
-            self.heat_btn.setText("ON")
-        act_publish(self)
-        time.sleep(0.5)
+        if win.lock_btn.isChecked():
+            print("heat")
+            act_publish()
+            sleep(1)
+            return
+        win.heat_btn.setChecked(not win.heat_btn.isChecked())
+        print("locked")
 
     def humidifier_on(self):
-        print("humi")
-        if is_on(self.humidifier_btn.text()):
-            self.humidifier_btn.setText("OFF")
-        else:
-            self.humidifier_btn.setText("ON")
-        act_publish(self) 
-        time.sleep(0.5)
+        if win.lock_btn.isChecked():
+            print("humi")
+            act_publish() 
+            sleep(1)
+            return
+        win.humidifier_btn.setChecked(not win.humidifier_btn.isChecked())
+        print("locked")
 
     def waterfall_on(self):
-        print("water")
-        if is_on(self.waterfall_btn.text()):
-            self.waterfall_btn.setText("OFF")
+        if win.lock_btn.isChecked():
+            print("waterfall")
+            act_publish()
+            sleep(1)
+            return
+        win.waterfall_btn.setChecked(not win.waterfall_btn.isChecked())
+        print("locked")
+
+    def led_on(self):
+        if win.lock_btn.isChecked():
+            print("led")
+            act_publish()
+            sleep(1)
+            return
+        print("locked")
+         
+    def lock_on(self):
+        act_publish()
+        sleep(1)
+
+    # user friendly feature
+    def dark_mode_on(self):
+        if win.dark_mode_btn.isChecked():
+            win.setStyleSheet("background-color:#292A2D;")
         else:
-            self.waterfall_btn.setText("ON")
-        act_publish(self)
-        time.sleep(0.5)
+            win.setStyleSheet("background-color:#F4F6F8;")
 
-    def temp_lock(self):
-        print("tlock")
-
-    def humid_lock(self):
-        print("hlock")
-    
-client = mqtt.Client()
-client.on_connect = on_connect
-client.on_message = on_message
-client.connect("18.233.166.123", 1883, 60)
+    def left_mode_on(self):
+        if win.left_mode_btn.isChecked():
+            win.sense_layout.move(570,210)
+            win.actuator_layout.move(60,168)
+        else:
+            win.sense_layout.move(60,210)
+            win.actuator_layout.move(550,168)
 
 
 app = QApplication()
 win = MyApp()
-
+ser = serial.Serial('/dev/ttyAMA2', 115200)
 
 def main():
+    
+    # multithreading
     try:
-        t1 = threading.Thread(target=mqtt_thread)
+        t1 = threading.Thread(target=recieve_thread)
         t1.start()
         win.show()
         app.exec_()
