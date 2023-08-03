@@ -1,0 +1,29 @@
+.additionalLink {
+  text-decoration: none;
+  color:#5cb15a;
+  font-weight: bold;
+}
+
+.loginBtn{
+  width: 100%;
+  margin-top: 3vh;
+  background-color: #5cb15a;
+  color: black;
+}
+
+.authForm {
+  height: 80vh;
+}
+
+.inputForm {
+  height: 5vh;
+}
+
+.textSize {
+  font-size: 2vh;
+  font-weight: bold;
+}
+
+.imgSize {
+  object-fit: contain;
+}

@@ -1,0 +1,76 @@
+package com.ssafy.a101.api.controller;
+
+import com.ssafy.a101.api.request.AddAriticleRequest;
+import com.ssafy.a101.api.request.UpdateArticleRequest;
+import com.ssafy.a101.api.response.ArticleResponse;
+import com.ssafy.a101.api.service.BlogService;
+import com.ssafy.a101.db.entity.Article;
+import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.stream.Collectors;
+
+@RequiredArgsConstructor
+@RestController // http response blog  에 객체 데이터를 json  형식으로 반환하는 컨트롤러
+public class BlogApiController {
+
+    private final BlogService blogService;
+
+    //Http 메서드가 post 일때 전달받은 url과 동일하면 메서드로 매핑
+    @PostMapping("/api/articles")
+    //요청 본문 값 매핑
+    public ResponseEntity<Article> addArticle(@RequestBody AddAriticleRequest request){
+        Article savedArticle = blogService.save(request);
+        //요청한 자원이 성공적으로 생성되었으며 저장된 블로그 글 정보를 응답객체에 담아 전송
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .body(savedArticle);
+    }
+
+
+    // 전체 블로그를 조회한다.
+    @GetMapping("/api/articles")
+    public ResponseEntity<List<ArticleResponse>> findAllArticles(){
+        List<ArticleResponse> articles = blogService.findALL()
+                .stream()
+                .map(ArticleResponse::new)
+                //.toList()  .//자바 16 이상 사용가능
+                .collect(Collectors.toList()); // 위랑 같은 기능
+
+        return ResponseEntity.ok()
+                .body(articles);
+    }
+
+    // 특정 값만 조회를 한다.
+    @GetMapping("/api/article/{id}")
+    //url에서 경로를 추출한다.
+    public ResponseEntity<ArticleResponse> findArticle(@PathVariable long id){
+        Article article = blogService.findById(id);
+
+        return ResponseEntity.ok()
+                .body(new ArticleResponse(article));
+        //id에 들어온 값을 조회한다.
+    }
+
+    // 요청이 들어오면 지우기
+    @DeleteMapping("/api/article/{id}")
+    public  ResponseEntity<Void> deleteArticle(@PathVariable long id){
+        blogService.delete(id);
+
+        return ResponseEntity.ok()
+                .build();
+    }
+
+    // 글 수정 메서드
+    @PutMapping("/api/articles/{id}")
+    public ResponseEntity<Article> updateArtilce(@PathVariable long id,
+                 @RequestBody UpdateArticleRequest request) {
+        Article updatedArticle = blogService.update(id, request);
+
+        return ResponseEntity.ok()
+                .body(updatedArticle);
+    }
+
+}
