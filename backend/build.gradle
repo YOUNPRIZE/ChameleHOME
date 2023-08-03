@@ -29,6 +29,9 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	implementation 'org.springframework.boot:spring-boot-starter-web-services'
+
+//	implementation 'com.zaxxer:HikariCP:3.4.5' // HikariCP 추가
+
 	runtimeOnly 'com.h2database:h2'
 	compileOnly 'org.projectlombok:lombok'
 	annotationProcessor 'org.projectlombok:lombok'
@@ -38,10 +41,10 @@ dependencies {
 //	implementation group: 'io.springfox', name: 'springfox-boot-starter', version: '3.0.0'
 	// https://mvnrepository.com/artifact/org.eclipse.paho/org.eclipse.paho.client.mqttv3
 	implementation group: 'org.eclipse.paho', name: 'org.eclipse.paho.client.mqttv3', version: '1.2.5'
+	implementation 'mysql:mysql-connector-java:8.0.34' // MySQL JDBC 드라이버 의존성 추가
 
-
-
-	implementation 'mysql:mysql-connector-java:8.0.26' // MySQL JDBC 드라이버 의존성 추가
+	implementation 'com.github.gavlyukovskiy:p6spy-spring-boot-starter:1.7.1'
+	runtimeOnly 'com.github.gavlyukovskiy:p6spy-spring-boot-starter:1.7.1'
 
 
 }
@@ -49,3 +52,5 @@ dependencies {
 tasks.named('test') {
 	useJUnitPlatform()
 }
+
+// 발표준비를 하였습니다.
