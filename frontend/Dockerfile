@@ -9,13 +9,14 @@ ENV NODE_ENV development
 ENV PATH /app/node_modules/.bin:$PATH
 
 # 현재 파일을 이미지의 /app 위치에 복사
-COPY . /app	
+COPY  package.json .
+COPY . .
 
 # package.json에 명시된 의존성 설치
-RUN npm install	
+RUN npm install	--force
 
 # 빌드 시작
-RUN npm run build	
+RUN npm run build
 
 # nginx 
 FROM nginx:latest
@@ -35,5 +36,5 @@ COPY --from=builder /app/build /app/build
 #COPY --from=builder /app/build /usr/share/nginx/html	#builder로 부터 /app/build를 복사해옵니다.
 
 # 3000번 포트를 노출한다고 써놨지만, 이는 명시하기 위한 것으로 반드시 docker run의 옵션으로 포트 매핑을 해야함.
-EXPOSE 80
+EXPOSE 3000
 CMD ["nginx", "-g", "daemon off;"]
