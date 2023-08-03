@@ -37,7 +37,7 @@ public class UserService {
     public User update(long user_id, UpdateUserRequest request){
         User user = userRepository.findById(user_id)
                 .orElseThrow(()-> new IllegalArgumentException(("없뎃안되는데용") + user_id));
-        user.update(request.getUser_id(), request.getPassword(), request.getNickname(), request.getNumber());
+        user.update(request.getUser_id(), request.getPassword(), request.getNickname(), request.getNumber(), request.getUser_img());
         return user;
     }
 

@@ -16,4 +16,5 @@ public class UpdateUserRequest {
     private String password;
     private String nickname;
     private Long number;
+    private String user_img;
 }
