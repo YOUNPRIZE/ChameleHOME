@@ -15,6 +15,8 @@
 #define BROCKERIP "" // MQTT Broker server IP
 #define WIFINAME "" // WiFi name
 #define WIFIPW "" // WiFi password
+#define USRNAME "" // MQTT User name
+#define USRPW "" // MQTT User password
 #define PORT 1883 // The MQTT port
 #define MINTEMP 20 // Minimum temperature
 #define MAXTEMP 50 // Maximum temperature

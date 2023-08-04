@@ -13,8 +13,8 @@ EspMQTTClient client(
   WIFINAME,
   WIFIPW,
   BROCKERIP,
-  "MQTTUsername",
-  "MQTTPassword",
+  USRNAME,
+  USRPW,
   "ESP32",
   PORT
 );
@@ -96,8 +96,8 @@ struct MQTT {
   // Error check for required keys in JSON data
   bool errorCheck(StaticJsonDocument<200>& doc) {
     // Check if the "Temp", "Humid", and "uv" keys exist in the JSON data
-    bool has_temp = doc.containsKey("Temp");
-    bool has_humid = doc.containsKey("Humid");
+    bool has_temp = doc.containsKey("temp");
+    bool has_humid = doc.containsKey("humid");
     bool has_uv = doc.containsKey("uv");
 
     // Return true if any of the required keys are missing

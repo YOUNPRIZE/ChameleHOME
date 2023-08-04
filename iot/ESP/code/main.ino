@@ -45,6 +45,9 @@ void onConnectionEstablished()
       err_flag = false;
       return;
     }
+    if((doc["temp"] < MINTEMP) || (doc["temp"] > MAXTEMP) | (doc["humid"] < MINHUMID) || (doc["humid"] > MAXHUMID)){
+      return;
+    }
     // Extract temperature, humidity, and LED values from payload
     set_val.temp = doc["temp"];
     set_val.humid = doc["humid"];
