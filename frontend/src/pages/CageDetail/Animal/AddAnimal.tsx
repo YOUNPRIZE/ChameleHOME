@@ -22,7 +22,7 @@ export default function AddAnimal():JSX.Element {
   const changePage = nowPageStore(state => state.setPage);
   useEffect(() => {
     changePage("동물 추가하기");
-  })
+  }, [])
 
   // 변수명 기록
   const [species, setspecies] = useState('도감에 없음');

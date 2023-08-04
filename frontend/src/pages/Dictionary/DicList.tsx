@@ -18,7 +18,7 @@ export default function DicList():JSX.Element {
   const changePage = nowPageStore(state => state.setPage);
   useEffect(() => {
     changePage("도감 목록");
-  })
+  }, [])
 
   // 페이지 렌더링
   return (

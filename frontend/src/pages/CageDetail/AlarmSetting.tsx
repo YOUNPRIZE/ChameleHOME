@@ -6,9 +6,9 @@ import { nowPageStore } from 'store/myPageStore';
 import { myCagesStore } from 'store/myCageStore';
 import { alarmSettingStore } from 'store/mySettingStore';
 // 컴포넌트 import
-import AlarmSettingItem from 'components/CageDatail/AlarmSettingItem';
+import AlarmSettingItem from 'components/CageDatail/AlarmSetting/AlarmSettingItem';
 import AddBtn from 'components/Shared/AddBtn';
-import AlarmSettingModal from 'components/CageDatail/AlarmSettingModal';
+import AlarmSettingModal from 'components/CageDatail/AlarmSetting/AlarmSettingModal';
 // 스타일 import
 
 export default function AlarmSetting():JSX.Element {
@@ -16,7 +16,7 @@ export default function AlarmSetting():JSX.Element {
   const changePage = nowPageStore(state => state.setPage);
   useEffect(() => {
     changePage("알람 설정");
-  })
+  }, [])
 
   // 상태 정보 + Props 받기
   const cageId = Number(useParams().cageId);

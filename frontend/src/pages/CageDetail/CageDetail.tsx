@@ -2,7 +2,6 @@
 import { useParams, Routes, Route } from 'react-router-dom';
 // 상태 정보 import
 import { myCagesStore } from 'store/myCageStore';
-import { myAnimalStore } from 'store/myAnimalStore';
 // 컴포넌트 import
 import CageInfo from './CageInfo';
 import AnimalList from './Animal/AnimalList';
@@ -19,10 +18,9 @@ import { faPencil } from '@fortawesome/free-solid-svg-icons'
 
 
 export default function CageDeatil():JSX.Element {
-  // 케이지, 동물들 정보
+  // 상태정보 변수에 할당
   const cageId = Number(useParams().cageId);
   const myCage = myCagesStore(state => (state.cages)).find((cage) => (cage.cageId === cageId));
-  const myAnimals  = myAnimalStore(state => (state.animalsInCages[cageId]));
 
   // 페이지 렌더링
   return (
