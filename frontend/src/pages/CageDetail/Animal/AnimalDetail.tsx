@@ -5,7 +5,6 @@ import { useEffect } from 'react'
 import { nowPageStore } from 'store/myPageStore';
 // import { animalDicStore } from 'store/animalDicStore'
 import { myAnimalStore, Animal } from 'store/myAnimalStore';
-import data from 'constants/AnimalToImage.json'
 // 스타일 import
 import 'bootstrap/dist/css/bootstrap.min.css'
 import style from 'styles/CageDetail/AnimalDetail.module.css'
@@ -18,7 +17,7 @@ export default function AnimalDetail():JSX.Element {
   const changePage = nowPageStore(state => state.setPage);
   useEffect(() => {
     changePage("동물 상세보기");
-  })
+  }, [])
 
   // 상태정보 및 props 받기
   const cageId:number = Number(useParams().cageId);

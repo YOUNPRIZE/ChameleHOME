@@ -20,7 +20,7 @@ export default function DicDetail():JSX.Element {
   const changePage = nowPageStore(state => state.setPage);
   useEffect(() => {
     changePage("도감 상세보기");
-  })
+  }, [])
 
   // 표시할 정보
   const infoToShow = {
