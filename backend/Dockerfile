@@ -10,7 +10,7 @@ FROM azul/zulu-openjdk:11.0.19
 # 빌드된 jar 파일을 application.jar의 파일명으로 복사
 # COPY build/libs/*.jar application.jar
 
-ENTRYPOINT java -jar /deploy/ChameleHOME-0.0.1-SNAPSHOT.jar
+ENTRYPOINT java -jar /deploy/A101-0.0.1-SNAPSHOT.jar
 
 # 실행될 포트 설정
 EXPOSE 8000
