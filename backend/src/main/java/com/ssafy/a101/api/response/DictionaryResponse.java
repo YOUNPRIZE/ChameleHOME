@@ -11,10 +11,10 @@ public class DictionaryResponse {
     private final String feed_cycle;
     private final String temp;
     private final String lighting;
-    private  final String humidity;
+    private final String humidity;
     private final String info;
     private final String environment;
-    private final String from;
+    private final String home;
     private final String img;
 
 
@@ -28,7 +28,7 @@ public class DictionaryResponse {
         this.humidity = dictionary.getHumidity();
         this.info = dictionary.getInfo();
         this.environment = dictionary.getEnvironment();
-        this.from = dictionary.getFrom();
+        this.home = dictionary.getHome();
         this.img = dictionary.getImg();
     }
 }
