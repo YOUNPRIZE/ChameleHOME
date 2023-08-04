@@ -16,7 +16,7 @@ export default function SignUp():JSX.Element {
   const changePage = nowPageStore(state => state.setPage);
   useEffect(() => {
     changePage("회원 가입");
-  })
+  }, [])
 
   // 로그인
 

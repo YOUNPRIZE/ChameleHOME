@@ -16,7 +16,7 @@ export default function AddCage():JSX.Element {
   const changePage = nowPageStore(state => state.setPage);
   useEffect(() => {
     changePage("케이지 추가하기");
-  })
+  }, [])
 
   // 변수명 기록
   const [animalToBreed, setAnimalToBreed] = useState('알 수 없음');
