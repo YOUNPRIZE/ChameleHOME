@@ -12,13 +12,21 @@ import paho.mqtt.client as mqtt
 import threading
 import time
 
+# recognition
+import numpy as np
+
 # camera server
 app = Flask(__name__)
 
-
+n = 0
 def generate_frames():
-
+    global n
     # Get frames from camera on infinite loop
+    # Load YOLO
+    net = cv2.dnn.readNet("yolov3-tiny.weights", "yolov3-tiny.cfg")
+    classes = []
+    with open("coco.names", "r") as f:
+        classes = f.read().strip().split("\n")
 
     # Open the Raspberry Pi camera
     cap = cv2.VideoCapture(0)
@@ -26,22 +34,51 @@ def generate_frames():
     # Set width and height  320,240
     #cap.set(3,512)
     #cap.set(4,384)
-    cap.set(3,512)
-    cap.set(4,384)
+    cap.set(3,640)
+    cap.set(4,480)
 
     # Start loop 
     while True:
-
+        n = n + 1
         # Read a frame from the camera
         ret, frame = cap.read()
 
         # Check getting correct frame
         if not ret:
             break
+        height, width, _ = frame.shape
+        if n % 100 == 0:
+            # Preprocess image
+            blob = cv2.dnn.blobFromImage(frame, scalefactor=1/255.0, size=(416, 416), swapRB=True, crop=False)
+            net.setInput(blob)
 
+            # Perform forward pass
+            layer_names = net.getUnconnectedOutLayersNames()
+            outs = net.forward(layer_names)
+
+            # Process and display detections
+            for out in outs:
+                for detection in out:
+                    scores = detection[5:]
+                    class_id = np.argmax(scores)
+                    confidence = scores[class_id]
+
+                    if confidence > 0.5:  # Set a confidence threshold
+                        center_x = int(detection[0] * width)
+                        center_y = int(detection[1] * height)
+                        w = int(detection[2] * width)
+                        h = int(detection[3] * height)
+
+                        x = int(center_x - w / 2)
+                        y = int(center_y - h / 2)
+
+                        label = f"{classes[class_id]}: {confidence:.2f}"
+                        cv2.rectangle(frame, (x, y), (x + w, y + h), (0, 255, 0), 2)
+                        cv2.putText(frame, label, (x, y - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 0), 2)
+                        print('1')
         # Encode the frame in JPEG format
         ret, buffer = cv2.imencode('.jpg', frame)
-
+        
 
         # Convert the frame to bytes
         frame_bytes = buffer.tobytes()

@@ -95,17 +95,17 @@ def set_servo_angle(pin, angle):
 
 def dir_servo_angle(dir):
     if dir == 'up':
-        pin = 13
-        set_servo_angle(pin, get_servo_angle(pin) + 10)
+        pin = 18
+        set_servo_angle(pin, get_servo_angle(pin) +5)
     elif dir == 'down':
-        pin = 13
-        set_servo_angle(pin, get_servo_angle(pin) - 10)
+        pin = 18
+        set_servo_angle(pin, get_servo_angle(pin) -5)
     elif dir == 'left':
-        pin = 18
-        set_servo_angle(pin, get_servo_angle(pin) + 10)
+        pin = 13
+        set_servo_angle(pin, get_servo_angle(pin) +5)
     elif dir == 'right':
-        pin = 18
-        set_servo_angle(pin, get_servo_angle(pin) - 10)
+        pin = 13
+        set_servo_angle(pin, get_servo_angle(pin) -5)
 
 def get_servo_angle(pin):
 
@@ -137,7 +137,7 @@ def on_connect(client, userdata, flags, rc):
     # arg2 : userdata 
 
     # subscribe topic "angle"
-    client.subscribe("serialnumber/angle")
+    client.subscribe("angle")
 
 
 def on_message(client, userdata, msg):
@@ -150,7 +150,7 @@ def on_message(client, userdata, msg):
 
     # decode meg to utf-8
     msg.payload = msg.payload.decode("utf-8")
-    print(msg.payload)
+
     # set angle for msg degree
     dir_servo_angle(msg.payload)
 
@@ -159,9 +159,9 @@ def on_message(client, userdata, msg):
 
 # init mqtt client
 client = mqtt.Client()
-client.username_pw_set("RPI4", "1234")
 client.on_connect = on_connect
 client.on_message = on_message
+client.username_pw_set("RPI4", "1234")
 client.connect("18.233.166.123", 1883, 60)
 
 def mqtt_thread():
