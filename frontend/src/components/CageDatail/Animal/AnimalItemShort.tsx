@@ -9,7 +9,6 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 
 
 interface Props {
-  cageId: number
   animal: Animal;
   index: number;
   order: number;

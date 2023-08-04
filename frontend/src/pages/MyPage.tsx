@@ -13,17 +13,15 @@ import testImg from 'assets/test.jpg'
 
 
 export default function MyPage():JSX.Element {
-  // 로그인이 안 되어있는 경우 로그인 페이지로 이동
-  const navigate = useNavigate();
-  const userInfo:userInfoState = userInfoStore();
-  
   // 페이지 명 변경
   const changePage = nowPageStore(state => state.setPage);
   useEffect(() => {
     changePage("마이페이지");
-  })
+  }, [])
 
   //로그아웃 함수
+  const navigate = useNavigate();
+  const userInfo:userInfoState = userInfoStore();
   const handleLogout = ():void => {
     userInfo.logout();
     navigate('/Login')
