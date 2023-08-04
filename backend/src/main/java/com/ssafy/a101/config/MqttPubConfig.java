@@ -39,7 +39,7 @@ public class MqttPubConfig {
             System.out.println("error");
             e.printStackTrace();
         } catch (MqttException e) {
-            System.out.println("error");
+            //System.out.println("error");
             e.printStackTrace();
         }
         return true;

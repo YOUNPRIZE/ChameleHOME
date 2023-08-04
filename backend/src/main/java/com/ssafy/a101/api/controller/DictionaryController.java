@@ -22,13 +22,13 @@ public class DictionaryController {
     // 전체값 확인
     @GetMapping("/api/dicts")
     public ResponseEntity<List<DictionaryResponse>> findAllDictionary(){
-        List<DictionaryResponse> dictionary = dictionaryService.findAll()
+        List<DictionaryResponse> dictionarys = dictionaryService.findAll()
                 .stream()
                 .map(DictionaryResponse::new)
                 .collect(Collectors.toList());
 
         return ResponseEntity.ok()
-                .body(dictionary);
+                .body(dictionarys);
     }
 
     // 특정 값 조회
