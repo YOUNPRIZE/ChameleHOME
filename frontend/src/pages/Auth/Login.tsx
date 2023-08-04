@@ -18,7 +18,7 @@ export default function Login():JSX.Element {
   const changePage = nowPageStore(state => state.setPage);
   useEffect(() => {
     changePage("로그인");
-  })
+  }, [])
 
   // 유저 정보 input 값들
   const userId = useRef<HTMLInputElement>(null);

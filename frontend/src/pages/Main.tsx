@@ -1,14 +1,15 @@
 // 훅 import 
-import { useEffect, useState } from 'react'
+import { useEffect, useState, } from 'react'
 // 상태 정보 import
 import { nowPageStore } from 'store/myPageStore';
 import { myCagesStore } from 'store/myCageStore';
-import {animalDicStore} from 'store/animalDicStore'
+import {animalDicStore} from 'store/animalDicStore';
+import { nowCageValueStore } from 'store/myCageStore';
 // 컴포넌트 import
-import TopBox from 'components/Main/TopBox';
+import TopBox from 'components/Shared/TopBox';
 import CageItemShort from 'components/Main/CageItemShort';
 import DicItemBig from 'components/Main/DicItemBig';
-import { MoveIconLeft, MoveIconRight } from 'components/Main/MoveIcon';
+import { MoveIconLeft, MoveIconRight } from 'components/Shared/MoveIcon';
 // 스타일 import
 import style from 'styles/Main.module.css'
 import 'bootstrap/dist/css/bootstrap.min.css'
@@ -18,17 +19,18 @@ export default function Main():JSX.Element {
   // 상태 정보 받아오기
   const myCages = myCagesStore(state => (state.cages));
   const animalDic = animalDicStore(state => (state.dictionary))
+  const nowCageValue = nowCageValueStore();
 
   // 페이지명 변경
   const changePage = nowPageStore(state => state.setPage);
   useEffect(() => {
     changePage("홈");
-  })
+  }, [])
 
   // 케이지 표시 컨트롤
   const [mainCageOrder, setMainCageOrder] = useState(0);
   const handleCageOrder = (move:number):void => {
-    const numberCage = Math.ceil(myCages.length / 2)
+    const numberCage = Math.ceil(myCages.length / 2);
     if (numberCage !== 0) {
       setMainCageOrder((mainCageOrder + move + numberCage) % (numberCage))
     }
@@ -38,7 +40,7 @@ export default function Main():JSX.Element {
   const [dicIdx, setDicIdx] = useState(0);
   const handleDicOrder = (move:number):void => {
     const numberDic:number = animalDic.length
-    setDicIdx((dicIdx + numberDic + move) % numberDic);
+    setDicIdx((dicIdx + numberDic + move) % numberDic)
   }
 
   // 페이지 렌더링

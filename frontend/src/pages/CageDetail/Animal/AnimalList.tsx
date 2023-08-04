@@ -16,7 +16,7 @@ export default function AnimalList():JSX.Element {
   const changePage = nowPageStore(state => state.setPage);
   useEffect(() => {
     changePage("동물 목록");
-  })
+  }, [])
 
   // 상태 정보 + Props 받기
   const cageId = Number(useParams().cageId);

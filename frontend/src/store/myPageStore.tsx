@@ -1,8 +1,7 @@
 import {create} from 'zustand'
 import {persist} from 'zustand/middleware'
 
-// 현재 페이지
-// 형재 페이지 정의
+// 현재 페이지 정의
 export interface nowPageState {
   pageName: string;
   setPage: (nowPage: string) => void;
@@ -15,7 +14,7 @@ export const nowPageStore = create<nowPageState>()(
       pageName: 'Test',
       setPage:(nowPage: string) => set({pageName: nowPage})
     }),
-  {name:'pageName'}
+  { name:'pageName'}
   )
 )
 

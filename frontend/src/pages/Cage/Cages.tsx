@@ -21,7 +21,7 @@ export default function Cages():JSX.Element {
   const changePage = nowPageStore(state => state.setPage);
   useEffect(() => {
     changePage("케이지 목록");
-  })
+  }, [])
 
   // 훅 함수
   const navigate = useNavigate();
