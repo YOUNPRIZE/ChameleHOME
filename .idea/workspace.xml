@@ -5,6 +5,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="07907a7c-73af-49d8-8612-1b4f9639a8cb" name="Changes" comment="[Add]&#10;Jira : 127&#10;1. make springboot project">
+      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/ssafy/a101/api/controller/Auto_setController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/ssafy/a101/api/request/AddAuto_setRequest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/ssafy/a101/api/request/UpdateAuto_setRequest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/ssafy/a101/api/response/Auto_setResponse.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/ssafy/a101/api/service/Auto_setService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/ssafy/a101/db/entity/Auto_set.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/ssafy/a101/db/repository/Auto_setRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/backend/build.gradle" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -246,7 +254,7 @@
       <workItem from="1690873719722" duration="3778000" />
       <workItem from="1690937967861" duration="15912000" />
       <workItem from="1691021019146" duration="21962000" />
-      <workItem from="1691107846715" duration="12897000" />
+      <workItem from="1691107846715" duration="19292000" />
     </task>
     <servers />
   </component>
