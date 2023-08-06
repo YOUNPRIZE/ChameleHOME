@@ -1,55 +1,97 @@
 package com.ssafy.a101.db.entity;
 
-import lombok.*;
+import lombok.AccessLevel;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
 import javax.persistence.*;
+import java.util.Collection;
+import java.util.List;
 
-
-@Entity
-@Getter
-@Setter
 @Table(name = "users")
-public class User {
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@Getter
+@Entity
+public class User implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", updatable = false)
     private Long id;
 
-    @Column(name = "user_id", updatable = false)
-    private String user_id;
+    @Column(name = "userId", updatable = false, unique = true)
+    private String userId;
 
-    @Column(name = "password", updatable = false)
+    @Column(name = "password", updatable = true)
     private String password;
 
-    @Column(name = "nickname", updatable = false)
+    @Column(name = "nickname", updatable = true)
     private String nickname;
 
-    @Column(name = "number", updatable = false)
+    @Column(name = "number", updatable = true)
     private Long number;
 
     @Column(name = "user_img", updatable = true)
     private String user_img;
 
+//    @Column(name = "email", nullable = false, unique = true)
+//    private String email;
+//
+//    @Column(name = "password", nullable = false)
+//    private String password;
+
     @Builder
-    public User( String user_id, String password, String nickname, Long  number, String user_img){
-        this.user_id = user_id;
+    public User(String userId, String password, String nickname, Long number, String user_img, String auth) {
+        this.userId = userId;
         this.password = password;
         this.nickname = nickname;
         this.number = number;
         this.user_img = user_img;
     }
 
-    public void update(String user_id, String password, String nickname, Long  number, String user_img){
-        this.user_id = user_id;
+    public void update(String userId, String password, String nickname, Long number, String user_img){
+        this.userId = userId;
         this.password = password;
         this.nickname = nickname;
         this.number = number;
         this.user_img = user_img;
     }
-
-
-        // 기본 생성자 정의
-    public User() {
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return List.of(new SimpleGrantedAuthority("user"));
     }
 
+    @Override
+    public String getUsername() {
+        return userId;
+    }
+
+    @Override
+    public String getPassword() {
+        return password;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
+    }
 }
