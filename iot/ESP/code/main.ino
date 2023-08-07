@@ -18,13 +18,13 @@ LEDControl led_ctrl;
 Info now_val, set_val;
 
 // Flags for controlling actuator
-bool temp_flag, humid_flag;
+bool temp_flag, humid_flag, led_flag;
 
 // Actuator status
 Status status_flag;
 
 // Error flag
-bool err_flag;
+bool err_flag, val_err;
 
 // Timer 
 uint32_t delay_ms;
@@ -45,6 +45,7 @@ void onConnectionEstablished()
       err_flag = false;
       return;
     }
+    led_flag = doc["uv"];
     if((doc["temp"] < MINTEMP) || (doc["temp"] > MAXTEMP) | (doc["humid"] < MINHUMID) || (doc["humid"] > MAXHUMID)){
       return;
     }
@@ -61,15 +62,18 @@ void onConnectionEstablished()
 
 // Function to operate modules based on web settings
 void autoSet(Status set_flag) {
-  if(temp_flag && set_flag.islock) {
-    autoTemp(set_val, now_val, heat_pad, cool_fan, temp_flag, err_flag);
+  if(set_val.temp > MAXTEMP || set_val.temp < MINTEMP || set_val.humid > MAXHUMID || set_val.humid < MINHUMID) {
+    val_err = true;
   }
-  if(humid_flag && set_flag.islock) {
-    autoHumid(set_val, now_val, humidifier, cool_fan, humid_flag, err_flag);
+  if(temp_flag && set_flag.islock && !val_err) {
+    autoTemp(set_val, now_val, heat_pad, cool_fan, temp_flag, val_err);
   }
-  if((temp_flag || humid_flag) && err_flag) {
+  if(humid_flag && set_flag.islock && !val_err) {
+    autoHumid(set_val, now_val, humidifier, cool_fan, humid_flag, val_err);
+  }
+  if(val_err) {
     mqtt.errorTx(error_topic, "Desired value is out of range");
-    err_flag = false;
+    val_err = false;
     humid_flag = temp_flag = false;
   }
   if(!status_flag.led && set_val.light) { led_ctrl.on(); }
