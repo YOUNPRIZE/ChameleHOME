@@ -5,15 +5,18 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.Date;
+
+
+
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @Setter
-public class UpdateUserRequest {
-    private Long id;
-    private String user_id;
-    private String password;
-    private String nickname;
-    private Long number;
-    private String user_img;
+public class UpdateAlarmRequest {
+
+    private String name;
+    private Date cycle;
+    private Date recent;
+
 }
