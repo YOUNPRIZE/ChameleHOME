@@ -15,8 +15,9 @@ public class Auto_set {
     @Column(name = "set_id" , updatable = false)
     private Long set_id;
 
-    @Column(name = "cage_id", updatable = false)
-    private Long cage_id;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "cage_id", referencedColumnName = "cage_id")
+    private Cage cage_id;
 
     @Column(name = "time")
     private Date time;

@@ -13,18 +13,18 @@ import javax.transaction.Transactional;
 public class UserService {
 
     private final UserRepository userRepository;
-    private final BCryptPasswordEncoder bCryptPasswordEncoder;
+    //private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
     // 회원 가입
-    public Long save(AddUserRequest dto) {
-        return userRepository.save(User.builder()
-                .userId(dto.getUserId())
-                .password(bCryptPasswordEncoder.encode(dto.getPassword()))
-                .nickname(dto.getNickname())
-                .number(dto.getNumber())
-                .user_img(dto.getUser_img())
-                .build()).getId();
-    }
+//    public Long save(AddUserRequest dto) {
+//        return userRepository.save(User.builder()
+//                .userId(dto.getUserId())
+//                .password(bCryptPasswordEncoder.encode(dto.getPassword()))
+//                .nickname(dto.getNickname())
+//                .number(dto.getNumber())
+//                .user_img(dto.getUser_img())
+//                .build()).getId();
+//    }
 
     // 회원 정보 조회
     public User findById(Long user_id) {

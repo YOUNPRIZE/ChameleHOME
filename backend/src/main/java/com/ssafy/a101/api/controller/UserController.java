@@ -18,11 +18,11 @@ public class UserController {
 
     private final UserService userService;
 
-    @PostMapping("/user")
-    public String signup(AddUserRequest request) {
-        userService.save(request);
-        return "redirect:/login";
-    }
+//    @PostMapping("/user")
+//    public String signup(AddUserRequest request) {
+//        userService.save(request);
+//        return "redirect:/login";
+//    }
 
     @GetMapping("/logout")
     public String logout(HttpServletRequest request, HttpServletResponse response) {

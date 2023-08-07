@@ -1,12 +1,14 @@
 server:
   port: 8000
+
 spring:
   datasource:
     # url: jdbc:h2:mem:testdb
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://43.202.68.60:3306
+    url: jdbc:mysql://i9a101.p.ssafy.io:3306/test?serverTimezone=UTC&useUnicode=true&characterEncoding=utf8
     username: root
     password: A967788!
+
   jpa:
     open-in-view: false
     show-sql: true

@@ -18,8 +18,9 @@ public class Alarm {
     @Column(name ="arm_id" , updatable = false)
     private Long arm_id;
 
-    @Column(name = "cage_id", nullable = false)
-    private Long cage_id;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "cage_id", referencedColumnName = "cage_id")
+    private Cage cage_id;
 
 
     @Column(name = "name", nullable = false)
