@@ -1,9 +1,9 @@
 // 훅 import
 import {useRef, useEffect} from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 // 상태정보 import
 import { nowPageStore } from 'store/myPageStore';
-import { userInfoStore, userInfoState } from 'store/userInfoStore';
+import { userInfoStore } from 'store/userInfoStore';
 // 스태틱 데이터 import
 import reptile01 from 'assets/retile01.png'
 // 스타일 import
@@ -14,29 +14,19 @@ import Button from 'react-bootstrap/Button';
 
 // 로그인 페이지
 export default function Login():JSX.Element {
+  
   // 페이지명 변경
   const changePage = nowPageStore(state => state.setPage);
   useEffect(() => {
     changePage("로그인");
   }, [])
 
-  // 유저 정보 input 값들
-  const userId = useRef<HTMLInputElement>(null);
-  const userPassword = useRef<HTMLInputElement>(null);
+  // 유저 정보값들
+  const id = useRef<HTMLInputElement>(null);
+  const pw = useRef<HTMLInputElement>(null);
 
   // 로그인
-  const  userInfo:userInfoState = userInfoStore();
-  const handleLogin = function():void {
-    userInfo.login(userId.current?.value, userPassword.current?.value)
-  }
-
-  // 로그인이 되었다면 메인페이지로 이동
-  const navigate = useNavigate();
-  useEffect(() => {
-    if (userInfo.user.id !== 0) {
-      navigate(`/`);
-    }
-  }, [userInfo.user.id])
+  const handleLogin = userInfoStore(state => state.login);
 
   // 페이지 렌더링
   return (
@@ -45,17 +35,17 @@ export default function Login():JSX.Element {
         <img src={reptile01} alt="" className={style.imgSize}/>
         <Form.Group className="mb-3 w-100" controlId="inputId">
           <Form.Label className='fw-bold fs-3'>아이디</Form.Label>
-          <Form.Control className="bg-secondary-subtle" type="text" placeholder="아이디를 입력해주세요" ref={userId}/>
+          <Form.Control className="bg-secondary-subtle" type="text" placeholder="아이디를 입력해주세요" ref={id}/>
         </Form.Group>
         <Form.Group className="mb-3 w-100" controlId="inputPassword">
           <Form.Label className='fw-bold fs-3'>비밀번호</Form.Label>
-          <Form.Control className="bg-secondary-subtle" type="password" placeholder="비밀번호를 입력해주세요" ref={userPassword}/>
+          <Form.Control className="bg-secondary-subtle" type="password" placeholder="비밀번호를 입력해주세요" ref={pw}/>
         </Form.Group>
         <div className='d-flex justify-content-between mt-3 w-100'>
           <a href="#" className={style.additionalLink}>비밀번호 찾기</a>
           <Link to="/SignUp" className={style.additionalLink}>회원가입</Link>
         </div>
-        <Button size="lg" className={style.loginBtn} variant='success' onClick={handleLogin}>로그인</Button>
+        <Button size="lg" className={style.loginBtn} variant='success' onClick={() => handleLogin(id.current?.value, pw.current?.value)}>로그인</Button>
       </Form>
     </div>
   )

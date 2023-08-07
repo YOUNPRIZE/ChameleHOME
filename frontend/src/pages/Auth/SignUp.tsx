@@ -22,7 +22,15 @@ export default function SignUp():JSX.Element {
 
 
   // 회원가입
-  
+  const id = useRef<HTMLInputElement>(null);
+  const pw1 = useRef<HTMLInputElement>(null);
+  const pw2 = useRef<HTMLInputElement>(null);
+  const nick = useRef<HTMLInputElement>(null);
+  const Phone = useRef<HTMLInputElement>(null);
+  if (pw1.current?.value === pw2.current?.value) {
+    
+  }
+
   
   // 페이지 렌더링
   return (
