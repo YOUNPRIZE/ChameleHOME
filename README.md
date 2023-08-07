@@ -12,17 +12,17 @@
 
 🧑🏻 팀원 : 인정환, 김민태, 김한주, 손세이, 조윤상
 
-💻 사용 기술스택 : SpringBoot, React, AWS + (시스템 아키텍처 참고)
+💻 사용 기술스택 : SpringBoot, React, AWS + (4. 시스템 아키텍처 참고)
 
 ## **1️⃣ 팀원 정보 및 업무 분담 내역**
 
 | 이름 | 역할 | 설명 |
 | --- | --- | --- |
-| 인정환 | IoT | 팀장, IoT 개발 |
-| 김민태 | Backend | 부팀장, Figma 제작, JPA 구현 |
-| 김한주 | Frontend | Frontend 구현 |
-| 손세이 | IoT | IoT 개발 |
-| 조윤상 | Backend | Docker 및 Jenkins를 활용한 CI/CD 구축<br />Docker 및 AWS EC2를 활용한 서버 배포<br />Nginx를 활용한 Web Server 구축 및 Reverse Proxy 설정<br /> JWT 발급 및 인증 |
+| 인정환 (팀장) | IoT | IoT 개발 |
+| 김민태 (부팀장) | Backend | Backend Entity 및 API 구현<br />Figma 제작<br />ERD 설계 |
+| 김한주 | Frontend | React와 TypeScript를 활용한 Frontend 구현<br />Zustand를 활용한 상태 관리 구현<br />Figma 제작<br />ERD 설계 |
+| 손세이 | IoT | Jira 관리<br />UCC 제작 |
+| 조윤상 | Backend | Docker 및 Jenkins를 활용한 CI/CD 구축<br />Docker 및 AWS EC2를 활용한 서버 배포<br />Nginx를 활용한 Web Server 구축 및 Reverse Proxy 설정<br />JWT 발급 및 인증<br />ERD 설계 |
 
 ## **2️⃣ 서비스 대표 기능**
 
@@ -77,40 +77,43 @@
 
 🌐 공통
 
-| 기능             | 세부기능                                      |
-| ---------------- | --------------------------------------------- |
-| 케이지 연동      | 부착된 케이스와 연동                          |
-| 케이지 상태 표시 | 현재 케이지 내부 온도 / 습도 / UV on/off 표시 |
-| 케이지 상태 조절 | 현재 케이지 온도 / 습도 / UV 변경             |
+| 상세               | 내용              |
+| ------------------ | ----------------- |
+| GitLab             | 형상 관리         |
+| Jira               | 일정 및 이슈 관리 |
+| Mattermost         | 커뮤니케이션      |
+| Notion             | 일정 및 문서 관리 |
+| IntelliJ           | IDE (2022.02)     |
+| Visual Studio Code | IDE               |
 
 📱 FrontEnd
 
-| 상세       | 버전                                          |
-| ---------- | --------------------------------------------- |
-| JDK(Zulu)  | 부착된 케이스와 연동                          |
-| SpringBoot | 현재 케이지 내부 온도 / 습도 / UV on/off 표시 |
-| IntelliJ   | 현재 케이지 온도 / 습도 / UV 변경             |
+| 상세             | 버전   |
+| ---------------- | ------ |
+| React            | 5.0.1  |
+| zustand          | 4.3.9  |
+| react-router-dom | 6.14.2 |
+| TypeScript       | 5.1.6  |
 
 💾 BackEnd
 
-| 상세       | 버전 |
-| ---------- | ---- |
-| IntelliJ   |      |
-| JDK(Zulu)  |      |
-| SpringBoot |      |
-| Gradle     |      |
-| JWT        |      |
-|            |      |
-|            |      |
-|            |      |
+| 상세       | 버전    |
+| ---------- | ------- |
+| JDK(Zulu)  | 11.0.19 |
+| SpringBoot | 2.7.13  |
+| Gradle     |         |
+| JWT        |         |
 
 ⛏ IoT
 
-| 상세             | 버전                                          |
-| ---------------- | --------------------------------------------- |
-| 케이지 연동      | 부착된 케이스와 연동                          |
-| 케이지 상태 표시 | 현재 케이지 내부 온도 / 습도 / UV on/off 표시 |
-| 케이지 상태 조절 | 현재 케이지 온도 / 습도 / UV 변경             |
+| 상세         | 버전              |
+| ------------ | ----------------- |
+| Arduino      | Arduino IDE 2.1.1 |
+| Raspberry Pi | rasbian os 32bit  |
+
+</br>
+
+* System Architecture
 
 ![System Architecture](./assets/Arichitecture.png)
 
@@ -258,7 +261,7 @@
 
 ## 6️⃣ 데이터베이스 모델링 (ERD)
 
-
+* 나중에 추가
 
 ## 7️⃣ Convention
 
@@ -324,3 +327,13 @@ master
 - feature : 세부 기능을 개발하는 브랜치
 
 ## **9️⃣ 회고**
+
+
+
+|                                                              | 이름   | 내용             |
+| ------------------------------------------------------------ | ------ | ---------------- |
+| <a href="https://github.com/jeonghwanin"><img src="https://avatars.githubusercontent.com/u/99806622?v=4?s=100" width="100px;" alt=""/> | 인정환 |                  |
+| <a href="https://github.com/minsoon025"><img src="https://avatars.githubusercontent.com/u/112068306?v=4?s=100" width="100px;" alt=""/> | 김민태 |                  |
+| <a href="https://github.com/Koneweekk"><img src="https://avatars.githubusercontent.com/u/114633442?v=4?s=100" width="100px;" alt=""/> | 김한주 |                  |
+| <a href="https://github.com/seyi103"><img src="https://avatars.githubusercontent.com/u/74170226?v=4?s=100" width="100px;" alt=""/> | 손세이 |                  |
+| <a href="https://github.com/younprize"><img src="https://avatars.githubusercontent.com/u/76830587?v=4?s=100" width="100px;" alt=""/> | 조윤상 | 김민태는 바보다. |
