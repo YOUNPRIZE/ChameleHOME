@@ -5,7 +5,6 @@ import com.ssafy.a101.api.request.AddCageRequest;
 import com.ssafy.a101.api.request.UpdateCageRequest;
 import com.ssafy.a101.db.entity.Cage;
 import com.ssafy.a101.db.repository.CageRepository;
-import com.ssafy.a101.db.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
