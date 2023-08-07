@@ -36,13 +36,15 @@ export default function InnerCageInfo(props:{myCage:myCage|undefined}):JSX.Eleme
       nowCage.setUv("");
     }
     // Mqtt 연결
-    const client = new Client("18.233.166.123", 3000, "/wss", "client");
+    const client = new Client("18.233.166.123", 3000, "client");
     clientRef.current = client;
     if (!client.isConnected()) {
       client.connect({
         // 계정 정보
         userName: "FRONT",
         password: '1234',
+        // https 보안을 위해 사용
+        useSSL: true,
         // 커넥트에 성공(구독)
         onSuccess: () => { 
           console.log("연결 성공")
