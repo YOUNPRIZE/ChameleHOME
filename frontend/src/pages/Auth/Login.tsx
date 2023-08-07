@@ -33,10 +33,10 @@ export default function Login():JSX.Element {
   // 로그인이 되었다면 메인페이지로 이동
   const navigate = useNavigate();
   useEffect(() => {
-    if (userInfo.id !== 0) {
+    if (userInfo.user.id !== 0) {
       navigate(`/`);
     }
-  }, [userInfo.id])
+  }, [userInfo.user.id])
 
   // 페이지 렌더링
   return (

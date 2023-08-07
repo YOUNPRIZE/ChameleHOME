@@ -1,6 +1,5 @@
 // 함수 import
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
-import { useEffect, useState } from 'react';
 // 상태정보 import
 import { userInfoStore } from './store/userInfoStore';
 // 스타일 import
@@ -22,7 +21,7 @@ import Dictionray from "pages/Dictionary/Dictionary";
 
 function App(): JSX.Element {
   // 로그인 여부 판단
-  const isLoggedIn = userInfoStore(state => state.isLoggedIn)
+  const isLoggedIn = userInfoStore(state => state.user.isLoggedIn)
 
   // 랜더링
   return (

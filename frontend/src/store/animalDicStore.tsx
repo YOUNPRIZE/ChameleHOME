@@ -22,6 +22,6 @@ interface animalDic {
 
 // 케이지별 동물들 
 export const animalDicStore = create<animalDic>() (set => ({
-  dictionary : data.dic,
+    dictionary : data.dic,
   })
 )

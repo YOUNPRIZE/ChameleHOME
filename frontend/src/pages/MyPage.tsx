@@ -38,18 +38,18 @@ export default function MyPage():JSX.Element {
       <div className={style.cardContainer}>
         <div className={style.myInfo}>
           <div className={style.farContainer}>
-            <h2 className={style.myName}>{userInfo.userId}</h2>
+            <h2 className={style.myName}>{userInfo.user.userId}</h2>
             <a onClick={handleLogout} className={style.logOut}>
               <FontAwesomeIcon icon={faArrowRightToBracket} rotation={180}/>로그아웃
             </a>
           </div>
           <div className={style.infoContainer}>
             <FontAwesomeIcon icon={faSpellCheck} className={style.infoIcon}/>
-            <span className={style.infoText}>{userInfo.nickName}</span>
+            <span className={style.infoText}>{userInfo.user.nickName}</span>
           </div>
           <div className={style.infoContainer}>
             <FontAwesomeIcon icon={faPhone} className={style.infoIcon}/>
-            <span className={style.infoText}>{userInfo.phoneNumber}</span>
+            <span className={style.infoText}>{userInfo.user.phoneNumber}</span>
           </div>
         </div>
         {/* 회원 정보 수정, 탈퇴 영역 */}
