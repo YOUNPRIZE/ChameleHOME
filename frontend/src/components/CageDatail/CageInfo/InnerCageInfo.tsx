@@ -54,7 +54,7 @@ export default function InnerCageInfo(props:{myCage:myCage|undefined}):JSX.Eleme
         onFailure: (err) => { 
         }
       });
-    }
+    };
     // 토픽을 통해 센서값 받기
     client.onMessageArrived = (message: Message) => {
       const payload = message.payloadString;
