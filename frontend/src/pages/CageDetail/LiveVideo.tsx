@@ -14,7 +14,7 @@ export default function LiveVideo():JSX.Element {
   const changePage = nowPageStore(state => state.setPage);
   useEffect(() => {
     changePage("실시간 영상");
-  }, [])
+  }, [changePage])
   
   // 케이지 내부 센서값 받기
   const clientRef = useRef<Client|null>(null);
@@ -27,9 +27,8 @@ export default function LiveVideo():JSX.Element {
         // 계정 정보
         userName: "FRONT",
         password: '1234',
-        // 커넥트에 성공(구독)
+        // 커넥트에 성공
         onSuccess: () => {
-          console.log("연결 성공")
         },
         // 커넥트 실패
         onFailure: (err) => { 
@@ -58,15 +57,14 @@ export default function LiveVideo():JSX.Element {
     console.log("capture")
   }
 
-  // 영상 크기 조절
-
-
+  // 영상 크기 조절 
+  const vh = window.innerHeight;
 
   return (
     <>
       {/* 동영상 컨테이너 */}
       <div className={`${style.videoContainer}`}>
-        <iframe src="http://192.168.114.97:5000/" className={style.liveVideo}/>
+        <iframe src="http://192.168.114.97:5000/" width={0.35*vh} height={0.35*vh} title='liveCage'></iframe>
       </div>
       {/* 카메라 무빙 버튼 */}
       <div className={`${style.btnContainer}`}>

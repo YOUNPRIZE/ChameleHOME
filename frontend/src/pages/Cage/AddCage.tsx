@@ -1,9 +1,7 @@
 // 훅 import 
-import { useNavigate, Link } from 'react-router-dom';
 import { useEffect, useState, useRef } from 'react'
 // 상태 정보 import
 import { nowPageStore } from 'store/myPageStore';
-import data from 'constants/AnimalToImage.json'
 // 컴포넌트 import
 import AddBtn from 'components/Shared/AddBtn';
 // 스타일 import
@@ -16,7 +14,7 @@ export default function AddCage():JSX.Element {
   const changePage = nowPageStore(state => state.setPage);
   useEffect(() => {
     changePage("케이지 추가하기");
-  }, [])
+  }, [changePage])
 
   // 변수명 기록
   const [animalToBreed, setAnimalToBreed] = useState('알 수 없음');
@@ -24,7 +22,8 @@ export default function AddCage():JSX.Element {
   const cageName = useRef<HTMLInputElement>(null);
   const cageSerial = useRef<HTMLInputElement>(null);
 
-  // 동물 이미지 선택 함수
+  // 동물 이미지 선택
+  const animal_types = {"뱀": "snake.jpeg", "도마뱀": "lizard.jpeg", "거북이": "turtle.jpeg"}
   const chooseAnimal = (animal:string, url:string):void => {
     setAnimalToBreed(animal);
     setanimalImg(process.env.PUBLIC_URL+`/images/${url}`)
@@ -51,7 +50,7 @@ export default function AddCage():JSX.Element {
         </Dropdown.Toggle>
         <Dropdown.Menu className={`${style.dropdownItems}`}>
           {
-            Object.entries(data).map((animal, index) => (
+            Object.entries(animal_types).map((animal, index) => (
               <Dropdown.Item key={index} onClick={() => chooseAnimal(animal[0], animal[1])}>
                 {animal[0]}
               </Dropdown.Item>
