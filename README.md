@@ -18,10 +18,10 @@
 
 | 이름 | 역할 | 설명 |
 | --- | --- | --- |
-| 인정환 (팀장) | IoT | IoT 개발 |
+| 인정환 (팀장) | IoT | RPI4 코드 구현 |
 | 김민태 (부팀장) | Backend | Backend Entity 및 API 구현<br />Figma 제작<br />ERD 설계 |
 | 김한주 | Frontend | React와 TypeScript를 활용한 Frontend 구현<br />Zustand를 활용한 상태 관리 구현<br />Figma 제작<br />ERD 설계 |
-| 손세이 | IoT | Jira 관리<br />UCC 제작 |
+| 손세이 | IoT | ESP32 코드 구현 <br />Jira 관리<br />UCC 제작 |
 | 조윤상 | Backend | Docker 및 Jenkins를 활용한 CI/CD 구축<br />Docker 및 AWS EC2를 활용한 서버 배포<br />Nginx를 활용한 Web Server 구축 및 Reverse Proxy 설정<br />JWT 발급 및 인증<br />ERD 설계 |
 
 ## **2️⃣ 서비스 대표 기능**
