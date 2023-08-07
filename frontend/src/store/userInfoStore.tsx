@@ -1,15 +1,22 @@
 import {create} from 'zustand'
 import {persist} from 'zustand/middleware'
+import { useAxiosAuth } from 'hooks/useAxios';
 
 // 현재 로그인 유저
 
 // 로그인 유저 정보 정의
-export interface userInfoState {
+export interface User {
   id: number;
   userId: string | undefined;
+  userPw: string | undefined,
   nickName: string;
   phoneNumber: string;
   isLoggedIn:boolean;
+}
+
+
+export interface userInfoState {
+  user: User,
   login: (inputId: string|undefined, inputPW: string|undefined) => void;
   logout: () => void;
 }
@@ -18,21 +25,27 @@ export interface userInfoState {
 export const userInfoStore = create<userInfoState>()(
   persist(
     set => ({
-      id: 0,
-      userId: "",
-      nickName: "",
-      phoneNumber: "",
-      isLoggedIn: false,
+      user: { 
+        id: 0,
+        userId: "",
+        userPw: "",
+        nickName: "",
+        phoneNumber: "",
+        isLoggedIn: false
+      },
       // 로그인 메서드
       login: (inputId:string|undefined, inputPW: string|undefined) =>
-        {
+        { 
           return set((state) => ({
             ...state,
-            id:1,
-            userId:inputId,
-            nickName: 'Test',
-            phoneNumber: '010-0000-0000',
-            isLoggedIn: true
+            user: {
+              id: 1,
+              userId: inputId,
+              userPw: inputPW,
+              nickName: 'Test',
+              phoneNumber: '010-0000-0000',
+              isLoggedIn: true
+            }
           }))
         },
       // 로그아웃 메서드
