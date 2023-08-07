@@ -1,5 +1,4 @@
 import {create} from 'zustand'
-import { Client } from 'paho-mqtt';
 import {persist} from 'zustand/middleware'
 
 const test = [

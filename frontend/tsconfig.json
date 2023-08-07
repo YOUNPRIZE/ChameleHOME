@@ -26,7 +26,8 @@
       "styles/*": ["styles/*"],
       "pages/*": ["pages/*"],
       "store/*": ["store/*"],
-      "constants":["constants/*"]
+      "constants":["constants/*"],
+      "assets":["assets/*"]
     },
   "include": [
     "src"
