@@ -31,6 +31,10 @@ struct MQTT {
 
   // Initialize the MQTT client
   void init() {
+    if (!WiFi.config(STATICIP, GATEWAY, SUBNET, PRIMARYDNS, SECONDARYDNS)) {
+      Serial.println("STA failed to configure");
+    }
+    WiFi.begin(WIFINAME, WIFIPW);
     client.enableDebuggingMessages();
     client.enableHTTPWebUpdater();
     client.enableOTA();
