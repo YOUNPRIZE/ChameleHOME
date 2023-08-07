@@ -25,11 +25,13 @@ public class StoreController {
     // 스토어 전체보기
     @GetMapping("/api/store")
     public ResponseEntity<List<StoreResponse>> findAllStore(){
+        System.out.println("asdf");
         List<StoreResponse> stores = storeService.findAll()
                 .stream()
                 .map(StoreResponse::new)
                 .collect(Collectors.toList());
-
+        System.out.println("asdf");
+        System.out.println(stores);
         return ResponseEntity.ok()
                 .body(stores);
     }

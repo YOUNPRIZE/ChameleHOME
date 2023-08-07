@@ -10,7 +10,7 @@ spring:
     password: A967788!
 
   jpa:
-    open-in-view: false
+    open-in-view: true
     show-sql: true
     properties:
       hibernate:
