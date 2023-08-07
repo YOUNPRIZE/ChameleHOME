@@ -31,7 +31,7 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-web-services'
 	implementation group: 'org.eclipse.paho', name: 'org.eclipse.paho.client.mqttv3', version: '1.2.5'
 	implementation 'com.github.gavlyukovskiy:p6spy-spring-boot-starter:1.7.1'
-	//implementation 'org.springframework.boot:spring-boot-starter-security' // springsecurity
+	implementation 'org.springframework.boot:spring-boot-starter-security' // springsecurity
 	// jwt
 	implementation 'io.jsonwebtoken:jjwt:0.9.1'
 	//implementation 'io.jsonwebtoken:jjwt-api:0.11.5'
@@ -41,9 +41,9 @@ dependencies {
 	implementation 'jakarta.platform:jakarta.jakartaee-api:8.0.0'
 
 
-//	implementation 'com.zaxxer:HikariCP:3.4.5' // HikariCP 추가
+	implementation 'com.zaxxer:HikariCP:3.4.5' // HikariCP 추가
 	implementation 'mysql:mysql-connector-java:8.0.26' // MySQL JDBC 드라이버 의존성 추가
-//	implementation group: 'io.springfox', name: 'springfox-boot-starter', version: '3.0.0'
+//	implementation group: 'io.springfox', name: 'springfox-boot-starter', version: '3.0.0' // Swagger
 
 	runtimeOnly 'com.h2database:h2'
 	runtimeOnly 'com.github.gavlyukovskiy:p6spy-spring-boot-starter:1.7.1'

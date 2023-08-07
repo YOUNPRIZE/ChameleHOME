@@ -330,10 +330,10 @@ master
 
 
 
-|                                                              | 이름   | 내용             |
-| ------------------------------------------------------------ | ------ | ---------------- |
-| <a href="https://github.com/jeonghwanin"><img src="https://avatars.githubusercontent.com/u/99806622?v=4?s=100" width="100px;" alt=""/> | 인정환 |                  |
-| <a href="https://github.com/minsoon025"><img src="https://avatars.githubusercontent.com/u/112068306?v=4?s=100" width="100px;" alt=""/> | 김민태 |                  |
-| <a href="https://github.com/Koneweekk"><img src="https://avatars.githubusercontent.com/u/114633442?v=4?s=100" width="100px;" alt=""/> | 김한주 |                  |
-| <a href="https://github.com/seyi103"><img src="https://avatars.githubusercontent.com/u/74170226?v=4?s=100" width="100px;" alt=""/> | 손세이 |                  |
-| <a href="https://github.com/younprize"><img src="https://avatars.githubusercontent.com/u/76830587?v=4?s=100" width="100px;" alt=""/> | 조윤상 | 김민태는 바보다. |
+| 이름                                                         | 내용                       |
+| ------------------------------------------------------------ | -------------------------- |
+| <a href="https://github.com/jeonghwanin"><img src="https://avatars.githubusercontent.com/u/99806622?v=4?s=100" width="100px;" alt=""/></br>인정환 | 인정환ㅁㄴㅇㄻㄴㅇㄹ       |
+| <a href="https://github.com/minsoon025"><img src="https://avatars.githubusercontent.com/u/112068306?v=4?s=100" width="100px;" alt=""/></br>김민태 | 김민태ㅁㄴㅇㄻㄴㅇㄻㄴ     |
+| <a href="https://github.com/Koneweekk"><img src="https://avatars.githubusercontent.com/u/114633442?v=4?s=100" width="100px;" alt=""/></br>김한주 | 김한주ㅇㄻㄴㅇㄻㄴㅇㄹ     |
+| <a href="https://github.com/seyi103"><img src="https://avatars.githubusercontent.com/u/74170226?v=4?s=100" width="100px;" alt=""/></br>손세이 | 손세이ㅁㄴㅇㄻㄴㅇㄹ       |
+| <a href="https://github.com/younprize"><img src="https://avatars.githubusercontent.com/u/76830587?v=4?s=100" width="100px;" alt=""/></br>조윤상 | 조윤상ㅁㄴㅇㄻㄴㅇㄻㄴㅇㄹ |
