@@ -161,10 +161,9 @@ void autoHumid(const Info set_val, Info now_val, Humidifier humidifier, CoolingF
     humid_flag = false;
   }
   // #4. Out of range
-  else if (set_val.humid > MAXHUMID || set_val.humid < MINHUMID) {
+  else if (err_flag) {
     humidifier.off();
     cool_fan.off();
-    err_flag = true;
   }
 }
 
@@ -187,10 +186,9 @@ void autoTemp(const Info set_val, Info now_val, HeatPad heat_pad, CoolingFan coo
     temp_flag = false;
   }
   // #4. Out of range
-  else if (set_val.temp > MAXTEMP || set_val.temp < MINTEMP) {
+  else if (err_flag) {
     heat_pad.off();
     cool_fan.off();
-    err_flag = true;
   }
 }
 
