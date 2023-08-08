@@ -90,7 +90,7 @@ public class Auto_setController {
     //온도 전달
 
 
-    // 습도 전닳
+    // 습도 전달
 
     // uv 전달
 
