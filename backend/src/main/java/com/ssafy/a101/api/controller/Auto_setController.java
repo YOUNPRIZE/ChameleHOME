@@ -75,5 +75,21 @@ public class Auto_setController {
         return ResponseEntity.ok()
                 .build();
     }
+
+
+    // MQTT 존
+    // auto set controller 에서 값을 받아온다음 그 값을 전달을 해야한다.
+
+    //온도 전달
+
+
+    // 습도 전닳
+
+    // uv 전달
+
+
+
+
+
     
 }

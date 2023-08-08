@@ -3,6 +3,7 @@ package com.ssafy.a101.db.entity;
 
 import lombok.*;
 import javax.persistence.*;
+import java.sql.Time;
 import java.util.Date;
 
 @Entity
@@ -20,7 +21,7 @@ public class Auto_set {
     private Cage cage_id;
 
     @Column(name = "time")
-    private Date time;
+    private Time time;
 
     @Column(name = "set_temp")
     private Long set_temp;
@@ -32,14 +33,14 @@ public class Auto_set {
     private Long set_uv;
 
     @Builder
-    public Auto_set(Date time, Long set_temp, Long set_hum, Long set_uv){
+    public Auto_set(Time time, Long set_temp, Long set_hum, Long set_uv){
         this.time = time;
         this.set_temp = set_temp;
         this.set_hum = set_hum;
         this.set_uv = set_uv;
     }
 
-    public void update(Date time, Long set_temp, Long set_hum, Long set_uv){
+    public void update(Time time, Long set_temp, Long set_hum, Long set_uv){
         this.time = time;
         this.set_temp = set_temp;
         this.set_hum = set_hum;

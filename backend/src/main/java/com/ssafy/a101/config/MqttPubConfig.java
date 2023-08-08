@@ -57,13 +57,14 @@ public class MqttPubConfig {
         }
     }
 
+    time()  = nowtime()
 //    public static void main(String[] args) {
 //        MyMqtt_Pub_Client sender = new MyMqtt_Pub_Client();
 //        new Thread(new Runnable() {
 //            @Override
 //            public void run() {
-//                String msg = "sendmsgfromjava";
-//                sender.send("test/j", msg);
+//                String msg = "sendmsgfromjava";  //  변경할 값 전달
+//                sender.send("test/j", msg);  //  토픽,  보낼 메세지
 //                sender.close(); // 작업 완료되면 종료
 //            }
 //        }).start();
