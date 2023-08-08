@@ -9,6 +9,19 @@
       <change beforePath="$PROJECT_DIR$/.gradle/8.1.1/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.1.1/fileHashes/fileHashes.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ssafy/a101/api/controller/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ssafy/a101/api/controller/UserController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ssafy/a101/api/request/AddUserRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ssafy/a101/api/request/AddUserRequest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ssafy/a101/api/service/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ssafy/a101/api/service/UserService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ssafy/a101/config/TokenAuthenticationFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ssafy/a101/config/TokenAuthenticationFilter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ssafy/a101/config/WebSecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ssafy/a101/config/WebSecurityConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ssafy/a101/config/jwt/TokenProvider.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ssafy/a101/config/jwt/TokenProvider.java" afterDir="false" />
+=======
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ssafy/a101/api/controller/AlarmController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ssafy/a101/api/controller/AlarmController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ssafy/a101/api/controller/AnimalController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ssafy/a101/api/controller/AnimalController.java" afterDir="false" />
+>>>>>>> 43d6e64d0cbd7ba815e44f7242b7c74312202a83
       <change beforePath="$PROJECT_DIR$/src/main/java/com/ssafy/a101/api/controller/Auto_setController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ssafy/a101/api/controller/Auto_setController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/ssafy/a101/api/service/AlarmService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ssafy/a101/api/service/AlarmService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/ssafy/a101/api/service/AnimalService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ssafy/a101/api/service/AnimalService.java" afterDir="false" />
@@ -17,10 +30,16 @@
       <change beforePath="$PROJECT_DIR$/src/main/java/com/ssafy/a101/db/entity/Alarm.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ssafy/a101/db/entity/Alarm.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/ssafy/a101/db/entity/Animal.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ssafy/a101/db/entity/Animal.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/ssafy/a101/db/entity/Auto_set.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ssafy/a101/db/entity/Auto_set.java" afterDir="false" />
+<<<<<<< HEAD
       <change beforePath="$PROJECT_DIR$/src/main/java/com/ssafy/a101/db/entity/Cage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ssafy/a101/db/entity/Cage.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/ssafy/a101/db/repository/AlarmRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ssafy/a101/db/repository/AlarmRepository.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/ssafy/a101/db/repository/AnimalRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ssafy/a101/db/repository/AnimalRepository.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/ssafy/a101/db/repository/Auto_setRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ssafy/a101/db/repository/Auto_setRepository.java" afterDir="false" />
+=======
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ssafy/a101/db/repository/BlogRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ssafy/a101/db/repository/DictionaryRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ssafy/a101/db/repository/DictionaryRepository.java" afterDir="false" />
+>>>>>>> c515508798e0771e0d1b6e6654b4e40621d27bc4
+>>>>>>> 43d6e64d0cbd7ba815e44f7242b7c74312202a83
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -51,6 +70,9 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
   </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 4
@@ -115,8 +137,16 @@
       <workItem from="1690869880681" duration="112000" />
       <workItem from="1690949435075" duration="836000" />
       <workItem from="1691222560726" duration="50000" />
+<<<<<<< HEAD
+      <workItem from="1691451814947" duration="6847000" />
+=======
       <workItem from="1691383935915" duration="7243000" />
+<<<<<<< HEAD
       <workItem from="1691453543916" duration="11166000" />
+=======
+      <workItem from="1691453543916" duration="4613000" />
+>>>>>>> c515508798e0771e0d1b6e6654b4e40621d27bc4
+>>>>>>> 43d6e64d0cbd7ba815e44f7242b7c74312202a83
     </task>
     <servers />
   </component>

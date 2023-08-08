@@ -20,6 +20,8 @@ public class WebSecurityConfig {
     private final UserDetailService userService;
 
     @Bean
+    // 스프링 시큐리티의 모든 기능을 사용하지 않게 설정하는 메소드
+    // 정적 리소스만 비활성화
     public WebSecurityCustomizer configure() {
         return (web) -> web.ignoring()
                 .requestMatchers(toH2Console())
@@ -30,18 +32,26 @@ public class WebSecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         return http
                 .authorizeRequests()
-//                .antMatchers("/login", "/signup", "/user").permitAll()
-                .antMatchers("/**").permitAll()
+                // /login, /signup, /user로 요청이 오면 인증/인가 없이도 접근 가능
+                .antMatchers("/api/signup", "/api/login").permitAll()
+                //.antMatchers("/**").permitAll()
+                // anyRequest : 위에서 설정한 url 이외의 요청에 대해 설정
+                // authenticated : 별도의 인가는 필요치 않지만 인증이 접근할 수 있음.
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
+                // loginPage : 로그인 페이지 경로를 설정
                 .loginPage("/login")
+                // 로그인이 완료됐을 때 이동할 경로 설정
                 .defaultSuccessUrl("/articles")
                 .and()
                 .logout()
+                // 로그아웃 했을 때  이동할 경로 설정
                 .logoutSuccessUrl("/login")
+                // 로그아웃 이후 세션 전체 삭제
                 .invalidateHttpSession(true)
                 .and()
+                // csrf 비활성화
                 .csrf().disable()
                 .build();
     }
