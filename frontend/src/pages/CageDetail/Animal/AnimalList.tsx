@@ -2,9 +2,8 @@
 import { useNavigate, useParams } from 'react-router-dom';
 import { useEffect } from 'react'
 // 상태 정보 import
-import { Animal, myAnimalStore } from 'store/myAnimalStore';
+import { myAnimalStore } from 'store/myAnimalStore';
 import { nowPageStore } from 'store/myPageStore';
-import imgList from 'constants/AnimalToImage.json'
 // 컴포넌트 import
 import AddBtn from 'components/Shared/AddBtn';
 import AnimalItemLong from 'components/CageDatail/Animal/AnimalItemLong';
@@ -16,17 +15,11 @@ export default function AnimalList():JSX.Element {
   const changePage = nowPageStore(state => state.setPage);
   useEffect(() => {
     changePage("동물 목록");
-  }, [])
+  }, [changePage])
 
   // 상태 정보 + Props 받기
   const cageId = Number(useParams().cageId);
   const myAnimals  = myAnimalStore(state => (state.animalsInCages[cageId]));
-
-  // 이미지 매칭 함수
-  const matchImg = (animal:Animal):string => {
-    const imgFileName = imgList[animal.species as keyof typeof imgList]
-    return process.env.PUBLIC_URL+`/images/${imgFileName}`
-  }
 
   // 나이 구하기
   const today = new Date();
@@ -37,9 +30,6 @@ export default function AnimalList():JSX.Element {
 
   // 동물 상세보기로 이동
   const navigate = useNavigate();
-  const handleDetail = (animalId:number):void => {
-    navigate(`../AnimalDetail/${animalId}`)
-  }
 
   return (
     <>

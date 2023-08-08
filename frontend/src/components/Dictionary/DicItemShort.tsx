@@ -10,11 +10,13 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 export default function DicItemShort(props: {dicItem:dicAnimal}):JSX.Element {
   // 변수 설정
   const imgUrl:string = process.env.PUBLIC_URL+`/images/${props.dicItem.photo}`
+
   // 항목 상세보기 이동 함수
   const navigate = useNavigate();
   const handleDicDetail = () => {
     navigate(`./${props.dicItem.species}` )
   }
+  
   // 컴포넌트 렌더링
   return (
       <div className={`${style.dicItemContainer}`} onClick={handleDicDetail}>
