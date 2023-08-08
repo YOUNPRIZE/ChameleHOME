@@ -36,3 +36,6 @@
 ### 23.08.07
 1. yolo 파충류 데이터 훈련
 2. front end 도감작
+
+### 23.08.08
+1. yolo reptile data train
