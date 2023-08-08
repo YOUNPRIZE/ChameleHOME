@@ -40,11 +40,10 @@ export default function InnerCageInfo(props:{myCage:myCage|undefined}):JSX.Eleme
     clientRef.current = client;
     if (!client.isConnected()) {
       client.connect({
-        // 계정 정보
         userName: "FRONT",
-        password: '1234',
-        // https 보안을 위해 사용
-        useSSL: true,
+        password: "1234",
+        useSSL:true,
+        mqttVersion:4,
         // 커넥트에 성공(구독)
         onSuccess: () => { 
           console.log("연결 성공")
