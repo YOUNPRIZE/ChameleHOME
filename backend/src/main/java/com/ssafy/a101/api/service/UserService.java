@@ -11,25 +11,18 @@ import javax.transaction.Transactional;
 @RequiredArgsConstructor
 @Service
 public class UserService {
-
     private final UserRepository userRepository;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
     // 회원 가입
-    public Long save(AddUserRequest dto) {
-        return userRepository.save(User.builder()
-                .userId(dto.getUserId())
-                .password(bCryptPasswordEncoder.encode(dto.getPassword()))
-                .nickname(dto.getNickname())
-                .number(dto.getNumber())
-                .user_img(dto.getUser_img())
-                .build()).getId();
+    public User save(AddUserRequest dto) {
+        return userRepository.save(dto.toEntity());
     }
 
     // 회원 정보 조회
     public User findById(Long user_id) {
         return userRepository.findById(user_id)
-                .orElseThrow(() -> new IllegalArgumentException("Unexpected user : " + user_id));
+                .orElseThrow(() -> new IllegalArgumentException("해당 사용자의 정보가 조회되지 않습니다."));
     }
 
     // 회원 탈퇴
@@ -41,7 +34,7 @@ public class UserService {
     @Transactional
     public User update(long user_id, UpdateUserRequest request){
         User user = userRepository.findById(user_id)
-                .orElseThrow(()-> new IllegalArgumentException(("없뎃안되는데용") + user_id));
+                .orElseThrow(()-> new IllegalArgumentException("해당 사용자의 수정 과정에서 오류가 발생했습니다."));
         user.update(request.getUser_id(), request.getPassword(), request.getNickname(), request.getNumber(), request.getUser_img());
         return user;
     }
