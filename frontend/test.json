@@ -1,11 +1,11 @@
 {
   "user": [
     {
-      "id": 1,
       "userId": "FRONT",
       "password": "1234",
-      "nickName": "test",
-      "phoneNumber": "010-7777-7777"
+      "nickName": "한주",
+      "phoneNumber": "010-7777-7777",
+      "id": 1
     }
   ]
 }

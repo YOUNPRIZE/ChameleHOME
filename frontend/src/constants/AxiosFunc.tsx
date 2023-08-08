@@ -3,7 +3,7 @@ import { User } from "store/userInfoStore";
 
 const ipUrl = "http://localhost:4000";
 
-const axiosAuth = async (url:string, method:string, data?:User) => {
+const axiosAuth = async (url:string, method:string, data?:Omit<User, "id">) => {
   try {
     const response = await axios({
       method: method,

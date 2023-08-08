@@ -51,7 +51,8 @@ export default function InnerCageInfo(props:{myCage:myCage|undefined}):JSX.Eleme
           client.subscribe(getInfoTopic);
         },
         // 커넥트 실패
-        onFailure: (err) => { 
+        onFailure: () => { 
+          console.log("연결 실패")
         }
       });
     };
