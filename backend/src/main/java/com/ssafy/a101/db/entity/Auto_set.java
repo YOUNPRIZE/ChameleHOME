@@ -18,7 +18,7 @@ public class Auto_set {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "cage_id", referencedColumnName = "cage_id")
-    private Cage cage_id;
+    private Cage cageId;
 
     @Column(name = "time")
     private Time time;
