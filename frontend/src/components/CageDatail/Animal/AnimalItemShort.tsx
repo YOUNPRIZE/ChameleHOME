@@ -2,7 +2,6 @@
 import { useNavigate } from "react-router-dom";
 // 상태정보 import
 import { Animal } from "store/myAnimalStore"
-import data from "constants/AnimalToImage.json"
 // 스타일 import
 import style from 'styles/CageDetail/CageDetail.module.css'
 import 'bootstrap/dist/css/bootstrap.min.css'
@@ -17,9 +16,7 @@ interface Props {
 export default function AnimalItemShort(props:Props):JSX.Element {
 
   // 이미지 주소
-  const species:string = props.animal.species
-  const ImgUrls:{ [key: string]: string } = data
-  const imgUrl:string = process.env.PUBLIC_URL+`/images/${ImgUrls[species]}`
+  const imgUrl:string = process.env.PUBLIC_URL+`/images/${props.animal.photo}`
 
   // 동물 상세보기로 이동
   const navigate = useNavigate();

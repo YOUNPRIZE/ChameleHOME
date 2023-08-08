@@ -3,7 +3,6 @@ package com.ssafy.a101.api.controller;
 
 import com.ssafy.a101.api.request.AddAlarmRequest;
 import com.ssafy.a101.api.request.UpdateAlarmRequest;
-import com.ssafy.a101.api.request.UpdateArticleRequest;
 import com.ssafy.a101.api.response.AlarmResponse;
 import com.ssafy.a101.api.service.AlarmService;
 import com.ssafy.a101.db.entity.Alarm;
