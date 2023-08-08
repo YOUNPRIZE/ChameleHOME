@@ -22,8 +22,8 @@ public class AlarmController {
 
     // 전체 알람 조회
     @GetMapping("/api/{cage_id}/alarms")
-    public ResponseEntity<List<AlarmResponse>> findAllAlarm(){
-        List<AlarmResponse> alarms =  alarmService.findAll()
+    public ResponseEntity<List<AlarmResponse>> findAllAlarm(@PathVariable long cage_id){
+        List<AlarmResponse> alarms =  alarmService.findAll(cage_id)
                 .stream()
                 .map(AlarmResponse::new)
                 .collect(Collectors.toList());

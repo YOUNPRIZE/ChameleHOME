@@ -33,8 +33,8 @@ public class WebSecurityConfig {
         return http
                 .authorizeRequests()
                 // /login, /signup, /user로 요청이 오면 인증/인가 없이도 접근 가능
-                .antMatchers("/api/signup", "/api/login").permitAll()
-                //.antMatchers("/**").permitAll()
+//                .antMatchers("/api/signup", "/api/login").permitAll()
+                .antMatchers("/**").permitAll()
                 // anyRequest : 위에서 설정한 url 이외의 요청에 대해 설정
                 // authenticated : 별도의 인가는 필요치 않지만 인증이 접근할 수 있음.
                 .anyRequest().authenticated()
