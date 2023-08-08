@@ -1,5 +1,5 @@
 // 훅 import
-import { useRef, RefObject, useEffect } from "react"
+import React, { useRef, RefObject, useEffect,forwardRef } from "react"
 // 상태정보 import
 // 스타일 import
 import style from 'styles/Auth/Login.module.css'
@@ -9,25 +9,33 @@ import Form from 'react-bootstrap/Form';
 interface Props {
   name: string;
   placeholder: string;
-  parentRef: RefObject<HTMLInputElement>
+  warning: string | null
 }
 
-export function SignUpText({name, placeholder, parentRef}:Props):JSX.Element {
-  const inputRef = useRef<HTMLInputElement>(null);
-  return (
+const SignUpText = React.forwardRef<HTMLInputElement, Props>(({ name, placeholder, warning }: Props, ref) => {
+    return (
+      <Form.Group controlId={name} className="mb-3">
+        <Form.Label className={style.textSize}>{name}</Form.Label>
+        <Form.Control ref={ref} type="text" placeholder={placeholder} className={`bg-secondary-subtle ${style.inputForm}`}/>
+        {warning? <div className={style.warningText}>{warning}</div> : null }
+      </Form.Group>
+    );
+  }
+);
 
-    <Form.Group className="mb-3" controlId="inputId">
-      <Form.Label className={style.textSize}>{name}</Form.Label>
-      <Form.Control className={`bg-secondary-subtle ${style.inputForm}`} type="text" placeholder={placeholder} />
-    </Form.Group>
-  )
-}
 
-export function SignUpPassword({name, placeholder, parentRef}:Props):JSX.Element {
-  return (
-    <Form.Group className="mb-3" controlId="inputPasswordConfirm">
-      <Form.Label className={style.textSize}>{name}</Form.Label>
-      <Form.Control className={`bg-secondary-subtle ${style.inputForm}`} type="password" placeholder={placeholder}/>
-    </Form.Group>
-  )
-}
+const SignUpPassword = React.forwardRef<HTMLInputElement, Props>(({ name, placeholder, warning }: Props, ref) => {
+    return (
+      <Form.Group controlId={name} className="mb-3">
+        <Form.Label className={style.textSize}>{name}</Form.Label>
+        <Form.Control ref={ref} type="password" placeholder={placeholder} className={`bg-secondary-subtle ${style.inputForm}`}/>
+        {warning? <div className={style.warningText}>{warning}</div> : null }
+      </Form.Group>
+    );
+  }
+);
+
+export {SignUpText, SignUpPassword}
+
+
+
