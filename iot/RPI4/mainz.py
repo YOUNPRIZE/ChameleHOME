@@ -19,13 +19,14 @@ import numpy as np
 app = Flask(__name__)
 
 n = 0
-frame = 0
-ret = False
-
 def generate_frames():
     global n
-    global ret
     # Get frames from camera on infinite loop
+    # Load YOLO
+    net = cv2.dnn.readNet("yolov3-tiny.weights", "yolov3-tiny.cfg")
+    classes = []
+    with open("coco.names", "r") as f:
+        classes = f.read().strip().split("\n")
 
     # Open the Raspberry Pi camera
     cap = cv2.VideoCapture(0)
@@ -38,11 +39,43 @@ def generate_frames():
 
     # Start loop 
     while True:
-        global frame 
         n = n + 1
         # Read a frame from the camera
         ret, frame = cap.read()
 
+        # Check getting correct frame
+        if not ret:
+            break
+        height, width, _ = frame.shape
+        if n % 100 == 0:
+            # Preprocess image
+            blob = cv2.dnn.blobFromImage(frame, scalefactor=1/255.0, size=(416, 416), swapRB=True, crop=False)
+            net.setInput(blob)
+
+            # Perform forward pass
+            layer_names = net.getUnconnectedOutLayersNames()
+            outs = net.forward(layer_names)
+
+            # Process and display detections
+            for out in outs:
+                for detection in out:
+                    scores = detection[5:]
+                    class_id = np.argmax(scores)
+                    confidence = scores[class_id]
+
+                    if confidence > 0.5:  # Set a confidence threshold
+                        center_x = int(detection[0] * width)
+                        center_y = int(detection[1] * height)
+                        w = int(detection[2] * width)
+                        h = int(detection[3] * height)
+
+                        x = int(center_x - w / 2)
+                        y = int(center_y - h / 2)
+
+                        label = f"{classes[class_id]}: {confidence:.2f}"
+                        cv2.rectangle(frame, (x, y), (x + w, y + h), (0, 255, 0), 2)
+                        cv2.putText(frame, label, (x, y - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 0), 2)
+                        print('1')
         # Encode the frame in JPEG format
         ret, buffer = cv2.imencode('.jpg', frame)
         
@@ -57,56 +90,6 @@ def generate_frames():
     # Release the camera
     cap.release()
 
-def recognize():
-    global ret
-    global frame
-    # Load YOLO
-    net = cv2.dnn.readNet("yolov3_training_last.weights", "yolov3-tiny_obj.cfg")
-
-
-    classes = []
-    with open("coco.names", "r") as f:
-        classes = f.read().strip().split("\n")
-    
-    print('load model')
-   
-    while True:
-        # Check getting correct frame
-        if not ret:
-            continue
-
-        height, width, _ = frame.shape
-
-        # Preprocess image
-        blob = cv2.dnn.blobFromImage(frame, scalefactor=1/255.0, size=(416, 416), swapRB=True, crop=False)
-        net.setInput(blob)
-
-        # Perform forward pass
-        layer_names = net.getUnconnectedOutLayersNames()
-        outs = net.forward(layer_names)
-
-        # Process and display detections
-        for out in outs:
-            for detection in out:
-                scores = detection[5:]
-                class_id = np.argmax(scores)
-                confidence = scores[class_id]
-
-                if confidence > 0.5:  # Set a confidence threshold
-                    center_x = int(detection[0] * width)
-                    center_y = int(detection[1] * height)
-                    w = int(detection[2] * width)
-                    h = int(detection[3] * height)
-
-                    x = int(center_x - w / 2)
-                    y = int(center_y - h / 2)
-
-                    label = f"{classes[class_id]}: {confidence:.2f}"
-                    #cv2.rectangle(frame, (x, y), (x + w, y + h), (0, 255, 0), 2)
-                    #cv2.putText(frame, label, (x, y - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 0), 2)
-                    print(label)
-        print('next') 
-    print('load model')
 
 # Flask servor routing
 @app.route('/')
@@ -227,16 +210,13 @@ def main():
     # multithreading mqtt_tjhread, app_thread
     try:
         t1 = threading.Thread(target=mqtt_thread)
-        t2 = threading.Thread(target=recognize)
         t1.start()
-        t2.start()
         while True:
             app.run(host='0.0.0.0', port=5000, debug=True)
 
     # to exit use Keyboard Interrupt
     except KeyboardInterrupt:
         t1.join()
-        t2.join()
 
 
 if __name__ == '__main__':
