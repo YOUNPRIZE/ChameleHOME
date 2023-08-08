@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.sql.Time;
 import java.util.Date;
 
 @NoArgsConstructor
@@ -14,7 +15,7 @@ import java.util.Date;
 @Setter
 public class UpdateAuto_setRequest {
 
-    private Date time;
+    private Time time;
     private Long set_temp;
     private Long set_hum;
     private Long set_uv;
