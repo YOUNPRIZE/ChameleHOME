@@ -13,7 +13,7 @@ public class Cage {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "cage_id", updatable = false)
-    private Long cage_id;
+    private Long cageId;
 
     // fk 사용해야한다.
     @ManyToOne(fetch = FetchType.LAZY)

@@ -20,7 +20,7 @@ public class Alarm {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "cage_id", referencedColumnName = "cage_id")
-    private Cage cage_id;
+    private Cage cageId;
 
 
     @Column(name = "name", nullable = false)
