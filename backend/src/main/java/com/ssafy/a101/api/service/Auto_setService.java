@@ -17,7 +17,7 @@ public class Auto_setService {
     private final Auto_setRepository autoSetRepository;
 
     // 전체 세팅 값 조회
-    public List<Auto_set> findALL() {return autoSetRepository.findAll();}
+    public List<Auto_set> findALL(Long cage_id) {return autoSetRepository.findByCageId_CageId(cage_id);}
 
 
     // 특정 값 세팅 값 조회

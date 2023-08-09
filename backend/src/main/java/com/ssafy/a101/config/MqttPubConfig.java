@@ -57,7 +57,11 @@ public class MqttPubConfig {
         }
     }
 
+<<<<<<< HEAD
 //    time()  = nowtime()
+=======
+
+>>>>>>> 17471cd282d3ced4cd6a0303c2e5c70e65d26be2
 //    public static void main(String[] args) {
 //        MyMqtt_Pub_Client sender = new MyMqtt_Pub_Client();
 //        new Thread(new Runnable() {

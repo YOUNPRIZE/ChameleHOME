@@ -23,9 +23,7 @@ public class AnimalController {
     // 전체 조회
     @GetMapping("/api/{cage_id}/animals")
     public ResponseEntity<List<AnimalResponse>> findAllAnimals(@PathVariable long cage_id){
-        Animal animal = animalService.findById(cage_id);
-
-        List<AnimalResponse> animals = animalService.findAll()
+        List<AnimalResponse> animals = animalService.findAll(cage_id)
                 .stream()
                 .map(AnimalResponse::new)
                 //.toList()  .//자바 16 이상 사용가능
