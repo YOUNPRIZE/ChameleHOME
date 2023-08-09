@@ -8,11 +8,11 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 
 export default function CageItemShort(props:{cage: myCage, index: number, order: number}):JSX.Element {
   // 이미지 주소
-  const imgUrl:string = process.env.PUBLIC_URL+`/images/${props.cage.category}.jpeg`
+  const imgUrl:string = process.env.PUBLIC_URL+`/images/${props.cage.category}.jpg`
   // 클릭하면 케이지 상세페이지로 이동
   const navigate = useNavigate();
   const handleMoveDetail = () => {
-    navigate(`/CageDetail/${props.cage.cageId}`)
+    navigate(`/CageDetail/${props.cage.id}`)
   }
   // 컴포넌트 구성
   return (

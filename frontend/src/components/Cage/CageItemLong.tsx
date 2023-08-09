@@ -16,7 +16,7 @@ interface Props {
 
 export default function CageItemLong(props:Props):JSX.Element {
   // 이미지 변수
-  const imgUrl:string = process.env.PUBLIC_URL+`/images/${props.cage.category}.jpeg`
+  const imgUrl:string = process.env.PUBLIC_URL+`/images/${props.cage.category}.jpg`
 
   // 케이지 내부 환경 정보
   const [nowTem, setNowTem] = useState(0);
@@ -44,7 +44,7 @@ export default function CageItemLong(props:Props):JSX.Element {
   // 클릭하면 케이지 상세페이지로 이동
   const navigate = useNavigate();
   const handleMoveDetail = () => {
-    navigate(`/CageDetail/${props.cage.cageId}`)
+    navigate(`/CageDetail/${props.cage.id}`)
   }
 
   // 렌더링
