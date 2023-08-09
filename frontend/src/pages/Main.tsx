@@ -2,13 +2,10 @@
 import { useEffect, useState, } from 'react'
 // 상태 정보 import
 import { nowPageStore } from 'store/myPageStore';
-import { myCagesStore } from 'store/myCageStore';
 import {animalDicStore} from 'store/animalDicStore';
-import { nowCageValueStore } from 'store/myCageStore';
 // 컴포넌트 import
-import CageContainer from 'components/Main/CageContainer';
+import CageBox from 'components/Main/CageBox';
 import TopBox from 'components/Shared/TopBox';
-import CageItemShort from 'components/Main/CageItemShort';
 import DicItemBig from 'components/Main/DicItemBig';
 import { MoveIconLeft, MoveIconRight } from 'components/Shared/MoveIcon';
 // 스타일 import
@@ -37,7 +34,7 @@ export default function Main():JSX.Element {
   return (
     <>
       {/* 케이지 보기 컨테이너 */}
-      <CageContainer/>
+      <CageBox/>
       {/* 도감 보기 컨테이너 */}
       <div className={`${style.mainContainer} ${style.mainDic}`}>
         <TopBox name="파충류 도감" link="/Dictionary"/>
