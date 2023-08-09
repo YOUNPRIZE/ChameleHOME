@@ -18,7 +18,7 @@ public class AnimalService {
     private final AnimalRepository animalRepository;
 
     // 전체 동물 조회
-    public List<Animal> findAll(){ return  animalRepository.findAll(); }
+    public List<Animal> findAll(Long cage_id){ return  animalRepository.findByCageId_CageId(cage_id); }
 
     // 특정 동물 조회
     public Animal findById(Long id) {
