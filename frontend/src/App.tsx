@@ -21,7 +21,7 @@ import Dictionray from "pages/Dictionary/Dictionary";
 
 function App(): JSX.Element {
   // 로그인 여부 판단
-  const isLoggedIn = userInfoStore(state => state.user.isLoggedIn)
+  const isLoggedIn = userInfoStore(state => state.isLoggedIn)
 
   // 랜더링
   return (
