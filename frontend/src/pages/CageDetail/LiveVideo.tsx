@@ -27,6 +27,8 @@ export default function LiveVideo():JSX.Element {
         // 계정 정보
         userName: "FRONT",
         password: '1234',
+        // https 보안을 위해 사용
+        useSSL: true,
         // 커넥트에 성공
         onSuccess: () => {
         },
