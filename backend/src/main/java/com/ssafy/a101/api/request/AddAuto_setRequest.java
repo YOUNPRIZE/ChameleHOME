@@ -14,7 +14,7 @@ import java.util.Date;
 @Getter
 public class AddAuto_setRequest {
 
-    private Time time;
+    private String time;
     private Long set_temp;
     private Long set_hum;
     private Long set_uv;
