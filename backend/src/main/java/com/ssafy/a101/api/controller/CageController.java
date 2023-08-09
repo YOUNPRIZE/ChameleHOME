@@ -2,7 +2,6 @@ package com.ssafy.a101.api.controller;
 
 import com.ssafy.a101.api.request.AddCageRequest;
 import com.ssafy.a101.api.request.UpdateCageRequest;
-import com.ssafy.a101.api.response.ArticleResponse;
 import com.ssafy.a101.api.response.CageResponse;
 import com.ssafy.a101.api.service.CageService;
 import com.ssafy.a101.db.entity.Cage;

@@ -11,9 +11,7 @@ import lombok.Setter;
 @Setter
 public class UpdateUserRequest {
     private Long id;
-    private String user_id;
+    private String email;
     private String password;
     private String nickname;
-    private Long number;
-    private String user_img;
 }
