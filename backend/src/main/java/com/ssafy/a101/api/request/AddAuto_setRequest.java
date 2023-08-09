@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.sql.Time;
 import java.util.Date;
 
 @NoArgsConstructor//기본생성자 설정
@@ -13,7 +14,7 @@ import java.util.Date;
 @Getter
 public class AddAuto_setRequest {
 
-    private Date time;
+    private String time;
     private Long set_temp;
     private Long set_hum;
     private Long set_uv;
