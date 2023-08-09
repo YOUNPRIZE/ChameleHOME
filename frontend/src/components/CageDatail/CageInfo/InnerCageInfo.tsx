@@ -80,7 +80,7 @@ export default function InnerCageInfo(props:{myCage:myCage|undefined}):JSX.Eleme
       myCage.setTemp += setting[0];
       myCage.setHum += setting[1];
       myCage.setUv = setting[2]? !myCage.setUv : myCage.setUv;
-      updateCage(myCage, cageId);
+      updateCage(myCage);
       // 세팅값 Mqtt로 보내기
       const payload = {temp: myCage?.setTemp, humid: myCage?.setTemp, uv: myCage?.setUv,};
       const message = new Message(JSON.stringify(payload));

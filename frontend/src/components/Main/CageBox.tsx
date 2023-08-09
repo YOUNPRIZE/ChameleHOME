@@ -12,13 +12,13 @@ import { MoveIconLeft, MoveIconRight } from 'components/Shared/MoveIcon';
 import style from 'styles/Main.module.css'
 import 'bootstrap/dist/css/bootstrap.min.css'
 
-export default function CageContainer():JSX.Element {
+export default function CageBox():JSX.Element {
   // 상태 정보 저장
   const userID = userInfoStore(state => state.user).id
   const myCages = myCagesStore(state => state.cages)
   const setCages = myCagesStore(state => state.setCages)
 
-  // 케이지 정보 api 통해서 받아오고
+  // 케이지 정보 db에서 받아오기
   const loadCageInfos = async() => {
     try {
       const cageInfos = await axiosCage(`cage?userId=${userID}`, "GET")
