@@ -3,13 +3,13 @@ import {persist} from 'zustand/middleware'
 
 // 개별 동물 정의
 export interface Animal {
-  animalId : number;
+  id : number;
   cageId : number;
   species : string;
   name : string;
   gender : string;
   birth : Date;
-  issue : string;
+  issue : string|null;
   created_at : Date;
   photo: string;
 }
@@ -28,12 +28,19 @@ export const myAnimalStore = create<MyAnimal>() (
   persist(
     set => ({
       animals : [],
-      addAnimal: (animal: Animal) => console.log(animal),
+      // 동물 추가하기
+      addAnimal: (animal: Animal) => {
+        set((state) => {
+          state.animals.push(animal);
+          return {...state}
+        })
+      },
       updateAnimal: (animal: Animal) => console.log(animal),
       deleteAnimal: (id: number) => console.log(id),
+      // 기존 동물 데이터 입력
       setAnimals: (animals: Array<Animal>) => set(
         state => {return {...state, animals:animals}})
-    }),
+      }),
     {name:'myAnimls'}
   )
 )
