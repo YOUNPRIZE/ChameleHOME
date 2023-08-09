@@ -29,7 +29,7 @@ export default function Cages():JSX.Element {
   return (
     <div>
       {myCages.map((cage) => (
-        <CageItemLong key={cage.cageId} cage={cage}/>
+        <CageItemLong key={cage.id} cage={cage}/>
       ))}
       <AddBtn feature={() => navigate('../AddCage')}/>
     </div>

@@ -1,8 +1,7 @@
 import { useNavigate } from "react-router-dom"
 
 export default function AddBtn(props:{feature:Function}):JSX.Element {
-  // 페이지 이동 함수
-  const navigate = useNavigate();
+
   // 버튼 스타일
   const AddBtnStyle = {
     width:"90%",

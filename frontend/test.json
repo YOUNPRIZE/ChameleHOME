@@ -9,6 +9,16 @@
     }
   ],
   "cage": [
-    
+    {
+      "userId": 1,
+      "cageName": "리자몽케이지",
+      "sNum": "7777",
+      "setTemp": 25,
+      "setHum": 60,
+      "setUv": false,
+      "createdAt": "2023-08-09T06:35:54.025Z",
+      "category": "lizard",
+      "id": 1
+    }
   ]
 }
