@@ -1,7 +1,7 @@
 import axios from "axios";
 import { User } from "store/userInfoStore";
 import { myCage } from "store/myCageStore";
-import { MyAnimal } from "store/myAnimalStore";
+import { Animal } from "store/myAnimalStore";
 
 const ipUrl = "http://localhost:400";
 
@@ -34,7 +34,7 @@ const axiosCage = async (url:string, method:string, data?:Partial<myCage>) => {
 };
 
 // 동물 기능 관련 api 함수
-const axiosAnimal = async (url:string, method:string, data?:Partial<MyAnimal>) => {
+const axiosAnimal = async (url:string, method:string, data?:Partial<Animal>) => {
   try {
     const response = await axios({
       method: method,
