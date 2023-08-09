@@ -36,7 +36,7 @@ public class TokenProvider {
                 .setIssuer(jwtProperties.getIssuer())
                 .setIssuedAt(now) // 내용 iat : 현재 시간
                 .setExpiration(expiry) // 내용 exp : expiry 멤버 변수값
-                .setSubject(user.getEmail()) // 내용 sub : 유저의 아이디
+                .setSubject(user.getUserId()) // 내용 sub : 유저의 이메일
                 .claim("id", user.getId()) // 클레임 id : 유저ID
                 // 서명 : 비밀값과 함께 해시값을 HS256 방식으로 암호화
                 .signWith(SignatureAlgorithm.HS256, jwtProperties.getSecretKey())
@@ -64,20 +64,12 @@ public class TokenProvider {
         return new UsernamePasswordAuthenticationToken(new org.springframework.security.core.userdetails.User(claims.getSubject
                 (), "", authorities), token, authorities);
     }
-//    public Authentication getAuthentication(String token) {
-//        UserDetails userDetails = userDetailsService.loadUserByUsername(this.getUserPk(token));
-//        return new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
-//    }
 
     // 토큰 기반으로 유저 ID를 가져오는 메서드
     public Long getUserId(String token) {
         Claims claims = getClaims(token);
         return claims.get("id", Long.class);
     }
-    // 토큰에서 회원 정보 추출
-//    public String getUserPk(String token) {
-//        return Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token).getBody().getSubject();
-//    }
 
     private Claims getClaims(String token) {
         return Jwts.parser() // 클레임 조회

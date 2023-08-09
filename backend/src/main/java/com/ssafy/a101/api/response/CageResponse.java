@@ -8,7 +8,6 @@ import java.util.Date;
 @Getter
 public class CageResponse {
 
-    private final Long cageId;
     private final String cage_name;
     private final Long set_temp;
     private final Long set_hum;
@@ -18,7 +17,6 @@ public class CageResponse {
 
 
     public CageResponse(Cage cage) {
-        this.cageId = cage.getCageId();
         this.cage_name = cage.getCage_name();
         this.set_temp = cage.getSet_temp();
         this.set_hum = cage.getSet_hum();

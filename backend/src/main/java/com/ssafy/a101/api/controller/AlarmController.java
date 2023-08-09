@@ -3,6 +3,7 @@ package com.ssafy.a101.api.controller;
 
 import com.ssafy.a101.api.request.AddAlarmRequest;
 import com.ssafy.a101.api.request.UpdateAlarmRequest;
+import com.ssafy.a101.api.request.UpdateArticleRequest;
 import com.ssafy.a101.api.response.AlarmResponse;
 import com.ssafy.a101.api.service.AlarmService;
 import com.ssafy.a101.db.entity.Alarm;
@@ -22,8 +23,8 @@ public class AlarmController {
 
     // 전체 알람 조회
     @GetMapping("/api/{cage_id}/alarms")
-    public ResponseEntity<List<AlarmResponse>> findAllAlarm(@PathVariable long cage_id){
-        List<AlarmResponse> alarms =  alarmService.findAll(cage_id)
+    public ResponseEntity<List<AlarmResponse>> findAllAlarm(){
+        List<AlarmResponse> alarms =  alarmService.findAll()
                 .stream()
                 .map(AlarmResponse::new)
                 .collect(Collectors.toList());

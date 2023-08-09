@@ -3,13 +3,12 @@ package com.ssafy.a101.api.response;
 import com.ssafy.a101.db.entity.Auto_set;
 import lombok.Getter;
 
-import java.sql.Time;
 import java.util.Date;
 
 @Getter
 public class Auto_setResponse {
 
-    private final String time;
+    private final Date time;
     private final Long set_temp;
     private final Long set_hum;
     private final Long set_uv;
