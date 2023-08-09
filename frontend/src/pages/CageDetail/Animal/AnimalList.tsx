@@ -35,7 +35,7 @@ export default function AnimalList():JSX.Element {
     <>
       {/* 동물 리스트 */}
       {myAnimals.map((animal, index) => (
-        <AnimalItemLong key={animal.animalId} animal={animal} age={getAge(animal.birth)}/>
+        <AnimalItemLong key={animal.id} animal={animal} age={getAge(animal.birth)}/>
       ))}
       {/* 동물 추가하기로 이동 */}
       <AddBtn feature={() => {navigate('../AddAnimal')}} />

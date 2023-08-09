@@ -21,7 +21,7 @@ export default function AnimalItemShort(props:Props):JSX.Element {
   // 동물 상세보기로 이동
   const navigate = useNavigate();
   const handleDetail = ():void => {
-    navigate(`../AnimalDetail/${props.animal.animalId}`)
+    navigate(`../AnimalDetail/${props.animal.id}`)
   }
 
   return (
