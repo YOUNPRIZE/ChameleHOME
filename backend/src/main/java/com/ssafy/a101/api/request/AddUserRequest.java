@@ -16,19 +16,15 @@ public class AddUserRequest {
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
-    private String userId;
+    private String email;
     private String password;
     private String nickname;
-    private Long number;
-    private String user_img;
 
     public User toEntity() {
         return User.builder()
-                .userId(getUserId())
+                .email(getEmail())
                 .password(bCryptPasswordEncoder.encode(getPassword()))
                 .nickname(getNickname())
-                .number(getNumber())
-                .user_img(getUser_img())
                 .build();
     }
 }

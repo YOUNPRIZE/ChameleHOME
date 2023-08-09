@@ -11,31 +11,25 @@ import javax.transaction.Transactional;
 @RequiredArgsConstructor
 @Service
 public class UserService {
+
     private final UserRepository userRepository;
-    private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
-    // 회원 가입
-    public User save(AddUserRequest dto) {
-        return userRepository.save(dto.toEntity());
+    public Long save(AddUserRequest dto) {
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+
+        return userRepository.save(User.builder()
+                .email(dto.getEmail())
+                .password(encoder.encode(dto.getPassword()))
+                .build()).getId();
     }
 
-    // 회원 정보 조회
-    public User findById(Long user_id) {
-        return userRepository.findById(user_id)
-                .orElseThrow(() -> new IllegalArgumentException("해당 사용자의 정보가 조회되지 않습니다."));
+    public User findById(Long userId) {
+        return userRepository.findById(userId)
+                .orElseThrow(() -> new IllegalArgumentException("Unexpected user"));
     }
-
-    // 회원 탈퇴
-    public void delete(Long id){
-        userRepository.deleteById(id);
-    }
-
-    // 정보 수정
-    @Transactional
-    public User update(long user_id, UpdateUserRequest request){
-        User user = userRepository.findById(user_id)
-                .orElseThrow(()-> new IllegalArgumentException("해당 사용자의 수정 과정에서 오류가 발생했습니다."));
-        user.update(request.getUser_id(), request.getPassword(), request.getNickname(), request.getNumber(), request.getUser_img());
-        return user;
+    // 이메일을 입력 받아 users 테이블에서 유저를 찾고, 없으면 예외를 발생
+    public User findByEmail(String email) {
+        return userRepository.findByEmail(email)
+                .orElseThrow(() -> new IllegalArgumentException("Unexpected user"));
     }
 }
