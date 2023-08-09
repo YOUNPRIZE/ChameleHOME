@@ -58,13 +58,14 @@ public class WebOAuthSecurityConfig {
 
         // 토큰 재발급 URL은 인증 없이 접근 가능하도록 설정. 나머지 API URL은 인증 필요
         http.authorizeRequests()
-//                .antMatchers("/api/token").permitAll()
-                .antMatchers("/**").permitAll()
-//                .antMatchers("/api/**").authenticated()
+                .antMatchers("/api/token").permitAll()
+//                .antMatchers("/**").permitAll()
+                .antMatchers("/api/**").authenticated()
                 .anyRequest().permitAll();
 
         http.oauth2Login()
-                .loginPage("/login")
+                // 여기 ssl 설정돼있는데 url 이대로 써도 되나?
+                .loginPage("https://i9a101.p.ssafy.io/login")
                 .authorizationEndpoint()
                 // Authorization 요청과 상태된 상태 저장
                 // OAuth2에 필요한 정보를 세션이 아닌 쿠키에 저장해서 쓸 수 있도록
