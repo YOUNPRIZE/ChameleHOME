@@ -1,9 +1,10 @@
 // 훅 import
 import {useRef, useEffect} from 'react'
 import { Link } from 'react-router-dom'
+import { axiosAuth } from 'constants/AxiosFunc';
 // 상태정보 import
 import { nowPageStore } from 'store/myPageStore';
-import { userInfoStore } from 'store/userInfoStore';
+import { userInfoStore, User } from 'store/userInfoStore';
 // 스태틱 데이터 import
 import reptile01 from 'assets/retile01.png'
 // 스타일 import
@@ -26,7 +27,24 @@ export default function Login():JSX.Element {
   const pw = useRef<HTMLInputElement>(null);
 
   // 로그인
-  const handleLogin = userInfoStore(state => state.login);
+  const setUserInfo = userInfoStore(state => state.setUserInfo)
+  const handleLogin = async() => {
+    // 로그인 API 요청(수정 필요)
+    try {
+      // 백엔드와 연결 시 수정 필요
+      // const userData = await axiosAuth("user/1", "GET");
+      // id와 pw가 적절할 경우 유저 정보 등록
+      setUserInfo({
+        id: 1,
+        userId: "FRONT",
+        password: "1234",
+        nickName: "TEST",
+        phoneNumber: "010-7777-7777"
+      });
+    }
+    catch {
+    }
+  };
 
   // 페이지 렌더링
   return (
@@ -45,7 +63,7 @@ export default function Login():JSX.Element {
           <a href="#" className={style.additionalLink}>비밀번호 찾기</a>
           <Link to="/SignUp" className={style.additionalLink}>회원가입</Link>
         </div>
-        <Button size="lg" className={style.loginBtn} variant='success' onClick={() => handleLogin(id.current?.value, pw.current?.value)}>로그인</Button>
+        <Button size="lg" className={style.loginBtn} variant='success' onClick={()=> handleLogin()}>로그인</Button>
       </Form>
     </div>
   )
