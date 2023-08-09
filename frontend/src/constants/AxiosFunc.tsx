@@ -2,7 +2,7 @@ import axios from "axios";
 import { User } from "store/userInfoStore";
 import { myCage } from "store/myCageStore";
 
-const ipUrl = "http://localhost:4000";
+const ipUrl = "http://localhost:400";
 
 const axiosAuth = async (
   url:string, 
@@ -20,7 +20,7 @@ const axiosAuth = async (
   }
 };
 
-const axiosCage = async (url:string, method:string, data?:Omit<myCage, "cageId">) => {
+const axiosCage = async (url:string, method:string, data?:Omit<myCage, "id">) => {
   try {
     const response = await axios({
       method: method,
@@ -33,4 +33,4 @@ const axiosCage = async (url:string, method:string, data?:Omit<myCage, "cageId">
   }
 };
 
-export { axiosAuth };
+export { axiosAuth, axiosCage };
