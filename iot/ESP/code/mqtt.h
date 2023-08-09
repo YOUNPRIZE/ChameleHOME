@@ -4,8 +4,6 @@
 // Set topics to communicate
 char* topic = "serialnumber/sensorval";
 char* get_topic = "serialnumber/setval";
-char* common_topic = "actset";
-char* status_topic = "actstatus";
 char* error_topic = "error";
 
 // Define client
@@ -31,10 +29,10 @@ struct MQTT {
 
   // Initialize the MQTT client
   void init() {
-    if (!WiFi.config(STATICIP, GATEWAY, SUBNET, PRIMARYDNS, SECONDARYDNS)) {
-      Serial.println("STA failed to configure");
-    }
-    WiFi.begin(WIFINAME, WIFIPW);
+    // if (!WiFi.config(STATICIP, GATEWAY, SUBNET, PRIMARYDNS, SECONDARYDNS)) {
+    //   Serial.println("STA failed to configure");
+    // }
+    // WiFi.begin(WIFINAME, WIFIPW);
     client.enableDebuggingMessages();
     client.enableHTTPWebUpdater();
     client.enableOTA();
@@ -100,8 +98,8 @@ struct MQTT {
   // Error check for required keys in JSON data
   bool errorCheck(StaticJsonDocument<200>& doc) {
     // Check if the "Temp", "Humid", and "uv" keys exist in the JSON data
-    bool has_temp = doc.containsKey("temp");
-    bool has_humid = doc.containsKey("humid");
+    bool has_temp = doc.containsKey("Temp");
+    bool has_humid = doc.containsKey("Humid");
     bool has_uv = doc.containsKey("uv");
 
     // Return true if any of the required keys are missing
