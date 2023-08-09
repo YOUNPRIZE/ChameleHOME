@@ -23,7 +23,7 @@ export default function AnimalDetail():JSX.Element {
   const cageId:number = Number(useParams().cageId);
   const animalId:number = Number(useParams().animalId);
   const myAnimals = myAnimalStore(state => state.animals)
-  const myAnimal = myAnimals.find((animal) => (animal.animalId === animalId));
+  const myAnimal = myAnimals.find((animal) => (animal.id === animalId));
   
   // 이미지 불러오기
   const imgUrl = process.env.PUBLIC_URL+`/images/${myAnimal?.photo}`

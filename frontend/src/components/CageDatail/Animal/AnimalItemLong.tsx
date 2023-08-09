@@ -15,7 +15,7 @@ export default function AnimalItemLong(props: {animal:Animal, age:number}):JSX.E
   const imgUrl  = process.env.PUBLIC_URL+`/images/${props.animal.photo}`
 
   return (
-    <div className={`${style.animalContainer}`} onClick={() => handleDetail(props.animal.animalId)}>
+    <div className={`${style.animalContainer}`} onClick={() => handleDetail(props.animal.id)}>
       <div className={`${style.imgContainer}`}>
         <img src={imgUrl} alt="" className={style.image}/>
       </div>

@@ -1,9 +1,11 @@
 // 훅 import 
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useEffect, useState, useRef } from 'react'
+import { axiosAnimal } from 'constants/AxiosFunc';
 // 상태 정보 import
 import { nowPageStore } from 'store/myPageStore';
 import { animalDicStore } from 'store/animalDicStore'
+import { myAnimalStore } from 'store/myAnimalStore';
 // 컴포넌트 import
 import AddBtn from 'components/Shared/AddBtn';
 // 스타일 import
@@ -14,19 +16,19 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faMars, faVenus } from '@fortawesome/free-solid-svg-icons';
 
 export default function AddAnimal():JSX.Element {
-  // 상태 정보 Props 로드
-  const cageId = Number(useParams().cageId);
-  const animalDic = animalDicStore(state => state.dictionary);
-
   // 페이지명 변경
   const changePage = nowPageStore(state => state.setPage);
   useEffect(() => {
     changePage("동물 추가하기");
   }, [])
 
+  // 상태 정보 Props 로드
+  const cageId = Number(useParams().cageId);
+  const animalDic = animalDicStore(state => state.dictionary);
+
   // 변수명 기록
   const [species, setspecies] = useState('도감에 없음');
-  const [image, setanimalImg] = useState(process.env.PUBLIC_URL+'/images/Not_Choosed.jpg')
+  const [photo, setanimalImg] = useState('Not_Choosed.jpg')
   const [gender, setGender] = useState('male');
   const name = useRef<HTMLInputElement>(null);
   const birth = useRef<HTMLInputElement>(null);
@@ -35,30 +37,54 @@ export default function AddAnimal():JSX.Element {
   // 도감 선택 함수
   const handleDic = (dic:string, url:string):void => {
     setspecies(dic);
-    setanimalImg(process.env.PUBLIC_URL+`/images/${url}`);
+    setanimalImg(url);
   }
 
-  // 성별 선택 함수
-  const MaleIcon = ():JSX.Element => <FontAwesomeIcon icon={faMars} color='blue' />
-  const FemaleIcon = ():JSX.Element => <FontAwesomeIcon icon={faVenus} color='red' />
-  const handleGender = (gender:string):void => {
-    setGender(gender);
-  } 
+  // 성별 선택
+  const MaleIcon = ():JSX.Element => <FontAwesomeIcon icon={faMars} color='blue' />;
+  const FemaleIcon = ():JSX.Element => <FontAwesomeIcon icon={faVenus} color='red' />;
 
   // 동물 추가하기 함수
-  const addAnimal = () => {
-    console.log(species);
-    console.log(gender);
-    console.log(name.current?.value);
-    console.log(birth.current?.value);
-    console.log(issue.current?.value);
+  const addAnimal = myAnimalStore(state => state.addAnimal);
+  const navigate = useNavigate();
+  const handleAdd = async() => {
+    // 이름이나 연도가 비어있을시 포커스 이동
+    if (!name.current?.value) {
+      name.current?.focus();
+      return;
+    } else if (!birth.current?.value) {
+      birth.current?.focus();
+      return;
+    }
+    try {
+      // 동물 db에 추가
+      const animalnfo = {
+        cageId : cageId,
+        species : species,
+        name : name.current?.value,
+        gender : gender,
+        birth : new Date(birth.current?.value),
+        issue : issue.current? issue.current?.value : null,
+        // 이거 빼야함
+        created_at : new Date(),
+        photo: photo,
+      };
+      const addedAnimal = await axiosAnimal("animal", "POST", animalnfo);
+      // 상태정보에 저장
+      addAnimal(addedAnimal);
+      // 동물 리스트로 이동
+      navigate('../AnimalList')
+    }
+    catch {
+
+    }
   }
 
   return (
     <>
       {/* 도감 이미지 표시 */}
       <div className={`${style.cageImgContainer} ${style.boxShadow}`}>
-        <img src={image} alt="" className={style.cageImg}/>
+        <img src={process.env.PUBLIC_URL+`/images/${photo}`} alt="" className={style.cageImg}/>
       </div>
       {/* 도감 리스트 드롭다운 */}
       <Dropdown>
@@ -86,8 +112,12 @@ export default function AddAnimal():JSX.Element {
             {gender === 'male' ? <MaleIcon/> : <FemaleIcon/>}
           </Dropdown.Toggle>
           <Dropdown.Menu className={style.genderItem}>
-            <Dropdown.Item onClick={() => handleGender('male')}><MaleIcon/></Dropdown.Item>
-            <Dropdown.Item onClick={() => handleGender('female')}><FemaleIcon/></Dropdown.Item>
+            <Dropdown.Item onClick={() => setGender("male")}>
+              <MaleIcon/>
+            </Dropdown.Item>
+            <Dropdown.Item onClick={() => setGender("female")}>
+              <FemaleIcon/>
+            </Dropdown.Item>
           </Dropdown.Menu>
         </Dropdown>
         {/* 이름 */}
@@ -105,7 +135,7 @@ export default function AddAnimal():JSX.Element {
       <input placeholder='특이사항을 입력해주세요.' ref={issue}
       className={`${style.inputInContainer} ${style.issueInput} ${style.boxShadow} ${style.alignCenter}`} />
       {/* 추가버튼 */}
-      <AddBtn feature={addAnimal}/>
+      <AddBtn feature={handleAdd}/>
     </>
   )
 }

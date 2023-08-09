@@ -50,7 +50,7 @@ export default function AnimalBox({cageId}:{cageId:number}):JSX.Element {
         <div className='d-flex justify-content-center align-items-center col-10 mx-0 px-0 gx-5'>
           {myAnimals.length !== 0 ?
           myAnimals.map((animal, index) => (
-            <AnimalItemShort key={animal.animalId} animal={animal} index={index} order={mainCageOrder}/>
+            <AnimalItemShort key={animal.id} animal={animal} index={index} order={mainCageOrder}/>
           ))
           : <h1 className={style.noCage}>케이지가 비었어요!</h1> }
         </div>
