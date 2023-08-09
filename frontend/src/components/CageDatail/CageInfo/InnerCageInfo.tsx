@@ -36,7 +36,7 @@ export default function InnerCageInfo(props:{myCage:myCage|undefined}):JSX.Eleme
       nowCage.setUv("");
     }
     // Mqtt 연결
-    const client = new Client("43.202.68.60", 1884, "client");
+    const client = new Client("localhost", 1884, "client");
     clientRef.current = client;
     if (!client.isConnected()) {
       client.connect({
