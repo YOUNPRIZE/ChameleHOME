@@ -15,7 +15,7 @@ import java.util.Date;
 @Setter
 public class UpdateAuto_setRequest {
 
-    private Time time;
+    private String time;
     private Long set_temp;
     private Long set_hum;
     private Long set_uv;

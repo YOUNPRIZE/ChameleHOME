@@ -21,7 +21,7 @@ public class Auto_set {
     private Cage cageId;
 
     @Column(name = "time")
-    private Time time;
+    private String time;
 
     @Column(name = "set_temp")
     private Long set_temp;
@@ -33,14 +33,14 @@ public class Auto_set {
     private Long set_uv;
 
     @Builder
-    public Auto_set(Time time, Long set_temp, Long set_hum, Long set_uv){
+    public Auto_set(String time, Long set_temp, Long set_hum, Long set_uv){
         this.time = time;
         this.set_temp = set_temp;
         this.set_hum = set_hum;
         this.set_uv = set_uv;
     }
 
-    public void update(Time time, Long set_temp, Long set_hum, Long set_uv){
+    public void update(String time, Long set_temp, Long set_hum, Long set_uv){
         this.time = time;
         this.set_temp = set_temp;
         this.set_hum = set_hum;
