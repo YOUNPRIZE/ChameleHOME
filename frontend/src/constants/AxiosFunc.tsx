@@ -4,7 +4,10 @@ import { myCage } from "store/myCageStore";
 
 const ipUrl = "http://localhost:4000";
 
-const axiosAuth = async (url:string, method:string, data?:Omit<User, "id">) => {
+const axiosAuth = async (
+  url:string, 
+  method:string, 
+  data?:Omit<User, "id">) => {
   try {
     const response = await axios({
       method: method,
