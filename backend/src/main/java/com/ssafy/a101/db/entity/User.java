@@ -12,7 +12,7 @@ import javax.persistence.*;
 import java.util.Collection;
 import java.util.List;
 
-@Table(name = "users")
+@Table(name = "usersTemp")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
 @Entity
