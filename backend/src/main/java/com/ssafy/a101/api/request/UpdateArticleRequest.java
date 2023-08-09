@@ -9,11 +9,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @Getter
 @Setter
-public class UpdateUserRequest {
-    private Long id;
-    private String user_id;
-    private String password;
-    private String nickname;
-    private Long number;
-    private String user_img;
+public class UpdateArticleRequest {
+    private String title;
+    private String content;
 }
