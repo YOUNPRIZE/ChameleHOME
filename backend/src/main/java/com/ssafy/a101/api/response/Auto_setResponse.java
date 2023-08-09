@@ -9,7 +9,7 @@ import java.util.Date;
 @Getter
 public class Auto_setResponse {
 
-    private final Time time;
+    private final String time;
     private final Long set_temp;
     private final Long set_hum;
     private final Long set_uv;

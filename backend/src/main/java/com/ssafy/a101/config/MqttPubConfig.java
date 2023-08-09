@@ -17,7 +17,7 @@ public class MqttPubConfig {
         try {
             // broker와 MQTT 통신을 하며 메시지를 전송할 클라이언트 객체를 만들고 접속
 //            client = new MqttClient("tcp://54.166.67.73:1883", "ssafy");
-            client = new MqttClient("tcp://70.12.246.56:1883", "ssafy");
+            client = new MqttClient("tcp://43.202.68.60:1883", "ssafy");
             //172.20.10.14
             // broker 접속
             client.connect();
@@ -63,7 +63,7 @@ public class MqttPubConfig {
 //        new Thread(new Runnable() {
 //            @Override
 //            public void run() {
-//                String msg = "sendmsgfromjava";  //  변경할 값 전달
+//                String msg = "안녕항녕";  //  변경할 값 전달
 //                sender.send("test/j", msg);  //  토픽,  보낼 메세지
 //                sender.close(); // 작업 완료되면 종료
 //            }
