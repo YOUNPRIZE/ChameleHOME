@@ -74,9 +74,15 @@ export default function SignUp():JSX.Element {
       (async() => {
         // 회원가입 API 요청(수정 필요)
         try {
-          const userData = await axiosAuth("user", "POST", signUpData);
+          // const userData = await axiosAuth("user", "POST", signUpData);
           // 회원 가입 성공시 로그인(수정 필요)
-          setUserInfo(userData);
+          setUserInfo({
+            id: 1,
+            userId: "FRONT",
+            password: "1234",
+            nickName: "TEST",
+            phoneNumber: "010-7777-7777"
+          });
         }
         // 회원 가입 실패시 경고 메시지 갱신
         catch {

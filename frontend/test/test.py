@@ -41,7 +41,7 @@ password = "1234"
 topic = "serialnumber/sensorval"
  
 # 클라이언트 설정 후 연결 시도
-mqttc.tls_set(ca_certs="./ca.crt", cert_reqs=mqtt.ssl.CERT_REQUIRED)
+# mqttc.tls_set(ca_certs="./ca.crt", cert_reqs=mqtt.ssl.CERT_REQUIRED)
 mqttc.username_pw_set(username, password)
 mqttc.connect(host=url, port=port)
  
