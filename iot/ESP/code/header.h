@@ -13,22 +13,22 @@
 // Macros
 #define DHTPIN 13     // Digital pin connected to the DHT sensor 
 #define DHTTYPE DHT11     // DHT 11
-#define BROCKERIP "43.202.68.60" // MQTT Broker server IP
-#define WIFINAME "s23+" // WiFi name
-#define WIFIPW "exur1440" // WiFi password
-#define USRNAME "ESP32" // MQTT User name
-#define USRPW "1234" // MQTT User password
+#define BROCKERIP "" // MQTT Broker server IP
+#define WIFINAME "" // WiFi name
+#define WIFIPW "" // WiFi password
+#define USRNAME "" // MQTT User name
+#define USRPW "" // MQTT User password
 #define PORT 1883 // The MQTT port
 #define TXD_PIN 17 // Serial transmit pin
 #define RXD_PIN 16 // Serial receive pin
 
 // Setting static IP
-IPAddress STATICIP(70, 12, 246, 89); // ESP32가 사용할 IP address
-IPAddress GATEWAY(70, 12, 240, 1);    // Gateway IP address (공유기 IP주소)
+IPAddress STATICIP(); // ESP32가 사용할 IP address
+IPAddress GATEWAY();    // Gateway IP address (공유기 IP주소)
 
-IPAddress SUBNET(255, 255, 248, 0);   // subnet mask
-IPAddress PRIMARYDNS(168, 126, 63, 1);     // primary DNS server IP address
-IPAddress SECONDARYDNS(168, 126, 63, 2);   // secondary DNS server IP address
+IPAddress SUBNET();   // subnet mask
+IPAddress PRIMARYDNS();     // primary DNS server IP address
+IPAddress SECONDARYDNS();   // secondary DNS server IP address
 
 const int MINTEMP = 20; // Minimum temperature
 const int MAXTEMP = 50; // Maximum temperature
