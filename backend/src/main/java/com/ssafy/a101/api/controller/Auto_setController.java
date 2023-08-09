@@ -4,8 +4,10 @@ package com.ssafy.a101.api.controller;
 import com.ssafy.a101.api.request.AddAuto_setRequest;
 import com.ssafy.a101.api.request.UpdateAuto_setRequest;
 import com.ssafy.a101.api.response.Auto_setResponse;
+import com.ssafy.a101.api.response.CageResponse;
 import com.ssafy.a101.api.service.Auto_setService;
 import com.ssafy.a101.db.entity.Auto_set;
+import com.ssafy.a101.db.entity.Cage;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,12 +21,13 @@ import java.util.stream.Collectors;
 public class Auto_setController {
 
     private final Auto_setService autoSetService;
-    
-    
+
+
+
     // 전체 세팅 조회
     @GetMapping("/api/{cage_id}/setting")
-    public ResponseEntity<List<Auto_setResponse>> findAllAutoset(){
-        List<Auto_setResponse> autosets = autoSetService.findALL()
+    public ResponseEntity<List<Auto_setResponse>> findAllAutoset(@PathVariable Long cage_id){
+        List<Auto_setResponse> autosets = autoSetService.findALL(cage_id)
                 .stream()
                 .map(Auto_setResponse::new)
                 .collect(Collectors.toList());
@@ -32,6 +35,10 @@ public class Auto_setController {
         return ResponseEntity.ok()
                 .body(autosets);
     }
+
+
+
+
 
 
 
@@ -75,5 +82,21 @@ public class Auto_setController {
         return ResponseEntity.ok()
                 .build();
     }
+
+
+    // MQTT 존
+    // auto set controller 에서 값을 받아온다음 그 값을 전달을 해야한다.
+
+    //온도 전달
+
+
+    // 습도 전달
+
+    // uv 전달
+
+
+
+
+
     
 }
