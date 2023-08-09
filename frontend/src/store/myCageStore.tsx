@@ -34,12 +34,13 @@ export const myCagesStore = create<myCages>() (
   persist(
     set => ({
       cages : test,
+      // 케이지 추가
       addCage : (cage:myCage) => console.log(cage),
       // 케이지 정보 업데이트(상태정보, 백엔드 서버)
-      updateCage : (cage:myCage, id:number) => {
+      updateCage : (cage:myCage, cageId:number) => {
           set((state) => {
             // id와 일치하는 케이지의 인덱스 탐색
-            const cageIndex = state.cages.findIndex(c => c.id === id);
+            const cageIndex = state.cages.findIndex(c => c.cageId === cageId);
             // id와 일치하는 케이지를 찾지 못한 경우, 현재 상태를 변경하지 않고 반환
             if (cageIndex === -1) {
               return state;

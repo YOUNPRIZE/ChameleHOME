@@ -32,14 +32,15 @@ export default function Login():JSX.Element {
     // 로그인 API 요청(수정 필요)
     try {
       // 백엔드와 연결 시 수정 필요
-      const userDatas = await axiosAuth("user", "GET");
-      const user = userDatas.find((userData:User | undefined) => 
-        userData?.userId === id.current?.value && 
-        userData?.password === pw.current?.value);
+      // const userData = await axiosAuth("user/1", "GET");
       // id와 pw가 적절할 경우 유저 정보 등록
-      if (user) {
-        setUserInfo(user);
-      }
+      setUserInfo({
+        id: 1,
+        userId: "FRONT",
+        password: "1234",
+        nickName: "TEST",
+        phoneNumber: "010-7777-7777"
+      });
     }
     catch {
     }
