@@ -23,7 +23,7 @@ export default function MyPage():JSX.Element {
   const navigate = useNavigate();
   const userInfo:userInfoState = userInfoStore();
   const handleLogout = ():void => {
-    userInfo.logout();
+    userInfo.deleteUserInfo();
     navigate('/Login')
   }
 
