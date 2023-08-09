@@ -18,7 +18,7 @@ public class AlarmService {
     private final AlarmRepository alarmRepository;
 
     // 전체조회
-    public List<Alarm> findAll(){return alarmRepository.findAll();}
+    public List<Alarm> findAll(Long cage_id){return alarmRepository.findByCageId_CageId(cage_id);}
 
     // 특정 알람 조회
     public Alarm findByid(Long arm_id){
