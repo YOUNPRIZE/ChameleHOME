@@ -33,7 +33,9 @@ export default function CageDeatil():JSX.Element {
     <>
     <div className={style.cageName}>
       <span>{myCage?.cageName}</span>
-      <div className={style.edit}><FontAwesomeIcon icon={faPencil} onClick={() => setModalShow(!modalShow)}/></div>
+      <div className={style.edit}>
+        <FontAwesomeIcon icon={faPencil} onClick={() => setModalShow(!modalShow)}/>
+      </div>
     </div>
     <CageUpdateModal modalShow={modalShow} setModalShow={setModalShow} cageInfo={myCage}/>
     <Routes>

@@ -1,73 +1,6 @@
 import {create} from 'zustand'
 import {persist} from 'zustand/middleware'
 
-// 테스트 동물 데이터
-const test = {
-  1 : [
-    {
-      animalId : 1,
-      cageId : 1,
-      species : "공비단뱀",
-      name : "뱀1",
-      gender : "female",
-      birth : new Date("2022-02-01"),
-      issue : "특이사항 없음",
-      created_at : new Date(),
-      photo: "Ball_Python.jpg"
-    },
-    {
-      animalId : 2,
-      cageId : 1,
-      species : "서부구렁이",
-      name : "뱀2",
-      gender : "male",
-      birth : new Date("2022-02-01"),
-      issue : "특이사항 없음",
-      created_at : new Date(),
-      photo:"Black_Rat_Snake.jpg"
-    },
-    {
-      animalId : 3,
-      cageId : 1,
-      species : "왕뱀",
-      name : "뱀3",
-      gender : "male",
-      birth : new Date("2022-02-01"),
-      issue : "특이사항 없음",
-      created_at : new Date(),
-      photo:"Boa_Constrictor.jpg"
-    },
-    {
-      animalId : 4,
-      cageId : 1,
-      species : "모렐리아브레들리",
-      name : "뱀4",
-      gender : "male",
-      birth : new Date("2022-02-01"),
-      issue : "특이사항 없음",
-      created_at : new Date(),
-      photo:"Bredl's_Python.jpg"
-    },
-  ],
-  2: [
-    {
-      animalId : 5,
-      cageId : 2,
-      species : "버마왕뱀",
-      name : "뱀5",
-      gender : "male",
-      age : 5,
-      birth : new Date("2022-02-01"),
-      issue : "특이사항 없음",
-      created_at : new Date(),
-      photo: "Burmese_Python.jpg"
-    },
-  ],
-  3 : [],
-  4 : [],
-  5 : [],
-}
-
 // 개별 동물 정의
 export interface Animal {
   animalId : number;
@@ -83,7 +16,7 @@ export interface Animal {
 
 // 케이지별 동물들 리스트 정의
 export interface MyAnimal {
-  animalsInCages: { [key: number]: Array<Animal> };
+  animals: Array<Animal>;
   addAnimal: (animal: Animal) => void;
   updateAnimal: (animal: Animal) => void;
   deleteAnimal: (id: number) => void;
@@ -94,11 +27,12 @@ export interface MyAnimal {
 export const myAnimalStore = create<MyAnimal>() (
   persist(
     set => ({
-      animalsInCages : test,
+      animals : [],
       addAnimal: (animal: Animal) => console.log(animal),
       updateAnimal: (animal: Animal) => console.log(animal),
       deleteAnimal: (id: number) => console.log(id),
-      setAnimals: (animals: Array<Animal>) => console.log(animals),
+      setAnimals: (animals: Array<Animal>) => set(
+        state => {return {...state, animals:animals}})
     }),
     {name:'myAnimls'}
   )

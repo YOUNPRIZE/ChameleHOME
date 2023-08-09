@@ -22,13 +22,12 @@ export default function CageInfo():JSX.Element {
   // 케이지, 동물들 정보
   const cageId = Number(useParams().cageId);
   const myCage = myCagesStore(state => (state.cages)).find((cage) => (cage.id === cageId));
-  const myAnimals  = myAnimalStore(state => (state.animalsInCages[cageId]));
   
   // 페이지 렌더링
   return (
     <>
     {/* 동물 컨테이너 */}
-    <AnimalBox myAnimals={myAnimals}/>
+    <AnimalBox cageId={cageId}/>
     {/* 실시간 환경 정보 컨테이너 */}
     <InnerCageInfo myCage={myCage}/>
     {/* 추가 세팅 컨테이너 */}

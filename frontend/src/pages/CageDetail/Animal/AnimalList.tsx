@@ -19,7 +19,7 @@ export default function AnimalList():JSX.Element {
 
   // 상태 정보 + Props 받기
   const cageId = Number(useParams().cageId);
-  const myAnimals  = myAnimalStore(state => (state.animalsInCages[cageId]));
+  const myAnimals  = myAnimalStore(state => (state.animals));
 
   // 나이 구하기
   const today = new Date();

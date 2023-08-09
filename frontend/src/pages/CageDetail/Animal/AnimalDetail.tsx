@@ -22,7 +22,8 @@ export default function AnimalDetail():JSX.Element {
   // 상태정보 및 props 받기
   const cageId:number = Number(useParams().cageId);
   const animalId:number = Number(useParams().animalId);
-  const myAnimal = myAnimalStore(state => (state.animalsInCages[cageId])).find((animal) => (animal.animalId === animalId));
+  const myAnimals = myAnimalStore(state => state.animals)
+  const myAnimal = myAnimals.find((animal) => (animal.animalId === animalId));
   
   // 이미지 불러오기
   const imgUrl = process.env.PUBLIC_URL+`/images/${myAnimal?.photo}`

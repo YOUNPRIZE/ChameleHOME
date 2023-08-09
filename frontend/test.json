@@ -11,14 +11,23 @@
   "cage": [
     {
       "userId": 1,
-      "cageName": "리자몽케이지",
+      "cageName": "리자몽",
       "sNum": "7777",
       "setTemp": 25,
       "setHum": 60,
       "setUv": false,
       "createdAt": "2023-08-09T06:35:54.025Z",
-      "category": "lizard",
+      "category": "snake",
       "id": 1
+    },
+    {
+      "id": 2
+    },
+    {
+      "id": 3
     }
+  ],
+  "animal": [
+    
   ]
 }
