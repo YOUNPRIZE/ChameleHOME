@@ -1,5 +1,6 @@
 // 훅 import 
 import { useEffect, useState, } from 'react'
+import axios from 'axios';
 // 상태 정보 import
 import { nowPageStore } from 'store/myPageStore';
 import {animalDicStore} from 'store/animalDicStore';
@@ -29,6 +30,20 @@ export default function Main():JSX.Element {
     const numberDic:number = animalDic.length
     setDicIdx((dicIdx + numberDic + move) % numberDic)
   }
+
+//   const tmp = async () => {
+//   try {
+//     const response = await axios({
+//       method: method,
+//       url: `${ipUrl}/${url}`,
+//       data: data,
+//     });
+//     return response.data; // 비동기 처리 결과를 반환합니다.
+//   } catch (error) {
+//     throw error; // 에러가 발생한 경우, 이를 외부로 던져서 처리할 수 있도록 합니다.
+//   }
+// };
+
 
   // 페이지 렌더링
   return (
