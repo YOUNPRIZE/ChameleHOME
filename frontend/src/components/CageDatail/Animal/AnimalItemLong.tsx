@@ -23,8 +23,8 @@ export default function AnimalItemLong({animal}: {animal:Animal}):JSX.Element {
       <div className={`${style.textContainer}`}>
         <p className={`${style.animalName}`}>{animal.name}</p>
         <div className={`${style.animalInfo}`}>
-          <p className={`${style.animalText}`}>{animal.species}</p>
-          <p className={`${style.animalText}`}>{getAge(animal.birth)}살</p>
+          <span className={`${style.animalText}`}>{animal.species}</span>
+          <span className={`${style.animalText}`}>{getAge(animal.birth)}살</span>
         </div>
       </div>
     </div>

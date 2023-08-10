@@ -1,7 +1,7 @@
-
+// 훅/함수 import
+import { axiosAuto } from 'constants/AxiosFunc';
 // 상태 정보 import
 import { autoSetting, autoSettingStore } from 'store/mySettingStore';
-import { axiosAuto } from 'constants/AxiosFunc';
 // 스타일 import
 import style from 'styles/CageDetail/CageSetting.module.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
