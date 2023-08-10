@@ -3,6 +3,7 @@ import paho.mqtt.client as mqtt
 # 콜백 함수 정의하기
 #  (mqttc.connect를 잘 되면) 서버 연결이 잘되면 on_connect 실행 (이벤트가 발생하면 호출)
 def on_connect(client, userdata, flags, rc):
+    print("연결 성공")
     print("rc: " + str(rc))
  
 # 브로커에게 메시지가 도착하면 on_message 실행 (이벤트가 발생하면 호출)
@@ -29,16 +30,13 @@ mqttc.on_connect = on_connect
 mqttc.on_publish = on_publish
 mqttc.on_subscribe = on_subscribe
  
- 
 # 브로커 연결 설정
-# 참고로 브로커를 Cloudmqtt 홈페이지를 사용할 경우
-# 미리 username과 password, topic이 등록 되어있어야함.
-url = "18.233.166.123"
+url = "i9a101.p.ssafy.io"
 port = 1883
 username = "FRONT" # Cloud mqtt
 password = "1234"
  
-topic = "serialnumber/sensorval"
+topic = "1/sensorval"
  
 # 클라이언트 설정 후 연결 시도
 # mqttc.tls_set(ca_certs="./ca.crt", cert_reqs=mqtt.ssl.CERT_REQUIRED)
