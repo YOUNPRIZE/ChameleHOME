@@ -1,12 +1,12 @@
 // 훅 import 
 import {useParams } from 'react-router-dom';
 import { useEffect } from 'react'
-import { axiosAnimal, axiosAuto } from 'constants/AxiosFunc';
+import { axiosAnimal, axiosAuto, axiosAlarm } from 'constants/AxiosFunc';
 // 상태 정보 import
 import { nowPageStore } from 'store/myPageStore';
 import { myCagesStore } from 'store/myCageStore';
 import { myAnimalStore } from 'store/myAnimalStore';
-import { autoSettingStore } from 'store/mySettingStore';
+import { alarmSettingStore, autoSettingStore } from 'store/mySettingStore';
 // 컴포넌트 import
 import AnimalBox from 'components/CageDatail/CageInfo/AnimalBox';
 import InnerCageInfo from 'components/CageDatail/CageInfo/InnerCageInfo';
@@ -38,11 +38,23 @@ export default function CageInfo():JSX.Element {
   }
 
   // 자동화 세팅 db에서 가져오기 함수
-  const setSetting = autoSettingStore(state => state.setSetting)
-  const loadSettingInfos = async() => {
+  const setAutoSetting = autoSettingStore(state => state.setSetting)
+  const loadAutoSettingInfos = async() => {
     try {
       const settingInfos = await axiosAuto(`setting?cage_id=${cageId}`, "GET")
-      setSetting(settingInfos)
+      setAutoSetting(settingInfos)
+    }
+    catch {
+      // 오류 처리
+    }
+  }
+
+  // 자동화 세팅 db에서 가져오기 함수
+  const setAlarmSetting = alarmSettingStore(state => state.setSetting)
+  const loadAlarmSettingInfos = async() => {
+    try {
+      const settingInfos = await axiosAlarm(`alarm?cage_id=${cageId}`, "GET")
+      setAlarmSetting(settingInfos)
     }
     catch {
       // 오류 처리
@@ -52,7 +64,8 @@ export default function CageInfo():JSX.Element {
   // db 로드 함수 모두 실행
   useEffect(() => {
     loadCageInfos();
-    loadSettingInfos();
+    loadAutoSettingInfos();
+    loadAlarmSettingInfos();
   },[])
 
   // 페이지 렌더링

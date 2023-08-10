@@ -15,7 +15,7 @@
 
 .textContainer {
   width: 60%;
-  padding: 0px 5vw;
+  padding-left: 5vw;
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
@@ -39,9 +39,10 @@
   display: flex;
   justify-content: space-between;
   font-weight: bold;
-  font-size: 1.7vh;
+  font-size: 1vh;
 }
 
 .animalText {
   margin: 0px 0px;
+  
 }
