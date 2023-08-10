@@ -44,12 +44,9 @@ export default function AutoSetting():JSX.Element {
     setModalShow(false); 
   };
 
-
-
-  
   return (
     <>
-      {autoSettings.map((setting, index) => (
+      {autoSettings.map((setting) => (
         <AutoSettingItem key={setting.id} setting={setting} showUpdateModal={() => handleUpdateModal(setting)}/>
       ))}
       <AddBtn feature={handleAddModal}/>
