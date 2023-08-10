@@ -31,18 +31,28 @@ export default function Main():JSX.Element {
     setDicIdx((dicIdx + numberDic + move) % numberDic)
   }
 
-//   const tmp = async () => {
+//   const tmp1 = async () => {
 //   try {
 //     const response = await axios({
-//       method: method,
-//       url: `${ipUrl}/${url}`,
-//       data: data,
+//       method: "GET",
+//       url: `https://i9a101.p.ssafy.io/api/1/cages`,
 //     });
 //     return response.data; // 비동기 처리 결과를 반환합니다.
 //   } catch (error) {
 //     throw error; // 에러가 발생한 경우, 이를 외부로 던져서 처리할 수 있도록 합니다.
 //   }
 // };
+//   const tmp2 = async() => {
+//     try {
+//       const asdf =  tmp1();
+//       console.log(asdf)
+//     }
+//     catch {
+
+//     }
+//   }
+
+//   tmp2();
 
 
   // 페이지 렌더링
