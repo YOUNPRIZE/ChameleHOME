@@ -42,7 +42,7 @@ export default function InnerCageInfo(props:{myCage:myCage|undefined}):JSX.Eleme
       client.connect({
         userName: "FRONT",
         password: "1234",
-        useSSL:false,
+        useSSL:true,
         // mqttVersion:4,
         // 커넥트에 성공(구독)
         onSuccess: () => { 
