@@ -2,6 +2,7 @@ package com.ssafy.a101.api.request;
 
 
 import com.ssafy.a101.db.entity.Auto_set;
+import com.ssafy.a101.db.entity.Cage;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -14,6 +15,7 @@ import java.util.Date;
 @Getter
 public class AddAuto_setRequest {
 
+    private Cage cageId;
     private String time;
     private Long set_temp;
     private Long set_hum;
@@ -21,6 +23,7 @@ public class AddAuto_setRequest {
 
     public Auto_set toEntity(){
         return Auto_set.builder()
+                .cageId(cageId)
                 .time(time)
                 .set_temp(set_temp)
                 .set_hum(set_hum)
