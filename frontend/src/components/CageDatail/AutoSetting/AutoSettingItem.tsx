@@ -1,6 +1,7 @@
 
 // 상태 정보 import
-import { autoSetting } from 'store/mySettingStore';
+import { autoSetting, autoSettingStore } from 'store/mySettingStore';
+import { axiosAuto } from 'constants/AxiosFunc';
 // 스타일 import
 import style from 'styles/CageDetail/CageSetting.module.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -8,8 +9,22 @@ import { faTemperatureThreeQuarters, faDroplet, faLightbulb } from '@fortawesome
 import { faPenToSquare, faTrash } from '@fortawesome/free-solid-svg-icons'
 
 // 각 세팅별 컴포넌트
-export default function AutoSettingItem(props:{setting:autoSetting}):JSX.Element {
-  const setting:autoSetting = props.setting
+export default function AutoSettingItem({setting, showUpdateModal}:{setting:autoSetting, showUpdateModal:Function}):JSX.Element {
+
+  // 세팅 삭제
+  const deleteSetting = autoSettingStore(state => state.deleteSetting)
+  const handleDelete = async() => {
+    try {
+      // db에서 삭제
+      const deletedStatus = axiosAuto(`setting/${setting.id}`, "DELETE");
+      // 상태정보에서 삭제
+      deleteSetting(setting.id);
+    }
+    catch {
+      // 오류 처리
+    }
+  }
+
   return (
     <div className={`${style.settingContainer}`}>
       {/* 상단 부분 */}
@@ -18,8 +33,8 @@ export default function AutoSettingItem(props:{setting:autoSetting}):JSX.Element
         <h1 className={`${style.settingTime}`}>{setting.time}</h1>
         {/* 수정, 삭제 버튼 */}
         <div>
-          <FontAwesomeIcon icon={faPenToSquare} color="black" className={`${style.operIcon}`}/>
-          <FontAwesomeIcon icon={faTrash} color="red" className={`${style.operIcon}`}/>
+          <FontAwesomeIcon icon={faPenToSquare} color="black" className={`${style.operIcon}`} onClick={() => showUpdateModal()}/>
+          <FontAwesomeIcon icon={faTrash} color="red" className={`${style.operIcon}`} onClick={handleDelete}/>
         </div>
       </div>
       {/* 하단 부분(선택된 옵션은 배경색으로 표시) */}

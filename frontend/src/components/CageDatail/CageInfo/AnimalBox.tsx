@@ -16,20 +16,6 @@ export default function AnimalBox({cageId}:{cageId:number}):JSX.Element {
   // 상태정보 저장
   const myAnimals = myAnimalStore(state => state.animals)
 
-  // 동물 정보 db에서 가져오기
-  const setAnimals = myAnimalStore(state => state.setAnimals)
-  const loadCageInfos = async() => {
-    try {
-      const animalInfos = await axiosAnimal(`animal?cageId=${cageId}`, "GET")
-      setAnimals(animalInfos)
-    }
-    catch {
-    }
-  }
-  useEffect(() => {
-    loadCageInfos();
-  },[])
-
   // 상단 동물들 표시 컨트롤
   const [mainCageOrder, setMainCageOrder] = useState(0);
   const handleCageOrder = (move:number):void => {
