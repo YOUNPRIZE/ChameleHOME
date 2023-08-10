@@ -50,7 +50,7 @@ export default function InnerCageInfo(props:{myCage:myCage|undefined}):JSX.Eleme
 
   
     // Mqtt 연결
-    const client = new Client("i9a101.p.ssafy.io", 8999, "client");
+    const client = new Client("i9a101.p.ssafy.io", 8999, "/mqtts","client");
     clientRef.current = client;
     if (!client.isConnected()) {
       client.connect({
