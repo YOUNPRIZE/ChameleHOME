@@ -20,8 +20,7 @@ export default function AutoSetting():JSX.Element {
   }, [])
   // 상태 정보 + Props 받기
   const cageId = Number(useParams().cageId);
-  const myCage = myCagesStore(state => (state.cages)).find((cage) => (cage.id === cageId));
-  const autoSettings = autoSettingStore(state => (state.settingsInCages[cageId]))
+  const autoSettings = autoSettingStore(state => state.settings)
 
   // 모달창 컨트롤
   const [modalShow, setmodalShow] = useState(false);
