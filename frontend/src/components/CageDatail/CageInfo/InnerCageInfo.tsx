@@ -36,13 +36,13 @@ export default function InnerCageInfo(props:{myCage:myCage|undefined}):JSX.Eleme
       nowCage.setUv("");
     }
     // Mqtt 연결
-    const client = new Client("i9a101.p.ssafy.io", 9001, "client");
+    const client = new Client("i9a101.p.ssafy.io", 8999, "client");
     clientRef.current = client;
     if (!client.isConnected()) {
       client.connect({
         userName: "FRONT",
         password: "1234",
-        useSSL:true,
+        // useSSL:true,
         // mqttVersion:4,
         // 커넥트에 성공(구독)
         onSuccess: () => { 

@@ -19,7 +19,7 @@ export default function LiveVideo():JSX.Element {
   // 케이지 내부 센서값 받기
   const clientRef = useRef<Client|null>(null);
   useEffect(() => {
-    const client = new Client("18.233.166.123", 3000, "client");
+    const client = new Client("18.233.166.123", 9001, "client");
     clientRef.current = client;
     // Mqtt 연결
     if (!client.isConnected()) {
@@ -66,7 +66,7 @@ export default function LiveVideo():JSX.Element {
     <>
       {/* 동영상 컨테이너 */}
       <div className={`${style.videoContainer}`}>
-        <iframe src="http://192.168.114.97:5000/" width={0.35*vh} height={0.35*vh} title='liveCage'></iframe>
+        <iframe src="http://192.168.114.97:8888/" width={0.35*vh} height={0.35*vh} title='liveCage'></iframe>
       </div>
       {/* 카메라 무빙 버튼 */}
       <div className={`${style.btnContainer}`}>
