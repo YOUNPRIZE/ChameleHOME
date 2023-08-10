@@ -11,7 +11,7 @@
   "cage": [
     {
       "userId": 1,
-      "cageName": "리자몽",
+      "cageName": "몬스터볼",
       "sNum": "7777",
       "setTemp": 25,
       "setHum": 60,
@@ -32,6 +32,16 @@
       "created_at": "2023-08-10T03:11:30.190Z",
       "photo": "Green_Anole.jpg",
       "id": 1
+    }
+  ],
+  "setting": [
+    {
+      "cage_id": 1,
+      "time": "19:30",
+      "set_temp": 50,
+      "set_hum": 20,
+      "set_uv": false,
+      "id": 3
     }
   ]
 }
