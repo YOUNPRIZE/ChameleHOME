@@ -12,8 +12,8 @@ import java.util.Date;
 @AllArgsConstructor
 @Getter
 public class AddCageRequest {
-
     private String cage_name;
+    private String snum;
     private Long set_temp;
     private Long set_hum;
     private Long set_uv;
@@ -24,6 +24,7 @@ public class AddCageRequest {
     public Cage toEntity(){
         return Cage.builder()
                 .cage_name(cage_name)
+                .snum(snum)
                 .set_temp(set_temp)
                 .set_hum(set_hum)
                 .set_uv(set_uv)
