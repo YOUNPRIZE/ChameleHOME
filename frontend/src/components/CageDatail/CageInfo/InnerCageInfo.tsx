@@ -2,6 +2,7 @@
 import { useParams } from 'react-router-dom';
 import { useEffect, useRef } from 'react'
 import { Message, Client } from 'paho-mqtt';
+import mqtt, {IClientOptions} from "precompiled-mqtt";
 // 상태 정보 import
 import {  myCage, myCagesStore } from 'store/myCageStore';
 import { nowCageValueStore } from 'store/myCageStore';
@@ -35,39 +36,52 @@ export default function InnerCageInfo(props:{myCage:myCage|undefined}):JSX.Eleme
       nowCage.setHum(0);
       nowCage.setUv("");
     }
-    // Mqtt 연결
-    const client = new Client("i9a101.p.ssafy.io", 8999, "client");
-    clientRef.current = client;
-    if (!client.isConnected()) {
-      client.connect({
-        userName: "FRONT",
-        password: "1234",
-        // useSSL:true,
-        // mqttVersion:4,
-        // 커넥트에 성공(구독)
-        onSuccess: () => { 
-          console.log("연결 성공")
-          client.subscribe(getInfoTopic);
-        },
-        // 커넥트 실패
-        onFailure: () => { 
-          console.log("연결 실패")
-        }
-      });
+    const options:IClientOptions  = {
+      protocol: "ws",
+      username: 'FRONT',
+      password: '1234',
+      clientId: 'react-client',
     };
-    // 토픽을 통해 센서값 받기
-    client.onMessageArrived = (message: Message) => {
-      const payload = message.payloadString;
-      const sensorInfo = JSON.parse(payload);
-      // 토픽에 따라 상태 정보 업데이트
-      nowCage.setTemp(Number(sensorInfo.Temp));
-      nowCage.setHum(Number(sensorInfo.Humid));
-      nowCage.setUv(sensorInfo.uv === "0"? "Off" : "On");
-    };
-    // 컴포넌트가 언마운트되면 연결 해제
-    return () => {
-      client.disconnect();
-    };
+    const client = mqtt.connect('ws:i9a101.p.ssafy.io:8999', options);
+
+    client.on('connect', () => {
+        console.log("CONNECTED to broker");
+    });
+
+  
+    // // Mqtt 연결
+    // const client = new Client("i9a101.p.ssafy.io", 8999, "client");
+    // clientRef.current = client;
+    // if (!client.isConnected()) {
+    //   client.connect({
+    //     userName: "FRONT",
+    //     password: "1234",
+    //     // useSSL:true,
+    //     // mqttVersion:4,
+    //     // 커넥트에 성공(구독)
+    //     onSuccess: () => { 
+    //       console.log("연결 성공")
+    //       client.subscribe(getInfoTopic);
+    //     },
+    //     // 커넥트 실패
+    //     onFailure: () => { 
+    //       console.log("연결 실패")
+    //     }
+    //   });
+    // };
+    // // 토픽을 통해 센서값 받기
+    // client.onMessageArrived = (message: Message) => {
+    //   const payload = message.payloadString;
+    //   const sensorInfo = JSON.parse(payload);
+    //   // 토픽에 따라 상태 정보 업데이트
+    //   nowCage.setTemp(Number(sensorInfo.Temp));
+    //   nowCage.setHum(Number(sensorInfo.Humid));
+    //   nowCage.setUv(sensorInfo.uv === "0"? "Off" : "On");
+    // };
+    // // 컴포넌트가 언마운트되면 연결 해제
+    // return () => {
+    //   client.disconnect();
+    // };
   }, []);
   
   // 환경 세팅 조절 후 Mqtt로 세팅값 보내기
