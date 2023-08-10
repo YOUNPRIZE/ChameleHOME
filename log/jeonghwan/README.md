@@ -39,3 +39,7 @@
 
 ### 23.08.08
 1. yolo reptile data train
+
+### 23.08.10
+1. makes cage
+2. yolo reptile data train
