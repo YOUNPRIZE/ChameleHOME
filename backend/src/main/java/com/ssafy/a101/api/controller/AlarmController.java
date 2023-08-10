@@ -16,6 +16,7 @@ import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @RestController
+@CrossOrigin("*")
 public class AlarmController {
 
     private final AlarmService alarmService;
