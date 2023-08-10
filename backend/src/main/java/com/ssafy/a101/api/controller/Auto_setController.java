@@ -18,6 +18,7 @@ import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @RestController
+@CrossOrigin("*")
 public class Auto_setController {
 
     private final Auto_setService autoSetService;

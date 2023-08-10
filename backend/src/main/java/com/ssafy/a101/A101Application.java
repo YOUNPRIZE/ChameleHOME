@@ -2,6 +2,7 @@ package com.ssafy.a101;
 
 import com.ssafy.a101.config.MqttPubConfig;
 import com.ssafy.a101.db.entity.Auto_set;
+import com.ssafy.a101.db.entity.Cage;
 import com.ssafy.a101.db.repository.Auto_setRepository;
 import org.eclipse.paho.client.mqttv3.MqttException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
@@ -31,7 +33,7 @@ public class A101Application {
 
 	}
 
-
+	@Transactional
 	@Scheduled(cron = "0 * * * * *") // 매 분의 0초마다 실행
 	public void checkAlarms() throws MqttException {
 		MqttPubConfig sender = new MqttPubConfig();
@@ -42,21 +44,28 @@ public class A101Application {
 
 		Auto_setRepository auto_setRepository = context.getBean(Auto_setRepository.class);
 
+
+
+
 		auto_setRepository.findAll().forEach((autoSet -> {
-			if (autoSet.getTime().equals(formattedTime)) {
-			// mqtt 통신 부분 / start 까지
+			Cage autoSetCageId =autoSet.getCageId();
+			System.out.println("케이지 아이디 값입니다." + autoSetCageId.getCageId());
+
+			//if (autoSet.getTime().equals(formattedTime)) {
+
+			 //mqtt 통신 부분 / start 까지
 				new Thread(new Runnable() {
 				Long temp = autoSet.getSet_temp();
 				Long hum = autoSet.getSet_hum();
 				Long uv = autoSet.getSet_id();
 					@Override
 					public void run() {
-						String msg = "Temp:" + temp +",Humid:" + hum + ",uv:" + uv ;
-						sender.send("serialnumber/setval", msg);  //  토픽,  보낼 메세지
+						String msg = "Temp:" + temp +",Humid:" + hum + ",uv:" + uv;
+						sender.send("1/setval", msg);  //  토픽,  보낼 메세지
 						sender.close(); // 작업 완료되면 종료
 					}
 				}).start();
-			}
+			//}
 		}));
 	}
 }

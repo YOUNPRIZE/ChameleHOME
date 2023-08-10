@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RequiredArgsConstructor
 @RestController
+@CrossOrigin("*")
 public class UserController {
     private final UserService userService;
 

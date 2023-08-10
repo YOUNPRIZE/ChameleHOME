@@ -33,7 +33,8 @@ public class Auto_set {
     private Long set_uv;
 
     @Builder
-    public Auto_set(String time, Long set_temp, Long set_hum, Long set_uv){
+    public Auto_set(Cage cageId,String time, Long set_temp, Long set_hum, Long set_uv){
+        this.cageId = cageId;
         this.time = time;
         this.set_temp = set_temp;
         this.set_hum = set_hum;
