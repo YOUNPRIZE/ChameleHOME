@@ -38,9 +38,9 @@
     {
       "cage_id": 1,
       "time": "19:30",
-      "set_temp": 50,
-      "set_hum": 20,
-      "set_uv": false,
+      "set_temp": 20,
+      "set_hum": null,
+      "set_uv": null,
       "id": 3
     }
   ]
