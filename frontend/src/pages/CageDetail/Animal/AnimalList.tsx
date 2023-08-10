@@ -21,21 +21,19 @@ export default function AnimalList():JSX.Element {
   const cageId = Number(useParams().cageId);
   const myAnimals  = myAnimalStore(state => (state.animals));
 
-  // 나이 구하기
-  const today = new Date();
-  const getAge = (birth:Date):number => {
-    const birthDate = new Date(birth);
-    return today.getFullYear() - birthDate.getFullYear();
-  } 
-
   // 동물 상세보기로 이동
   const navigate = useNavigate();
+
+  // 동물 추가하기로 이동
+  const handleAddAnimal = ():void => {
+    
+  }
 
   return (
     <>
       {/* 동물 리스트 */}
       {myAnimals.map((animal, index) => (
-        <AnimalItemLong key={animal.id} animal={animal} age={getAge(animal.birth)}/>
+        <AnimalItemLong key={animal.id} animal={animal}/>
       ))}
       {/* 동물 추가하기로 이동 */}
       <AddBtn feature={() => {navigate('../AddAnimal')}} />

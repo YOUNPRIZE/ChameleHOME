@@ -17,38 +17,21 @@
       "setHum": 60,
       "setUv": false,
       "createdAt": "2023-08-09T06:35:54.025Z",
-      "category": "turtle",
+      "category": "lizard",
       "id": 1
-    },
-    {
-      "id": 2
-    },
-    {
-      "id": 3
     }
   ],
   "animal": [
     {
       "cageId": 1,
-      "species": "라인드 데이 게코",
-      "name": "네온데이",
+      "species": "녹색 애놀",
+      "name": "애놀라게이",
       "gender": "male",
-      "birth": "2023-08-07T00:00:00.000Z",
-      "issue": "",
-      "created_at": "2023-08-09T17:33:48.839Z",
-      "photo": "Lined_Day_Gecko.jpg",
+      "birth": "2023-06-13T00:00:00.000Z",
+      "issue": "특이사항이 없어용",
+      "created_at": "2023-08-10T03:11:30.190Z",
+      "photo": "Green_Anole.jpg",
       "id": 1
-    },
-    {
-      "cageId": 1,
-      "species": "바바투스",
-      "name": "돌맹이",
-      "gender": "male",
-      "birth": "2020-06-10T00:00:00.000Z",
-      "issue": "",
-      "created_at": "2023-08-09T17:38:35.399Z",
-      "photo": "Cuban_False_Chameleon.jpg",
-      "id": 2
     }
   ]
 }

@@ -1,5 +1,5 @@
 // 훅 import 
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams, useLocation } from 'react-router-dom';
 import { useEffect, useState, useRef } from 'react'
 import { axiosAnimal } from 'constants/AxiosFunc';
 // 상태 정보 import
@@ -16,10 +16,22 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faMars, faVenus } from '@fortawesome/free-solid-svg-icons';
 
 export default function AddAnimal():JSX.Element {
-  // 페이지명 변경
+  // 전달된 데이터 받기
+  const location = useLocation();
+  const data = location.state;
+
+  // 페이지명 변경 + 생일 날짜 형식 맞추기
   const changePage = nowPageStore(state => state.setPage);
+  const [birthDefault, setBirthDefault] = useState<string | undefined>(undefined);
   useEffect(() => {
-    changePage("동물 추가하기");
+    changePage(!data? "동물 추가하기" : "동물 수정하기");
+    if (data) {
+      const birthProps = new Date(data.birth);
+      const year = birthProps.getFullYear();
+      const month = ("0" + (birthProps.getMonth()+1)).slice(-2);
+      const day = ( "0" + birthProps.getDate()).slice(-2);
+      setBirthDefault(`${year}-${month}-${day}`);
+    }
   }, [])
 
   // 상태 정보 Props 로드
@@ -27,9 +39,9 @@ export default function AddAnimal():JSX.Element {
   const animalDic = animalDicStore(state => state.dictionary);
 
   // 변수명 기록
-  const [species, setspecies] = useState('도감에 없음');
-  const [photo, setanimalImg] = useState('Not_Choosed.jpg')
-  const [gender, setGender] = useState('male');
+  const [species, setspecies] = useState(!data? '도감에 없음' : data.species);
+  const [photo, setanimalImg] = useState(!data? 'Not_Choosed.jpg' : data.photo)
+  const [gender, setGender] = useState(!data? 'male' : data.gender);
   const name = useRef<HTMLInputElement>(null);
   const birth = useRef<HTMLInputElement>(null);
   const issue = useRef<HTMLInputElement>(null);
@@ -44,8 +56,9 @@ export default function AddAnimal():JSX.Element {
   const MaleIcon = ():JSX.Element => <FontAwesomeIcon icon={faMars} color='blue' />;
   const FemaleIcon = ():JSX.Element => <FontAwesomeIcon icon={faVenus} color='red' />;
 
-  // 동물 추가하기 함수
+  // 동물 추가하기 or 수정하기 함수
   const addAnimal = myAnimalStore(state => state.addAnimal);
+  const updateAnimal = myAnimalStore(state => state.updateAnimal);
   const navigate = useNavigate();
   const handleAdd = async() => {
     // 이름이나 연도가 비어있을시 포커스 이동
@@ -69,11 +82,20 @@ export default function AddAnimal():JSX.Element {
         created_at : new Date(),
         photo: photo,
       };
-      const addedAnimal = await axiosAnimal("animal", "POST", animalnfo);
-      // 상태정보에 저장
-      addAnimal(addedAnimal);
-      // 동물 리스트로 이동
-      navigate('../AnimalList')
+      // 동물 추가하기
+      if (!data) {
+        const addedAnimal = await axiosAnimal("animal", "POST", animalnfo);
+        // 상태정보에 저장하고 동물리스트로 이동
+        addAnimal(addedAnimal);
+        navigate('../AnimalList')
+      }
+      // 동물 수정하기
+      else if (data) {
+        const updatedAnimal = await axiosAnimal(`animal/${data.id}`, "PUT", animalnfo);
+        // 상태정보에 저장하고 동물 상세정보로 이동
+        updateAnimal(updatedAnimal);
+        navigate(`../AnimalDetail/${data.id}`)
+      }
     }
     catch {
 
@@ -121,21 +143,20 @@ export default function AddAnimal():JSX.Element {
           </Dropdown.Menu>
         </Dropdown>
         {/* 이름 */}
-        <input type="text" placeholder='동물 이름을 입력해주세요' 
-        className={`${style.inputInContainer} ${style.boxShadow}`} 
-        style={{width:"70vw"}} ref={name}/>
+        <input type="text" placeholder='동물 이름을 입력해주세요' defaultValue={data? data.name : null}
+        className={`${style.inputInContainer} ${style.boxShadow}`} style={{width:"70vw"}} ref={name}/>
       </div>
       {/* 생일 입력 */}
       <div className={`${style.inputsContainer}`} >
         <div className={`${style.inputInContainer}`} style={{width:"15vw"}}>생일</div>
-        <input type="date" className={`${style.inputInContainer} ${style.boxShadow}`} 
-        style={{width:"70vw"}} ref={birth}/>
+        <input type="date" ref={birth} defaultValue={data? birthDefault : undefined}
+        className={`${style.inputInContainer} ${style.boxShadow}`} style={{width:"70vw"}}/>
       </div>
       {/* 특이사항 입력 */}
-      <input placeholder='특이사항을 입력해주세요.' ref={issue}
+      <input placeholder='특이사항을 입력해주세요.' ref={issue} defaultValue={data? data.issue : null}
       className={`${style.inputInContainer} ${style.issueInput} ${style.boxShadow} ${style.alignCenter}`} />
       {/* 추가버튼 */}
-      <AddBtn feature={handleAdd}/>
+      <AddBtn feature={handleAdd} command={data? "수정하기" : undefined}/>
     </>
   )
 }
