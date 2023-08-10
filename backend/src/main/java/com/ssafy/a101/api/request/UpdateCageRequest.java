@@ -16,6 +16,7 @@ public class UpdateCageRequest {
 
     private Long cage_id;
     private Long id;
+    private String snum;
     private String cage_name;
     private Long set_temp;
     private Long set_hum;
