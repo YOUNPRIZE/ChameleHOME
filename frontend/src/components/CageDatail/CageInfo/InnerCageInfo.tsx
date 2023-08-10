@@ -37,12 +37,12 @@ export default function InnerCageInfo(props:{myCage:myCage|undefined}):JSX.Eleme
       nowCage.setUv("");
     }
     const options:IClientOptions  = {
-      protocol: "tcp",
+      protocol: "wss",
       username: 'FRONT',
       password: '1234',
       clientId: 'react-client',
     };
-    const client = mqtt.connect('tcp://i9a101.p.ssafy.io:8999', options);
+    const client = mqtt.connect('wss://i9a101.p.ssafy.io:8999', options);
 
     client.on('connect', () => {
         console.log("CONNECTED to broker");
