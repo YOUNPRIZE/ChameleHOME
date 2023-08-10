@@ -81,16 +81,20 @@ export default function AutoSettingModal(props:{modalShow:boolean, handleClose:F
         set_uv: setUv,
       };
       // 세팅 추가
-      if (settingInfo) {
+      if (! settingInfo) {
         const addedSetting = await axiosAuto("setting", "POST", settingInput);
         addSetting(addedSetting);
       }
-      else {
-        
-      }
       // 세팅 수정하기
+      else {
+        const updatedSetting = await axiosAuto(`setting/${settingInfo.id}`, "PUT", settingInput);
+        updateSetting(updatedSetting);
+      }
     }
     catch {
+      // 오류 처리
+    }
+    finally{
       props.handleClose();
     }
   }

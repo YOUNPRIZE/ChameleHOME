@@ -47,7 +47,22 @@ export const autoSettingStore = create<autoSettingState>()(
           return {...state}
         })
       },
-      updateSetting: (setting: autoSetting) => {console.log(setting)},
+      // 세팅 수정
+      updateSetting: (setting: autoSetting) => {
+        set((state) => {
+          // id와 일치하는 케이지의 인덱스 탐색
+          const settingIndex = state.settings.findIndex(setting => setting.id === setting.id);
+          // id와 일치하는 케이지를 찾지 못한 경우, 현재 상태를 변경하지 않고 반환
+          if (settingIndex === -1) {
+            return state;
+          }
+          // 업데이트된 케이지를 담는 새로운 배열을 생성
+          const updatedsettings = [...state.settings];
+          updatedsettings[settingIndex] = setting;
+          // 업데이트된 cages 배열을 가진 새로운 상태를 반환
+          return { ...state, settings: updatedsettings };
+        });
+      },
       // 세팅 삭제
       deleteSetting: (id: number) => {        
         set((state) => {
