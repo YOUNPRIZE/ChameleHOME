@@ -20,7 +20,7 @@ const test2:{ [key: number]: Array<alarmSetting> } = {
 
 // 자동화 설정 세팅
 export interface autoSetting {
-  setting_pk: number;
+  id: number;
   cage_id: number;
   time: string;
   set_temp: number | null;
@@ -48,10 +48,16 @@ export const autoSettingStore = create<autoSettingState>()(
         })
       },
       updateSetting: (setting: autoSetting) => {console.log(setting)},
-      deleteSetting: (id: number) => {console.log(id)},
+      // 세팅 삭제
+      deleteSetting: (id: number) => {        
+        set((state) => {
+          const updatedSettings = state.settings.filter(setting => setting.id !== id);
+          return { ...state, settings: updatedSettings };
+        })},
       // 기존 세팅 데이터 저장
       setSetting: (settings: Array<autoSetting>) => {
-        set(state => {return {...state, settings:settings}})},
+        set(state => {return {...state, settings:settings}})
+      },
     }),
   {name:'autoSettings'}
   )

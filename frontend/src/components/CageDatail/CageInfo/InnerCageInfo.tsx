@@ -22,8 +22,8 @@ export default function InnerCageInfo(props:{myCage:myCage|undefined}):JSX.Eleme
   const nowCage = nowCageValueStore();
 
   // Mqtt 통신 토픽
-  const getInfoTopic = `${'serialnumber'}/sensorval`
-  const sendInfoTopic = `${'serialnumber'}/setval`
+  const getInfoTopic = `${cageId}/sensorval`
+  const sendInfoTopic = `${cageId}/setval`
 
   // 케이지 내부 센서값 받기
   const clientRef = useRef<Client|null>(null);
@@ -36,7 +36,7 @@ export default function InnerCageInfo(props:{myCage:myCage|undefined}):JSX.Eleme
       nowCage.setUv("");
     }
     // Mqtt 연결
-    const client = new Client("i9a101.p.ssafy.io", 1884, "client");
+    const client = new Client("i9a101.p.ssafy.io", 9001, "client");
     clientRef.current = client;
     if (!client.isConnected()) {
       client.connect({

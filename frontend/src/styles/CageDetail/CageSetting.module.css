@@ -130,15 +130,22 @@
 }
 
 .inputLabel {
-  width: 50%;
+  width: 70%;
   font-weight: bold;
 }
 
 .inputTag{
   font-weight: bold;
   font-size: 2vh;
+  text-align: center;
 }
 
+.warningText {
+  color: red;
+  font-size: 2vh;
+  font-weight: bold;
+  text-align: center;
+}
 
 /* 알람 설정 모달 */
 .alarmContentBox {
