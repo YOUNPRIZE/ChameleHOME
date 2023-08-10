@@ -5,7 +5,6 @@ import com.ssafy.a101.api.request.UpdateUserRequest;
 import com.ssafy.a101.db.entity.User;
 import com.ssafy.a101.db.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 @RequiredArgsConstructor
@@ -15,11 +14,10 @@ public class UserService {
     private final UserRepository userRepository;
 
     public Long save(AddUserRequest dto) {
-        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 
         return userRepository.save(User.builder()
                 .email(dto.getEmail())
-                .password(encoder.encode(dto.getPassword()))
+                .password(dto.getPassword())
                 .build()).getId();
     }
 
