@@ -23,7 +23,7 @@ import { faPencil } from '@fortawesome/free-solid-svg-icons'
 export default function CageDeatil():JSX.Element {
   // 상태정보 변수에 할당
   const cageId = Number(useParams().cageId);
-  const myCage = myCagesStore(state => (state.cages)).find((cage) => (cage.id === cageId));
+  const myCage = myCagesStore(state => (state.cages)).find((cage) => (cage.cageId === cageId));
 
   // 케이지 정보 수정 모달
   const [modalShow, setModalShow] = useState(false); 
@@ -32,7 +32,7 @@ export default function CageDeatil():JSX.Element {
   return (
     <>
     <div className={style.cageName}>
-      <span>{myCage?.cageName}</span>
+      <span>{myCage?.cage_name}</span>
       <div className={style.edit}>
         <FontAwesomeIcon icon={faPencil} onClick={() => setModalShow(!modalShow)}/>
       </div>
