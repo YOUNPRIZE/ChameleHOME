@@ -4,7 +4,7 @@ CREATE TABLE IF NOT EXISTS users (
     password VARCHAR(255),
     nickname VARCHAR(255),
     number BIGINT,
-    user_img VARCHAR(255)
+--     user_img VARCHAR(255)
 );
 
 -- RefreshToken 테이블 생성 (users 테이블이 생성된 후에 생성)
