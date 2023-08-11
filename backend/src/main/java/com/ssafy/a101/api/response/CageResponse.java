@@ -1,6 +1,7 @@
 package com.ssafy.a101.api.response;
 
 import com.ssafy.a101.db.entity.Cage;
+import com.ssafy.a101.db.entity.User;
 import lombok.Getter;
 
 import java.util.Date;
@@ -8,6 +9,7 @@ import java.util.Date;
 @Getter
 public class CageResponse {
 
+    private final User id;
     private final Long cageId;
     private final String snum;
     private final String cage_name;
@@ -19,6 +21,7 @@ public class CageResponse {
 
 
     public CageResponse(Cage cage) {
+        this.id = cage.getId();
         this.cageId = cage.getCageId();
         this.cage_name = cage.getCage_name();
         this.snum = cage.getSnum();

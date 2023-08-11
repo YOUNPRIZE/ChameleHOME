@@ -2,6 +2,7 @@ package com.ssafy.a101.api.request;
 
 
 import com.ssafy.a101.db.entity.Cage;
+import com.ssafy.a101.db.entity.User;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -12,6 +13,8 @@ import java.util.Date;
 @AllArgsConstructor
 @Getter
 public class AddCageRequest {
+
+    private User id;
     private String cage_name;
     private String snum;
     private Long set_temp;
@@ -23,6 +26,7 @@ public class AddCageRequest {
 
     public Cage toEntity(){
         return Cage.builder()
+                .id(id)
                 .cage_name(cage_name)
                 .snum(snum)
                 .set_temp(set_temp)
