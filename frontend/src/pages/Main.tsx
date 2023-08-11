@@ -20,7 +20,7 @@ export default function Main():JSX.Element {
   const changePage = nowPageStore(state => state.setPage);
   useEffect(() => {
     // Mqtt 연결
-    const client = new Client("i9a101.p.ssafy.io", 9001,"client");
+    const client = new Client("i9a101.p.ssafy.io", 9001, "client");
     if (!client.isConnected()) {
       client.connect({
         userName: "FRONT",
@@ -34,7 +34,7 @@ export default function Main():JSX.Element {
         // 커넥트 실패
         onFailure: () => { 
           console.log("연결 실패")
-        }
+        },
       });
     };
     changePage("홈");
