@@ -16,7 +16,7 @@ interface Props {
 
 export default function CageItemLong(props:Props):JSX.Element {
   // 이미지 변수
-  const imgUrl:string = process.env.PUBLIC_URL+`/images/${props.cage.category}.jpeg`
+  const imgUrl:string = process.env.PUBLIC_URL+`/images/${props.cage.category}.jpg`
 
   // 케이지 내부 환경 정보
   const [nowTem, setNowTem] = useState(0);
@@ -54,7 +54,7 @@ export default function CageItemLong(props:Props):JSX.Element {
         <img src={imgUrl} alt="" className={style.img}/>
       </div>
       <div className={` ${style.infoContainer}`}>
-        <p className={style.cageName}>{props.cage.cageName}</p>
+        <p className={style.cageName}>{props.cage.cage_name}</p>
         <div className={style.cageInfo}>
           <div className={style.eachInfo}>
             <FontAwesomeIcon icon={faTemperatureThreeQuarters} style={{color: "#000000",}} />

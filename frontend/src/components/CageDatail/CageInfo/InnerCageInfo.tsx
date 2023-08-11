@@ -22,8 +22,8 @@ export default function InnerCageInfo(props:{myCage:myCage|undefined}):JSX.Eleme
   const nowCage = nowCageValueStore();
 
   // Mqtt 통신 토픽
-  const getInfoTopic = `${'serialnumber'}/sensorval`
-  const sendInfoTopic = `${'serialnumber'}/setval`
+  const getInfoTopic = `${cageId}/sensorval`
+  const sendInfoTopic = `${cageId}/setval`
 
   // 케이지 내부 센서값 받기
   const clientRef = useRef<Client|null>(null);
@@ -35,8 +35,9 @@ export default function InnerCageInfo(props:{myCage:myCage|undefined}):JSX.Eleme
       nowCage.setHum(0);
       nowCage.setUv("");
     }
+
     // Mqtt 연결
-    const client = new Client("i9a101.p.ssafy.io", 1884, "client");
+    const client = new Client("i9a101.p.ssafy.io", 8999, "/mqtts","client");
     clientRef.current = client;
     if (!client.isConnected()) {
       client.connect({
@@ -77,15 +78,15 @@ export default function InnerCageInfo(props:{myCage:myCage|undefined}):JSX.Eleme
     // mycage와 client가 유효할 때만 함수 실행
     if (client && client.isConnected() && myCage) {
       // 세팅값 조절하기
-      myCage.setTemp += setting[0];
-      myCage.setHum += setting[1];
-      myCage.setUv = setting[2]? !myCage.setUv : myCage.setUv;
-      updateCage(myCage, cageId);
+      myCage.set_temp += setting[0];
+      myCage.set_hum += setting[1];
+      myCage.set_uv = setting[2]? Math.abs(myCage.set_uv-1) : myCage.set_uv;
+      updateCage(myCage);
       // 세팅값 Mqtt로 보내기
-      const payload = {temp: myCage?.setTemp, humid: myCage?.setTemp, uv: myCage?.setUv,};
-      const message = new Message(JSON.stringify(payload));
-      message.destinationName = sendInfoTopic;
-      client.send(message);
+      // const payload = {temp: myCage?.setTemp, humid: myCage?.setTemp, uv: myCage?.setUv,};
+      // const message = new Message(JSON.stringify(payload));
+      // message.destinationName = sendInfoTopic;
+      // client.send(message);
     }
   }
 
@@ -93,13 +94,13 @@ export default function InnerCageInfo(props:{myCage:myCage|undefined}):JSX.Eleme
   return (
     <div className={`${style.settingContatiner} ${style.mainContainer}`}>
       {/* 온도 */}
-      <InnerCageInfoItem live={nowCage.temp !== 0? `${nowCage.temp}℃` : "연결 X"} setting={`${myCage?.setTemp}℃`} 
+      <InnerCageInfoItem live={nowCage.temp !== 0? `${nowCage.temp}℃` : "연결 X"} setting={`${myCage?.set_temp}℃`} 
       icon={faTemperatureThreeQuarters} up={()=>handleSetting([1,0,false])} down={()=>handleSetting([-1,0,false]) }/>
       {/* 습도 */}
-      <InnerCageInfoItem live={nowCage.hum !== 0? `${nowCage.hum}%` : "연결 X"} setting={`${myCage?.setHum}%`} 
+      <InnerCageInfoItem live={nowCage.hum !== 0? `${nowCage.hum}%` : "연결 X"} setting={`${myCage?.set_hum}%`} 
       icon={faDroplet} up={()=>handleSetting([0,1,false])} down={()=>handleSetting([0,-1,false]) }/>
       {/* 조명 */}
-      <InnerCageInfoItem live={nowCage.uv !== ""? nowCage.uv : "연결X"} setting={myCage?.setUv? "On":"Off"} 
+      <InnerCageInfoItem live={nowCage.uv !== ""? nowCage.uv : "연결X"} setting={myCage?.set_uv? "On":"Off"} 
       icon={faLightbulb} up={()=>handleSetting([0,0,true])} down={()=>handleSetting([0,0,true]) }/>
     </div>
   )
