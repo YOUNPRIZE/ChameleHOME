@@ -2,11 +2,11 @@
 -- users 테이블에 데이터 삽입
 INSERT INTO users (userId, password, nickname, number, user_img) 
 VALUES
-    ('FRONT', '1234', 'User 1', 1234567890, 'usersuser1.jpg'),
-    ('user1', 'password1', 'User 2', 9876543210, 'user1.jpg'),
-    ('user2', 'password2', 'User 3', 5555555555, 'user2.jpg'),
-    ('user3', 'password3', 'User 4', 1231231230, 'user3.jpg'),
-    ('user4', 'password4', 'User 5', 9879879870, 'user4.jpg');
+    ('FRONT', '1234', 'User 1', 1234567890),
+    ('user1', 'password1', 'User 2', 9876543210),
+    ('user2', 'password2', 'User 3', 5555555555),
+    ('user3', 'password3', 'User 4', 1231231230),
+    ('user4', 'password4', 'User 5', 9879879870);
 
 -- 나머지 테이블에 데이터 삽입
 -- dict 테이블에 데이터 삽입
