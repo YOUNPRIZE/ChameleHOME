@@ -1,5 +1,6 @@
-// 훅 import 
+// 훅 | 함수 import 
 import { useEffect } from 'react'
+import { axiosDic } from 'constants/AxiosFunc';
 // 상태 정보 import
 import { nowPageStore } from 'store/myPageStore';
 import { animalDicStore } from 'store/animalDicStore'

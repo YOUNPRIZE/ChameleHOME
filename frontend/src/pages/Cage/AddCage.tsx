@@ -1,7 +1,11 @@
 // 훅 import 
 import { useEffect, useState, useRef } from 'react'
+import { useNavigate } from 'react-router-dom';
+import { axiosCage } from 'constants/AxiosFunc';
 // 상태 정보 import
 import { nowPageStore } from 'store/myPageStore';
+import { userInfoStore } from 'store/userInfoStore';
+import { myCagesStore } from 'store/myCageStore';
 // 컴포넌트 import
 import AddBtn from 'components/Shared/AddBtn';
 // 스타일 import
@@ -19,21 +23,46 @@ export default function AddCage():JSX.Element {
   // 변수명 기록
   const [animalToBreed, setAnimalToBreed] = useState('알 수 없음');
   const [animalImg, setanimalImg] = useState(process.env.PUBLIC_URL+'/images/Not_Choosed.jpg')
+  const [warning, setWarning] = useState("");
   const cageName = useRef<HTMLInputElement>(null);
   const cageSerial = useRef<HTMLInputElement>(null);
 
   // 동물 이미지 선택
-  const animal_types = {"뱀": "snake.jpeg", "도마뱀": "lizard.jpeg", "거북이": "turtle.jpeg"}
+  type AnimalTypes = {
+    [key: string]: string;
+  };
+  const animal_types:AnimalTypes = {"뱀": "snake", "도마뱀": "lizard", "거북이": "turtle", "알 수 없음": "Not_Choosed"}
   const chooseAnimal = (animal:string, url:string):void => {
     setAnimalToBreed(animal);
-    setanimalImg(process.env.PUBLIC_URL+`/images/${url}`)
+    setanimalImg(process.env.PUBLIC_URL+`/images/${url}.jpg`)
   }
 
   // 케이지 추가하기 함수
-  const addCage = () => {
-    console.log(animalToBreed);
-    console.log(cageName.current?.value);
-    console.log(cageSerial.current?.value);
+  const addCage = myCagesStore(state => state.addCage)
+  const navigate = useNavigate();
+  const handleAddCage = async() => {
+    setWarning("")
+    if (! cageSerial.current?.value) {
+      setWarning("시리얼 넘버를 입력해주세요.")
+      return
+    }
+    try {
+      const cageInput = {
+        cage_name : cageName.current?.value ? cageName.current?.value : `${animalToBreed} 케이지`,
+        sNum: "7777",
+        set_temp : 25,
+        set_hum : 60,
+        set_uv : 0,
+        created_at : new Date(),
+        category: animal_types[animalToBreed]
+      }
+      const CageInfo = await axiosCage("cage", "POST", cageInput)
+      addCage(CageInfo)
+      navigate("/Cages")
+    }
+    catch {
+
+    }
   }
   
   // 페이지 렌더링
@@ -64,8 +93,9 @@ export default function AddCage():JSX.Element {
       {/* 케이지 시리얼넘버 입력 */}
       <input type="text" placeholder='시리얼 넘버를 입력해주세요.' 
       className={`${style.inputCageInfo} ${style.boxShadow}`} ref={cageSerial}/>
+      {warning? <div className={style.warningText}>{warning}</div> : null }
       {/* 케이지 추가하기 버튼 */}
-      <AddBtn feature={addCage}/>
+      <AddBtn feature={handleAddCage}/>
     </div>
   )
 }

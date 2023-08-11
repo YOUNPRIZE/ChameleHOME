@@ -1,15 +1,12 @@
 // 훅 import 
-import { useEffect, useState, } from 'react'
+import { useEffect } from 'react'
 // 상태 정보 import
 import { nowPageStore } from 'store/myPageStore';
-import { myCagesStore } from 'store/myCageStore';
-import {animalDicStore} from 'store/animalDicStore';
-import { nowCageValueStore } from 'store/myCageStore';
+import { animalDicStore } from 'store/animalDicStore';
+import { Message, Client } from 'paho-mqtt';
 // 컴포넌트 import
-import TopBox from 'components/Shared/TopBox';
-import CageItemShort from 'components/Main/CageItemShort';
-import DicItemBig from 'components/Main/DicItemBig';
-import { MoveIconLeft, MoveIconRight } from 'components/Shared/MoveIcon';
+import CageBox from 'components/Main/CageBox';
+import DictionaryBox from 'components/Main/DicionaryBox';
 // 스타일 import
 import style from 'styles/Main.module.css'
 import 'bootstrap/dist/css/bootstrap.min.css'
@@ -17,59 +14,41 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 
 export default function Main():JSX.Element {
   // 상태 정보 받아오기
-  const myCages = myCagesStore(state => (state.cages));
   const animalDic = animalDicStore(state => (state.dictionary))
-  const nowCageValue = nowCageValueStore();
 
   // 페이지명 변경
   const changePage = nowPageStore(state => state.setPage);
   useEffect(() => {
+    // Mqtt 연결
+    const client = new Client("i9a101.p.ssafy.io", 9001, "/mqtts","client");
+    if (!client.isConnected()) {
+      client.connect({
+        userName: "FRONT",
+        password: "1234",
+        useSSL:true,
+        // mqttVersion:4,
+        // 커넥트에 성공(구독)
+        onSuccess: () => { 
+          console.log("연결 성공")
+        },
+        // 커넥트 실패
+        onFailure: () => { 
+          console.log("연결 실패")
+        }
+      });
+    };
     changePage("홈");
   }, [])
 
-  // 케이지 표시 컨트롤
-  const [mainCageOrder, setMainCageOrder] = useState(0);
-  const handleCageOrder = (move:number):void => {
-    const numberCage = Math.ceil(myCages.length / 2);
-    if (numberCage !== 0) {
-      setMainCageOrder((mainCageOrder + move + numberCage) % (numberCage))
-    }
-  }
 
-  // 도감 표시 컨트롤
-  const [dicIdx, setDicIdx] = useState(0);
-  const handleDicOrder = (move:number):void => {
-    const numberDic:number = animalDic.length
-    setDicIdx((dicIdx + numberDic + move) % numberDic)
-  }
 
   // 페이지 렌더링
   return (
     <>
       {/* 케이지 보기 컨테이너 */}
-      <div className={`${style.mainContainer} ${style.mainCages}`}>
-        <TopBox name="케이지" link="/Cages"/>
-        <div className={`row ${style.cagesContent} d-flex `}>
-          <MoveIconLeft moveFunc={() => handleCageOrder(-1)}/>
-          <div className='d-flex justify-content-center align-items-center col-10 mx-0 px-0 gx-5'>
-            {myCages.length!==0? myCages.map((cage, index) => (
-              <CageItemShort key={cage.cageId} cage={cage} index={index} order={mainCageOrder}/>
-            )): <h1 className={style.noCage}>등록된 케이지가 없습니다!</h1>}
-          </div>
-          <MoveIconRight moveFunc={() => handleCageOrder(1)}/>
-        </div>
-      </div>
+      <CageBox/>
       {/* 도감 보기 컨테이너 */}
-      <div className={`${style.mainContainer} ${style.mainDic}`}>
-        <TopBox name="파충류 도감" link="/Dictionary"/>
-        <div className={`${style.dicContainer} row d-flex`}>
-          <MoveIconLeft moveFunc={() => handleDicOrder(-1)}/>
-          {animalDic.map((item, index) => (
-            <DicItemBig key={index} index={index} dicIdx={dicIdx} item={item}/>
-          ))}
-          <MoveIconRight moveFunc={() => handleDicOrder(1)}/>
-        </div>
-      </div>
+      <DictionaryBox/>
       {/* 관련 상품 보기 컨테이너 */}
       <div className={`${style.mainContainer} ${style.mainShops}`}>
         <div className={`${style.containerTop}`}>
