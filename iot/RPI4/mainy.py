@@ -1,6 +1,7 @@
 # module for camera
 import cv2
 from flask import Flask, Response
+import ssl
 
 # module for servo moter
 import pigpio
@@ -107,15 +108,19 @@ def recognize():
                     print(label)
                     if center_x < 320:
                         pin = 18
-                        set_servo_angle(pin, get_servo_angle(pin) + 10)
+                        print('left')
+                        set_servo_angle(pin, get_servo_angle(pin) - 10)
                     elif center_x > 320:
                         pin = 18
-                        set_servo_angle(pin, get_servo_angle(pin) - 10)
+                        print('right')
+                        set_servo_angle(pin, get_servo_angle(pin) + 10)
                     if center_y < 240:
                         pin = 13
+                        print('up')
                         set_servo_angle(pin, get_servo_angle(pin) + 10)
                     elif center_y > 240:
                         pin = 13
+                        print('down')
                         set_servo_angle(pin, get_servo_angle(pin) - 10)
 
 
@@ -172,10 +177,10 @@ def dir_servo_angle(dir):
         set_servo_angle(pin, get_servo_angle(pin) - 10)
     elif dir == 'left':
         pin = 18
-        set_servo_angle(pin, get_servo_angle(pin) + 10)
+        set_servo_angle(pin, get_servo_angle(pin) - 10)
     elif dir == 'right':
         pin = 18
-        set_servo_angle(pin, get_servo_angle(pin) - 10)
+        set_servo_angle(pin, get_servo_angle(pin) + 10)
 
 def get_servo_angle(pin):
 
@@ -207,7 +212,7 @@ def on_connect(client, userdata, flags, rc):
     # arg2 : userdata 
 
     # subscribe topic "angle"
-    client.subscribe("serialnumber/angle")
+    client.subscribe("2/angle")
 
 
 def on_message(client, userdata, msg):
@@ -232,7 +237,7 @@ client = mqtt.Client()
 client.username_pw_set("RPI4", "1234")
 client.on_connect = on_connect
 client.on_message = on_message
-client.connect("18.233.166.123", 1883, 60)
+client.connect("43.202.68.60", 1883, 60)
 
 def mqtt_thread():
     # inifinite loop for mqtt communication
@@ -246,8 +251,11 @@ def main():
         t2 = threading.Thread(target=recognize)
         t1.start()
         t2.start()
+        ssl_context = ssl.SSLContext(ssl.PROTOCOL_TLS)
+        ssl_context.load_cert_chain(certfile='cert.pem', keyfile='key.pem', password='ssafy')
         while True:
-            app.run(host='0.0.0.0', port=8008, debug=True)
+            app.run(host='0.0.0.0', port=8008, debug=True, ssl_context=ssl_context)
+            #app.run(host='0.0.0.0', port='8008', debug=True)
 
     # to exit use Keyboard Interrupt
     except KeyboardInterrupt:
