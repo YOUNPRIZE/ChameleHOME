@@ -13,15 +13,17 @@ import lombok.Setter;
 @Getter
 public class AddUserRequest {
 
-    private String email;
+    private String userId;
     private String password;
     private String nickname;
+    private Long number;
 
     public User toEntity() {
         return User.builder()
-                .email(getEmail())
+                .userId(getUserId())
                 .password(getPassword())
                 .nickname(getNickname())
+                .number(getNumber())
                 .build();
     }
 }

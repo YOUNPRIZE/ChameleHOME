@@ -19,11 +19,11 @@ public class User {
     @Column(name = "id", updatable = false)
     private Long id;
 
-//    @Column(name = "userId", updatable = false, unique = true)
-//    private String userId;
+    @Column(name = "userId", updatable = false, unique = true)
+    private String userId;
 
-    @Column(name = "email", updatable = false)
-    private String email;
+//    @Column(name = "email", updatable = false)
+//    private String email;
 
     @Column(name = "password", updatable = true)
     private String password;
@@ -31,28 +31,34 @@ public class User {
     @Column(name = "nickname", updatable = true)
     private String nickname;
 
-//    @Column(name = "number", updatable = true)
-//    private Long number;
+    @Column(name = "number", updatable = true)
+    private Long number;
 
 //    @Column(name = "user_img", updatable = true)
 //    private String user_img;
 
-    @Builder
-    public User(String email, String password, String nickname) {
-        this.email = email;
-        this.password = password;
-        this.nickname = nickname;
-    }
-
-//    public void update(String userId, String password, String nickname, Long number, String user_img){
-//        this.userId = userId;
+//    @Builder
+//    public User(String email, String password, String nickname) {
+//        this.email = email;
 //        this.password = password;
 //        this.nickname = nickname;
-//        this.number = number;
-//        this.user_img = user_img;
 //    }
-public User update(String nickname){
-    this.nickname = nickname;
-    return this;
-}
+
+    @Builder
+    public User(String userId, String password, String nickname, Long number) {
+        this.userId = userId;
+        this.password = password;
+        this.nickname = nickname;
+        this.number = number;
+    }
+    public void update(String password, String nickname, Long number){
+//        this.userId = userId;
+        this.password = password;
+        this.nickname = nickname;
+        this.number = number;
+    }
+//    public User update(String nickname){
+//        this.nickname = nickname;
+//        return this;
+//    }
 }
