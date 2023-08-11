@@ -2,6 +2,8 @@ package com.ssafy.a101.api.request;
 
 
 import com.ssafy.a101.db.entity.Animal;
+import com.ssafy.a101.db.entity.Cage;
+import com.ssafy.a101.db.entity.Dictionary;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -13,6 +15,8 @@ import java.util.Date;
 @Getter
 public class AddAnimalRequest {
 
+    private Cage cage_id;
+    private Dictionary dict_id;
     private  String name;
     private  String gender;
     private  Date birth;
@@ -22,6 +26,8 @@ public class AddAnimalRequest {
 
     public Animal toEntity(){
         return Animal.builder()
+                .cageId(cage_id)
+                .dict_id(dict_id)
                 .name(name)
                 .gender(gender)
                 .birth(birth)

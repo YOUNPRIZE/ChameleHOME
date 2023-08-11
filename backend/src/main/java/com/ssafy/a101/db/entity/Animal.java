@@ -44,7 +44,9 @@ public class Animal {
     private String photo;
 
     @Builder
-    public Animal(String name ,String gender, Date birth, String issue, Date created_at, String photo){
+    public Animal(Cage cageId, Dictionary dict_id, String name ,String gender, Date birth, String issue, Date created_at, String photo){
+        this.cageId = cageId;
+        this.dict_id = dict_id;
         this.name = name;
         this.gender = gender;
         this.birth = birth;

@@ -68,9 +68,6 @@ public class A101Application {
 
 						System.out.println(msg);
 
-
-
-
 						sender.send("1/setval", msg);  //  토픽,  보낼 메세지
 						sender.close(); // 작업 완료되면 종료
 					}

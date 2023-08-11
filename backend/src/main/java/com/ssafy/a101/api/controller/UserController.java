@@ -20,6 +20,7 @@ public class UserController {
     @GetMapping("/api/user/{id}")
     public ResponseEntity<UserResponse> findUser(@PathVariable long id){
         User user = userService.findById(id);
+//        System.out.println(user);
         return ResponseEntity.ok()
                 .body(new UserResponse(user));
     }
