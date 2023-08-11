@@ -38,7 +38,6 @@ export default function AddCage():JSX.Element {
   }
 
   // 케이지 추가하기 함수
-  const userId = userInfoStore(state => state.user).id
   const addCage = myCagesStore(state => state.addCage)
   const navigate = useNavigate();
   const handleAddCage = async() => {
@@ -49,15 +48,12 @@ export default function AddCage():JSX.Element {
     }
     try {
       const cageInput = {
-        userId: userId,
-        cageName : cageName.current?.value ? cageName.current?.value : `${animalToBreed} 케이지`,
-        sNum: cageSerial.current?.value,
-        setTemp : 25,
-        setHum : 60,
-        setUv : false,
-        // 요거 빼야됨
-        createdAt : new Date(),
-        // 
+        cage_name : cageName.current?.value ? cageName.current?.value : `${animalToBreed} 케이지`,
+        sNum: "7777",
+        set_temp : 25,
+        set_hum : 60,
+        set_uv : 0,
+        created_at : new Date(),
         category: animal_types[animalToBreed]
       }
       const CageInfo = await axiosCage("cage", "POST", cageInput)

@@ -1,14 +1,12 @@
 // 훅 import 
-import { useEffect, useState, } from 'react'
-import axios from 'axios';
+import { useEffect } from 'react'
 // 상태 정보 import
 import { nowPageStore } from 'store/myPageStore';
-import {animalDicStore} from 'store/animalDicStore';
+import { animalDicStore } from 'store/animalDicStore';
+import { Message, Client } from 'paho-mqtt';
 // 컴포넌트 import
 import CageBox from 'components/Main/CageBox';
-import TopBox from 'components/Shared/TopBox';
-import DicItemBig from 'components/Main/DicItemBig';
-import { MoveIconLeft, MoveIconRight } from 'components/Shared/MoveIcon';
+import DictionaryBox from 'components/Main/DicionaryBox';
 // 스타일 import
 import style from 'styles/Main.module.css'
 import 'bootstrap/dist/css/bootstrap.min.css'
@@ -21,38 +19,27 @@ export default function Main():JSX.Element {
   // 페이지명 변경
   const changePage = nowPageStore(state => state.setPage);
   useEffect(() => {
+    // Mqtt 연결
+    const client = new Client("i9a101.p.ssafy.io", 9001, "/mqtts","client");
+    if (!client.isConnected()) {
+      client.connect({
+        userName: "FRONT",
+        password: "1234",
+        useSSL:true,
+        // mqttVersion:4,
+        // 커넥트에 성공(구독)
+        onSuccess: () => { 
+          console.log("연결 성공")
+        },
+        // 커넥트 실패
+        onFailure: () => { 
+          console.log("연결 실패")
+        }
+      });
+    };
     changePage("홈");
   }, [])
 
-  // 도감 표시 컨트롤
-  const [dicIdx, setDicIdx] = useState(0);
-  const handleDicOrder = (move:number):void => {
-    const numberDic:number = animalDic.length
-    setDicIdx((dicIdx + numberDic + move) % numberDic)
-  }
-
-//   const tmp1 = async () => {
-//   try {
-//     const response = await axios({
-//       method: "GET",
-//       url: `https://i9a101.p.ssafy.io/api/1/cages`,
-//     });
-//     return response.data; // 비동기 처리 결과를 반환합니다.
-//   } catch (error) {
-//     throw error; // 에러가 발생한 경우, 이를 외부로 던져서 처리할 수 있도록 합니다.
-//   }
-// };
-//   const tmp2 = async() => {
-//     try {
-//       const asdf =  tmp1();
-//       console.log(asdf)
-//     }
-//     catch {
-
-//     }
-//   }
-
-//   tmp2();
 
 
   // 페이지 렌더링
@@ -61,16 +48,7 @@ export default function Main():JSX.Element {
       {/* 케이지 보기 컨테이너 */}
       <CageBox/>
       {/* 도감 보기 컨테이너 */}
-      <div className={`${style.mainContainer} ${style.mainDic}`}>
-        <TopBox name="파충류 도감" link="/Dictionary"/>
-        <div className={`${style.dicContainer} row d-flex`}>
-          <MoveIconLeft moveFunc={() => handleDicOrder(-1)}/>
-          {animalDic.map((item, index) => (
-            <DicItemBig key={index} index={index} dicIdx={dicIdx} item={item}/>
-          ))}
-          <MoveIconRight moveFunc={() => handleDicOrder(1)}/>
-        </div>
-      </div>
+      <DictionaryBox/>
       {/* 관련 상품 보기 컨테이너 */}
       <div className={`${style.mainContainer} ${style.mainShops}`}>
         <div className={`${style.containerTop}`}>

@@ -44,7 +44,7 @@ export default function CageItemLong(props:Props):JSX.Element {
   // 클릭하면 케이지 상세페이지로 이동
   const navigate = useNavigate();
   const handleMoveDetail = () => {
-    navigate(`/CageDetail/${props.cage.id}`)
+    navigate(`/CageDetail/${props.cage.cageId}`)
   }
 
   // 렌더링
@@ -54,7 +54,7 @@ export default function CageItemLong(props:Props):JSX.Element {
         <img src={imgUrl} alt="" className={style.img}/>
       </div>
       <div className={` ${style.infoContainer}`}>
-        <p className={style.cageName}>{props.cage.cageName}</p>
+        <p className={style.cageName}>{props.cage.cage_name}</p>
         <div className={style.cageInfo}>
           <div className={style.eachInfo}>
             <FontAwesomeIcon icon={faTemperatureThreeQuarters} style={{color: "#000000",}} />

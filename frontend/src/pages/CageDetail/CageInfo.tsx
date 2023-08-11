@@ -23,7 +23,7 @@ export default function CageInfo():JSX.Element {
 
   // 케이지, 동물들 정보
   const cageId = Number(useParams().cageId);
-  const myCage = myCagesStore(state => (state.cages)).find((cage) => (cage.id === cageId));
+  const myCage = myCagesStore(state => (state.cages)).find((cage) => (cage.cageId === cageId));
   
   // 동물 정보 db에서 가져오기 함수
   const setAnimals = myAnimalStore(state => state.setAnimals)
