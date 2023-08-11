@@ -1,18 +1,11 @@
 CREATE TABLE IF NOT EXISTS users (
     id BIGINT AUTO_INCREMENT PRIMARY KEY,
-    userId VARCHAR(255) NOT NULL UNIQUE,
+    user_id VARCHAR(255) NOT NULL UNIQUE,
     password VARCHAR(255),
     nickname VARCHAR(255),
     number BIGINT
 );
 
--- RefreshToken 테이블 생성 (users 테이블이 생성된 후에 생성)
-CREATE TABLE IF NOT EXISTS RefreshToken (
-    id BIGINT AUTO_INCREMENT PRIMARY KEY,
-    user_id BIGINT NOT NULL UNIQUE,
-    refresh_token VARCHAR(255) NOT NULL,
-    CONSTRAINT fk_refresh_token_user FOREIGN KEY (user_id) REFERENCES users (id)
-);
 
 -- dict 테이블 생성
 CREATE TABLE IF NOT EXISTS dict (

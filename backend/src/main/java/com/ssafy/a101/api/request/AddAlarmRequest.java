@@ -1,6 +1,7 @@
 package com.ssafy.a101.api.request;
 
 import com.ssafy.a101.db.entity.Alarm;
+import com.ssafy.a101.db.entity.Cage;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -12,12 +13,14 @@ import java.util.Date;
 @Getter
 public class AddAlarmRequest {
 
+    private Cage cageId;
     private String name;
     private Date cycle;
     private Date recent;
 
     public Alarm toEntity(){
         return Alarm.builder()
+                .cageId(cageId)
                 .name(name)
                 .cycle(cycle)
                 .recent(recent)
