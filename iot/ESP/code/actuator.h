@@ -143,7 +143,7 @@ void validation_check() {
 }
 
 // Humidity auto operation
-void autoHumid(const Info set_val, Info now_val, Humidifier humidifier, CoolingFan cool_fan, bool& humid_flag, bool& err_flag) {
+void autoHumid(const Info set_val, Info now_val, Humidifier humidifier, CoolingFan cool_fan, bool& humid_flag) {
   // #1. Desired humidity is lower than the current humidity
   if (set_val.humid < now_val.humid - 3) {
     humidifier.on();
@@ -161,14 +161,14 @@ void autoHumid(const Info set_val, Info now_val, Humidifier humidifier, CoolingF
     humid_flag = false;
   }
   // #4. Out of range
-  else if (err_flag) {
+  else if (set_val.humid > MAXHUMID || set_val.humid < MINHUMID) {
     humidifier.off();
     cool_fan.off();
   }
 }
 
 // Temperature auto operation
-void autoTemp(const Info set_val, Info now_val, HeatPad heat_pad, CoolingFan cool_fan, bool& temp_flag, bool& err_flag) {
+void autoTemp(const Info set_val, Info now_val, HeatPad heat_pad, CoolingFan cool_fan, bool& temp_flag) {
   // #1. Desired temperature is lower than the current temperature
   if (set_val.temp < now_val.temp - 3) {
     heat_pad.off();
@@ -186,7 +186,7 @@ void autoTemp(const Info set_val, Info now_val, HeatPad heat_pad, CoolingFan coo
     temp_flag = false;
   }
   // #4. Out of range
-  else if (err_flag) {
+  else if (set_val.temp > MAXTEMP || set_val.temp < MINTEMP) {
     heat_pad.off();
     cool_fan.off();
   }

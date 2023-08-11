@@ -2,8 +2,8 @@
 #include "header.h"
 
 // Set topics to communicate
-char* topic = "serialnumber/sensorval";
-char* get_topic = "serialnumber/setval";
+char* topic = "1/sensorval";
+char* get_topic = "1/setval";
 char* error_topic = "error";
 
 // Define client
