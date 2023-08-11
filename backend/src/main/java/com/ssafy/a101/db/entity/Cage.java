@@ -20,7 +20,7 @@ public class Cage {
     @JoinColumn(name = "id", referencedColumnName = "id")
     private  User id;
 
-    @Column(name = "snum", unique = true, updatable = false)
+    @Column(name = "snum", unique = true)
     private  String snum;
 
     @Column(name = "cage_name", updatable = false)
@@ -43,7 +43,8 @@ public class Cage {
 
 
     @Builder
-    public Cage(String snum,  String cage_name,  Long set_temp,  Long set_hum, Long set_uv,  Date created_at, String category){
+    public Cage(User id,String snum,  String cage_name,  Long set_temp,  Long set_hum, Long set_uv,  Date created_at, String category){
+        this.id = id;
         this.snum = snum;
         this.cage_name = cage_name;
         this.set_hum = set_hum;

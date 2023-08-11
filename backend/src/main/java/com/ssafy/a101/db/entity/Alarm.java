@@ -29,6 +29,8 @@ public class Alarm {
     @Column(name = "cycle", nullable = false)
     private Date cycle;
 
+
+
     @Column(name = "recent", nullable = false)
     private Date recent;
 

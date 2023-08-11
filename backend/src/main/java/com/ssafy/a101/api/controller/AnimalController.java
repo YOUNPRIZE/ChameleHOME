@@ -16,6 +16,7 @@ import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @RestController // http response blog  에 객체 데이터를 json  형식으로 반환하는 컨트롤러
+@CrossOrigin("*")
 public class AnimalController {
 
     private final AnimalService animalService;
