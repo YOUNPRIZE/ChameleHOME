@@ -49,7 +49,7 @@ public class A101Application {
 
 		auto_setRepository.findAll().forEach((autoSet -> {
 			Cage autoSetCageId =autoSet.getCageId();
-			System.out.println("케이지 아이디 값입니다." + autoSetCageId.getCageId());
+			//System.out.println("케이지 아이디 값입니다." + autoSetCageId.getCageId());
 
 			//if (autoSet.getTime().equals(formattedTime)) {
 
@@ -60,7 +60,17 @@ public class A101Application {
 				Long uv = autoSet.getSet_id();
 					@Override
 					public void run() {
-						String msg = "Temp:" + temp +",Humid:" + hum + ",uv:" + uv;
+						String msg = "{" +
+								"\"Temp\"" + ":" + "\"" + temp + "\"" +
+								",\"Humid\"" + ":" + "\"" + hum + "\"" +
+								",\"uv\"" + ":" + "\"" + uv + "\"" +
+								"}";
+
+						System.out.println(msg);
+
+
+
+
 						sender.send("1/setval", msg);  //  토픽,  보낼 메세지
 						sender.close(); // 작업 완료되면 종료
 					}

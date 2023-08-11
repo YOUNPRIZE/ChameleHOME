@@ -5,26 +5,25 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+
 
 @NoArgsConstructor
 @AllArgsConstructor
 @Setter
 @Getter
 public class AddUserRequest {
-    @Autowired
-    private BCryptPasswordEncoder bCryptPasswordEncoder;
 
-    private String email;
+    private String userId;
     private String password;
     private String nickname;
+    private Long number;
 
     public User toEntity() {
         return User.builder()
-                .email(getEmail())
-                .password(bCryptPasswordEncoder.encode(getPassword()))
+                .userId(getUserId())
+                .password(getPassword())
                 .nickname(getNickname())
+                .number(getNumber())
                 .build();
     }
 }
