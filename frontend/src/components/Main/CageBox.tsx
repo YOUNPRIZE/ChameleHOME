@@ -16,12 +16,12 @@ export default function CageBox():JSX.Element {
   // 상태 정보 저장
   const userID = userInfoStore(state => state.user).id
   const myCages = myCagesStore(state => state.cages)
-  const setCages = myCagesStore(state => state.setCages)
-
+  
   // 케이지 정보 db에서 받아오기
+  const setCages = myCagesStore(state => state.setCages)
   const loadCageInfos = async() => {
     try {
-      const cageInfos = await axiosCage(`cage?userId=${userID}`, "GET")
+      const cageInfos = await axiosCage(`${userID}/cages`, "GET")
       setCages(cageInfos)
     }
     catch {
@@ -47,7 +47,7 @@ export default function CageBox():JSX.Element {
         <MoveIconLeft moveFunc={() => handleCageOrder(-1)}/>
         <div className='d-flex justify-content-center align-items-center col-10 mx-0 px-0 gx-5'>
           {myCages.length!==0? myCages.map((cage, index) => (
-            <CageItemShort key={cage.id} cage={cage} index={index} order={mainCageOrder}/>
+            <CageItemShort key={cage.cageId} cage={cage} index={index} order={mainCageOrder}/>
           )): <h1 className={style.noCage}>등록된 케이지가 없습니다!</h1>}
         </div>
         <MoveIconRight moveFunc={() => handleCageOrder(1)}/>

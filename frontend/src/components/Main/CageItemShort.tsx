@@ -12,14 +12,14 @@ export default function CageItemShort(props:{cage: myCage, index: number, order:
   // 클릭하면 케이지 상세페이지로 이동
   const navigate = useNavigate();
   const handleMoveDetail = () => {
-    navigate(`/CageDetail/${props.cage.id}`)
+    navigate(`/CageDetail/${props.cage.cageId}`)
   }
   // 컴포넌트 구성
   return (
     <>
       <div className={`${Math.floor(props.index / 2) !== props.order ? 'd-none': ''} ${style.cageContent}`} onClick={handleMoveDetail}>
         <img src={imgUrl} className={style.cageImg} alt="..."></img>
-        <p className={`my-0 ${style.cageName}`}>{props.cage.cageName}</p>
+        <p className={`my-0 ${style.cageName}`}>{props.cage.cage_name}</p>
       </div>
     </>
   )

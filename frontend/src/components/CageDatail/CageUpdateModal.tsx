@@ -18,7 +18,7 @@ interface Props {
 
 export default function CageUpdateModal({modalShow, setModalShow, cageInfo}:Props):JSX.Element { 
   // 현재 케이지 정보 변수에 할당
-  const serialNumber = cageInfo?.sNum
+  const serialNumber = cageInfo?.snum
   const name = useRef<HTMLInputElement>(null)
   const category = useRef<HTMLSelectElement>(null)
 
@@ -35,10 +35,10 @@ export default function CageUpdateModal({modalShow, setModalShow, cageInfo}:Prop
         // 데이터베이스 수정
         const newCage:myCage = {
           ...cageInfo, 
-          cageName: name.current?.value, 
+          cage_name: name.current?.value, 
           category: category.current?.value
         };
-        const updatedCageInfo = axiosCage(`cage/${newCage.id}`, "PUT", newCage);
+        const updatedCageInfo = axiosCage(`cage/${newCage.cageId}`, "PUT", newCage);
         // 로컬 스토리지 수정
         updateCage(newCage);
       }
@@ -59,9 +59,9 @@ export default function CageUpdateModal({modalShow, setModalShow, cageInfo}:Prop
     if (!cageInfo) return
     try {
       // 데이터베이스 수정
-      const deletedInfo = axiosCage(`cage/${cageInfo?.id}`, "PUT");
+      const deletedInfo = axiosCage(`cage/${cageInfo?.cageId}`, "PUT");
       // 로컬 스토리지 수정
-      deleteCage(cageInfo?.id);
+      deleteCage(cageInfo?.cageId);
     }
     catch {
       // 오류 처리
@@ -87,7 +87,7 @@ export default function CageUpdateModal({modalShow, setModalShow, cageInfo}:Prop
           <div className={`${style.inputContainer}`}>
             <label htmlFor="name" className={`${style.inputLabel}`}>케이지 이름</label>
             <input type="text" id="name" className={`${style.inputTage}`}
-            ref={name} defaultValue={cageInfo?.cageName}/>
+            ref={name} defaultValue={cageInfo?.cage_name}/>
           </div>
           <div className={`${style.inputContainer}`}>
             <label htmlFor="category" className={`${style.inputLabel}`}>동물 카테고리</label>

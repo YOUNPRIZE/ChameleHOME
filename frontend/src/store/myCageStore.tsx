@@ -3,14 +3,13 @@ import {persist} from 'zustand/middleware'
 
 // 개별 케이지 정의
 export interface myCage { 
-  id : number;
-  userId : number;
-  sNum: string;
-  cageName : string;
-  setTemp : number;
-  setHum : number;
-  setUv : boolean;
-  createdAt : Date; 
+  cageId : number;
+  snum: string;
+  cage_name : string;
+  set_temp : number;
+  set_hum : number;
+  set_uv : number;
+  created_at : Date; 
   category: string
 }
 
@@ -38,7 +37,7 @@ export const myCagesStore = create<myCages>() (
       updateCage : (cage:myCage) => {
           set((state) => {
             // id와 일치하는 케이지의 인덱스 탐색
-            const cageIndex = state.cages.findIndex(c => c.id === cage.id);
+            const cageIndex = state.cages.findIndex(c => c.cageId === cage.cageId);
             // id와 일치하는 케이지를 찾지 못한 경우, 현재 상태를 변경하지 않고 반환
             if (cageIndex === -1) {
               return state;
@@ -53,7 +52,7 @@ export const myCagesStore = create<myCages>() (
       // 케이지 정보 삭제
       deleteCage: (id: number) => {
         set((state) => {
-          const updatedCages = state.cages.filter(cage => cage.id !== id);
+          const updatedCages = state.cages.filter(cage => cage.cageId !== id);
           return { ...state, cages: updatedCages };
         });
       },
