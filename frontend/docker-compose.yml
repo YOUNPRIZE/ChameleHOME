@@ -19,5 +19,5 @@ services:
     depends_on:
       - mosquitto
     networks:
-      - A101-network
+      - eclipse-mosquitto-A101-network
     restart: always
