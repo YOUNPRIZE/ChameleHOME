@@ -16,6 +16,7 @@ import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @RestController
+@CrossOrigin("*")
 public class CageController {
 
     private final CageService cageService;
