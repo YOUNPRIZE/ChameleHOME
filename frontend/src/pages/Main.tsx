@@ -19,28 +19,8 @@ export default function Main():JSX.Element {
   // 페이지명 변경
   const changePage = nowPageStore(state => state.setPage);
   useEffect(() => {
-    // Mqtt 연결
-    const client = new Client("i9a101.p.ssafy.io", 9001, "client");
-    if (!client.isConnected()) {
-      client.connect({
-        userName: "FRONT",
-        password: "1234",
-        useSSL:true,
-        // mqttVersion:4,
-        // 커넥트에 성공(구독)
-        onSuccess: () => { 
-          console.log("연결 성공")
-        },
-        // 커넥트 실패
-        onFailure: () => { 
-          console.log("연결 실패")
-        },
-      });
-    };
     changePage("홈");
   }, [])
-
-
 
   // 페이지 렌더링
   return (
