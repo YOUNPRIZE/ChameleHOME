@@ -61,11 +61,11 @@ def recognize():
     global ret
     global frame
     # Load YOLO
-    net = cv2.dnn.readNet("yolov3_training_last.weights", "yolov3-tiny_obj.cfg")
+    net = cv2.dnn.readNet("yolov3-tiny_obj_best.weights", "yolov3-tiny_obj.cfg")
 
 
     classes = []
-    with open("coco.names", "r") as f:
+    with open("ClassNames.names", "r") as f:
         classes = f.read().strip().split("\n")
     
     print('load model')
@@ -95,16 +95,31 @@ def recognize():
                 if confidence > 0.5:  # Set a confidence threshold
                     center_x = int(detection[0] * width)
                     center_y = int(detection[1] * height)
-                    w = int(detection[2] * width)
-                    h = int(detection[3] * height)
+                    #w = int(detection[2] * width)
+                    #h = int(detection[3] * height)
 
-                    x = int(center_x - w / 2)
-                    y = int(center_y - h / 2)
+                    #x = int(center_x - w / 2)
+                    #y = int(center_y - h / 2)
 
                     label = f"{classes[class_id]}: {confidence:.2f}"
                     #cv2.rectangle(frame, (x, y), (x + w, y + h), (0, 255, 0), 2)
                     #cv2.putText(frame, label, (x, y - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 0), 2)
                     print(label)
+                    if center_x < 320:
+                        pin = 18
+                        set_servo_angle(pin, get_servo_angle(pin) + 10)
+                    elif center_x > 320:
+                        pin = 18
+                        set_servo_angle(pin, get_servo_angle(pin) - 10)
+                    if center_y < 240:
+                        pin = 13
+                        set_servo_angle(pin, get_servo_angle(pin) + 10)
+                    elif center_y > 240:
+                        pin = 13
+                        set_servo_angle(pin, get_servo_angle(pin) - 10)
+
+
+
         print('next') 
     print('load model')
 
@@ -122,7 +137,8 @@ def set_servo_angle(pin, angle):
     # arg1 : pin is pin number
     # arg2 : angle is degree you want to set for servo
     # set frequency, dutycycle to make servo angle
-
+    if angle >= 140 or angle <= 40:
+        return
     # set servo_pin frequency
     servo_pin = pin
     pi.set_PWM_frequency(servo_pin, 50)
@@ -231,7 +247,7 @@ def main():
         t1.start()
         t2.start()
         while True:
-            app.run(host='0.0.0.0', port=5000, debug=True)
+            app.run(host='0.0.0.0', port=8008, debug=True)
 
     # to exit use Keyboard Interrupt
     except KeyboardInterrupt:
