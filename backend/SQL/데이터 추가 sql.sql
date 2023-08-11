@@ -1,6 +1,6 @@
 -- 더미 데이터 삽입
 -- users 테이블에 데이터 삽입
-INSERT INTO users (userId, password, nickname, number, user_img) 
+INSERT INTO users (userId, password, nickname, number) 
 VALUES
     ('FRONT', '1234', 'User 1', 1234567890),
     ('user1', 'password1', 'User 2', 9876543210),
