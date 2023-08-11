@@ -24,7 +24,7 @@ bool temp_flag, humid_flag, led_flag;
 Status status_flag;
 
 // Error flag
-bool err_flag, val_err;
+bool err_flag;
 
 // Timer 
 uint32_t delay_ms;
@@ -46,12 +46,10 @@ void onConnectionEstablished()
       return;
     }
     led_flag = doc["uv"];
-    if((doc["temp"] < MINTEMP) || (doc["temp"] > MAXTEMP) | (doc["humid"] < MINHUMID) || (doc["humid"] > MAXHUMID)){
-      return;
-    }
+
     // Extract temperature, humidity, and LED values from payload
-    set_val.temp = doc["temp"];
-    set_val.humid = doc["humid"];
+    set_val.temp = doc["Temp"];
+    set_val.humid = doc["Humid"];
     set_val.light = doc["uv"];
 
     // Set flags based on received values
@@ -62,19 +60,11 @@ void onConnectionEstablished()
 
 // Function to operate modules based on web settings
 void autoSet(Status set_flag) {
-  if(set_val.temp > MAXTEMP || set_val.temp < MINTEMP || set_val.humid > MAXHUMID || set_val.humid < MINHUMID) {
-    val_err = true;
+  if(temp_flag && set_flag.islock) {
+    autoTemp(set_val, now_val, heat_pad, cool_fan, temp_flag);
   }
-  if(temp_flag && set_flag.islock && !val_err) {
-    autoTemp(set_val, now_val, heat_pad, cool_fan, temp_flag, val_err);
-  }
-  if(humid_flag && set_flag.islock && !val_err) {
-    autoHumid(set_val, now_val, humidifier, cool_fan, humid_flag, val_err);
-  }
-  if(val_err) {
-    mqtt.errorTx(error_topic, "Desired value is out of range");
-    val_err = false;
-    humid_flag = temp_flag = false;
+  if(humid_flag && set_flag.islock) {
+    autoHumid(set_val, now_val, humidifier, cool_fan, humid_flag);
   }
   if(!status_flag.led && set_val.light) { led_ctrl.on(); }
   if(status_flag.led && !set_val.light) { led_ctrl.off(); }
@@ -108,7 +98,7 @@ void loop() {
     err_flag = false;
   }
 
-  // Operate actuators based on RPI4 data
+  //Operate actuators based on RPI4 data
   if(set_flag.led != -1 && !set_flag.islock) {
     actuate(set_flag, water_motor, humidifier, heat_pad, cool_fan, led_ctrl);
     status_flag = getStatus(water_motor, humidifier, heat_pad, cool_fan, led_ctrl);
@@ -120,7 +110,6 @@ void loop() {
 
   // Operate actuators based on web settings
   autoSet(set_flag);
-
   if (cur_time - prev_time >= interval_time) {
     prev_time = cur_time;
 
