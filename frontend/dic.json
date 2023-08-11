@@ -1,61 +1,6 @@
 {
-  "user": [
-    {
-      "userId": "FRONT",
-      "password": "1234",
-      "nickName": "한주",
-      "phoneNumber": "010-7777-7777",
-      "id": 1
-    }
-  ],
-  "cage": [
-    {
-      "userId": 1,
-      "cageName": "몬스터볼",
-      "sNum": "7777",
-      "setTemp": 25,
-      "setHum": 60,
-      "setUv": false,
-      "createdAt": "2023-08-09T06:35:54.025Z",
-      "category": "lizard",
-      "id": 1
-    }
-  ],
-  "animal": [
-    {
-      "cageId": 1,
-      "species": "녹색 애놀",
-      "name": "애놀라게이",
-      "gender": "male",
-      "birth": "2023-06-13T00:00:00.000Z",
-      "issue": "크흐흐흐흠",
-      "created_at": "2023-08-10T19:07:43.592Z",
-      "photo": "Green_Anole.jpg",
-      "id": 1
-    }
-  ],
-  "setting": [
-    {
-      "cage_id": 1,
-      "time": "11:40",
-      "set_temp": 30,
-      "set_hum": 70,
-      "set_uv": true,
-      "id": 1
-    }
-  ],
-  "alarm": [
-    {
-      "cage_id": 1,
-      "name": "먹이 알람",
-      "cycle": 8640,
-      "recent_date": "2023-08-15T23:30:00.000Z",
-      "id": 2
-    }
-  ],
-  "store": [],
-  "dicts": [
-    {
+  "dic": [
+        {
       "species": "공비단뱀",
       "lifespan": "30년",
       "feed": "쥐, 아프리카 솜털 쥐, 가정용 쥐, 메추라기, 병아리",
