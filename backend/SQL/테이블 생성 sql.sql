@@ -38,7 +38,7 @@ CREATE TABLE IF NOT EXISTS cage (
 
 -- store 테이블 생성
 CREATE TABLE IF NOT EXISTS store (
-    store_storeid INT AUTO_INCREMENT PRIMARY KEY,
+    store_id INT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(255),
     item VARCHAR(255),
     url VARCHAR(255),
