@@ -1,5 +1,4 @@
 import {create} from 'zustand'
-import { axiosAuth } from 'constants/AxiosFunc';
 import { persist } from 'zustand/middleware';
 
 // 현재 로그인 유저
@@ -68,5 +67,21 @@ export const userInfoStore = create<userInfoState>()(
     }
   )
 )
+
+window.addEventListener('beforeunload', () => {
+  // Zustand 상태를 클리어
+  userInfoStore.setState(
+    { 
+      user:{
+        id: 0,
+        userId: "",
+        password: "",
+        nickName: "",
+        phoneNumber: "",
+      },
+      isLoggedIn: false
+    }
+  );
+});
 
 
