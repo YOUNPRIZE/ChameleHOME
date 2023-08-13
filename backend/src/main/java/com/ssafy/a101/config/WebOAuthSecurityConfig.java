@@ -65,7 +65,8 @@ public class WebOAuthSecurityConfig {
 
         http.oauth2Login()
                 // 여기 ssl 설정돼있는데 url 이대로 써도 되나?
-                .loginPage("https://i9a101.p.ssafy.io/login")
+//                .loginPage("https://i9a101.p.ssafy.io/login")
+                .loginPage("http://localhost:3000/login")
                 .authorizationEndpoint()
                 // Authorization 요청과 상태된 상태 저장
                 // OAuth2에 필요한 정보를 세션이 아닌 쿠키에 저장해서 쓸 수 있도록

@@ -64,6 +64,7 @@ export default function Login():JSX.Element {
           <Link to="/SignUp" className={style.additionalLink}>회원가입</Link>
         </div>
         <Button size="lg" className={style.loginBtn} variant='success' onClick={()=> handleLogin()}>로그인</Button>
+        <a href="http://localhost:8000/oauth2/authorization/google">기릿기릿</a>
       </Form>
     </div>
   )

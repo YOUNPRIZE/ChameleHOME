@@ -33,46 +33,46 @@ public class A101Application {
 
 	}
 
-	@Transactional
-	@Scheduled(cron = "0 * * * * *") // 매 분의 0초마다 실행
-	public void checkAlarms() throws MqttException {
-		MqttPubConfig sender = new MqttPubConfig();
-
-		LocalTime currentTime = LocalTime.now();
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss");
-		String formattedTime = currentTime.format(formatter);
-
-		Auto_setRepository auto_setRepository = context.getBean(Auto_setRepository.class);
-
-
-
-
-		auto_setRepository.findAll().forEach((autoSet -> {
-			Cage autoSetCageId =autoSet.getCageId();
-			//System.out.println("케이지 아이디 값입니다." + autoSetCageId.getCageId());
-
-			//if (autoSet.getTime().equals(formattedTime)) {
-
-			 //mqtt 통신 부분 / start 까지
-				new Thread(new Runnable() {
-				Long temp = autoSet.getSet_temp();
-				Long hum = autoSet.getSet_hum();
-				Long uv = autoSet.getSet_id();
-					@Override
-					public void run() {
-						String msg = "{" +
-								"\"Temp\"" + ":" + "\"" + temp + "\"" +
-								",\"Humid\"" + ":" + "\"" + hum + "\"" +
-								",\"uv\"" + ":" + "\"" + uv + "\"" +
-								"}";
-
-						System.out.println(msg);
-
-						sender.send("1/setval", msg);  //  토픽,  보낼 메세지
-						sender.close(); // 작업 완료되면 종료
-					}
-				}).start();
-			//}
-		}));
-	}
+//	@Transactional
+//	@Scheduled(cron = "0 * * * * *") // 매 분의 0초마다 실행
+//	public void checkAlarms() throws MqttException {
+//		MqttPubConfig sender = new MqttPubConfig();
+//
+//		LocalTime currentTime = LocalTime.now();
+//		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss");
+//		String formattedTime = currentTime.format(formatter);
+//
+//		Auto_setRepository auto_setRepository = context.getBean(Auto_setRepository.class);
+//
+//
+//
+//
+//		auto_setRepository.findAll().forEach((autoSet -> {
+//			Cage autoSetCageId =autoSet.getCageId();
+//			//System.out.println("케이지 아이디 값입니다." + autoSetCageId.getCageId());
+//
+//			//if (autoSet.getTime().equals(formattedTime)) {
+//
+//			 //mqtt 통신 부분 / start 까지
+//				new Thread(new Runnable() {
+//				Long temp = autoSet.getSet_temp();
+//				Long hum = autoSet.getSet_hum();
+//				Long uv = autoSet.getSet_id();
+//					@Override
+//					public void run() {
+//						String msg = "{" +
+//								"\"Temp\"" + ":" + "\"" + temp + "\"" +
+//								",\"Humid\"" + ":" + "\"" + hum + "\"" +
+//								",\"uv\"" + ":" + "\"" + uv + "\"" +
+//								"}";
+//
+//						System.out.println(msg);
+//
+//						sender.send("1/setval", msg);  //  토픽,  보낼 메세지
+//						sender.close(); // 작업 완료되면 종료
+//					}
+//				}).start();
+//			//}
+//		}));
+//	}
 }
