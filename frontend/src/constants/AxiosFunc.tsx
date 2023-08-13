@@ -28,7 +28,7 @@ const axiosCage = async (url:string, method:string, data?:Partial<myCage>) => {
   try {
     const response = await axios({
       method: method,
-      url: `${serverUrl}/${url}`,
+      url: `${ipUrl}/${url}`,
       data: data,
     });
     return response.data; // 비동기 처리 결과를 반환합니다.
