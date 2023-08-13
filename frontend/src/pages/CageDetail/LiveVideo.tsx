@@ -1,4 +1,5 @@
 // 훅 import 
+import { useParams } from 'react-router-dom';
 import { useEffect, useRef } from 'react'
 import { Client, Message } from 'paho-mqtt';
 // 상태 정보 import
@@ -8,8 +9,10 @@ import style from 'styles/CageDetail/LiveViedo.module.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCaretDown, faCaretLeft, faCaretRight, faCaretUp, faCamera } from '@fortawesome/free-solid-svg-icons'
 
-
 export default function LiveVideo():JSX.Element {
+  // props 받아오기
+  const cageId = Number(useParams().cageId);
+
   // 페이지명 변경
   const changePage = nowPageStore(state => state.setPage);
   useEffect(() => {
@@ -19,7 +22,7 @@ export default function LiveVideo():JSX.Element {
   // 케이지 내부 센서값 받기
   const clientRef = useRef<Client|null>(null);
   useEffect(() => {
-    const client = new Client("18.233.166.123", 9001, "client");
+    const client = new Client("i9a101.p.ssafy.io", 9001, "client");
     clientRef.current = client;
     // Mqtt 연결
     if (!client.isConnected()) {
@@ -49,7 +52,7 @@ export default function LiveVideo():JSX.Element {
     // client가 null값이 아니고 연결되었을 때만 함수 실행
     if (client && client.isConnected()) {
       const message = new Message(direction);
-      message.destinationName = `serialnumber/angle`;
+      message.destinationName = `${cageId}/angle`;
       client.send(message);
     }
   }
@@ -66,7 +69,7 @@ export default function LiveVideo():JSX.Element {
     <>
       {/* 동영상 컨테이너 */}
       <div className={`${style.videoContainer}`}>
-        <iframe src="http://192.168.114.97:8888/" width={0.35*vh} height={0.35*vh} title='liveCage'></iframe>
+        <iframe src="http://192.168.114.97:8008/" width={0.35*vh} height={0.35*vh} title='liveCage'></iframe>
       </div>
       {/* 카메라 무빙 버튼 */}
       <div className={`${style.btnContainer}`}>
