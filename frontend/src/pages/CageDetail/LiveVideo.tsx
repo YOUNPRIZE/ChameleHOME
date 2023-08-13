@@ -1,4 +1,5 @@
 // 훅 import 
+import { useParams } from 'react-router-dom';
 import { useEffect, useRef } from 'react'
 import { Client, Message } from 'paho-mqtt';
 // 상태 정보 import
@@ -8,8 +9,10 @@ import style from 'styles/CageDetail/LiveViedo.module.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCaretDown, faCaretLeft, faCaretRight, faCaretUp, faCamera } from '@fortawesome/free-solid-svg-icons'
 
-
 export default function LiveVideo():JSX.Element {
+  // props 받아오기
+  const cageId = Number(useParams().cageId);
+
   // 페이지명 변경
   const changePage = nowPageStore(state => state.setPage);
   useEffect(() => {
@@ -49,7 +52,7 @@ export default function LiveVideo():JSX.Element {
     // client가 null값이 아니고 연결되었을 때만 함수 실행
     if (client && client.isConnected()) {
       const message = new Message(direction);
-      message.destinationName = `serialnumber/angle`;
+      message.destinationName = `${cageId}/angle`;
       client.send(message);
     }
   }
