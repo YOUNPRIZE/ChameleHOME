@@ -13,12 +13,15 @@ public class Cage {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "cage_id", updatable = false)
-    private Long cage_id;
+    private Long cageId;
 
     // fk 사용해야한다.
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id", referencedColumnName = "id")
     private  User id;
+
+    @Column(name = "snum", unique = true)
+    private  String snum;
 
     @Column(name = "cage_name", updatable = false)
     private  String cage_name;
@@ -40,7 +43,9 @@ public class Cage {
 
 
     @Builder
-    public Cage(String cage_name,  Long set_temp,  Long set_hum, Long set_uv,  Date created_at, String category){
+    public Cage(User id,String snum,  String cage_name,  Long set_temp,  Long set_hum, Long set_uv,  Date created_at, String category){
+        this.id = id;
+        this.snum = snum;
         this.cage_name = cage_name;
         this.set_hum = set_hum;
         this.set_temp = set_temp;
