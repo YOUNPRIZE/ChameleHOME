@@ -3,12 +3,13 @@
 # 기반 이미지 선택
 FROM eclipse-mosquitto
 
-# 설정 파일 복사
-COPY ./config/mosquitto.conf /mosquitto/config/mosquitto.conf
-
 # 데이터와 로그 디렉토리 생성 (volumes로 사용됨)
 RUN mkdir -p /mosquitto/data
 RUN mkdir -p /mosquitto/log
+RUN mkdir -p /mosquitto/config
+
+# 설정 파일 복사
+COPY ./config/mosquitto.conf /mosquitto/config/mosquitto.conf
 
 # Mosquitto 포트
 EXPOSE 1883
