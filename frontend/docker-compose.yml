@@ -1,4 +1,3 @@
-# docker-compose 버전
 version: "3"
 
 # 정의할 서비스들의 목록
@@ -15,9 +14,27 @@ services:
     # 포트 매핑 (호스트 포트:컨테이너 포트)
     ports:  
       - "3000:3000"  # 호스트의 3000 포트와 컨테이너의 3000 포트를 매핑
-    # 컨테이너 재시작 정책 (항상 재시작)
+    # # 컨테이너 재시작 정책 (항상 재시작)
     # depends_on:
     #   - mosquitto
     # networks:
-    #   - eclipse-mosquitto-A101-network```
+    #   - eclipse-mosquitto-A101-network
+    networks:
+      - A101-network
     restart: always
+  mosquitto:
+    image: "eclipse-mosquitto"
+    container_name: mqtt-container
+    ports:
+      - "1883:1883"
+      - "9001:9001"
+    volumes:
+      - ./mqtt/config/mosquitto.conf:/mosquitto/config/mosquitto.conf
+      - ./mqtt/data:/mosquitto/data
+      - ./mqtt/log:/mosquitto/log
+    networks:
+      - A101-network
+    restart: always
+networks:
+  A101-network:
+    driver: bridge
