@@ -2,14 +2,10 @@ package com.ssafy.a101.api.controller;
 
 
 import com.ssafy.a101.api.request.AddAnimalRequest;
-import com.ssafy.a101.api.request.AddAriticleRequest;
 import com.ssafy.a101.api.request.UpdateAnimalRequest;
-import com.ssafy.a101.api.request.UpdateArticleRequest;
 import com.ssafy.a101.api.response.AnimalResponse;
-import com.ssafy.a101.api.response.ArticleResponse;
 import com.ssafy.a101.api.service.AnimalService;
 import com.ssafy.a101.db.entity.Animal;
-import com.ssafy.a101.db.entity.Article;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,6 +16,7 @@ import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @RestController // http response blog  에 객체 데이터를 json  형식으로 반환하는 컨트롤러
+@CrossOrigin("*")
 public class AnimalController {
 
     private final AnimalService animalService;
@@ -27,9 +24,7 @@ public class AnimalController {
     // 전체 조회
     @GetMapping("/api/{cage_id}/animals")
     public ResponseEntity<List<AnimalResponse>> findAllAnimals(@PathVariable long cage_id){
-        Animal animal = animalService.findById(cage_id);
-
-        List<AnimalResponse> animals = animalService.findAll()
+        List<AnimalResponse> animals = animalService.findAll(cage_id)
                 .stream()
                 .map(AnimalResponse::new)
                 //.toList()  .//자바 16 이상 사용가능

@@ -2,8 +2,17 @@ server:
   port: 8000
 
 spring:
+#  security:
+#    oauth2:
+#      client:
+#        registration:
+#          google:
+#            client-id: 500029350887-u6i1dq6evsfbkb3d9e67d245prejn74v.apps.googleusercontent.com
+#            client-secret: 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
+#            scope:
+#              - email
+#              - profile
   datasource:
-    # url: jdbc:h2:mem:testdb
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://i9a101.p.ssafy.io:3306/test?serverTimezone=UTC&useUnicode=true&characterEncoding=utf8
     username: root
@@ -22,6 +31,6 @@ spring:
       enabled: true
 #jwt:
   # secret: VlwEyVBsYt9V7zq57TejMnVUyzblYcfPQye08f7MGVA9XkHa
-jwt:
-  issuer: ysang10@naver.com
-  secret_key: study-springboot
+#jwt:
+#  issuer: ysang10@naver.com
+#  secret_key: study-springboot
