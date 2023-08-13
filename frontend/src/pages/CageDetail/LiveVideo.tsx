@@ -1,13 +1,13 @@
-// 훅 import 
+// 훅|함수 import 
 import { useParams } from 'react-router-dom';
-import { useEffect, useRef } from 'react'
-import { Client, Message } from 'paho-mqtt';
+import { useEffect } from 'react'
+import html2canvas from 'html2canvas';
 // 상태 정보 import
 import { nowPageStore } from 'store/myPageStore';
+// 컴포넌트 import
+import VideoBox from 'components/CageDatail/LiveVideo/VideoBox';
+import MoveBtnBox from 'components/CageDatail/LiveVideo/MoveBtnBox';
 // 스타일 import
-import style from 'styles/CageDetail/LiveViedo.module.css'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCaretDown, faCaretLeft, faCaretRight, faCaretUp, faCamera } from '@fortawesome/free-solid-svg-icons'
 
 export default function LiveVideo():JSX.Element {
   // props 받아오기
@@ -18,73 +18,29 @@ export default function LiveVideo():JSX.Element {
   useEffect(() => {
     changePage("실시간 영상");
   }, [changePage])
-  
-  // 케이지 내부 센서값 받기
-  const clientRef = useRef<Client|null>(null);
-  useEffect(() => {
-    const client = new Client("i9a101.p.ssafy.io", 9001, "client");
-    clientRef.current = client;
-    // Mqtt 연결
-    if (!client.isConnected()) {
-      client.connect({
-        // 계정 정보
-        userName: "FRONT",
-        password: '1234',
-        // https 보안을 위해 사용
-        useSSL: true,
-        // 커넥트에 성공
-        onSuccess: () => {
-        },
-        // 커넥트 실패
-        onFailure: (err) => { 
-        }
-      });
-    }
-    // 컴포넌트가 언마운트되면 연결 해제
-    return () => {
-      client.disconnect();
-    };
-  }, []);
-
-  // 카메라 이동 함수
-  const moveCamera = (direction:string):void => {
-    const client = clientRef.current
-    // client가 null값이 아니고 연결되었을 때만 함수 실행
-    if (client && client.isConnected()) {
-      const message = new Message(direction);
-      message.destinationName = `${cageId}/angle`;
-      client.send(message);
-    }
-  }
 
   // 영상 캡쳐 함수
   const handleCapture = ():void => {
-    console.log("capture")
+    const target = document.getElementById('content');
+    if (!target) {
+      return alert('결과 저장에 실패했습니다.');
+    }
+    html2canvas(target).then((canvas) => {
+      const link = document.createElement('a');
+      document.body.appendChild(link);
+      link.href = canvas.toDataURL('image/png');
+      link.download = 'result.png';
+      link.click();
+      document.body.removeChild(link);
+    });
   }
-
-  // 영상 크기 조절 
-  const vh = window.innerHeight;
 
   return (
     <>
       {/* 동영상 컨테이너 */}
-      <div className={`${style.videoContainer}`}>
-        <video src="http://192.168.114.97:8008/" width={0.35*vh} height={0.35*vh} title='liveCage'></video>
-      </div>
+      <VideoBox/>
       {/* 카메라 무빙 버튼 */}
-      <div className={`${style.btnContainer}`}>
-        <div className={`${style.btnRow}`}>   
-          <FontAwesomeIcon icon={faCaretUp} onClick={() => {moveCamera("up")}}/>
-        </div>
-        <div className={`${style.btnRow}`}>
-          <FontAwesomeIcon icon={faCaretLeft}  onClick={() => {moveCamera("left")}}/>
-          <FontAwesomeIcon icon={faCamera} onClick={handleCapture}/>
-          <FontAwesomeIcon icon={faCaretRight}  onClick={() => {moveCamera("right")}}/>
-        </div>
-        <div className={`${style.btnRow}`}>
-          <FontAwesomeIcon icon={faCaretDown}  onClick={() => {moveCamera("down")}}/>
-        </div>
-      </div>
+      <MoveBtnBox handleCapture={handleCapture}/>
     </>
   )
 }
