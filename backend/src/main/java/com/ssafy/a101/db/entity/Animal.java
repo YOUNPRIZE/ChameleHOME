@@ -18,7 +18,7 @@ public class Animal {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "cage_id", referencedColumnName = "cage_id")
-    private Cage cage_id;
+    private Cage cageId;
 
     // 지금 사용 할 이름, 전 테이블에서 사용했던 이름을 입력해준다.
     @ManyToOne(fetch = FetchType.LAZY)
