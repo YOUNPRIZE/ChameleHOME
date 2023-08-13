@@ -1,4 +1,3 @@
-# docker-compose 버전
 version: "3"
 
 # 정의할 서비스들의 목록
@@ -20,4 +19,22 @@ services:
     #   - mosquitto
     # networks:
     #   - eclipse-mosquitto-A101-network
+    networks:
+      - A101-network
     restart: always
+  mosquitto:
+    image: "eclipse-mosquitto"
+    container_name: mqtt-container
+    ports:
+      - "1883:1883"
+      - "9001:9001"
+    volumes:
+      - ./mqtt/config/mosquitto.conf:/mosquitto/config/mosquitto.conf
+      - ./mqtt/data:/mosquitto/data
+      - ./mqtt/log:/mosquitto/log
+    networks:
+      - A101-network
+    restart: always
+networks:
+  A101-network:
+    driver: bridge
