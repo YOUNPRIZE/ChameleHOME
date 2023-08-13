@@ -27,6 +27,7 @@ CREATE TABLE IF NOT EXISTS dict (
 CREATE TABLE IF NOT EXISTS cage (
     cage_id BIGINT AUTO_INCREMENT PRIMARY KEY,
     id BIGINT,
+	snum VARCHAR(255),
     cage_name VARCHAR(255),
     set_temp BIGINT,
     set_hum BIGINT,
