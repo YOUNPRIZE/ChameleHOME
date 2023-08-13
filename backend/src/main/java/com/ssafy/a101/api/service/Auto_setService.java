@@ -22,32 +22,6 @@ public class Auto_setService {
 
     private final Auto_setRepository autoSetRepository;
 
-//    // 알람기능 설정하기
-//    public Auto_setService(Auto_setRepository autoSetRepository) {
-//        this.autoSetRepository = autoSetRepository;
-//    }
-
-    // 스케쥴 표를 확인해서 매 분마다 값을 확인
-//    @Scheduled(cron = "0 * * * * *")
-//    public void checkAlarms() {
-//        LocalTime currentTime = LocalTime.now();
-//        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss");
-//        String formattedCurrentTime = currentTime.format(formatter);
-//        System.out.println("dfsdfsdfsdffds");
-//        List<Auto_set> alarms = autoSetRepository.findByTime(Time.valueOf(formattedCurrentTime));
-//
-//        for (Auto_set alarm : alarms) {
-//            System.out.println("Alarm 값: " + alarm.toString());
-//            // 출력 로직을 만든다.
-//            System.out.println("온도: " + alarm.getSet_temp());
-//            System.out.println("습도: " + alarm.getSet_hum());
-//            System.out.println("uv: " + alarm.getSet_uv());
-//        }
-//    }
-
-
-
-
 
 
     // 전체 세팅 값 조회
