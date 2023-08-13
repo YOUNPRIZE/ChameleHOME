@@ -35,7 +35,8 @@ public class Alarm {
     private Date recent;
 
     @Builder
-    public Alarm(String name, Date cycle, Date recent){
+    public Alarm(Cage cageId, String name, Date cycle, Date recent){
+        this.cageId =  cageId;
         this.name = name;
         this.cycle = cycle;
         this.recent = recent;
