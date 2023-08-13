@@ -29,9 +29,9 @@ services:
       - "1883:1883"
       - "9001:9001"
     volumes:
-      - ./mqtt/config/mosquitto.conf:/mosquitto/config/mosquitto.conf
-      - ./mqtt/data:/mosquitto/data
-      - ./mqtt/log:/mosquitto/log
+      - /var/jenkins_home/workspace/A101/frontend/mqtt/config/mosquitto.conf:/mosquitto/config/mosquitto.conf
+      - /var/jenkins_home/workspace/A101/frontend/mqtt/data:/mosquitto/data
+      - /var/jenkins_home/workspace/A101/frontend/mqtt/log:/mosquitto/log
     networks:
       - A101-network
     restart: always
