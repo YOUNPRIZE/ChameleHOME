@@ -9,16 +9,15 @@
     }
   ],
   "cage": [
-    {
-      "userId": 1,
-      "cageName": "몬스터볼",
-      "sNum": "7777",
-      "setTemp": 25,
-      "setHum": 60,
-      "setUv": false,
-      "createdAt": "2023-08-09T06:35:54.025Z",
-      "category": "lizard",
-      "id": 1
+    {    
+      "cageId" : 1,
+      "snum": "7777",
+      "cage_name" : "몬스터볼",
+      "set_temp" : 25,
+      "set_hum" : 60,
+      "set_uv" : false,
+      "created_at" : "2023-08-09T06:35:54.025Z",
+      "category": "lizard"
     }
   ],
   "animal": [
