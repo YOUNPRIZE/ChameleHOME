@@ -10,10 +10,9 @@ import lombok.Setter;
 @Getter
 @Setter
 public class UpdateUserRequest {
-    private Long id;
-    private String user_id;
+    //private Long id;
+    //private String userId;
     private String password;
     private String nickname;
     private Long number;
-    private String user_img;
 }
