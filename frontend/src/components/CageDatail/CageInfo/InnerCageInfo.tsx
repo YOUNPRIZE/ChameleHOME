@@ -1,7 +1,8 @@
-// 훅 import 
+// 훅|함수 import 
 import { useParams } from 'react-router-dom';
 import { useEffect, useRef } from 'react'
 import { Message, Client } from 'paho-mqtt';
+import { axiosCage } from 'constants/AxiosFunc';
 // 상태 정보 import
 import {  myCage, myCagesStore } from 'store/myCageStore';
 import { nowCageValueStore } from 'store/myCageStore';
@@ -35,7 +36,6 @@ export default function InnerCageInfo(props:{myCage:myCage|undefined}):JSX.Eleme
       nowCage.setHum(0);
       nowCage.setUv("");
     }
-
     // Mqtt 연결
     const client = new Client("i9a101.p.ssafy.io", 9001, "client");
     clientRef.current = client;
@@ -44,22 +44,17 @@ export default function InnerCageInfo(props:{myCage:myCage|undefined}):JSX.Eleme
         userName: "FRONT",
         password: "1234",
         useSSL:true,
-        // mqttVersion:4,
-        // 커넥트에 성공(구독)
         onSuccess: () => { 
-          console.log("연결 성공")
+          // 커넥트에 성공(구독)
           client.subscribe(getInfoTopic);
         },
-        // 커넥트 실패
         onFailure: () => { 
-          console.log("연결 실패")
+          // 커넥트 실패
         }
       });
     };
-
     // 토픽을 통해 센서값 받기
     client.onMessageArrived = (message: Message) => {
-      console.log("도착")
       const payload = message.payloadString;
       const sensorInfo = JSON.parse(payload);
       // 토픽에 따라 상태 정보 업데이트
@@ -83,12 +78,22 @@ export default function InnerCageInfo(props:{myCage:myCage|undefined}):JSX.Eleme
       myCage.set_temp += setting[0];
       myCage.set_hum += setting[1];
       myCage.set_uv = setting[2]? Math.abs(myCage.set_uv-1) : myCage.set_uv;
-      updateCage(myCage);
-      // 세팅값 Mqtt로 보내기
-      const payload = {temp: myCage?.set_temp, humid: myCage?.set_temp, uv: myCage?.set_uv,};
-      const message = new Message(JSON.stringify(payload));
-      message.destinationName = sendInfoTopic;
-      client.send(message);
+      // 조절한 세팅값 저장
+      try {
+        // 데이터베이스 수정
+        const updatedCageInfo = axiosCage(`cage/${cageId}`, "PUT", myCage);
+        // 로컬 스토리지 수정
+        updateCage(myCage);
+        // 세팅값 Mqtt로 보내기
+        const payload = {temp: myCage?.set_temp, humid: myCage?.set_temp, uv: myCage?.set_uv,};
+        const message = new Message(JSON.stringify(payload));
+        message.destinationName = sendInfoTopic;
+        client.send(message);
+      }
+      catch {
+        // 오류 처리
+      }
+
     }
   }
 
