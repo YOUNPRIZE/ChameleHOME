@@ -19,13 +19,13 @@ VALUES
     ('Species 5', '6 years', 'Feed Type 5', 'Once a week', '22-27°C', '11-13 hours', '55-65%', 'Species 5 Info', 'Indoor', 'Habitat', 'species5.jpg');
 
 -- cage 테이블에 데이터 삽입
-INSERT INTO cage (id, cage_name, set_temp, set_hum, set_uv, created_at, category)
+INSERT INTO cage (id, snum, cage_name, set_temp, set_hum, set_uv, created_at, category)
 VALUES
-    (1, 'Cage 1', 25, 60, 8, NOW(), 'Category A'),
-    (2, 'Cage 2', 23, 55, 6, NOW(), 'Category B'),
-    (3, 'Cage 3', 28, 70, 9, NOW(), 'Category C'),
-    (4, 'Cage 4', 22, 50, 7, NOW(), 'Category A'),
-    (5, 'Cage 5', 26, 65, 5, NOW(), 'Category B');
+    (1, '1num','Cage 1', 25, 60, 8, NOW(), 'Category A'),
+    (2, '2num','Cage 2', 23, 55, 6, NOW(), 'Category B'),
+    (3, '3num','Cage 3', 28, 70, 9, NOW(), 'Category C'),
+    (4, '4num','Cage 4', 22, 50, 7, NOW(), 'Category A'),
+    (5, '5num','Cage 5', 26, 65, 5, NOW(), 'Category B');
 
 -- store 테이블에 데이터 삽입
 INSERT INTO store (name, item, url, price, photo)
