@@ -56,8 +56,10 @@ export default function InnerCageInfo(props:{myCage:myCage|undefined}):JSX.Eleme
         }
       });
     };
+
     // 토픽을 통해 센서값 받기
     client.onMessageArrived = (message: Message) => {
+      console.log("도착")
       const payload = message.payloadString;
       const sensorInfo = JSON.parse(payload);
       // 토픽에 따라 상태 정보 업데이트
@@ -83,10 +85,10 @@ export default function InnerCageInfo(props:{myCage:myCage|undefined}):JSX.Eleme
       myCage.set_uv = setting[2]? Math.abs(myCage.set_uv-1) : myCage.set_uv;
       updateCage(myCage);
       // 세팅값 Mqtt로 보내기
-      // const payload = {temp: myCage?.setTemp, humid: myCage?.setTemp, uv: myCage?.setUv,};
-      // const message = new Message(JSON.stringify(payload));
-      // message.destinationName = sendInfoTopic;
-      // client.send(message);
+      const payload = {temp: myCage?.set_temp, humid: myCage?.set_temp, uv: myCage?.set_uv,};
+      const message = new Message(JSON.stringify(payload));
+      message.destinationName = sendInfoTopic;
+      client.send(message);
     }
   }
 
@@ -94,14 +96,29 @@ export default function InnerCageInfo(props:{myCage:myCage|undefined}):JSX.Eleme
   return (
     <div className={`${style.settingContatiner} ${style.mainContainer}`}>
       {/* 온도 */}
-      <InnerCageInfoItem live={nowCage.temp !== 0? `${nowCage.temp}℃` : "연결 X"} setting={`${myCage?.set_temp}℃`} 
-      icon={faTemperatureThreeQuarters} up={()=>handleSetting([1,0,false])} down={()=>handleSetting([-1,0,false]) }/>
+      <InnerCageInfoItem 
+        live={nowCage.temp !== 0? `${Math.round(nowCage.temp)}℃` : "연결 X"} 
+        setting={`${myCage?.set_temp}℃`} 
+        icon={faTemperatureThreeQuarters} 
+        up={()=>handleSetting([1,0,false])} 
+        down={()=>handleSetting([-1,0,false]) }
+      />
       {/* 습도 */}
-      <InnerCageInfoItem live={nowCage.hum !== 0? `${nowCage.hum}%` : "연결 X"} setting={`${myCage?.set_hum}%`} 
-      icon={faDroplet} up={()=>handleSetting([0,1,false])} down={()=>handleSetting([0,-1,false]) }/>
+      <InnerCageInfoItem 
+        live={nowCage.hum !== 0? `${nowCage.hum}%` : "연결 X"} 
+        setting={`${myCage?.set_hum}%`} 
+        icon={faDroplet} 
+        up={()=>handleSetting([0,1,false])} 
+        down={()=>handleSetting([0,-1,false]) }
+      />
       {/* 조명 */}
-      <InnerCageInfoItem live={nowCage.uv !== ""? nowCage.uv : "연결X"} setting={myCage?.set_uv? "On":"Off"} 
-      icon={faLightbulb} up={()=>handleSetting([0,0,true])} down={()=>handleSetting([0,0,true]) }/>
+      <InnerCageInfoItem 
+        live={nowCage.uv !== ""? nowCage.uv : "연결X"} 
+        setting={myCage?.set_uv? "On":"Off"} 
+        icon={faLightbulb} 
+        up={()=>handleSetting([0,0,true])} 
+        down={()=>handleSetting([0,0,true]) }
+      />
     </div>
   )
 }
