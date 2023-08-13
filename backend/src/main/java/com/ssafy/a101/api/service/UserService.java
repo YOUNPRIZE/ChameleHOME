@@ -5,6 +5,7 @@ import com.ssafy.a101.api.request.UpdateUserRequest;
 import com.ssafy.a101.db.entity.User;
 import com.ssafy.a101.db.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import net.bytebuddy.implementation.bind.MethodDelegationBinder;
 import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 @RequiredArgsConstructor
