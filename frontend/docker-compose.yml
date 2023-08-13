@@ -16,8 +16,8 @@ services:
     ports:  
       - "3000:3000"  # 호스트의 3000 포트와 컨테이너의 3000 포트를 매핑
     # 컨테이너 재시작 정책 (항상 재시작)
-    depends_on:
-      - mosquitto
-    networks:
-      - eclipse-mosquitto-A101-network
+    # depends_on:
+    #   - mosquitto
+    # networks:
+    #   - eclipse-mosquitto-A101-network```
     restart: always
