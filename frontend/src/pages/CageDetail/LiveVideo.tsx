@@ -20,19 +20,52 @@ export default function LiveVideo():JSX.Element {
   }, [changePage])
 
   // 영상 캡쳐 함수
-  const handleCapture = ():void => {
-    const target = document.getElementById('content');
-    if (!target) {
+  // const handleCapture = async() => {
+  //   // const target = document.getElementById('content');
+  //   // if (!target) {
+  //   //   return alert('결과 저장에 실패했습니다.');
+  //   // }
+  //   // console.log(target)
+  //   html2canvas(document.body).then((canvas) => {
+  //     const link = document.createElement('a');
+  //     document.body.appendChild(link);
+  //     link.href = canvas.toDataURL('image/png');
+  //     link.download = 'result.png';
+  //     link.click();
+  //     document.body.removeChild(link);
+  //   });
+  // }
+
+  const handleCapture = async (): Promise<void> => {
+    const iframe = document.getElementById('content') as HTMLIFrameElement;
+    
+    if (!iframe) {
       return alert('결과 저장에 실패했습니다.');
     }
-    html2canvas(target).then((canvas) => {
+
+    try {
+      console.log(iframe)
+      const iframeDoc = iframe.contentDocument;
+      if (!iframeDoc) {
+        throw new Error('Failed to access iframe content document');
+      }
+
+      const iframeBody = iframeDoc.body;
+      if (!iframeBody) {
+        throw new Error('Failed to access iframe body');
+      }
+
+      const canvas = await html2canvas(iframe);
+
       const link = document.createElement('a');
       document.body.appendChild(link);
       link.href = canvas.toDataURL('image/png');
       link.download = 'result.png';
       link.click();
       document.body.removeChild(link);
-    });
+    } catch (error) {
+      console.error('Error during capture:', error);
+    }
   }
 
   return (
