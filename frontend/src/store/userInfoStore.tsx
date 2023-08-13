@@ -1,7 +1,5 @@
-import {create} from 'zustand'
+import {create} from 'zustand';
 import { persist } from 'zustand/middleware';
-
-// 현재 로그인 유저
 
 // 로그인 유저 정보 정의
 export interface User {
@@ -10,7 +8,7 @@ export interface User {
   password: string | undefined,
   nickName: string;
   phoneNumber: string;
-}
+};
 
 // 상태 정보 정의
 export interface userInfoState {
@@ -18,7 +16,7 @@ export interface userInfoState {
   isLoggedIn : boolean
   setUserInfo: (userData:User) => void;
   deleteUserInfo: () => void;
-}
+};
 
 // 로그인 유저 상태 정보
 export const userInfoStore = create<userInfoState>()(
@@ -68,20 +66,5 @@ export const userInfoStore = create<userInfoState>()(
   )
 )
 
-window.addEventListener('beforeunload', () => {
-  // Zustand 상태를 클리어
-  userInfoStore.setState(
-    { 
-      user:{
-        id: 0,
-        userId: "",
-        password: "",
-        nickName: "",
-        phoneNumber: "",
-      },
-      isLoggedIn: false
-    }
-  );
-});
 
 
