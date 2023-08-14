@@ -29,6 +29,7 @@ struct MQTT {
 
   // Initialize the MQTT client
   void init() {
+    // static IP for SSAFY WiFi
     // if (!WiFi.config(STATICIP, GATEWAY, SUBNET, PRIMARYDNS, SECONDARYDNS)) {
     //   Serial.println("STA failed to configure");
     // }
