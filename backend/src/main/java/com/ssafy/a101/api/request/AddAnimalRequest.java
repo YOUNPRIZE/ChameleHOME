@@ -2,8 +2,7 @@ package com.ssafy.a101.api.request;
 
 
 import com.ssafy.a101.db.entity.Animal;
-import com.ssafy.a101.db.entity.Cage;
-import com.ssafy.a101.db.entity.Dictionary;
+import com.ssafy.a101.db.repository.AnimalRepository;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -15,8 +14,8 @@ import java.util.Date;
 @Getter
 public class AddAnimalRequest {
 
-    private Cage cage_id;
-    private Dictionary dict_id;
+    private Long cage_id;
+    private Long dict_id;
     private  String name;
     private  String gender;
     private  Date birth;
@@ -24,10 +23,10 @@ public class AddAnimalRequest {
     private  Date created_at;
     private  String photo;
 
-    public Animal toEntity(){
+    public Animal toEntity(AnimalRepository animalRepository){
         return Animal.builder()
-                .cageId(cage_id)
-                .dict_id(dict_id)
+                //.cageId(cage_id)
+             //   .dict_id(dict_id)
                 .name(name)
                 .gender(gender)
                 .birth(birth)
