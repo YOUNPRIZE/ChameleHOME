@@ -11,7 +11,7 @@ import java.util.Date;
 public class Auto_setResponse {
 
     private final String time;
-    private final Cage cageId;
+    private final Long cageId;
     private final Long set_temp;
     private final Long set_hum;
     private final Long set_uv;

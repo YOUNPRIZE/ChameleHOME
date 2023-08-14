@@ -48,10 +48,10 @@ public class A101Application {
 
 
 		auto_setRepository.findAll().forEach((autoSet -> {
-			Cage autoSetCageId =autoSet.getCageId();
-			//System.out.println("케이지 아이디 값입니다." + autoSetCageId.getCageId());
+			Long autoSetCageId =autoSet.getCageId();
 
-			if (autoSet.getTime().equals(formattedTime)) {
+			//if (autoSet.getTime().equals(formattedTime)) {
+			System.out.println("케이지 아이디 값입니다." + autoSetCageId);
 
 			 //mqtt 통신 부분 / start 까지
 				new Thread(new Runnable() {
