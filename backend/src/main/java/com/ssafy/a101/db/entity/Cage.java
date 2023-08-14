@@ -64,7 +64,7 @@ public class Cage {
         this.created_at = created_at;
         this.category = category;
     }
-
+    
     public Cage() {}
 
     public Long getUserId() {
