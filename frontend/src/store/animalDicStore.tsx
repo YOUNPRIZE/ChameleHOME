@@ -2,7 +2,7 @@ import {create} from 'zustand'
 import {persist} from 'zustand/middleware'
 
 export interface dicAnimal {
-  species: string;
+  spices: string;
   lifespan: string;
   feed: string;
   feedCycle: string;
@@ -10,9 +10,9 @@ export interface dicAnimal {
   lighting: string;
   humidity: string;
   environment: string;
-  from: string;
+  home: string;
   info: string;
-  photo: string;
+  img: string;
   id:number
 }
 

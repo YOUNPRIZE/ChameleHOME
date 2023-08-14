@@ -21,6 +21,7 @@ export default function AddCage():JSX.Element {
   }, [changePage])
 
   // 변수명 기록
+  const userID = userInfoStore(state => state.user).id
   const [animalToBreed, setAnimalToBreed] = useState('알 수 없음');
   const [animalImg, setanimalImg] = useState(process.env.PUBLIC_URL+'/images/Not_Choosed.jpg')
   const [warning, setWarning] = useState("");
@@ -41,15 +42,21 @@ export default function AddCage():JSX.Element {
   const addCage = myCagesStore(state => state.addCage)
   const navigate = useNavigate();
   const handleAddCage = async() => {
-    setWarning("")
+    if (! cageName.current?.value) {
+      cageName.current?.focus();
+      return
+    }
     if (! cageSerial.current?.value) {
-      setWarning("시리얼 넘버를 입력해주세요.")
+      cageSerial.current?.focus();
       return
     }
     try {
+      console.log(new Date())
       const cageInput = {
+        id: userID,
+        // cageId: userID,
         cage_name : cageName.current?.value ? cageName.current?.value : `${animalToBreed} 케이지`,
-        sNum: "7777",
+        snum: cageSerial.current?.value,
         set_temp : 25,
         set_hum : 60,
         set_uv : 0,
