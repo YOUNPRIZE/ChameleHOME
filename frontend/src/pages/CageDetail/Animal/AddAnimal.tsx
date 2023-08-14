@@ -120,8 +120,8 @@ export default function AddAnimal():JSX.Element {
           </Dropdown.Item>
           {/* 도감에 있으면 드롭다운에서 선택 */}
           { animalDic.map((dic, index) => (
-            <Dropdown.Item key={index} onClick={() => handleDic(dic.species, dic.photo)}>
-              {dic.species}
+            <Dropdown.Item key={index} onClick={() => handleDic(dic.spices, dic.img)}>
+              {dic.spices}
             </Dropdown.Item>
           ))}
         </Dropdown.Menu>

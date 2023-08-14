@@ -3,6 +3,7 @@ import {persist} from 'zustand/middleware'
 
 // 개별 케이지 정의
 export interface myCage { 
+  id: number,
   cageId : number;
   snum: string;
   cage_name : string;

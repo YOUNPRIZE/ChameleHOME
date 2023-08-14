@@ -46,9 +46,11 @@ export default function InnerCageInfo(props:{myCage:myCage|undefined}):JSX.Eleme
         useSSL:true,
         onSuccess: () => { 
           // 커넥트에 성공(구독)
+          console.log("커넥트 성공")
           client.subscribe(getInfoTopic);
         },
         onFailure: () => { 
+          console.log("커넥트 실패")
           // 커넥트 실패
         }
       });
