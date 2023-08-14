@@ -2,10 +2,10 @@ server:
   port: 8000
 
 spring:
-#  jackson:
-#    serialization:
-#      fail-on-empty-beans: false
-#    objectMapper:
+  jackson:
+    serialization:
+      fail-on-empty-beans: false
+#    objectMapper:git 
 #      serializationInclusion: NON_NULL
 #      propertyNamingStrategy: SNAKE_CASE
 #      dateFormat: yyyy-MM-dd HH:mm:ss
