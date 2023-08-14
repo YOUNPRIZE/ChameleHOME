@@ -28,7 +28,11 @@ public class AddCageRequest {
     public Cage toEntity(CageRepository cageRepository){
         User user = cageRepository.findByUserId(id);
         return Cage.builder()
+<<<<<<< Updated upstream
                 .id(user)
+=======
+//                .id(id)
+>>>>>>> Stashed changes
                 .cage_name(cage_name)
                 .snum(snum)
                 .set_temp(set_temp)
