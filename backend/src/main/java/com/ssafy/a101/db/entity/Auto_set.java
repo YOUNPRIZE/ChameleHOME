@@ -55,6 +55,6 @@ public class Auto_set {
         return null;
     }
 
-    public Auto_set(){}
+    public Auto_set() {}
 
 }

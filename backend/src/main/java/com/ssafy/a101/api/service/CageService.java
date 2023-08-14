@@ -41,12 +41,15 @@ public class CageService {
 
     // 케이지 수정
     @Transactional
-    public Cage update(long cage_id, UpdateCageRequest request){
+    public Cage update(long cage_id, UpdateCageRequest request) {
         Cage cage = cageRepository.findById(cage_id)
-                .orElseThrow(()-> new IllegalArgumentException("업데이트가 앙대여"));
-        cage.update(request.getCage_name(), request.getSnum(),request.getSet_temp(), request.getSet_hum(), request.getSet_uv(), request.getCreated_at(), request.getCategory());
+                .orElseThrow(() -> new IllegalArgumentException("Cage not found"));
+
+        cage.update(request.getCage_name(), request.getSnum(), request.getSet_temp(), request.getSet_hum(), request.getSet_uv(), request.getCreated_at(), request.getCategory());
+
         return cage;
     }
+
 
 
     // 케이지 삭제
