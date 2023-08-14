@@ -5,6 +5,8 @@ import lombok.Getter;
 
 @Getter
 public class DictionaryResponse {
+
+    private final Long id;
     private final String spices;
     private final String lifespan;
     private final String feed;
@@ -19,6 +21,7 @@ public class DictionaryResponse {
 
 
     public DictionaryResponse(Dictionary dictionary) {
+        this.id = dictionary.getId();
         this.spices = dictionary.getSpices();
         this.lifespan = dictionary.getLifespan();
         this.feed = dictionary.getFeed();
