@@ -1,4 +1,5 @@
 package com.ssafy.a101.db.entity;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import javax.persistence.*;
 import java.util.Date;
@@ -20,7 +21,7 @@ public class Cage {
     @JoinColumn(name = "id", referencedColumnName = "id")
     private  User id;
 
-    @Column(name = "snum" )
+    @Column(name = "snum" ,updatable = true)
     private  String snum;
 
     @Column(name = "cage_name", updatable = false)
@@ -43,7 +44,7 @@ public class Cage {
 
 
     @Builder
-    public Cage(User id,String snum,  String cage_name,  Long set_temp,  Long set_hum, Long set_uv,  Date created_at, String category){
+    public Cage(User id, String snum,  String cage_name,  Long set_temp,  Long set_hum, Long set_uv,  Date created_at, String category){
         this.id = id;
         this.snum = snum;
         this.cage_name = cage_name;
@@ -54,8 +55,9 @@ public class Cage {
         this.category = category;
     }
 
-    public void update(String cage_name, Long set_temp, Long set_hum, Long set_uv, Date created_at, String category){
+    public void update(String cage_name, String snum, Long set_temp, Long set_hum, Long set_uv, Date created_at, String category){
         this.cage_name = cage_name;
+        this.snum = snum;
         this.set_temp = set_temp;
         this.set_hum = set_hum;
         this.set_uv = set_uv;
