@@ -48,9 +48,12 @@ void onConnectionEstablished()
     led_flag = doc["uv"];
 
     // Extract temperature, humidity, and LED values from payload
-    set_val.temp = doc["Temp"];
-    set_val.humid = doc["Humid"];
-    set_val.light = doc["uv"];
+    String tmp = doc["Temp"];
+    set_val.temp = tmp.toFloat();
+    String hud = doc["Humid"];
+    set_val.humid = hud.toFloat();
+    String uv = doc["uv"];
+    set_val.light = uv.toInt();
 
     // Set flags based on received values
     if(set_val.temp) temp_flag = true;
@@ -118,7 +121,7 @@ void loop() {
 
     // Get temperature and humidity data from sensors
     now_val = sensor.sensing();
-
+    now_val.light = status_flag.led;
     // Update data for MQTT and web
     mqtt.updateData(now_val);
     now_val.light = status_flag.led;
