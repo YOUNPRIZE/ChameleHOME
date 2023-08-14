@@ -21,11 +21,11 @@ VALUES
 -- cage 테이블에 데이터 삽입
 INSERT INTO cage (id, snum, cage_name, set_temp, set_hum, set_uv, created_at, category)
 VALUES
-    (1, '1num','Cage 1', 25, 60, 8, NOW(), 'Category A'),
-    (2, '2num','Cage 2', 23, 55, 6, NOW(), 'Category B'),
-    (3, '3num','Cage 3', 28, 70, 9, NOW(), 'Category C'),
-    (4, '4num','Cage 4', 22, 50, 7, NOW(), 'Category A'),
-    (5, '5num','Cage 5', 26, 65, 5, NOW(), 'Category B');
+    (1, '1num', 'Cage 1', 25, 60, 8, NOW(), 'Category A'),
+    (2, '2num', 'Cage 2', 23, 55, 6, NOW(), 'Category B'),
+    (3, '3num', 'Cage 3', 28, 70, 9, NOW(), 'Category C'),
+    (4, '4num', 'Cage 4', 22, 50, 7, NOW(), 'Category A'),
+    (5, '5num', 'Cage 5', 26, 65, 5, NOW(), 'Category B');
 
 -- store 테이블에 데이터 삽입
 INSERT INTO store (name, item, url, price, photo)
