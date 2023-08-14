@@ -20,7 +20,7 @@ public class Cage {
     @JoinColumn(name = "id", referencedColumnName = "id")
     private  User id;
 
-    @Column(name = "snum", unique = true)
+    @Column(name = "snum" )
     private  String snum;
 
     @Column(name = "cage_name", updatable = false)
