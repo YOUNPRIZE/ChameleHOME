@@ -56,7 +56,6 @@ public class Cage {
     }
 
     public void update( String cage_name, String snum, Long set_temp, Long set_hum, Long set_uv, Date created_at, String category){
-
         this.cage_name = cage_name;
         this.snum = snum;
         this.set_temp = set_temp;
