@@ -13,14 +13,13 @@ import java.util.Date;
 @Getter
 public class AddAlarmRequest {
 
-    private Cage cageId;
+    private Long cageId;
     private String name;
     private Date cycle;
     private Date recent;
 
     public Alarm toEntity(){
         return Alarm.builder()
-                .cageId(cageId)
                 .name(name)
                 .cycle(cycle)
                 .recent(recent)

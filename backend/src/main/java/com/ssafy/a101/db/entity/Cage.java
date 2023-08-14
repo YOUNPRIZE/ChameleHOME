@@ -24,13 +24,13 @@ public class Cage {
     @Column(name = "snum" ,updatable = true)
     private  String snum;
 
-    @Column(name = "cage_name", updatable = false)
+    @Column(name = "cage_name", updatable = true)
     private  String cage_name;
 
-    @Column(name = "set_temp", updatable = false)
+    @Column(name = "set_temp", updatable = true)
     private  Long set_temp;
 
-    @Column(name = "set_hum", updatable = false)
+    @Column(name = "set_hum", updatable = true)
     private  Long set_hum;
 
     @Column(name = "set_uv", updatable = true)
@@ -55,7 +55,7 @@ public class Cage {
         this.category = category;
     }
 
-    public void update(String cage_name, String snum, Long set_temp, Long set_hum, Long set_uv, Date created_at, String category){
+    public void update( String cage_name, String snum, Long set_temp, Long set_hum, Long set_uv, Date created_at, String category){
         this.cage_name = cage_name;
         this.snum = snum;
         this.set_temp = set_temp;
