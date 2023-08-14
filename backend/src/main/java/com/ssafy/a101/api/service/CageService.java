@@ -4,7 +4,9 @@ package com.ssafy.a101.api.service;
 import com.ssafy.a101.api.request.AddCageRequest;
 import com.ssafy.a101.api.request.UpdateCageRequest;
 import com.ssafy.a101.db.entity.Cage;
+import com.ssafy.a101.db.entity.User;
 import com.ssafy.a101.db.repository.CageRepository;
+import com.ssafy.a101.db.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,6 +18,7 @@ import java.util.List;
 public class CageService {
 
     private final CageRepository cageRepository;
+    private final UserRepository userRepository;
 
     // 케이지 전체 조회
     public List<Cage> findAll(Long id){return cageRepository.findById_Id(id);}
@@ -28,7 +31,13 @@ public class CageService {
 
 
     // 케이지 추가
-    public Cage save(AddCageRequest request){return cageRepository.save(request.toEntity());}
+    public Cage save(AddCageRequest request) {
+        User user = userRepository.findById(request.getId()).orElseThrow(() -> new IllegalArgumentException("유저를 찾을 수 없습니다."));
+        Cage cage = request.toEntity(cageRepository);
+        cage.setId(user);
+//        return cageRepository.save(request.toEntity());
+        return cageRepository.save(cage);
+    }
 
     // 케이지 수정
     @Transactional
