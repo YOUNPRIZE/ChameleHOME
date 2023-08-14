@@ -9,6 +9,4 @@ import java.util.List;
 public interface CageRepository extends JpaRepository<Cage, Long> {
 
     List<Cage> findById_Id(Long userId);
-
-    User findByUserId(Long userId);
 }
