@@ -48,6 +48,13 @@ public class Alarm {
         this.recent = recent;
     }
 
+    public Long getCageId() {
+        if (this.cageId != null) {
+            return this.cageId.getCageId();
+        }
+        return null;
+    }
+
     public Alarm(){}
 
 
