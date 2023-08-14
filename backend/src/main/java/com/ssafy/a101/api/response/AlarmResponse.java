@@ -9,6 +9,8 @@ import java.util.Date;
 @Getter
 public class AlarmResponse {
 
+
+    private final  Long arm_id;
     private final Long cageId;
     private final String name;
     private final Date cycle;
@@ -16,6 +18,7 @@ public class AlarmResponse {
 
 
     public AlarmResponse(Alarm alarm){
+        this.arm_id = alarm.getArm_id();
         this.cageId = alarm.getCageId();
         this.name = alarm.getName();
         this.cycle = alarm.getCycle();

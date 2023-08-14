@@ -10,6 +10,7 @@ import java.util.Date;
 @Getter
 public class Auto_setResponse {
 
+    private final  Long set_id;
     private final String time;
     private final Long cageId;
     private final Long set_temp;
@@ -17,7 +18,7 @@ public class Auto_setResponse {
     private final Long set_uv;
 
     public Auto_setResponse(Auto_set auto_set){
-
+        this.set_id = auto_set.getSet_id();
         this.time = auto_set.getTime();
         this.cageId = auto_set.getCageId();
         this.set_temp = auto_set.getSet_temp();
