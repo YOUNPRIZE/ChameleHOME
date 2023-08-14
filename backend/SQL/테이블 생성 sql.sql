@@ -27,14 +27,14 @@ CREATE TABLE IF NOT EXISTS dict (
 CREATE TABLE IF NOT EXISTS cage (
     cage_id BIGINT AUTO_INCREMENT PRIMARY KEY,
     id BIGINT,
-	snum VARCHAR(255),
+    snum VARCHAR(255),
     cage_name VARCHAR(255),
     set_temp BIGINT,
     set_hum BIGINT,
     set_uv BIGINT,
     created_at DATETIME,
     category VARCHAR(255),
-    CONSTRAINT fk_cage_user FOREIGN KEY (id) REFERENCES users (id)
+    CONSTRAINT fk_cage_user FOREIGN KEY (id) REFERENCES users (id) ON DELETE CASCADE
 );
 
 -- store 테이블 생성
@@ -48,17 +48,17 @@ CREATE TABLE IF NOT EXISTS store (
 );
 
 -- Alarm 테이블 생성
-CREATE TABLE IF NOT EXISTS Alarm (
+CREATE TABLE IF NOT EXISTS alarm (
     arm_id BIGINT AUTO_INCREMENT PRIMARY KEY,
     cage_id BIGINT,
     name VARCHAR(255) NOT NULL,
     cycle DATETIME NOT NULL,
     recent DATETIME NOT NULL,
-    CONSTRAINT fk_alarm_cage FOREIGN KEY (cage_id) REFERENCES cage (cage_id)
+    CONSTRAINT fk_alarm_cage FOREIGN KEY (cage_id) REFERENCES cage (cage_id) ON DELETE CASCADE
 );
 
 -- Animal 테이블 생성
-CREATE TABLE IF NOT EXISTS Animal (
+CREATE TABLE IF NOT EXISTS animal (
     id BIGINT AUTO_INCREMENT PRIMARY KEY,
     cage_id BIGINT,
     dict_id BIGINT,
@@ -68,8 +68,7 @@ CREATE TABLE IF NOT EXISTS Animal (
     issue TEXT,
     created_at DATETIME NOT NULL,
     photo VARCHAR(255),
-    CONSTRAINT fk_animal_cage FOREIGN KEY (cage_id) REFERENCES cage (cage_id),
-    CONSTRAINT fk_animal_dict FOREIGN KEY (dict_id) REFERENCES dict (id)
+    CONSTRAINT fk_animal_cage FOREIGN KEY (cage_id) REFERENCES cage (cage_id) ON DELETE CASCADE
 );
 
 -- auto_set 테이블 생성
@@ -80,5 +79,5 @@ CREATE TABLE IF NOT EXISTS auto_set (
     set_temp BIGINT,
     set_hum BIGINT,
     set_uv BIGINT,
-    CONSTRAINT fk_auto_set_cage FOREIGN KEY (cage_id) REFERENCES cage (cage_id)
+    CONSTRAINT fk_auto_set_cage FOREIGN KEY (cage_id) REFERENCES cage (cage_id) ON DELETE CASCADE
 );
