@@ -48,6 +48,13 @@ public class Auto_set {
         this.set_uv = set_uv;
     }
 
+    public Long getCageId() {
+        if (this.cageId != null) {
+            return this.cageId.getCageId();
+        }
+        return null;
+    }
+
     public Auto_set(){}
 
 }
