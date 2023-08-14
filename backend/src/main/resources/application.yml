@@ -2,9 +2,9 @@ server:
   port: 8000
 
 spring:
-  jackson:
-    serialization:
-      fail-on-empty-beans: false
+#  jackson:
+#    serialization:
+#      fail-on-empty-beans: false
 #    objectMapper:
 #      serializationInclusion: NON_NULL
 #      propertyNamingStrategy: SNAKE_CASE

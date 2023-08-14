@@ -9,7 +9,7 @@ import java.util.Date;
 @Getter
 public class AlarmResponse {
 
-    private final Cage cageId;
+    private final Long cageId;
     private final String name;
     private final Date cycle;
     private final Date recent;
