@@ -28,7 +28,7 @@ public class CageService {
 
 
     // 케이지 추가
-    public Cage save(AddCageRequest request){return cageRepository.save(request.toEntity());}
+    public Cage save(AddCageRequest request){return cageRepository.save(request.toEntity(cageRepository));}
 
     // 케이지 수정
     @Transactional
