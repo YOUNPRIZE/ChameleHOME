@@ -105,3 +105,26 @@
   justify-content: center;
   align-items: center;
 }
+
+.shopContent {
+  height: 80%;
+  display: flex;
+}
+
+.shopImg {
+  width: 50%;
+  object-fit: contain;
+}
+
+.shopTextBox {
+  font-size: 2vh;
+  font-weight: bold;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+}
+
+.itemName {
+  text-decoration: none;
+}
+

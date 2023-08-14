@@ -21,7 +21,7 @@ export default function CageBox():JSX.Element {
   const setCages = myCagesStore(state => state.setCages)
   const loadCageInfos = async() => {
     try {
-      const cageInfos = await axiosCage(`cage`, "GET")
+      const cageInfos = await axiosCage(`2/cages`, "GET")
       setCages(cageInfos)
     }
     catch {
