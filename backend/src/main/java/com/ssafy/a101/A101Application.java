@@ -72,7 +72,7 @@ public class A101Application {
 						sender.close(); // 작업 완료되면 종료
 					}
 				}).start();
-			}
+			//}
 		}));
 	}
 }
