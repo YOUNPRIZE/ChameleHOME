@@ -11,6 +11,7 @@ import java.util.Date;
 @Getter
 public class AnimalResponse {
 
+    private final Long id;
     private final Long cageId;
     private final Long dict_id;
     private final String name;
@@ -22,6 +23,7 @@ public class AnimalResponse {
 
 
     public AnimalResponse(Animal animal){
+        this.id =  animal.getId();
         this.cageId = animal.getCageId();
         this.dict_id = animal.getDictId();
         this.name = animal.getName();
