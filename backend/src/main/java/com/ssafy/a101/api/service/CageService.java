@@ -31,17 +31,13 @@ public class CageService {
 
 
     // 케이지 추가
-<<<<<<< Updated upstream
-    public Cage save(AddCageRequest request){return cageRepository.save(request.toEntity(cageRepository));}
-=======
     public Cage save(AddCageRequest request) {
         User user = userRepository.findById(request.getId()).orElseThrow(() -> new IllegalArgumentException("유저를 찾을 수 없습니다."));
-        Cage cage = request.toEntity();
+        Cage cage = request.toEntity(cageRepository);
         cage.setId(user);
 //        return cageRepository.save(request.toEntity());
         return cageRepository.save(cage);
     }
->>>>>>> Stashed changes
 
     // 케이지 수정
     @Transactional
