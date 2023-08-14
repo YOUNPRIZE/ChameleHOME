@@ -14,7 +14,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 export default function DicDetail():JSX.Element {
   // props 넘겨받기
   const species = useParams().species;
-  const dicItemInfo =  animalDicStore(state => state.dictionary).find(item => (item.species === species));
+  const dicItemInfo =  animalDicStore(state => state.dictionary).find(item => (item.spices === species));
 
   // 페이지명 변경
   const changePage = nowPageStore(state => state.setPage);
@@ -25,7 +25,7 @@ export default function DicDetail():JSX.Element {
   // 표시할 정보
   const infoToShow = {
     "수명" : dicItemInfo?.lifespan,
-    "서식지": dicItemInfo?.from,
+    "서식지": dicItemInfo?.home,
     "먹이" : dicItemInfo?.feed,
     "먹이주기" : dicItemInfo?.feedCycle,
     "온도" : dicItemInfo?.temp,
@@ -39,8 +39,8 @@ export default function DicDetail():JSX.Element {
   return (
     <>
       <div className={`${style.dicImgContainer} ${style.containerBox}`}>
-        <p className={`${style.dicSpecies}`}>{dicItemInfo?.species}</p>
-        <img src={process.env.PUBLIC_URL+`/images/${dicItemInfo?.photo}`} alt="" className={`${style.dicImg}`}/>
+        <p className={`${style.dicSpecies}`}>{dicItemInfo?.spices}</p>
+        <img src={process.env.PUBLIC_URL+`/images/${dicItemInfo?.img}`} alt="" className={`${style.dicImg}`}/>
       </div>
       <Accordion className={`${style.containerBox}`}>
         {Object.entries(infoToShow).map((info, index) => (
