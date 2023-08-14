@@ -24,3 +24,13 @@
   justify-content: space-evenly;
   font-size: 10vh;
 }
+
+.toggleBtn {
+  width: 10vh;
+  height: 10vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 7vh;
+
+}
