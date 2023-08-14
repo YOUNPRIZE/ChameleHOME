@@ -30,7 +30,6 @@ public class Alarm {
     private Date cycle;
 
 
-
     @Column(name = "recent", nullable = false)
     private Date recent;
 

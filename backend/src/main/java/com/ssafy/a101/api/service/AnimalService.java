@@ -33,15 +33,13 @@ public class AnimalService {
     }
 
     // 동물 추가
-    public Animal save(AddAnimalRequest request){
+    public Animal save(AddAnimalRequest request) {
         Cage cage = cageRepository.findById(request.getCage_id())
                 .orElseThrow(() -> new IllegalArgumentException("해당 케이지를 찾을 수 없습니다."));
         Dictionary dictionary = dictionaryRepository.findById(request.getDict_id())
                 .orElseThrow(() -> new IllegalArgumentException("해당 딕셔너리를 찾을 수 없습니다."));
 
-        Animal animal = request.toEntity(animalRepository);
-        animal.setCageId(cage);
-        animal.setDict_id(dictionary);
+        Animal animal = request.toEntity(cage, dictionary);
 
         return animalRepository.save(animal);
     }
