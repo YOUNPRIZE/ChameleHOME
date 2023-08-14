@@ -4,7 +4,9 @@ package com.ssafy.a101.api.service;
 import com.ssafy.a101.api.request.AddAlarmRequest;
 import com.ssafy.a101.api.request.UpdateAlarmRequest;
 import com.ssafy.a101.db.entity.Alarm;
+import com.ssafy.a101.db.entity.Cage;
 import com.ssafy.a101.db.repository.AlarmRepository;
+import com.ssafy.a101.db.repository.CageRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -16,6 +18,7 @@ import java.util.List;
 public class AlarmService {
 
     private final AlarmRepository alarmRepository;
+    private final CageRepository cageRepository;
 
     // 전체조회
     public List<Alarm> findAll(Long cage_id){return alarmRepository.findByCageId_CageId(cage_id);}
@@ -28,7 +31,13 @@ public class AlarmService {
 
 
     //알람 추가
-    public Alarm save(AddAlarmRequest request) { return alarmRepository.save(request.toEntity());}
+    public Alarm save(AddAlarmRequest request) {
+        Cage cage = cageRepository.findById(request.getCageId()).orElseThrow(()-> new IllegalArgumentException("no"));
+        Alarm alarm = request.toEntity();
+        alarm.setCageId(cage);
+
+        return alarmRepository.save(alarm);
+    }
 
     // 알람 수정
     @Transactional

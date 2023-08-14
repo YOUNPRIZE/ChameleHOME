@@ -11,7 +11,5 @@ public interface Auto_setRepository extends JpaRepository<Auto_set, Long> {
 
     List<Auto_set> findByCageId_CageId(Long cage_id);
 
-    //시간 확인
-    List<Auto_set> findByTime(Time time);
 
 }

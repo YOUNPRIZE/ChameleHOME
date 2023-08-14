@@ -6,6 +6,7 @@ import com.ssafy.a101.api.response.CageResponse;
 import com.ssafy.a101.api.service.CageService;
 import com.ssafy.a101.db.entity.Cage;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -19,6 +20,7 @@ import java.util.stream.Collectors;
 @CrossOrigin("*")
 public class CageController {
 
+    @Autowired
     private final CageService cageService;
 
     // 사용자의 모든 케이지 조회

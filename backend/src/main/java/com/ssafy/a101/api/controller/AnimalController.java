@@ -5,6 +5,8 @@ import com.ssafy.a101.api.request.AddAnimalRequest;
 import com.ssafy.a101.api.request.UpdateAnimalRequest;
 import com.ssafy.a101.api.response.AnimalResponse;
 import com.ssafy.a101.api.service.AnimalService;
+import com.ssafy.a101.api.service.CageService;
+import com.ssafy.a101.api.service.DictionaryService;
 import com.ssafy.a101.db.entity.Animal;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -20,6 +22,8 @@ import java.util.stream.Collectors;
 public class AnimalController {
 
     private final AnimalService animalService;
+    private final DictionaryService dictionaryService;
+    private final CageService cageService;
 
     // 전체 조회
     @GetMapping("/api/{cage_id}/animals")

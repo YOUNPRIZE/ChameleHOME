@@ -2,7 +2,9 @@ package com.ssafy.a101.api.service;
 import com.ssafy.a101.api.request.AddAuto_setRequest;
 import com.ssafy.a101.api.request.UpdateAuto_setRequest;
 import com.ssafy.a101.db.entity.Auto_set;
+import com.ssafy.a101.db.entity.Cage;
 import com.ssafy.a101.db.repository.Auto_setRepository;
+import com.ssafy.a101.db.repository.CageRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -19,8 +21,8 @@ import java.util.List;
 @Service //빈으로 등록
 public class Auto_setService {
 
-
     private final Auto_setRepository autoSetRepository;
+    private final CageRepository cageRepository;
 
 
 
@@ -36,7 +38,14 @@ public class Auto_setService {
 
 
     // 세팅 추가
-    public Auto_set save(AddAuto_setRequest request){ return autoSetRepository.save(request.toEntity());}
+    public Auto_set save(AddAuto_setRequest request){
+        Cage cage = cageRepository.findById(request.getCageId()).orElseThrow(()-> new IllegalArgumentException("cage error"));
+
+        Auto_set auto_set = request.toEntity();
+        auto_set.setCageId(cage);
+
+        return autoSetRepository.save(auto_set);
+    }
 
 
     // 세팅 수정
