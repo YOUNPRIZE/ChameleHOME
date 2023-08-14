@@ -67,4 +67,10 @@ public class Cage {
 
     public Cage() {}
 
+    public Long getUserId() {
+        if (this.id != null) {
+            return this.id.getId();
+        }
+        return null;
+    }
 }
