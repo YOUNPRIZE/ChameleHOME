@@ -65,6 +65,19 @@ public class Animal {
         this.photo = photo;
 
     }
+    public Long getCageId() {
+        if (this.cageId != null) {
+            return this.cageId.getCageId();
+        }
+        return null;
+    }
+
+    public Long getDictId() {
+        if (this.dict_id != null) {
+            return this.dict_id.getId();
+        }
+        return null;
+    }
 
     public Animal(){}
 
