@@ -35,7 +35,7 @@ public class CageService {
     public Cage update(long cage_id, UpdateCageRequest request){
         Cage cage = cageRepository.findById(cage_id)
                 .orElseThrow(()-> new IllegalArgumentException("업데이트가 앙대여"));
-        cage.update(request.getCage_name(), request.getSet_temp(), request.getSet_hum(), request.getSet_uv(), request.getCreated_at(), request.getCategory());
+        cage.update(request.getCage_name(), request.getSnum(),request.getSet_temp(), request.getSet_hum(), request.getSet_uv(), request.getCreated_at(), request.getCategory());
         return cage;
     }
 

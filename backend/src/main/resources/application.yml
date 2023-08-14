@@ -2,6 +2,18 @@ server:
   port: 8000
 
 spring:
+  jackson:
+    serialization:
+      fail-on-empty-beans: false
+#    objectMapper:
+#      serializationInclusion: NON_NULL
+#      propertyNamingStrategy: SNAKE_CASE
+#      dateFormat: yyyy-MM-dd HH:mm:ss
+#      timeZone: Asia/Seoul
+#    builder:
+#      features:
+#        WRITE_DATE_KEYS_AS_TIMESTAMPS: false
+
 #  security:
 #    oauth2:
 #      client:
