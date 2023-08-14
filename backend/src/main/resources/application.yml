@@ -5,7 +5,7 @@ spring:
   jackson:
     serialization:
       fail-on-empty-beans: false
-#    objectMapper:git 
+#    objectMapper:git
 #      serializationInclusion: NON_NULL
 #      propertyNamingStrategy: SNAKE_CASE
 #      dateFormat: yyyy-MM-dd HH:mm:ss
