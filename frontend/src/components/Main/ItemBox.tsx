@@ -1,6 +1,5 @@
 // 훅|함수 import 
 import { useEffect, useState } from 'react'
-import { axiosStore } from 'constants/AxiosFunc';
 // 상태 정보 import
 import { itemStore } from 'store/itemStore'; 
 // 컴포넌트 import
@@ -14,20 +13,6 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 export default function ItemBox():JSX.Element {
   // 상태 정보 받아오기
   const items = itemStore(state => (state.items))
-
-  // 케이지 정보 db에서 받아오기
-  const setItems = itemStore(state => state.setItems)
-  const loadItemInfos = async() => {
-    try {
-      const itemInfos = await axiosStore("store", "GET")
-      setItems(itemInfos)
-    }
-    catch {
-    }
-  }
-  useEffect(() => {
-    loadItemInfos();
-  },[])
 
   // 도감 표시 컨트롤
   const [itemIdx, setItemIdx] = useState(0);

@@ -2,7 +2,7 @@
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 // 상태정보 import
-import { nowPageStore } from 'store/myPageStore';
+import { nowPageStore } from 'store/myExtraStore';
 import { userInfoStore, userInfoState } from 'store/userInfoStore';
 // 스타일 import
 import style from 'styles/MyPage.module.css'
@@ -45,11 +45,11 @@ export default function MyPage():JSX.Element {
           </div>
           <div className={style.infoContainer}>
             <FontAwesomeIcon icon={faSpellCheck} className={style.infoIcon}/>
-            <span className={style.infoText}>{userInfo.user.nickName}</span>
+            <span className={style.infoText}>{userInfo.user.nickname}</span>
           </div>
           <div className={style.infoContainer}>
             <FontAwesomeIcon icon={faPhone} className={style.infoIcon}/>
-            <span className={style.infoText}>{userInfo.user.phoneNumber}</span>
+            <span className={style.infoText}>{userInfo.user.number}</span>
           </div>
         </div>
         {/* 회원 정보 수정, 탈퇴 영역 */}

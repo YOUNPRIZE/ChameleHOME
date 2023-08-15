@@ -3,7 +3,6 @@ import {useRef, useEffect, useState} from "react"
 import { Link, useNavigate } from "react-router-dom"
 import { axiosAuth } from "constants/AxiosFunc";
 // 상태정보 import
-import { nowPageStore } from "store/myPageStore";
 import { User, userInfoStore } from "store/userInfoStore";
 // 컴포넌트 import
 import { SignUpText, SignUpPassword } from "components/Auth/SignUpInput";
@@ -15,12 +14,6 @@ import Button from "react-bootstrap/Button";
 
 // 회원가입 페이지
 export default function SignUp():JSX.Element {
-  // 페이지명 변경
-  const changePage = nowPageStore(state => state.setPage);
-  useEffect(() => {
-    changePage("회원 가입");
-  }, [])
-
   // 입력 변수
   const id = useRef<HTMLInputElement>(null);
   const pw1 = useRef<HTMLInputElement>(null);
@@ -50,17 +43,23 @@ export default function SignUp():JSX.Element {
     // 입력값 검증1
     resetWarning();
     if (! id.current?.value) {
-      setIdWarning("아이디를 입력해주세요.")
+      setIdWarning("아이디를 입력해주세요.");
+      id.current?.focus();
     } else if (!pw1.current?.value) {
-      setpw1Warning("패스워드를 입력해주세요.")
+      setpw1Warning("패스워드를 입력해주세요.");
+      pw1.current?.focus();
     } else if (!pw2.current?.value) {
-      setpw2Warning("패스워드를 확인을 진행해주세요")
+      setpw2Warning("패스워드를 확인을 진행해주세요");
+      pw2.current?.focus();
     } else if (pw1.current?.value !== pw2.current?.value) {
-      setpw2Warning("패스워드가 다릅니다!")
+      setpw2Warning("패스워드가 다릅니다!");
+      pw2.current?.focus();
     } else if (!nick.current?.value) {
-      setnickWarning("닉네임를 입력해주세요.")
+      setnickWarning("닉네임를 입력해주세요.");
+      nick.current?.focus();
     } else if (!phone.current?.value) {
-      setphoneWarning("전화번호를 입력해주세요.")
+      setphoneWarning("전화번호를 입력해주세요.");
+      phone.current?.focus();
     }
     // 비밀번호 검증 이후 회원가입 진행
     else if (pw1.current?.value === pw2.current?.value) {
@@ -68,21 +67,21 @@ export default function SignUp():JSX.Element {
       const signUpData = { 
         userId: id.current?.value,
         password: pw1.current?.value,
-        nickName: nick.current?.value,
-        phoneNumber: phone.current?.value,
+        nickname: nick.current?.value,
+        number: phone.current?.value,
       };
       (async() => {
         // 회원가입 API 요청(수정 필요)
         try {
-          // const userData = await axiosAuth("user", "POST", signUpData);
+          const userData = await axiosAuth("user/join", "POST", signUpData);
           // 회원 가입 성공시 로그인(수정 필요)
-          setUserInfo({
-            id: 1,
-            userId: "FRONT",
-            password: "1234",
-            nickName: "TEST",
-            phoneNumber: "010-7777-7777"
-          });
+          // setUserInfo({
+          //   id: 1,
+          //   userId: "FRONT",
+          //   password: "1234",
+          //   nickName: "TEST",
+          //   number: "010-7777-7777"
+          // });
         }
         // 회원 가입 실패시 경고 메시지 갱신
         catch {
