@@ -51,7 +51,7 @@ export default function AutoSettingModal(props:{modalShow:boolean, handleClose:F
   const HandleAddSetting = async() => {
     const setTemp: number | null = useTemp? Number(temp.current!.value) : null;
     const setHum: number | null = useHum? Number(hum.current!.value) : null;
-    const setUv: boolean | null = useUv? Boolean(uv.current?.value) : null;
+    const setUv: number | null = useUv? Number(uv.current?.value) : null;
     // 시간 입력 확인
     if (!time.current?.value) {
       time.current?.focus();
@@ -73,9 +73,10 @@ export default function AutoSettingModal(props:{modalShow:boolean, handleClose:F
       return
     }
     try {
+      const timeValue = time.current?.value.split(":")
       const settingInput = {
-        cage_id: cageId,
-        time: time.current?.value,
+        cageId: cageId,
+        time: `${timeValue[0]}:${timeValue[1]}:00`,
         set_temp: setTemp,
         set_hum: setHum, 
         set_uv: setUv,
@@ -87,7 +88,7 @@ export default function AutoSettingModal(props:{modalShow:boolean, handleClose:F
       }
       // 세팅 수정하기
       else {
-        const updatedSetting = await axiosAuto(`setting/${settingInfo.id}`, "PUT", settingInput);
+        const updatedSetting = await axiosAuto(`setting/${settingInfo.set_id}`, "PUT", settingInput);
         updateSetting(updatedSetting);
       }
     }
@@ -141,9 +142,9 @@ export default function AutoSettingModal(props:{modalShow:boolean, handleClose:F
             <FloatingLabel controlId="floatingSelectGrid" label="UV등" 
             className={`${style.inputLabel} ${!useUv && "invisible"}`}>
               <Form.Select aria-label="Floating label select example" className={`${style.inputTag}`} 
-              ref={uv} defaultValue={settingInfo && settingInfo.set_uv === false? "" : "On"}>
+              ref={uv} defaultValue={settingInfo && settingInfo.set_uv === 0? "0" : "1"}>
                 <option value="1">ON</option>
-                <option value="">OFF</option>
+                <option value="0">OFF</option>
               </Form.Select>
             </FloatingLabel> 
           </div>
