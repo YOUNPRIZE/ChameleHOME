@@ -5,7 +5,7 @@ import { axiosCage } from 'constants/AxiosFunc';
 // 상태 정보 import
 import { nowPageStore } from 'store/myPageStore';
 import { userInfoStore } from 'store/userInfoStore';
-import { myCagesStore } from 'store/myCageStore';
+import { myCage, myCagesStore } from 'store/myCageStore';
 // 컴포넌트 import
 import AddBtn from 'components/Shared/AddBtn';
 // 스타일 import
@@ -24,7 +24,6 @@ export default function AddCage():JSX.Element {
   const userID = userInfoStore(state => state.user).id
   const [animalToBreed, setAnimalToBreed] = useState('알 수 없음');
   const [animalImg, setanimalImg] = useState(process.env.PUBLIC_URL+'/images/Not_Choosed.jpg')
-  const [warning, setWarning] = useState("");
   const cageName = useRef<HTMLInputElement>(null);
   const cageSerial = useRef<HTMLInputElement>(null);
 
@@ -51,10 +50,8 @@ export default function AddCage():JSX.Element {
       return
     }
     try {
-      console.log(new Date())
       const cageInput = {
         id: userID,
-        // cageId: userID,
         cage_name : cageName.current?.value ? cageName.current?.value : `${animalToBreed} 케이지`,
         snum: cageSerial.current?.value,
         set_temp : 25,
@@ -64,7 +61,8 @@ export default function AddCage():JSX.Element {
         category: animal_types[animalToBreed]
       }
       const CageInfo = await axiosCage("cage", "POST", cageInput)
-      addCage(CageInfo)
+      const newCage:myCage = {...cageInput, cageId:CageInfo.cageId}
+      addCage(newCage)
       navigate("/Cages")
     }
     catch {
@@ -100,7 +98,6 @@ export default function AddCage():JSX.Element {
       {/* 케이지 시리얼넘버 입력 */}
       <input type="text" placeholder='시리얼 넘버를 입력해주세요.' 
       className={`${style.inputCageInfo} ${style.boxShadow}`} ref={cageSerial}/>
-      {warning? <div className={style.warningText}>{warning}</div> : null }
       {/* 케이지 추가하기 버튼 */}
       <AddBtn feature={handleAddCage}/>
     </div>

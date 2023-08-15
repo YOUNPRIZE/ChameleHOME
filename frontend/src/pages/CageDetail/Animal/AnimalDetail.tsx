@@ -5,8 +5,8 @@ import { getAge } from 'constants/CommonFunc';
 import { axiosAnimal } from 'constants/AxiosFunc';
 // 상태 정보 import
 import { nowPageStore } from 'store/myPageStore';
-// import { animalDicStore } from 'store/animalDicStore'
-import { myAnimalStore, Animal } from 'store/myAnimalStore';
+import { animalDicStore } from 'store/animalDicStore'
+import { myAnimalStore } from 'store/myAnimalStore';
 // 스타일 import
 import 'bootstrap/dist/css/bootstrap.min.css'
 import style from 'styles/CageDetail/AnimalDetail.module.css'
@@ -35,7 +35,9 @@ export default function AnimalDetail():JSX.Element {
   }
   }, [])
 
-  // 이미지 불러오기
+  // 사전정보, 이미지 불러오기
+  const dictInfos = animalDicStore(state => state.dictionary)
+  const dictInfo = dictInfos.find(info => info.id === myAnimal?.dict_id)
   const imgUrl = process.env.PUBLIC_URL+`/images/${myAnimal?.photo}`
 
   // 동물 정보 수정창 이동 함수
@@ -73,13 +75,13 @@ export default function AnimalDetail():JSX.Element {
       {/* 이름, 종, 생일*/}
       <div className={`${style.basicInnerContainer}`}>
         <h1 className={`${style.infoName}`}>{myAnimal?.name}</h1>
-        <p className={`${style.infoTextLeft}`}>{myAnimal?.species}</p>
+        <p className={`${style.infoTextLeft}`}>{dictInfo?.spices}</p>
         <p className={`${style.infoTextLeft}`}>{birth.toLocaleDateString()}</p>
       </div>
       {/* 성별, 나이 */}
       <div className={`${style.basicInnerContainer}`}>
-        <div className={`${style.infoGender}`} style={{backgroundColor: myAnimal?.gender === 'male' ? 'dodgerblue' : 'deeppink',}}>
-          <FontAwesomeIcon icon={myAnimal?.gender === 'male'? faMars:faVenus} color='white' />
+        <div className={`${style.infoGender}`} style={{backgroundColor: myAnimal?.gender === 'Male' ? 'dodgerblue' : 'deeppink',}}>
+          <FontAwesomeIcon icon={myAnimal?.gender === 'Male'? faMars:faVenus} color='white' />
         </div>
         <p className={`${style.infoTextRight}`}>{getAge(birth)}살</p>
       </div>

@@ -1,5 +1,5 @@
 // 훅 import 
-import { useEffect } from 'react'
+import { useEffect } from 'react';
 // 상태 정보 import
 import { nowPageStore } from 'store/myPageStore';
 // 컴포넌트 import
@@ -7,9 +7,6 @@ import CageBox from 'components/Main/CageBox';
 import DictionaryBox from 'components/Main/DicionaryBox';
 import ItemBox from 'components/Main/ItemBox';
 // 스타일 import
-import style from 'styles/Main.module.css';
-import 'bootstrap/dist/css/bootstrap.min.css';
-
 
 export default function Main():JSX.Element {
   // 페이지명 변경
