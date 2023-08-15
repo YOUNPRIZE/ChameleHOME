@@ -3,7 +3,7 @@ import { useNavigate, useParams, useLocation } from 'react-router-dom';
 import { useEffect, useState, useRef } from 'react'
 import { axiosAnimal } from 'constants/AxiosFunc';
 // 상태 정보 import
-import { nowPageStore } from 'store/myPageStore';
+import { nowPageStore } from 'store/myExtraStore';
 import { animalDicStore } from 'store/animalDicStore'
 import { myAnimalStore } from 'store/myAnimalStore';
 // 컴포넌트 import
@@ -37,9 +37,10 @@ export default function AddAnimal():JSX.Element {
   // 상태 정보 Props 로드
   const cageId = Number(useParams().cageId);
   const animalDic = animalDicStore(state => state.dictionary);
-  const filteredDic = animalDic.filter(dic => dic.spices !== "알 수 없음")
-  const unknown = animalDic.find(dic => dic.spices === "알 수 없음")
-  const dic = !data? '알 수 없음' : animalDic.find(dic => dic.id === data.dict_id)?.spices
+  const unknown = animalDicStore(state => state.unknown)
+  const dic = !data || data.spices === "알 수 없음" ? 
+    '알 수 없음' : 
+    animalDic.find(dic => dic.id === data.dict_id)?.spices
 
   // 변수명 기록
   const [ dictId, setDictId ] = useState(!data? unknown!.id : data.dict_id);
@@ -89,7 +90,6 @@ export default function AddAnimal():JSX.Element {
       };
       // 동물 추가하기
       if (!data) {
-        console.log(animalnfo)
         const addedAnimal = await axiosAnimal("animal", "POST", animalnfo);
         // 상태정보에 저장하고 동물리스트로 이동
         addAnimal({...addedAnimal, dict_id : dictId})
@@ -125,7 +125,7 @@ export default function AddAnimal():JSX.Element {
             알 수 없음
           </Dropdown.Item>
           {/* 도감에 있으면 드롭다운에서 선택 */}
-          { filteredDic.map((dic, index) => (
+          { animalDic.map((dic, index) => (
             <Dropdown.Item key={index} onClick={() => handleDic(dic.spices, dic.img, dic.id)}>
               {dic.spices}
             </Dropdown.Item>

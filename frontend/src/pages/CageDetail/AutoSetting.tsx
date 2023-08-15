@@ -2,7 +2,7 @@
 import { useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react'
 // 상태 정보 import
-import { nowPageStore } from 'store/myPageStore';
+import { nowPageStore } from 'store/myExtraStore';
 import { autoSetting, autoSettingStore } from 'store/mySettingStore';
 // 컴포넌트 import
 import AddBtn from 'components/Shared/AddBtn';

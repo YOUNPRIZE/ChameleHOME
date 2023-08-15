@@ -18,15 +18,21 @@ export interface dicAnimal {
 
 interface animalDic {
   dictionary:Array<dicAnimal>;
-  setDictionary: (infos:Array<dicAnimal>) => void
+  unknown: dicAnimal | null;
+  setDictionary: (infos:Array<dicAnimal>) => void;
+  setUnknown : (info:dicAnimal) => void;
 }
 
 // 케이지별 동물들 
 export const animalDicStore = create<animalDic>() 
   (persist(set => ({
       dictionary : [],
+      unknown: null,
       setDictionary:(infos:Array<dicAnimal>) => set(
           state => {return {...state, dictionary:infos}}
+      ),
+      setUnknown:(info:dicAnimal) => set(
+        state => {return {...state, unknown:info}}
       )
   }),
   {name:'Dictionary'}

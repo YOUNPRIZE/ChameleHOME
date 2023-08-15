@@ -3,7 +3,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { useEffect } from 'react'
 // 상태 정보 import
 import { myAnimalStore } from 'store/myAnimalStore';
-import { nowPageStore } from 'store/myPageStore';
+import { nowPageStore } from 'store/myExtraStore';
 // 컴포넌트 import
 import AddBtn from 'components/Shared/AddBtn';
 import AnimalItemLong from 'components/CageDatail/Animal/AnimalItemLong';

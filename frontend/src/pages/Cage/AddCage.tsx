@@ -3,7 +3,7 @@ import { useEffect, useState, useRef } from 'react'
 import { useNavigate } from 'react-router-dom';
 import { axiosCage } from 'constants/AxiosFunc';
 // 상태 정보 import
-import { nowPageStore } from 'store/myPageStore';
+import { nowPageStore } from 'store/myExtraStore';
 import { userInfoStore } from 'store/userInfoStore';
 import { myCage, myCagesStore } from 'store/myCageStore';
 // 컴포넌트 import

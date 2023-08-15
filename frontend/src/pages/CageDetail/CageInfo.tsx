@@ -3,7 +3,7 @@ import {useParams } from 'react-router-dom';
 import { useEffect } from 'react'
 import { axiosAnimal, axiosAuto, axiosAlarm } from 'constants/AxiosFunc';
 // 상태 정보 import
-import { nowPageStore } from 'store/myPageStore';
+import { nowPageStore } from 'store/myExtraStore';
 import { myCagesStore } from 'store/myCageStore';
 import { myAnimalStore } from 'store/myAnimalStore';
 import { alarmSettingStore, autoSettingStore } from 'store/mySettingStore';
