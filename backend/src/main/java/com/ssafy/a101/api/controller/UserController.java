@@ -33,10 +33,9 @@ public class UserController {
     }
 
     // 회원 정보 조회
-    @GetMapping("/{id}")
-    public ResponseEntity<UserResponse> findUser(@PathVariable long id){
-        User user = userService.findById(id);
-//        System.out.println(user);
+    @GetMapping("/{userId}")
+    public ResponseEntity<UserResponse> findUser(@PathVariable String userId){
+        User user = userService.findByUserId(userId);
         return ResponseEntity.ok()
                 .body(new UserResponse(user));
     }
