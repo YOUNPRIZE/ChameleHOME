@@ -16,7 +16,7 @@ import java.util.Date;
 public class UpdateAlarmRequest {
 
     private String name;
-    private Date cycle;
+    private Long cycle;
     private Date recent;
 
 }

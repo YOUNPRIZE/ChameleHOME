@@ -15,7 +15,7 @@ public class AddAlarmRequest {
 
     private Long cageId;
     private String name;
-    private Date cycle;
+    private Long cycle;
     private Date recent;
 
     public Alarm toEntity(){
