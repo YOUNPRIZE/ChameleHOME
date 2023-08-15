@@ -41,7 +41,7 @@ const axiosAnimal = async (url:string, method:string, data?:Partial<Animal>) => 
   try {
     const response = await axios({
       method: method,
-      url: `${ipUrl}/${url}`,
+      url: `${serverUrl}/${url}`,
       data: data,
     });
     return response.data; // 비동기 처리 결과를 반환합니다.
@@ -55,7 +55,7 @@ const axiosAuto = async (url:string, method:string, data?:Partial<autoSetting>) 
   try {
     const response = await axios({
       method: method,
-      url: `${ipUrl}/${url}`,
+      url: `${serverUrl}/${url}`,
       data: data,
     });
     return response.data; // 비동기 처리 결과를 반환합니다.
@@ -64,12 +64,12 @@ const axiosAuto = async (url:string, method:string, data?:Partial<autoSetting>) 
   }
 };
 
-// 자동화 기능 관련 api 함수
+// 알람 기능 관련 api 함수
 const axiosAlarm = async (url:string, method:string, data?:Partial<alarmSetting>) => {
   try {
     const response = await axios({
       method: method,
-      url: `${ipUrl}/${url}`,
+      url: `${serverUrl}/${url}`,
       data: data,
     });
     return response.data; // 비동기 처리 결과를 반환합니다.

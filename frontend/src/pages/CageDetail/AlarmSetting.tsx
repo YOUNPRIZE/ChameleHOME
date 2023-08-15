@@ -49,7 +49,7 @@ export default function AlarmSetting():JSX.Element {
   return (
     <>
       {alarmSettings.map((alarm) => (
-        <AlarmSettingItem setting={alarm} key={alarm.id} showUpdateModal={() => handleUpdateModal(alarm)}/>
+        <AlarmSettingItem setting={alarm} key={alarm.arm_id} showUpdateModal={() => handleUpdateModal(alarm)}/>
       ))}
       <AddBtn feature={handleAddModal}/>
       <AlarmSettingModal modalShow={modalShow} settingInfo={settingInfo} handleClose={() => handleClose()} />

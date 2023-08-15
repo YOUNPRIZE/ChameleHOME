@@ -41,6 +41,22 @@
       "set_hum": null,
       "set_uv": null,
       "id": 1
+    },
+    {
+      "cage_id": 39,
+      "time": "11:00:00",
+      "set_temp": 30,
+      "set_hum": null,
+      "set_uv": 1,
+      "id": 2
+    },
+    {
+      "cage_id": 39,
+      "time": "11:00:00",
+      "set_temp": 30,
+      "set_hum": 30,
+      "set_uv": null,
+      "id": 3
     }
   ],
   "alarm": [

@@ -4,12 +4,12 @@ import {persist} from 'zustand/middleware'
 
 // 자동화 설정 세팅
 export interface autoSetting {
-  id: number;
-  cage_id: number;
+  set_id: number;
+  cageId: number;
   time: string;
   set_temp: number | null;
   set_hum: number | null;
-  set_uv: boolean | null;
+  set_uv: number | null;
 }
 
 interface autoSettingState {
@@ -32,21 +32,21 @@ export const autoSettingStore = create<autoSettingState>()(
         })
       },
       // 세팅 수정
-      updateSetting: (setting: autoSetting) => {
+      updateSetting: (inputSetting: autoSetting) => {
         set((state) => {
-          const settingIndex = state.settings.findIndex(setting => setting.id === setting.id);
+          const settingIndex = state.settings.findIndex(setting => setting.set_id === inputSetting.set_id);
           if (settingIndex === -1) {
             return state;
           }
           const updatedsettings = [...state.settings];
-          updatedsettings[settingIndex] = setting;
+          updatedsettings[settingIndex] = inputSetting;
           return { ...state, settings: updatedsettings };
         });
       },
       // 세팅 삭제
       deleteSetting: (id: number) => {        
         set((state) => {
-          const updatedSettings = state.settings.filter(setting => setting.id !== id);
+          const updatedSettings = state.settings.filter(setting => setting.set_id !== id);
           return { ...state, settings: updatedSettings };
         })
       },
@@ -62,11 +62,11 @@ export const autoSettingStore = create<autoSettingState>()(
 
 // 알람 설정 세팅
 export interface alarmSetting {
-  id: number;
-  cage_id: number;
+  arm_id: number;
+  cageId: number;
   name: string;
   cycle : number;
-  recent_date : Date;
+  recent : Date;
 }
 
 interface alarmSettingState {
@@ -89,21 +89,21 @@ export const alarmSettingStore = create<alarmSettingState>()(
         })
       },
       // 알람 수정
-      updateSetting: (setting: alarmSetting) => {
+      updateSetting: (inputSetting: alarmSetting) => {
         set((state) => {
-          const settingIndex = state.settings.findIndex(setting => setting.id === setting.id);
+          const settingIndex = state.settings.findIndex(setting => setting.arm_id === inputSetting.arm_id);
           if (settingIndex === -1) {
             return state;
           }
           const updatedsettings = [...state.settings];
-          updatedsettings[settingIndex] = setting;
+          updatedsettings[settingIndex] = inputSetting;
           return { ...state, settings: updatedsettings };
         });
       },
       // 알람 삭제
       deleteSetting: (id: number) => {
         set((state) => {
-          const updatedSettings = state.settings.filter(setting => setting.id !== id);
+          const updatedSettings = state.settings.filter(setting => setting.arm_id !== id);
           return { ...state, settings: updatedSettings };
         })
       },

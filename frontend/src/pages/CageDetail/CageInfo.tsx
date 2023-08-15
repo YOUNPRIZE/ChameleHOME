@@ -29,7 +29,7 @@ export default function CageInfo():JSX.Element {
   const setAnimals = myAnimalStore(state => state.setAnimals)
   const loadCageInfos = async() => {
     try {
-      const animalInfos = await axiosAnimal(`animal?cageId=${cageId}`, "GET")
+      const animalInfos = await axiosAnimal(`${cageId}/animals`, "GET")
       setAnimals(animalInfos)
     }
     catch {
@@ -41,7 +41,7 @@ export default function CageInfo():JSX.Element {
   const setAutoSetting = autoSettingStore(state => state.setSetting)
   const loadAutoSettingInfos = async() => {
     try {
-      const settingInfos = await axiosAuto(`setting?cage_id=${cageId}`, "GET")
+      const settingInfos = await axiosAuto(`${cageId}/setting`, "GET")
       setAutoSetting(settingInfos)
     }
     catch {
@@ -49,11 +49,11 @@ export default function CageInfo():JSX.Element {
     }
   }
 
-  // 자동화 세팅 db에서 가져오기 함수
+  // 알람세팅 db에서 가져오기 함수
   const setAlarmSetting = alarmSettingStore(state => state.setSetting)
   const loadAlarmSettingInfos = async() => {
     try {
-      const settingInfos = await axiosAlarm(`alarm?cage_id=${cageId}`, "GET")
+      const settingInfos = await axiosAlarm(`${cageId}/alarms`, "GET")
       setAlarmSetting(settingInfos)
     }
     catch {
