@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom"
 import { useEffect } from 'react';
 // 상태정보 import
 import { animalDicStore  } from "store/animalDicStore";
-import { nowPageStore } from 'store/myPageStore';
+import { nowPageStore } from 'store/myExtraStore';
 // 스타일 import
 import style from 'styles/Dictionary/DicDetail.module.css'
 import Accordion from 'react-bootstrap/Accordion';

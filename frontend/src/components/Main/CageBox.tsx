@@ -1,8 +1,6 @@
 // 훅 import 
-import { useEffect, useState, } from 'react'
-import { axiosCage } from 'constants/AxiosFunc';
+import { useState, } from 'react'
 // 상태 정보 import
-import { userInfoStore } from 'store/userInfoStore';
 import { myCagesStore } from 'store/myCageStore';
 // 컴포넌트 import
 import TopBox from 'components/Shared/TopBox';
@@ -14,22 +12,7 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 
 export default function CageBox():JSX.Element {
   // 상태 정보 저장
-  const userID = userInfoStore(state => state.user).id
   const myCages = myCagesStore(state => state.cages)
-  
-  // 케이지 정보 db에서 받아오기
-  const setCages = myCagesStore(state => state.setCages)
-  const loadCageInfos = async() => {
-    try {
-      const cageInfos = await axiosCage(`${userID}/cages`, "GET")
-      setCages(cageInfos)
-    }
-    catch {
-    }
-  }
-  useEffect(() => {
-    loadCageInfos();
-  },[])
 
   // 케이지 표시 컨트롤
   const [mainCageOrder, setMainCageOrder] = useState(0);

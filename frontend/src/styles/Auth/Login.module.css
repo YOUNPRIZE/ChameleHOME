@@ -12,7 +12,10 @@
 }
 
 .authForm {
+  height: 70vh;
   margin-top: 5vh;
+  display: flex;
+  align-items: center;
 }
 
 .inputForm {

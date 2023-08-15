@@ -79,7 +79,6 @@ export default function AlarmSettingModal(props:{modalShow:boolean, handleClose:
         }
         // 알람 추가
         if (settingInfo === null) {
-          console.log(AlarmInfo)
           const addedSetting = await axiosAlarm("alarm", "POST", AlarmInfo);
           addSetting(addedSetting)
         }
