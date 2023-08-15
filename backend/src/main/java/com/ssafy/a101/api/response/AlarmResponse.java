@@ -13,7 +13,7 @@ public class AlarmResponse {
     private final  Long arm_id;
     private final Long cageId;
     private final String name;
-    private final Date cycle;
+    private final Long cycle;
     private final Date recent;
 
 

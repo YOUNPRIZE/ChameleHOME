@@ -52,7 +52,7 @@ CREATE TABLE IF NOT EXISTS alarm (
     arm_id BIGINT AUTO_INCREMENT PRIMARY KEY,
     cage_id BIGINT,
     name VARCHAR(255) NOT NULL,
-    cycle DATETIME NOT NULL,
+    cycle BIGINT,
     recent DATETIME NOT NULL,
     CONSTRAINT fk_alarm_cage FOREIGN KEY (cage_id) REFERENCES cage (cage_id) ON DELETE CASCADE
 );
