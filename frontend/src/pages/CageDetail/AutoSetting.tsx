@@ -47,7 +47,7 @@ export default function AutoSetting():JSX.Element {
   return (
     <>
       {autoSettings.map((setting) => (
-        <AutoSettingItem key={setting.id} setting={setting} showUpdateModal={() => handleUpdateModal(setting)}/>
+        <AutoSettingItem key={setting.set_id} setting={setting} showUpdateModal={() => handleUpdateModal(setting)}/>
       ))}
       <AddBtn feature={handleAddModal}/>
       <AutoSettingModal modalShow={modalShow} settingInfo={settingInfo} handleClose={() => handleClose()}/>

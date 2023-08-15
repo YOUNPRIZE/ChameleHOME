@@ -33,14 +33,14 @@ export default function CageUpdateModal({modalShow, setModalShow, cageInfo}:Prop
     if (name.current?.value && category.current?.value && cageInfo !== undefined) {
       try {
         // 데이터베이스 수정
-        const newCage:myCage = {
+        const newInfo = {
           ...cageInfo, 
           cage_name: name.current?.value, 
           category: category.current?.value
         };
-        const updatedCageInfo = axiosCage(`cage/${newCage.cageId}`, "PUT", newCage);
-        // 로컬 스토리지 수정
-        updateCage(newCage);
+        const updatedCageInfo = await axiosCage(`cage/${cageInfo.cageId}`, "PUT", newInfo);
+        // // 로컬 스토리지 수정
+        updateCage(newInfo);
       }
       catch {
         // 오류 처리
@@ -59,7 +59,7 @@ export default function CageUpdateModal({modalShow, setModalShow, cageInfo}:Prop
     if (!cageInfo) return
     try {
       // 데이터베이스 수정
-      const deletedInfo = axiosCage(`cage/${cageInfo?.cageId}`, "PUT");
+      const deletedInfo = await axiosCage(`cage/${cageInfo?.cageId}`, "DELETE");
       // 로컬 스토리지 수정
       deleteCage(cageInfo?.cageId);
     }

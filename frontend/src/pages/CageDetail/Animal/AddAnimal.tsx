@@ -37,19 +37,22 @@ export default function AddAnimal():JSX.Element {
   // 상태 정보 Props 로드
   const cageId = Number(useParams().cageId);
   const animalDic = animalDicStore(state => state.dictionary);
+  const dic = !data? '도감에 없음' : animalDic.find(dic => dic.id === data.dict_id)?.spices
 
   // 변수명 기록
-  const [species, setspecies] = useState(!data? '도감에 없음' : data.species);
-  const [photo, setanimalImg] = useState(!data? 'Not_Choosed.jpg' : data.photo)
-  const [gender, setGender] = useState(!data? 'male' : data.gender);
+  const [ dictId, setDictId ] = useState(!data? 0 : data.dict_id);
+  const [ species, setspecies ] = useState(dic);
+  const [ photo, setanimalImg ] = useState(!data? 'Not_Choosed.jpg' : data.photo)
+  const [ gender, setGender ] = useState(!data? 'Male' : data.gender);
   const name = useRef<HTMLInputElement>(null);
   const birth = useRef<HTMLInputElement>(null);
   const issue = useRef<HTMLInputElement>(null);
 
   // 도감 선택 함수
-  const handleDic = (dic:string, url:string):void => {
+  const handleDic = (dic:string, url:string, id:number):void => {
     setspecies(dic);
     setanimalImg(url);
+    setDictId(id);
   }
 
   // 성별 선택
@@ -60,40 +63,42 @@ export default function AddAnimal():JSX.Element {
   const addAnimal = myAnimalStore(state => state.addAnimal);
   const updateAnimal = myAnimalStore(state => state.updateAnimal);
   const navigate = useNavigate();
+  const now = new Date();
   const handleAdd = async() => {
     // 이름이나 연도가 비어있을시 포커스 이동
     if (!name.current?.value) {
       name.current?.focus();
       return;
-    } else if (!birth.current?.value) {
+    } else if (!birth.current?.value ) {
       birth.current?.focus();
       return;
     }
     try {
       // 동물 db에 추가
       const animalnfo = {
-        cageId : cageId,
-        species : species,
+        cage_id : cageId,
+        dict_id : dictId,
         name : name.current?.value,
         gender : gender,
         birth : new Date(birth.current?.value),
         issue : issue.current? issue.current?.value : null,
-        // 이거 빼야함
         created_at : new Date(),
         photo: photo,
       };
       // 동물 추가하기
       if (!data) {
+        console.log(animalnfo)
         const addedAnimal = await axiosAnimal("animal", "POST", animalnfo);
         // 상태정보에 저장하고 동물리스트로 이동
-        addAnimal(addedAnimal);
+        addAnimal({...addedAnimal, dict_id : dictId})
         navigate('../AnimalList')
       }
       // 동물 수정하기
       else if (data) {
         const updatedAnimal = await axiosAnimal(`animal/${data.id}`, "PUT", animalnfo);
+        console.log(updatedAnimal)
         // 상태정보에 저장하고 동물 상세정보로 이동
-        updateAnimal(updatedAnimal);
+        updateAnimal({...updatedAnimal, dict_id : dictId});
         navigate(`../AnimalDetail/${data.id}`)
       }
     }
@@ -115,12 +120,12 @@ export default function AddAnimal():JSX.Element {
         </Dropdown.Toggle>
         <Dropdown.Menu className={`${style.dropdownItems}`}>
           {/* 도감에 없는 동물일 경우 */}
-          <Dropdown.Item onClick={() => handleDic('도감에 없음', 'Not_Choosed.jpg')}>
+          <Dropdown.Item onClick={() => handleDic('도감에 없음', 'Not_Choosed.jpg', 0)}>
             도감에 없음
           </Dropdown.Item>
           {/* 도감에 있으면 드롭다운에서 선택 */}
           { animalDic.map((dic, index) => (
-            <Dropdown.Item key={index} onClick={() => handleDic(dic.spices, dic.img)}>
+            <Dropdown.Item key={index} onClick={() => handleDic(dic.spices, dic.img, dic.id)}>
               {dic.spices}
             </Dropdown.Item>
           ))}
@@ -131,13 +136,13 @@ export default function AddAnimal():JSX.Element {
         {/* 성별 */}
         <Dropdown>
           <Dropdown.Toggle variant="light" className={`${style.inputInContainer} ${style.boxShadow}`} style={{width:"15vw"}} >
-            {gender === 'male' ? <MaleIcon/> : <FemaleIcon/>}
+            {gender === 'Male' ? <MaleIcon/> : <FemaleIcon/>}
           </Dropdown.Toggle>
           <Dropdown.Menu className={style.genderItem}>
-            <Dropdown.Item onClick={() => setGender("male")}>
+            <Dropdown.Item onClick={() => setGender("Male")}>
               <MaleIcon/>
             </Dropdown.Item>
-            <Dropdown.Item onClick={() => setGender("female")}>
+            <Dropdown.Item onClick={() => setGender("Female")}>
               <FemaleIcon/>
             </Dropdown.Item>
           </Dropdown.Menu>

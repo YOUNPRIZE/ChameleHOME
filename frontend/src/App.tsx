@@ -17,6 +17,8 @@ import Cages from "./pages/Cage/Cages";
 import AddCage from "./pages/Cage/AddCage";
 import CageDeatil from "./pages/CageDetail/CageDetail";
 import Dictionray from "pages/Dictionary/Dictionary";
+import WrongAccess from "pages/WrongAccess";
+import Loading from "components/Shared/Loading";
 
 
 function App(): JSX.Element {
@@ -38,6 +40,7 @@ function App(): JSX.Element {
           <Route path="/Cages" element={isLoggedIn? <Cages /> : <Navigate replace to="/login"/>} />
           <Route path="/AddCage" element={isLoggedIn? <AddCage /> : <Navigate replace to="/login"/>} />
           <Route path="/CageDetail/:cageId/*" element={isLoggedIn? <CageDeatil /> : <Navigate replace to="/login"/>} />
+          <Route path="*" element={<WrongAccess/>} />
         </Routes>
         <Footer isLogged={isLoggedIn}/>
       </div>

@@ -11,7 +11,7 @@ import { faPenToSquare, faTrash } from '@fortawesome/free-solid-svg-icons'
 export default function AlarmSettingItem(props:{setting:alarmSetting, showUpdateModal:Function}):JSX.Element {
   // 날짜 형식 맞추기(string타입으로 전달됨)
   const setting:alarmSetting = props.setting
-  const recent_date = new Date(setting.recent_date)
+  const recent_date = new Date(setting.recent)
 
   // 주기 계산(일, 시간, 분 별로)
   const dayCycle:number = Math.floor(setting.cycle / 1440);
@@ -23,9 +23,9 @@ export default function AlarmSettingItem(props:{setting:alarmSetting, showUpdate
   const handleDelete = async() => {
     try {
       // db에서 삭제
-      const deletedStatus = axiosAlarm(`alarm/${setting.id}`, "DELETE");
+      const deletedStatus = axiosAlarm(`alarm/${setting.arm_id}`, "DELETE");
       // 상태정보에서 삭제
-      deleteSetting(setting.id);
+      deleteSetting(setting.arm_id);
     }
     catch {
       // 오류 처리
