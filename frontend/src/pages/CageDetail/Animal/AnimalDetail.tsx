@@ -4,7 +4,7 @@ import { useEffect } from 'react'
 import { getAge } from 'constants/CommonFunc';
 import { axiosAnimal } from 'constants/AxiosFunc';
 // 상태 정보 import
-import { nowPageStore } from 'store/myPageStore';
+import { nowPageStore } from 'store/myExtraStore';
 import { animalDicStore } from 'store/animalDicStore'
 import { myAnimalStore } from 'store/myAnimalStore';
 // 스타일 import

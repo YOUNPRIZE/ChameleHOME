@@ -3,7 +3,6 @@ import {useRef, useEffect} from 'react'
 import { Link } from 'react-router-dom'
 import { axiosAuth } from 'constants/AxiosFunc';
 // 상태정보 import
-import { nowPageStore } from 'store/myPageStore';
 import { userInfoStore, User } from 'store/userInfoStore';
 // 스태틱 데이터 import
 import reptile01 from 'assets/retile01.png'
@@ -15,13 +14,6 @@ import Button from 'react-bootstrap/Button';
 
 // 로그인 페이지
 export default function Login():JSX.Element {
-  
-  // 페이지명 변경
-  const changePage = nowPageStore(state => state.setPage);
-  useEffect(() => {
-    changePage("로그인");
-  }, [])
-
   // 유저 정보값들
   const id = useRef<HTMLInputElement>(null);
   const pw = useRef<HTMLInputElement>(null);
@@ -32,15 +24,14 @@ export default function Login():JSX.Element {
     // 로그인 API 요청(수정 필요)
     try {
       // 백엔드와 연결 시 수정 필요
-      // const userData = await axiosAuth("user/1", "GET");
-      // id와 pw가 적절할 경우 유저 정보 등록
-      setUserInfo({
-        id: 1,
-        userId: "FRONT",
-        password: "1234",
-        nickName: "TEST",
-        phoneNumber: "010-7777-7777"
-      });
+      const loginInfo = {
+        userId: id.current?.value, 
+        password: pw.current?.value
+      }
+      const token = await axiosAuth("user/login", "POST", loginInfo);
+      sessionStorage.setItem('token', `Bearer ${token}`)
+      const userInfo = await axiosAuth(`user/${loginInfo.userId}`, "GET");
+      setUserInfo(userInfo)
     }
     catch {
     }
@@ -64,7 +55,6 @@ export default function Login():JSX.Element {
           <Link to="/SignUp" className={style.additionalLink}>회원가입</Link>
         </div>
         <Button size="lg" className={style.loginBtn} variant='success' onClick={()=> handleLogin()}>로그인</Button>
-        <a href="http://localhost:8000/oauth2/authorization/google">기릿기릿</a>
       </Form>
     </div>
   )
