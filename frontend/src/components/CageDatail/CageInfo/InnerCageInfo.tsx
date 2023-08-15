@@ -18,13 +18,12 @@ export default function InnerCageInfo(props:{myCage:myCage|undefined}):JSX.Eleme
   // props 받아오기
   const cageId = Number(useParams().cageId);
   const myCage = props.myCage;
-
   // 상태 정보 받아오기
   const nowCage = nowCageValueStore();
 
   // Mqtt 통신 토픽
-  const getInfoTopic = `${cageId}/sensorval`
-  const sendInfoTopic = `${cageId}/setval`
+  const getInfoTopic = `${myCage?.snum}/sensorval`
+  const sendInfoTopic = `${myCage?.snum}/setval`
 
   // 케이지 내부 센서값 받기
   const clientRef = useRef<Client|null>(null);
@@ -87,7 +86,7 @@ export default function InnerCageInfo(props:{myCage:myCage|undefined}):JSX.Eleme
         // 로컬 스토리지 수정
         updateCage(myCage);
         // 세팅값 Mqtt로 보내기
-        const payload = {temp: myCage?.set_temp, humid: myCage?.set_temp, uv: myCage?.set_uv,};
+        const payload = {Temp: myCage?.set_temp, Humid: myCage?.set_temp, Uv: myCage?.set_uv,};
         const message = new Message(JSON.stringify(payload));
         message.destinationName = sendInfoTopic;
         client.send(message);
