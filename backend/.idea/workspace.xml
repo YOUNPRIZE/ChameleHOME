@@ -6,11 +6,10 @@
   <component name="ChangeListManager">
     <list default="true" id="029f519a-ddbc-43c1-a158-06f30e3a49f3" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ssafy/a101/api/request/AddAlarmRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ssafy/a101/api/request/AddAlarmRequest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ssafy/a101/api/request/UpdateAlarmRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ssafy/a101/api/request/UpdateAlarmRequest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/ssafy/a101/api/response/AlarmResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ssafy/a101/api/response/AlarmResponse.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ssafy/a101/api/response/AnimalResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ssafy/a101/api/response/AnimalResponse.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ssafy/a101/api/response/Auto_setResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ssafy/a101/api/response/Auto_setResponse.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ssafy/a101/api/response/DictionaryResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ssafy/a101/api/response/DictionaryResponse.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/data.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ssafy/a101/db/entity/Alarm.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ssafy/a101/db/entity/Alarm.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -112,7 +111,8 @@
       <workItem from="1691383935915" duration="7243000" />
       <workItem from="1691453543916" duration="11166000" />
       <workItem from="1691453543916" duration="4613000" />
-      <workItem from="1691995387163" duration="16521000" />
+      <workItem from="1691995387163" duration="17377000" />
+      <workItem from="1692059578789" duration="2476000" />
     </task>
     <servers />
   </component>
