@@ -27,21 +27,21 @@ public class Alarm {
     private String name;
 
     @Column(name = "cycle", nullable = false)
-    private Date cycle;
+    private Long cycle;
 
 
     @Column(name = "recent", nullable = false)
     private Date recent;
 
     @Builder
-    public Alarm(Cage cageId, String name, Date cycle, Date recent){
+    public Alarm(Cage cageId, String name, Long cycle, Date recent){
         this.cageId =  cageId;
         this.name = name;
         this.cycle = cycle;
         this.recent = recent;
     }
 
-    public void update(String name, Date cycle, Date recent){
+    public void update(String name, Long cycle, Date recent){
         this.name = name;
         this.cycle = cycle;
         this.recent = recent;
