@@ -5,7 +5,7 @@ import {persist} from 'zustand/middleware'
 export interface Animal {
   id : number;
   cageId : number;
-  species : string;
+  dict_id : number;
   name : string;
   gender : string;
   birth : Date;
@@ -43,7 +43,7 @@ export const myAnimalStore = create<MyAnimal>() (
           // id와 일치하는 케이지를 찾지 못한 경우, 현재 상태를 변경하지 않고 반환
           if (animalIndex === -1) {
             return state;
-          }
+          };
           // 업데이트된 동물를 담는 새로운 배열을 생성
           const updatedAnimals = [...state.animals];
           updatedAnimals[animalIndex] = animal;
@@ -51,7 +51,7 @@ export const myAnimalStore = create<MyAnimal>() (
           return { ...state, animals: updatedAnimals };
         });
       },
-      // 특정 동물 삭제
+      // 특정 동물 삭제 
       deleteAnimal: (id: number) => {
           set((state) => {
           const updatedAnimals = state.animals.filter(animal => animal.id !== id);

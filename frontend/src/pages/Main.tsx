@@ -1,9 +1,7 @@
 // 훅 import 
-import { useEffect, useState, useRef } from 'react';
-import { Client } from 'paho-mqtt';
+import { useEffect } from 'react';
 // 상태 정보 import
 import { nowPageStore } from 'store/myPageStore';
-import { mqttClientStore } from 'store/mqttClientStore';
 // 컴포넌트 import
 import CageBox from 'components/Main/CageBox';
 import DictionaryBox from 'components/Main/DicionaryBox';
@@ -16,16 +14,6 @@ export default function Main():JSX.Element {
   useEffect(() => {
     changePage("홈");
   }, [])
-
-  // mqtt 브로커 커넥트 시도 완료까지 로딩
-  const [endConnect, setEndConnect] = useState(false);
-  const mqttclient = mqttClientStore(state => state.client);
-  const setClient = mqttClientStore(state => state.setClient);
-  console.log(mqttclient)
-  useEffect(() => {
-  }, [])  
-
-
 
   // 페이지 렌더링
   return (
