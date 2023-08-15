@@ -2,7 +2,7 @@
 import { useParams } from 'react-router-dom';
 import { useEffect } from 'react'
 // 상태 정보 import
-import { nowPageStore } from 'store/myPageStore';
+import { nowPageStore } from 'store/myExtraStore';
 // 컴포넌트 import
 import VideoBox from 'components/CageDatail/LiveVideo/VideoBox';
 import MoveBtnBox from 'components/CageDatail/LiveVideo/MoveBtnBox';

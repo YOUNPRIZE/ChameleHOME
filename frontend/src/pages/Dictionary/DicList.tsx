@@ -1,7 +1,7 @@
 // 훅 | 함수 import 
 import { useEffect } from 'react'
 // 상태 정보 import
-import { nowPageStore } from 'store/myPageStore';
+import { nowPageStore } from 'store/myExtraStore';
 import { animalDicStore } from 'store/animalDicStore'
 // 컴포넌트 import
 import DicItemShort from 'components/Dictionary/DicItemShort';
@@ -13,7 +13,6 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 export default function DicList():JSX.Element {
   // 상태 정보 받아오기
   const animalDic = animalDicStore(state => (state.dictionary))
-  const filteredDic = animalDic.filter(dic => dic.spices !== "알 수 없음")
 
   // 페이지명 변경
   const changePage = nowPageStore(state => state.setPage);
@@ -24,7 +23,7 @@ export default function DicList():JSX.Element {
   // 페이지 렌더링
   return (
     <div className={`row ${style.DicList}`}>
-      {filteredDic.map((dicItem, index) => (
+      {animalDic.map((dicItem, index) => (
         <DicItemShort key={index} dicItem={dicItem}/>
       ))}
     </div>

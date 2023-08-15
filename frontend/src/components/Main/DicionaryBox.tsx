@@ -1,6 +1,5 @@
 // 훅 import 
-import { useEffect, useState, } from 'react'
-import { axiosDic } from 'constants/AxiosFunc';
+import { useState, } from 'react'
 // 상태 정보 import
 import { animalDicStore } from 'store/animalDicStore';
 // 컴포넌트 import
@@ -14,20 +13,6 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 export default function DictionaryBox():JSX.Element {
   // 상태 정보 저장
   const animalDic = animalDicStore(state => state.dictionary)
-
-  // 케이지 정보 db에서 받아오기
-  const setDictionary = animalDicStore(state => state.setDictionary)
-  const loadDicInfos = async() => {
-    try {
-      const dicInfos = await axiosDic("dicts", "GET")
-      setDictionary(dicInfos)
-    }
-    catch {
-    }
-  }
-  useEffect(() => {
-    loadDicInfos();
-  },[])
 
   // 도감 표시 컨트롤
   const [dicIdx, setDicIdx] = useState(0);
