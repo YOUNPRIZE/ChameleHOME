@@ -87,7 +87,6 @@ export default function AddAnimal():JSX.Element {
       };
       // 동물 추가하기
       if (!data) {
-        console.log(animalnfo)
         const addedAnimal = await axiosAnimal("animal", "POST", animalnfo);
         // 상태정보에 저장하고 동물리스트로 이동
         addAnimal({...addedAnimal, dict_id : dictId})
@@ -96,7 +95,6 @@ export default function AddAnimal():JSX.Element {
       // 동물 수정하기
       else if (data) {
         const updatedAnimal = await axiosAnimal(`animal/${data.id}`, "PUT", animalnfo);
-        console.log(updatedAnimal)
         // 상태정보에 저장하고 동물 상세정보로 이동
         updateAnimal({...updatedAnimal, dict_id : dictId});
         navigate(`../AnimalDetail/${data.id}`)
