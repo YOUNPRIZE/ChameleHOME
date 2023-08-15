@@ -68,6 +68,11 @@ public class UserService {
                 .orElseThrow(() -> new IllegalArgumentException("Unexpected user"));
     }
 
+    public User findByUserId(String userId) {
+        return userRepository.findByUserId(userId)
+                .orElseThrow(() -> new RuntimeException("해당 아이디가 존재하지 않습니다."));
+    }
+
     @Transactional
     public User update(Long id, UpdateUserRequest request) {
         User user = userRepository.findById(id).orElseThrow(() -> new IllegalArgumentException());
