@@ -37,10 +37,12 @@ export default function AddAnimal():JSX.Element {
   // 상태 정보 Props 로드
   const cageId = Number(useParams().cageId);
   const animalDic = animalDicStore(state => state.dictionary);
-  const dic = !data? '도감에 없음' : animalDic.find(dic => dic.id === data.dict_id)?.spices
+  const filteredDic = animalDic.filter(dic => dic.spices !== "알 수 없음")
+  const unknown = animalDic.find(dic => dic.spices === "알 수 없음")
+  const dic = !data? '알 수 없음' : animalDic.find(dic => dic.id === data.dict_id)?.spices
 
   // 변수명 기록
-  const [ dictId, setDictId ] = useState(!data? 0 : data.dict_id);
+  const [ dictId, setDictId ] = useState(!data? unknown!.id : data.dict_id);
   const [ species, setspecies ] = useState(dic);
   const [ photo, setanimalImg ] = useState(!data? 'Not_Choosed.jpg' : data.photo)
   const [ gender, setGender ] = useState(!data? 'Male' : data.gender);
@@ -96,7 +98,6 @@ export default function AddAnimal():JSX.Element {
       // 동물 수정하기
       else if (data) {
         const updatedAnimal = await axiosAnimal(`animal/${data.id}`, "PUT", animalnfo);
-        console.log(updatedAnimal)
         // 상태정보에 저장하고 동물 상세정보로 이동
         updateAnimal({...updatedAnimal, dict_id : dictId});
         navigate(`../AnimalDetail/${data.id}`)
@@ -120,11 +121,11 @@ export default function AddAnimal():JSX.Element {
         </Dropdown.Toggle>
         <Dropdown.Menu className={`${style.dropdownItems}`}>
           {/* 도감에 없는 동물일 경우 */}
-          <Dropdown.Item onClick={() => handleDic('도감에 없음', 'Not_Choosed.jpg', 0)}>
-            도감에 없음
+          <Dropdown.Item onClick={() => handleDic('알 수 없음', 'Not_Choosed.jpg', unknown!.id)}>
+            알 수 없음
           </Dropdown.Item>
           {/* 도감에 있으면 드롭다운에서 선택 */}
-          { animalDic.map((dic, index) => (
+          { filteredDic.map((dic, index) => (
             <Dropdown.Item key={index} onClick={() => handleDic(dic.spices, dic.img, dic.id)}>
               {dic.spices}
             </Dropdown.Item>
