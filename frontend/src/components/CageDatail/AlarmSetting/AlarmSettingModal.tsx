@@ -23,7 +23,7 @@ export default function AlarmSettingModal(props:{modalShow:boolean, handleClose:
   const [startTime, setStartTime] = useState<string | undefined>(undefined);
   useEffect(() => {
     if (settingInfo) {
-      const dateProps = new Date(settingInfo.recent_date);
+      const dateProps = new Date(settingInfo.recent);
       const year = dateProps.getFullYear();
       const month = ("0" + (dateProps.getMonth()+1)).slice(-2);
       const day = ( "0" + dateProps.getDate()).slice(-2);
@@ -66,25 +66,26 @@ export default function AlarmSettingModal(props:{modalShow:boolean, handleClose:
       const dateTime = new Date(`${dayStart.current?.value} ${timeStart.current?.value}`);
       const today = new Date();
       // 알람 시작이 현재 시각 이후인지 확인
-      if (dateTime <= today) {
+      if (dateTime < today) {
         alert("시작 시간이 현재 시간보다 빠릅니다!");
         return
       }
       try {
         const AlarmInfo = {
-          cage_id: cageId,
+          cageId: cageId,
           name: name.current?.value,
           cycle : cycle,
-          recent_date : dateTime,
+          recent : dateTime,
         }
         // 알람 추가
         if (settingInfo === null) {
+          console.log(AlarmInfo)
           const addedSetting = await axiosAlarm("alarm", "POST", AlarmInfo);
-          addSetting(addedSetting)
+          // addSetting(addedSetting)
         }
         // 알람 수정하기
         else if (settingInfo !== null) {
-          const updatedSetting = await axiosAlarm(`alarm/${settingInfo.id}`, "PUT", AlarmInfo);
+          const updatedSetting = await axiosAlarm(`alarm/${settingInfo.arm_id}`, "PUT", AlarmInfo);
           updateSetting(updatedSetting)
         }
         // 알람창 종료

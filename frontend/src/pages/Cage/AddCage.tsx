@@ -5,7 +5,7 @@ import { axiosCage } from 'constants/AxiosFunc';
 // 상태 정보 import
 import { nowPageStore } from 'store/myPageStore';
 import { userInfoStore } from 'store/userInfoStore';
-import { myCagesStore } from 'store/myCageStore';
+import { myCage, myCagesStore } from 'store/myCageStore';
 // 컴포넌트 import
 import AddBtn from 'components/Shared/AddBtn';
 // 스타일 import
@@ -52,7 +52,6 @@ export default function AddCage():JSX.Element {
     try {
       const cageInput = {
         id: userID,
-        // cageId: userID,
         cage_name : cageName.current?.value ? cageName.current?.value : `${animalToBreed} 케이지`,
         snum: cageSerial.current?.value,
         set_temp : 25,
@@ -62,7 +61,8 @@ export default function AddCage():JSX.Element {
         category: animal_types[animalToBreed]
       }
       const CageInfo = await axiosCage("cage", "POST", cageInput)
-      addCage(CageInfo)
+      const newCage:myCage = {...cageInput, cageId:CageInfo.cageId}
+      addCage(newCage)
       navigate("/Cages")
     }
     catch {
