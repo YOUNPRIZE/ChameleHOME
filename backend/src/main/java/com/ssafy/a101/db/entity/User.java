@@ -51,11 +51,11 @@ public class User {
         this.nickname = nickname;
         this.email = email;
     }
-    public void update(String password, String nickname, String email){
+    public void update(String password, String nickname){
 //        this.userId = userId;
         this.password = password;
         this.nickname = nickname;
-        this.email = email;
+//        this.email = email;
     }
 //    public User update(String nickname){
 //        this.nickname = nickname;
