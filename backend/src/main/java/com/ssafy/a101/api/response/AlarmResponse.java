@@ -8,14 +8,11 @@ import java.util.Date;
 
 @Getter
 public class AlarmResponse {
-
-
     private final  Long arm_id;
     private final Long cageId;
     private final String name;
     private final Long cycle;
     private final Date recent;
-
 
     public AlarmResponse(Alarm alarm){
         this.arm_id = alarm.getArm_id();

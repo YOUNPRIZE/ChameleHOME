@@ -12,12 +12,10 @@ import java.util.Date;
 @AllArgsConstructor // 모든 필드 값을 파라미터로 받는 생성자 추가
 @Getter
 public class AddAlarmRequest {
-
     private Long cageId;
     private String name;
     private Long cycle;
     private Date recent;
-
     public Alarm toEntity(){
         return Alarm.builder()
                 .name(name)
@@ -25,6 +23,4 @@ public class AddAlarmRequest {
                 .recent(recent)
                 .build();
     }
-
-
 }

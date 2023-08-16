@@ -20,7 +20,6 @@ import java.util.stream.Collectors;
 @RestController // http response blog  에 객체 데이터를 json  형식으로 반환하는 컨트롤러
 @CrossOrigin("*")
 public class AnimalController {
-
     private final AnimalService animalService;
     private final DictionaryService dictionaryService;
     private final CageService cageService;
@@ -33,17 +32,14 @@ public class AnimalController {
                 .map(AnimalResponse::new)
                 //.toList()  .//자바 16 이상 사용가능
                 .collect(Collectors.toList()); // 위랑 같은 기능
-
         return ResponseEntity.ok()
                 .body(animals);
     }
 
-    
     // 특정 동물 조회
     @GetMapping("/api/animal/{id}")
     public ResponseEntity<AnimalResponse> fingAnimal(@PathVariable long id){
         Animal animal = animalService.findById(id);
-
         return ResponseEntity.ok()
                 .body(new AnimalResponse(animal));
     }
@@ -63,23 +59,15 @@ public class AnimalController {
     public ResponseEntity<Animal> updateAnimal(@PathVariable long id,
                                                  @RequestBody UpdateAnimalRequest request) {
         Animal updatedAnimal = animalService.update(id, request);
-
         return ResponseEntity.ok()
                 .body(updatedAnimal);
     }
 
-
-    
     // 동물 삭제
     @DeleteMapping("/api/animal/{id}")
     public ResponseEntity<Void> deleteAnimal(@PathVariable long id) {
         animalService.delete(id);
-
         return ResponseEntity.ok()
                 .build();
     }
-
-
-
-    
 }

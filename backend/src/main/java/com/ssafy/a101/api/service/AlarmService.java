@@ -16,7 +16,6 @@ import java.util.List;
 @RequiredArgsConstructor // final  이 붙거나 @notnull  이 붙은 필드 생성자 추가
 @Service //빈으로 등록
 public class AlarmService {
-
     private final AlarmRepository alarmRepository;
     private final CageRepository cageRepository;
 
@@ -28,7 +27,6 @@ public class AlarmService {
         return alarmRepository.findById(arm_id)
                 .orElseThrow(()-> new IllegalArgumentException("no"));
     }
-
 
     //알람 추가
     public Alarm save(AddAlarmRequest request) {
@@ -48,11 +46,6 @@ public class AlarmService {
         return alarm;
     }
 
-
-
     // 알람 삭제
     public void delete(long arm_id){ alarmRepository.deleteById(arm_id);}
-
-
-
 }

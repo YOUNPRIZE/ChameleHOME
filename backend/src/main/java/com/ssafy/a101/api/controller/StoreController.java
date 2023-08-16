@@ -19,7 +19,6 @@ import java.util.stream.Collectors;
 @RestController
 @CrossOrigin("*")
 public class StoreController {
-
     private final StoreService storeService;
     
     // 스토어 전체보기
@@ -36,15 +35,11 @@ public class StoreController {
                 .body(stores);
     }
 
-
-    
     // 스토어 골라보기
     @GetMapping("/api/store/{store_id}")
     public ResponseEntity<StoreResponse> findStore(@PathVariable long store_id){
         Store store = storeService.findById(store_id);
-
         return ResponseEntity.ok()
                 .build();
     }
-
 }

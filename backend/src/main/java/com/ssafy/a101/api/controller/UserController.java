@@ -37,12 +37,9 @@ public class UserController {
     }
 
     @PostMapping("/join/email")
-    public  ResponseEntity<String> email(@RequestParam String email) throws Exception {
+    public  ResponseEntity<String> email(@RequestBody String email) throws Exception {
         String code = emailService.sendSimpleMessage(email);
-//        int number = emailService.sendMail(email);
-//        String code = "" + number;
         return ResponseEntity.ok().body(code);
-
     }
 
     // 로그인
@@ -58,14 +55,6 @@ public class UserController {
         return ResponseEntity.ok()
                 .body(new UserResponse(user));
     }
-
-    // 회원 가입
-//    @PostMapping("/api/user")
-//    public ResponseEntity<User> addUser(@RequestBody AddUserRequest request){
-//        User savedUser = userService.save(request);
-//        return ResponseEntity.status(HttpStatus.CREATED)
-//                .body((savedUser));
-//    }
 
     // 회원 정보 수정
     @PutMapping("/{id}")
