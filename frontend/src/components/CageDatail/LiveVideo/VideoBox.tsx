@@ -10,8 +10,7 @@ export default function VideoBox():JSX.Element {
   return (
     // 동영상 컨테이너
     <div className={`${style.videoContainer}`}>
-        <iframe src="https://192.168.204.97" width={0.35*vh} height={0.35*vh} title='liveCage' id="content"></iframe>
-        {/* <iframe width={0.35*vh} height={0.35*vh} id="content" src="https://www.youtube.com/embed/9Ec-op7MGHc" title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen></iframe> */}
+      <iframe src="https://70.12.246.73" width={0.35*vh} height={0.35*vh} title='liveCage' id="content"></iframe>
     </div>
   )
 }
