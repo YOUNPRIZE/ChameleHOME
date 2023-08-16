@@ -21,27 +21,27 @@ export default function InnerCageInfo({handleSetting}:{ handleSetting:Function})
     <div className={`${style.settingContatiner} ${style.mainContainer}`}>
       {/* 온도 */}
       <InnerCageInfoItem 
-        live={nowCage.temp !== 0? `${Math.round(nowCage.temp)}℃` : "연결 X"} 
+        live={nowCage.temp !== null ? `${Math.round(nowCage.temp)}℃` : "연결 X"} 
         setting={`${myCage?.set_temp}℃`} 
         icon={faTemperatureThreeQuarters} 
-        up={()=>handleSetting([1,0,false])} 
-        down={()=>handleSetting([-1,0,false]) }
+        up={()=>handleSetting([1,0,0])} 
+        down={()=>handleSetting([-1,0,0]) }
       />
       {/* 습도 */}
       <InnerCageInfoItem 
-        live={nowCage.hum !== 0? `${nowCage.hum}%` : "연결 X"} 
+        live={nowCage.hum !== null ? `${nowCage.hum}%` : "연결 X"} 
         setting={`${myCage?.set_hum}%`} 
         icon={faDroplet} 
-        up={()=>handleSetting([0,1,false])} 
-        down={()=>handleSetting([0,-1,false]) }
+        up={()=>handleSetting([0,1,0])} 
+        down={()=>handleSetting([0,-1,0]) }
       />
       {/* 조명 */}
       <InnerCageInfoItem 
-        live={nowCage.uv !== ""? nowCage.uv : "연결X"} 
-        setting={myCage?.set_uv? "On":"Off"} 
+        live={nowCage.uv !== null? `${nowCage.uv? "On" : "Off"}` : "연결X"} 
+        setting={myCage?.set_uv === 0? "Off": "On" } 
         icon={faLightbulb} 
-        up={()=>handleSetting([0,0,true])} 
-        down={()=>handleSetting([0,0,true]) }
+        up={()=>handleSetting([0,0,1])} 
+        down={()=>handleSetting([0,0,1])}
       />
     </div>
   )
