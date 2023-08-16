@@ -5,4 +5,6 @@ const getAge = (birth:Date):number => {
   return today.getFullYear() - birthDate.getFullYear() + 1;
 }
 
-export {getAge}
+
+
+export { getAge }
