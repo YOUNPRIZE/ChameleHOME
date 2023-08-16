@@ -41,9 +41,40 @@ spring:
   h2:
     console:
       enabled: true
+  mail:
+    smtp:
+      auth: true
+      port: 465
+      socketFactory:
+        class: javax.net.ssl.SSLSocketFactory
+        fallback: false
+        port: 465
+      starttls:
+        required: true
+        enable: true
+
+#  mail:
+#    host: smtp.naver.com
+#    port: 587
+#    username: younprize # 앱 비밀번호 발급받은 google 계정
+#    password: A967788! # 발급받은 앱 비밀번호 (16자리 입니다.) -> 복붙
+#    properties:
+#      debug: true
+#      mail:
+#        smtp:
+#          ssl:
+#            enable: true
+##            trust: smtp.naver.com
+#          starttls:
+#            enable: false
+#          auth: true
 jwt:
   token:
    secret: VlwEyVBsYt9V7zq57TejMnVUyzblYcfPQye08f7MGVA9XkHa
 #jwt:
 #  issuer: ysang10@naver.com
 #  secret_key: study-springboot
+
+AdminMail:
+  id: younprizee@gmail.com
+  password: ouzxlsfcxnzhflri
