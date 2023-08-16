@@ -72,9 +72,10 @@ public class UserService {
     }
 
     @Transactional
-    public User update(Long id, UpdateUserRequest request) {
+    public User update(Long id, UpdateUserRequest dto) {
         User user = userRepository.findById(id).orElseThrow(() -> new IllegalArgumentException());
-        user.update(request.getPassword(), request.getNickname(), request.getEmail());
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+        user.update(encoder.encode(dto.getPassword()), dto.getNickname());
         return user;
     }
 
