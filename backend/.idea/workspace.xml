@@ -5,8 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="029f519a-ddbc-43c1-a158-06f30e3a49f3" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ssafy/a101/api/controller/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ssafy/a101/api/controller/UserController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ssafy/a101/api/service/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ssafy/a101/api/service/UserService.java" afterDir="false" />
+
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -122,8 +121,6 @@
       <workItem from="1691453543916" duration="11166000" />
       <workItem from="1691453543916" duration="4613000" />
       <workItem from="1691995387163" duration="17377000" />
-      <workItem from="1692059578789" duration="2476000" />
-      <workItem from="1692085130382" duration="2451000" />
     </task>
     <servers />
   </component>

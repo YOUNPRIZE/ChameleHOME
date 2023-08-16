@@ -37,13 +37,13 @@ VALUES
     ('Store Item 5', 'Item Description 5', 'https://example.com/item5', 3000, 'item5.jpg');
 
 -- Alarm 테이블에 데이터 삽입
-INSERT INTO Alarm (cage_id, name, cycle, recent)
+INSERT INTO alarm (cage_id, name, cycle, recent)
 VALUES
-    (1, 'Alarm 1', 1230, NOW()),
-    (2, 'Alarm 2', 1222, NOW()),
-    (3, 'Alarm 3', 3300, NOW()),
-    (4, 'Alarm 4', 4400, NOW()),
-    (5, 'Alarm 5', 5555, NOW());
+    (3, 'Alarm 1', 1230, NOW()),
+    (4, 'Alarm 2', 1222, NOW()),
+    (5, 'Alarm 3', 3300, NOW()),
+    (6, 'Alarm 4', 4400, NOW()),
+    (7, 'Alarm 5', 5555, NOW());
 
 -- Animal 테이블에 데이터 삽입
 INSERT INTO Animal (cage_id, dict_id, name, gender, birth, issue, created_at, photo)
