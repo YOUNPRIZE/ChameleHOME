@@ -41,8 +41,9 @@ spring:
   h2:
     console:
       enabled: true
-#jwt:
-  # secret: VlwEyVBsYt9V7zq57TejMnVUyzblYcfPQye08f7MGVA9XkHa
+jwt:
+  token:
+   secret: VlwEyVBsYt9V7zq57TejMnVUyzblYcfPQye08f7MGVA9XkHa
 #jwt:
 #  issuer: ysang10@naver.com
 #  secret_key: study-springboot
