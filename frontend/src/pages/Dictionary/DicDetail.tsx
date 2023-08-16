@@ -27,7 +27,7 @@ export default function DicDetail():JSX.Element {
     "수명" : dicItemInfo?.lifespan,
     "서식지": dicItemInfo?.home,
     "먹이" : dicItemInfo?.feed,
-    "먹이주기" : dicItemInfo?.feedCycle,
+    "먹이주기" : dicItemInfo?.feed_cycle,
     "온도" : dicItemInfo?.temp,
     "습도" : dicItemInfo?.humidity,
     "조명" : dicItemInfo?.lighting,

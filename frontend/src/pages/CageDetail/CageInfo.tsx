@@ -1,12 +1,13 @@
 // 훅 import 
 import {useParams } from 'react-router-dom';
-import { useEffect } from 'react'
-import { axiosAnimal, axiosAuto, axiosAlarm } from 'constants/AxiosFunc';
+import { useEffect, useRef } from 'react'
+import { Message, Client } from 'paho-mqtt';
+import { axiosCage } from 'constants/AxiosFunc';
 // 상태 정보 import
 import { nowPageStore } from 'store/myExtraStore';
 import { myCagesStore } from 'store/myCageStore';
-import { myAnimalStore } from 'store/myAnimalStore';
-import { alarmSettingStore, autoSettingStore } from 'store/mySettingStore';
+import { nowCageValueStore } from 'store/myCageStore';
+import { nowLoadingStore } from 'store/myExtraStore';
 // 컴포넌트 import
 import AnimalBox from 'components/CageDatail/CageInfo/AnimalBox';
 import InnerCageInfo from 'components/CageDatail/CageInfo/InnerCageInfo';
@@ -21,52 +22,86 @@ export default function CageInfo():JSX.Element {
     changePage("케이지 정보");
   }, [])
 
-  // 케이지, 동물들 정보
+  // 상태정보, props 받기
   const cageId = Number(useParams().cageId);
   const myCage = myCagesStore(state => (state.cages)).find((cage) => (cage.cageId === cageId));
-  
-  // 동물 정보 db에서 가져오기 함수
-  const setAnimals = myAnimalStore(state => state.setAnimals)
-  const loadCageInfos = async() => {
-    try {
-      const animalInfos = await axiosAnimal(`${cageId}/animals`, "GET")
-      setAnimals(animalInfos)
-    }
-    catch {
-      // 오류 처리
-    }
-  }
+  const nowCage = nowCageValueStore();
+  const setIsLoading = nowLoadingStore(state => state.setIsLoading);
 
-  // 자동화 세팅 db에서 가져오기 함수
-  const setAutoSetting = autoSettingStore(state => state.setSetting)
-  const loadAutoSettingInfos = async() => {
-    try {
-      const settingInfos = await axiosAuto(`${cageId}/setting`, "GET")
-      setAutoSetting(settingInfos)
-    }
-    catch {
-      // 오류 처리
-    }
-  }
-
-  // 알람세팅 db에서 가져오기 함수
-  const setAlarmSetting = alarmSettingStore(state => state.setSetting)
-  const loadAlarmSettingInfos = async() => {
-    try {
-      const settingInfos = await axiosAlarm(`${cageId}/alarms`, "GET")
-      setAlarmSetting(settingInfos)
-    }
-    catch {
-      // 오류 처리
-    }
-  }
-
-  // db 로드 함수 모두 실행
+  // 케이지 내부 센서값 받기
+  const clientRef = useRef<Client|null>(null);
   useEffect(() => {
-    loadCageInfos();
-    loadAutoSettingInfos();
-    loadAlarmSettingInfos();
-  },[])
+    setIsLoading(true)
+    // 케이지 아이디 판단
+    if (nowCage.cageId !== cageId) {
+      nowCage.setCageId(cageId);
+      nowCage.setTemp(0);
+      nowCage.setHum(0);
+      nowCage.setUv("");
+    }
+    // Mqtt 연결
+    const client = new Client("i9a101.p.ssafy.io", 9001, "client");
+    clientRef.current = client;
+    if (!client.isConnected()) {
+      client.connect({
+        userName: "FRONT",
+        password: "1234",
+        useSSL:true,
+        onSuccess: () => { 
+          // 커넥트에 성공(구독)
+          client.subscribe(`${myCage?.snum}/sensorval`);
+          setIsLoading(false);
+        },
+        onFailure: () => { 
+          // 커넥트 실패
+          setIsLoading(false);
+        }
+      });
+    };
+    // 토픽을 통해 센서값 받기
+    client.onMessageArrived = (message: Message) => {
+      const payload = message.payloadString;
+      const sensorInfo = JSON.parse(payload);
+      // 토픽에 따라 상태 정보 업데이트
+      nowCage.setTemp(Number(sensorInfo.Temp));
+      nowCage.setHum(Number(sensorInfo.Humid));
+      nowCage.setUv(sensorInfo.uv === "0"? "Off" : "On");
+    };
+    // 컴포넌트가 언마운트되면 연결 해제
+    return () => {
+      if (client.isConnected()) {
+        client.disconnect();
+      }
+    };
+  }, []);
+  
+  // 환경 세팅 조절 후 Mqtt로 세팅값 보내기
+  const updateCage = myCagesStore(state => state.updateCage);
+  const handleSetting = (setting:[number,number,boolean]) => {
+    const client = clientRef.current;
+    // mycage와 client가 유효할 때만 함수 실행
+    if (nowCage.uv !== "" && client?.isConnected() && myCage) {
+      // 세팅값 조절하기
+      myCage.set_temp += setting[0];
+      myCage.set_hum += setting[1];
+      myCage.set_uv = setting[2]? Math.abs(myCage.set_uv-1) : myCage.set_uv;
+      // 조절한 세팅값 저장
+      try {
+        // 데이터베이스 수정
+        const updatedCageInfo = axiosCage(`cage/${cageId}`, "PUT", myCage);
+        // 로컬 스토리지 수정
+        updateCage(myCage);
+        // 세팅값 Mqtt로 보내기
+        const payload = {Temp: myCage?.set_temp, Humid: myCage?.set_temp, Uv: myCage?.set_uv,};
+        const message = new Message(JSON.stringify(payload));
+        message.destinationName = `${myCage?.snum}/setval`;
+        client.send(message);
+      }
+      catch {
+        // 오류 처리
+      }
+    }
+  }
 
   // 페이지 렌더링
   return (
@@ -74,7 +109,7 @@ export default function CageInfo():JSX.Element {
     {/* 동물 컨테이너 */}
     <AnimalBox cageId={cageId}/>
     {/* 실시간 환경 정보 컨테이너 */}
-    <InnerCageInfo myCage={myCage}/>
+    <InnerCageInfo handleSetting={handleSetting}/>
     {/* 추가 세팅 컨테이너 */}
     <SettingBtnBox/>
     </>

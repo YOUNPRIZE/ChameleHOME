@@ -1,19 +1,19 @@
 // 훅 import 
-import { useNavigate, useParams, useLocation } from 'react-router-dom';
-import { useEffect, useState, useRef } from 'react'
-import { axiosAnimal } from 'constants/AxiosFunc';
+import { useNavigate, useParams, useLocation } from "react-router-dom";
+import { useEffect, useState, useRef } from "react"
+import { axiosAnimal } from "constants/AxiosFunc";
 // 상태 정보 import
-import { nowPageStore } from 'store/myExtraStore';
-import { animalDicStore } from 'store/animalDicStore'
-import { myAnimalStore } from 'store/myAnimalStore';
+import { nowPageStore } from "store/myExtraStore";
+import { animalDicStore } from "store/animalDicStore"
+import { myAnimalStore } from "store/myAnimalStore";
 // 컴포넌트 import
-import AddBtn from 'components/Shared/AddBtn';
+import AddBtn from "components/Shared/AddBtn";
 // 스타일 import
-import 'bootstrap/dist/css/bootstrap.min.css'
-import style from 'styles/CageDetail/AddAnimal.module.css'
-import Dropdown from 'react-bootstrap/Dropdown'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faMars, faVenus } from '@fortawesome/free-solid-svg-icons';
+import "bootstrap/dist/css/bootstrap.min.css"
+import style from "styles/CageDetail/AddAnimal.module.css"
+import Dropdown from "react-bootstrap/Dropdown"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { faMars, faVenus } from "@fortawesome/free-solid-svg-icons";
 
 export default function AddAnimal():JSX.Element {
   // 전달된 데이터 받기
@@ -38,15 +38,15 @@ export default function AddAnimal():JSX.Element {
   const cageId = Number(useParams().cageId);
   const animalDic = animalDicStore(state => state.dictionary);
   const unknown = animalDicStore(state => state.unknown)
-  const dic = !data || data.spices === "알 수 없음" ? 
-    '알 수 없음' : 
+  const dic = !data || data.spices === "기타" ? 
+    "기타" : 
     animalDic.find(dic => dic.id === data.dict_id)?.spices
 
   // 변수명 기록
   const [ dictId, setDictId ] = useState(!data? unknown!.id : data.dict_id);
   const [ species, setspecies ] = useState(dic);
-  const [ photo, setanimalImg ] = useState(!data? 'Not_Choosed.jpg' : data.photo)
-  const [ gender, setGender ] = useState(!data? 'Male' : data.gender);
+  const [ photo, setanimalImg ] = useState(!data? "Not_Choosed.jpg" : data.photo)
+  const [ gender, setGender ] = useState(!data? "Male" : data.gender);
   const name = useRef<HTMLInputElement>(null);
   const birth = useRef<HTMLInputElement>(null);
   const issue = useRef<HTMLInputElement>(null);
@@ -59,8 +59,8 @@ export default function AddAnimal():JSX.Element {
   }
 
   // 성별 선택
-  const MaleIcon = ():JSX.Element => <FontAwesomeIcon icon={faMars} color='blue' />;
-  const FemaleIcon = ():JSX.Element => <FontAwesomeIcon icon={faVenus} color='red' />;
+  const MaleIcon = ():JSX.Element => <FontAwesomeIcon icon={faMars} color="blue" />;
+  const FemaleIcon = ():JSX.Element => <FontAwesomeIcon icon={faVenus} color="red" />;
 
   // 동물 추가하기 or 수정하기 함수
   const addAnimal = myAnimalStore(state => state.addAnimal);
@@ -93,7 +93,7 @@ export default function AddAnimal():JSX.Element {
         const addedAnimal = await axiosAnimal("animal", "POST", animalnfo);
         // 상태정보에 저장하고 동물리스트로 이동
         addAnimal({...addedAnimal, dict_id : dictId})
-        navigate('../AnimalList')
+        navigate("../AnimalList")
       }
       // 동물 수정하기
       else if (data) {
@@ -121,8 +121,8 @@ export default function AddAnimal():JSX.Element {
         </Dropdown.Toggle>
         <Dropdown.Menu className={`${style.dropdownItems}`}>
           {/* 도감에 없는 동물일 경우 */}
-          <Dropdown.Item onClick={() => handleDic('알 수 없음', 'Not_Choosed.jpg', unknown!.id)}>
-            알 수 없음
+          <Dropdown.Item onClick={() => handleDic("기타", "Not_Choosed.jpg", unknown!.id)}>
+            기타
           </Dropdown.Item>
           {/* 도감에 있으면 드롭다운에서 선택 */}
           { animalDic.map((dic, index) => (
@@ -137,7 +137,7 @@ export default function AddAnimal():JSX.Element {
         {/* 성별 */}
         <Dropdown>
           <Dropdown.Toggle variant="light" className={`${style.inputInContainer} ${style.boxShadow}`} style={{width:"15vw"}} >
-            {gender === 'Male' ? <MaleIcon/> : <FemaleIcon/>}
+            {gender === "Male" ? <MaleIcon/> : <FemaleIcon/>}
           </Dropdown.Toggle>
           <Dropdown.Menu className={style.genderItem}>
             <Dropdown.Item onClick={() => setGender("Male")}>
@@ -149,7 +149,7 @@ export default function AddAnimal():JSX.Element {
           </Dropdown.Menu>
         </Dropdown>
         {/* 이름 */}
-        <input type="text" placeholder='동물 이름을 입력해주세요' defaultValue={data? data.name : null}
+        <input type="text" placeholder="동물 이름을 입력해주세요" defaultValue={data? data.name : null}
         className={`${style.inputInContainer} ${style.boxShadow}`} style={{width:"70vw"}} ref={name}/>
       </div>
       {/* 생일 입력 */}
@@ -159,7 +159,7 @@ export default function AddAnimal():JSX.Element {
         className={`${style.inputInContainer} ${style.boxShadow}`} style={{width:"70vw"}}/>
       </div>
       {/* 특이사항 입력 */}
-      <input placeholder='특이사항을 입력해주세요.' ref={issue} defaultValue={data? data.issue : null}
+      <input placeholder="특이사항을 입력해주세요." ref={issue} defaultValue={data? data.issue : null}
       className={`${style.inputInContainer} ${style.issueInput} ${style.boxShadow} ${style.alignCenter}`} />
       {/* 추가버튼 */}
       <AddBtn feature={handleAdd} command={data? "수정하기" : undefined}/>

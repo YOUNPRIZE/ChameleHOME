@@ -1,10 +1,7 @@
 // 훅|함수 import 
 import { useParams } from 'react-router-dom';
-import { useEffect, useRef } from 'react'
-import { Message, Client } from 'paho-mqtt';
-import { axiosCage } from 'constants/AxiosFunc';
 // 상태 정보 import
-import {  myCage, myCagesStore } from 'store/myCageStore';
+import {  myCagesStore } from 'store/myCageStore';
 import { nowCageValueStore } from 'store/myCageStore';
 // 컴포넌트 import
 import InnerCageInfoItem from './InnerCageInfoItem';
@@ -13,90 +10,11 @@ import style from 'styles/CageDetail/CageDetail.module.css'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import { faTemperatureThreeQuarters, faDroplet, faLightbulb } from '@fortawesome/free-solid-svg-icons'
 
-// 케이지 내부 실시간 정보 및 세팅 정보
-export default function InnerCageInfo(props:{myCage:myCage|undefined}):JSX.Element {
-  // props 받아오기
+export default function InnerCageInfo({handleSetting}:{ handleSetting:Function}):JSX.Element {
+  // props|상태정보 받아오기
   const cageId = Number(useParams().cageId);
-  const myCage = props.myCage;
-  // 상태 정보 받아오기
+  const myCage = myCagesStore(state => (state.cages)).find((cage) => (cage.cageId === cageId));
   const nowCage = nowCageValueStore();
-
-  // Mqtt 통신 토픽
-  const getInfoTopic = `${myCage?.snum}/sensorval`
-  const sendInfoTopic = `${myCage?.snum}/setval`
-
-  // 케이지 내부 센서값 받기
-  const clientRef = useRef<Client|null>(null);
-  useEffect(() => {
-    // 케이지 아이디 판단
-    if (nowCage.cageId !== cageId) {
-      nowCage.setCageId(cageId);
-      nowCage.setTemp(0);
-      nowCage.setHum(0);
-      nowCage.setUv("");
-    }
-    // Mqtt 연결
-    const client = new Client("i9a101.p.ssafy.io", 9001, "client");
-    clientRef.current = client;
-    if (!client.isConnected()) {
-      client.connect({
-        userName: "FRONT",
-        password: "1234",
-        useSSL:true,
-        onSuccess: () => { 
-          // 커넥트에 성공(구독)
-          console.log("커넥트 성공")
-          client.subscribe(getInfoTopic);
-        },
-        onFailure: () => { 
-          console.log("커넥트 실패")
-          // 커넥트 실패
-        }
-      });
-    };
-    // 토픽을 통해 센서값 받기
-    client.onMessageArrived = (message: Message) => {
-      const payload = message.payloadString;
-      const sensorInfo = JSON.parse(payload);
-      // 토픽에 따라 상태 정보 업데이트
-      nowCage.setTemp(Number(sensorInfo.Temp));
-      nowCage.setHum(Number(sensorInfo.Humid));
-      nowCage.setUv(sensorInfo.uv === "0"? "Off" : "On");
-    };
-    // 컴포넌트가 언마운트되면 연결 해제
-    return () => {
-      client.disconnect();
-    };
-  }, []);
-  
-  // 환경 세팅 조절 후 Mqtt로 세팅값 보내기
-  const updateCage = myCagesStore(state => state.updateCage);
-  const handleSetting = (setting:[number,number,boolean]) => {
-    const client = clientRef.current;
-    // mycage와 client가 유효할 때만 함수 실행
-    if (client && client.isConnected() && myCage) {
-      // 세팅값 조절하기
-      myCage.set_temp += setting[0];
-      myCage.set_hum += setting[1];
-      myCage.set_uv = setting[2]? Math.abs(myCage.set_uv-1) : myCage.set_uv;
-      // 조절한 세팅값 저장
-      try {
-        // 데이터베이스 수정
-        const updatedCageInfo = axiosCage(`cage/${cageId}`, "PUT", myCage);
-        // 로컬 스토리지 수정
-        updateCage(myCage);
-        // 세팅값 Mqtt로 보내기
-        const payload = {Temp: myCage?.set_temp, Humid: myCage?.set_temp, Uv: myCage?.set_uv,};
-        const message = new Message(JSON.stringify(payload));
-        message.destinationName = sendInfoTopic;
-        client.send(message);
-      }
-      catch {
-        // 오류 처리
-      }
-
-    }
-  }
 
   // 컴포넌트 렌더링
   return (
