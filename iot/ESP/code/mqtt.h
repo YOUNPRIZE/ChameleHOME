@@ -5,6 +5,7 @@
 char* topic = "1/sensorval";
 char* get_topic = "1/setval";
 char* error_topic = "error";
+char* ip_topic = "1/ip";
 
 // Define client
 EspMQTTClient client(
@@ -75,6 +76,7 @@ struct MQTT {
 
     // Serialize JSON data and return as String
     serializeJson(doc, data);
+    data += "\n";
     return data;
   }
 
@@ -94,6 +96,11 @@ struct MQTT {
   void tx() {
     client.publish(topic, data);
     data = "";
+  }
+
+  // Transmit sensor data
+  void ipTx() {
+    client.publish(ip_topic, "192.168.204.97");
   }
 
   // Error check for required keys in JSON data
