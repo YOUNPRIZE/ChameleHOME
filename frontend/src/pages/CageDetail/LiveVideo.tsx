@@ -44,12 +44,10 @@ export default function LiveVideo():JSX.Element {
         onSuccess: () => {
           client.subscribe(`${myCage?.snum}/ip`);
           setIsLoading(false)
-          console.log("연결 성공");
         },
         // 커넥트 실패
         onFailure: (err) => { 
           setIsLoading(false)
-          console.log("연결 실패")
         }
       });
     };
