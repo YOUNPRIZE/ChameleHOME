@@ -45,9 +45,9 @@ public class MqttSubConfig implements MqttCallback {
     // 메시지가 도착하면 호출되는 메소드
     @Override
     public void messageArrived(String topic, MqttMessage message) throws Exception {
-        System.out.println("======메세지 도착=======");
-        System.out.println(message);
-        System.out.println("topic : "+topic+", id : "+message.getId()+", payload : "+new String(message.getPayload()));
+//        System.out.println("======메세지 도착=======");
+//        System.out.println(message);
+//        System.out.println("topic : "+topic+", id : "+message.getId()+", payload : "+new String(message.getPayload()));
     }
 
     // 구독 신청
@@ -66,11 +66,4 @@ public class MqttSubConfig implements MqttCallback {
         }
         return result;
     }
-
-//    public static void main(String[] args) {
-//        MyMqtt_Sub_Client subobj = new MyMqtt_Sub_Client();
-////        192.168.114.21
-////        70.12.228.122
-//        subobj.init("tcp://54.166.67.73:1883", "ssafy").subscribe("test/j");
-//    }
 }
