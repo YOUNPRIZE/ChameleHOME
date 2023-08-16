@@ -18,7 +18,6 @@ import java.util.stream.Collectors;
 @RestController
 @CrossOrigin("*")
 public class DictionaryController {
-
     private final DictionaryService dictionaryService;
 
     // 전체값 확인
@@ -28,7 +27,6 @@ public class DictionaryController {
                 .stream()
                 .map(DictionaryResponse::new)
                 .collect(Collectors.toList());
-
         return ResponseEntity.ok()
                 .body(dictionarys);
     }
@@ -37,7 +35,6 @@ public class DictionaryController {
     @GetMapping("/api/dict/{id}")
     public ResponseEntity<DictionaryResponse> findDictionary(@PathVariable long id){
         Dictionary dictionary = dictionaryService.findById(id);
-
         return ResponseEntity.ok()
                 .body(new DictionaryResponse(dictionary));
     }
