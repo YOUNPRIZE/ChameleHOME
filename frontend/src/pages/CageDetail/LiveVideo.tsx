@@ -53,8 +53,7 @@ export default function LiveVideo():JSX.Element {
     };
     // 케이지 내부 영상 주소 토픽을 통해 받기
     client.onMessageArrived = (message: Message) => {
-      const payload = message.payloadString;
-      const videoUrl = JSON.parse(payload);
+      const videoUrl = message.payloadString;
       // 토픽에 따라 상태 정보 업데이트
       if (url !== videoUrl) {
         setUrl(videoUrl)
@@ -74,7 +73,7 @@ export default function LiveVideo():JSX.Element {
     // client가 null값이 아니고 연결되었을 때만 함수 실행
     if (client && client.isConnected()) {
       const message = new Message(direction);
-      message.destinationName = `${cageId}/angle`;
+      message.destinationName = `${myCage?.snum}/angle`;
       client.send(message);
     }
   }
