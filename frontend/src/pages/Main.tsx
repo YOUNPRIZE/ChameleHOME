@@ -29,8 +29,7 @@ export default function Main():JSX.Element {
     changePage("홈");
   }, [])
 
-  // 로그인 후 데이터를 api를 통해 받아오는 함수
-
+  // 데이터를 api를 통해 받아오는 함수
   const loadInfos = async() => {
     try {
       // 로딩창으로 변경
