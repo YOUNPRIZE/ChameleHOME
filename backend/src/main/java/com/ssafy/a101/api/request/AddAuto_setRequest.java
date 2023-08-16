@@ -14,13 +14,11 @@ import java.util.Date;
 @AllArgsConstructor // 모든 필드 값을 파라미터로 받는 생성자 추가
 @Getter
 public class AddAuto_setRequest {
-
     private Long cageId;
     private String time;
     private Long set_temp;
     private Long set_hum;
     private Long set_uv;
-
     public Auto_set toEntity(){
         return Auto_set.builder()
                 .time(time)
@@ -29,5 +27,4 @@ public class AddAuto_setRequest {
                 .set_uv(set_uv)
                 .build();
     }
-
 }

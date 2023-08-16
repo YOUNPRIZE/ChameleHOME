@@ -5,7 +5,6 @@ import lombok.Getter;
 
 @Getter
 public class DictionaryResponse {
-
     private final Long id;
     private final String spices;
     private final String lifespan;

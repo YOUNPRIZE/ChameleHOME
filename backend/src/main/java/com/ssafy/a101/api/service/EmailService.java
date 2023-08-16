@@ -7,6 +7,7 @@ import javax.mail.internet.MimeMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.MailException;
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import java.util.Random;
@@ -20,8 +21,6 @@ public class EmailService {
     public static final String ePw = createKey();
 
     private MimeMessage createMessage(String to)throws Exception{
-//        System.out.println("보내는 대상 : "+ to);
-//        System.out.println("인증 번호 : "+ePw);
         MimeMessage  message = emailSender.createMimeMessage();
 
         message.addRecipients(RecipientType.TO, to); //보내는 대상
@@ -70,10 +69,10 @@ public class EmailService {
         return key.toString();
     }
 
+    @Async
     public String sendSimpleMessage(String to)throws Exception {
-        // TODO Auto-generated method stub
         MimeMessage message = createMessage(to);
-        try{//예외처리
+        try{ //예외처리
             emailSender.send(message);
         }catch(MailException es){
             es.printStackTrace();
