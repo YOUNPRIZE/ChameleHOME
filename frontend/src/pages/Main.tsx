@@ -5,7 +5,7 @@ import { axiosExtra } from 'constants/AxiosFunc';
 // 상태 정보 import
 import { animalDicStore, dicAnimal } from 'store/animalDicStore';
 import { userInfoStore } from 'store/userInfoStore';
-import { nowPageStore } from 'store/myExtraStore';
+import { nowPageStore, nowLoadingStore } from 'store/myExtraStore';
 import { myCagesStore } from 'store/myCageStore';
 import { itemStore } from 'store/itemStore'; 
 // 컴포넌트 import
@@ -21,6 +21,7 @@ export default function Main():JSX.Element {
   const setDictionary = animalDicStore(state => state.setDictionary)
   const setUnknown = animalDicStore(state => state.setUnknown)
   const setItems = itemStore(state => state.setItems)
+  const setIsLoading = nowLoadingStore(state => state.setIsLoading);
 
   // 페이지명 변경
   const changePage = nowPageStore(state => state.setPage);
@@ -29,15 +30,18 @@ export default function Main():JSX.Element {
   }, [])
 
   // 로그인 후 데이터를 api를 통해 받아오는 함수
+
   const loadInfos = async() => {
     try {
+      // 로딩창으로 변경
+      setIsLoading(true)
       // 케이지 정보 받아오기
       const cageInfos = await axiosCage(`${userID}/cages`, "GET")
       setCages(cageInfos)
       // 사전 정보 받아오기
       const dicInfos:Array<dicAnimal> = await axiosExtra("dicts", "GET")
-      const filteredInfos = dicInfos.filter(dic => dic.spices !== "알 수 없음")
-      const unknown = dicInfos.find(dic => dic.spices === "알 수 없음")
+      const filteredInfos = dicInfos.filter(dic => dic.spices !== "기타")
+      const unknown = dicInfos.find(dic => dic.spices === "기타")
       setDictionary(filteredInfos)
       setUnknown(unknown!)
       // 상점 정보 불러오기
@@ -45,6 +49,9 @@ export default function Main():JSX.Element {
       setItems(itemInfos)
     }
     catch {
+    }
+    finally {
+      setIsLoading(false)
     }
   }
 
@@ -55,13 +62,13 @@ export default function Main():JSX.Element {
 
   // 페이지 렌더링
   return (
-    <>
-      {/* 케이지 보기 컨테이너 */}
-      <CageBox/>
-      {/* 도감 보기 컨테이너 */}
-      <DictionaryBox/>
-      {/* 관련 상품 보기 컨테이너 */}
-      <ItemBox/>
-    </>
+      <> 
+        {/* 케이지 보기 컨테이너 */}
+        <CageBox/>
+        {/* 도감 보기 컨테이너 */}
+        <DictionaryBox/>
+        {/* 관련 상품 보기 컨테이너 */}
+        <ItemBox/>
+      </>
   )
 }
