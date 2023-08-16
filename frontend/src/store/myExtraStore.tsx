@@ -18,4 +18,16 @@ export const nowPageStore = create<nowPageState>()(
   )
 )
 
+// 로딩중 정의
+export interface nowLoading {
+  isLoading: boolean;
+  setIsLoading: (status:boolean) => void;
+}
+
+// 로딩중 상태 정보
+export const nowLoadingStore = create<nowLoading>()(set => ({
+  isLoading: false,
+  setIsLoading:(status:boolean) => set({isLoading: status})
+  }),
+)
 

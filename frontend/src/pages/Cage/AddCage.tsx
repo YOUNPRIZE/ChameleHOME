@@ -1,17 +1,17 @@
 // 훅 import 
-import { useEffect, useState, useRef } from 'react'
-import { useNavigate } from 'react-router-dom';
-import { axiosCage } from 'constants/AxiosFunc';
+import { useEffect, useState, useRef } from "react"
+import { useNavigate } from "react-router-dom";
+import { axiosCage } from "constants/AxiosFunc";
 // 상태 정보 import
-import { nowPageStore } from 'store/myExtraStore';
-import { userInfoStore } from 'store/userInfoStore';
-import { myCage, myCagesStore } from 'store/myCageStore';
+import { nowPageStore } from "store/myExtraStore";
+import { userInfoStore } from "store/userInfoStore";
+import { myCage, myCagesStore } from "store/myCageStore";
 // 컴포넌트 import
-import AddBtn from 'components/Shared/AddBtn';
+import AddBtn from "components/Shared/AddBtn";
 // 스타일 import
-import 'bootstrap/dist/css/bootstrap.min.css'
-import style from 'styles/Cage/AddCage.module.css'
-import Dropdown from 'react-bootstrap/Dropdown'
+import "bootstrap/dist/css/bootstrap.min.css"
+import style from "styles/Cage/AddCage.module.css"
+import Dropdown from "react-bootstrap/Dropdown"
 
 export default function AddCage():JSX.Element {
   // 페이지명 변경
@@ -22,8 +22,8 @@ export default function AddCage():JSX.Element {
 
   // 변수명 기록
   const userID = userInfoStore(state => state.user).id
-  const [animalToBreed, setAnimalToBreed] = useState('알 수 없음');
-  const [animalImg, setanimalImg] = useState(process.env.PUBLIC_URL+'/images/Not_Choosed.jpg')
+  const [animalToBreed, setAnimalToBreed] = useState("기타");
+  const [animalImg, setanimalImg] = useState(process.env.PUBLIC_URL+"/images/Not_Choosed.jpg")
   const cageName = useRef<HTMLInputElement>(null);
   const cageSerial = useRef<HTMLInputElement>(null);
 
@@ -31,7 +31,7 @@ export default function AddCage():JSX.Element {
   type AnimalTypes = {
     [key: string]: string;
   };
-  const animal_types:AnimalTypes = {"뱀": "snake", "도마뱀": "lizard", "거북이": "turtle", "알 수 없음": "Not_Choosed"}
+  const animal_types:AnimalTypes = {"뱀": "snake", "도마뱀": "lizard", "거북이": "turtle", "기타": "Not_Choosed"}
   const chooseAnimal = (animal:string, url:string):void => {
     setAnimalToBreed(animal);
     setanimalImg(process.env.PUBLIC_URL+`/images/${url}.jpg`)
@@ -80,7 +80,7 @@ export default function AddCage():JSX.Element {
       {/* 케이지에 넣을 동물 리스트 드롭다운 */}
       <Dropdown>
         <Dropdown.Toggle variant="light" className={`${style.inputCageInfo} ${style.boxShadow}`}>
-          {animalToBreed === '알 수 없음' ? '어떤 파충류가 살 케이지입니까?' : animalToBreed}
+          {animalToBreed}
         </Dropdown.Toggle>
         <Dropdown.Menu className={`${style.dropdownItems}`}>
           {
@@ -93,10 +93,10 @@ export default function AddCage():JSX.Element {
         </Dropdown.Menu>
       </Dropdown>
       {/* 케이지 이름 입력 */}
-      <input type="text" placeholder='케이지 이름을 입력해주세요.' 
+      <input type="text" placeholder="케이지 이름을 입력해주세요." 
       className={`${style.inputCageInfo} ${style.boxShadow}`} ref={cageName}/>
       {/* 케이지 시리얼넘버 입력 */}
-      <input type="text" placeholder='시리얼 넘버를 입력해주세요.' 
+      <input type="text" placeholder="시리얼 넘버를 입력해주세요." 
       className={`${style.inputCageInfo} ${style.boxShadow}`} ref={cageSerial}/>
       {/* 케이지 추가하기 버튼 */}
       <AddBtn feature={handleAddCage}/>
