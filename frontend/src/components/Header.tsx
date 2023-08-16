@@ -2,7 +2,7 @@
 import { useState,useEffect } from 'react';
 import { useNavigate } from 'react-router-dom'
 // 상태 정보 import
-import { nowPageStore } from 'store/myExtraStore';
+import { nowPageStore, nowLoadingStore } from 'store/myExtraStore';
 import { userInfoStore } from 'store/userInfoStore';
 // 스타일 import
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -11,9 +11,6 @@ import style from 'styles/Header.module.css';
 import 'bootstrap/dist/css/bootstrap.min.css'
 
 export default function Header():JSX.Element {
-  // 로그인 여부 판단
-  const isLoggedIn = userInfoStore(state => state.isLoggedIn)
-
   // 현재 페이지명을 받아와서 표시
   const [pageName, setPageName] = useState(''); // 페이지명 상태
   useEffect(() => {

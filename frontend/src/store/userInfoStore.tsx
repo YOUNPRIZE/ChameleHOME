@@ -39,7 +39,10 @@ export const userInfoStore = create<userInfoState>()(
       })),
       // 로그아웃 메서드
       deleteUserInfo: () => set((state) => 
-      ({
+      { 
+        localStorage.clear();
+        sessionStorage.clear();
+        return {
         ...state,
         user: {
           id:0,
@@ -49,7 +52,7 @@ export const userInfoStore = create<userInfoState>()(
           number:"",
         },
         isLoggedIn: false
-      }))
+      }})
     }),
     // 로컬스토리지 저장 옵션
     {name: "userInfo", 
