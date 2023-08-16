@@ -36,8 +36,8 @@ public class UserController {
         return ResponseEntity.ok().body(response);
     }
 
-    @PostMapping("/join/email")
-    public  ResponseEntity<String> email(@RequestBody String email) throws Exception {
+    @GetMapping("/join/email/{email}")
+    public  ResponseEntity<String> email(@PathVariable String email) throws Exception {
         String code = emailService.sendSimpleMessage(email);
         return ResponseEntity.ok().body(code);
     }
