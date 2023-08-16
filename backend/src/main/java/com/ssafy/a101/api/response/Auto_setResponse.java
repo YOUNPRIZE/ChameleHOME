@@ -9,7 +9,6 @@ import java.util.Date;
 
 @Getter
 public class Auto_setResponse {
-
     private final  Long set_id;
     private final String time;
     private final Long cageId;

@@ -8,8 +8,5 @@ import java.sql.Time;
 import java.util.List;
 
 public interface Auto_setRepository extends JpaRepository<Auto_set, Long> {
-
     List<Auto_set> findByCageId_CageId(Long cage_id);
-
-
 }

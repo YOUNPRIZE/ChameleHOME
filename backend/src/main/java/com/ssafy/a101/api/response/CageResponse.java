@@ -8,7 +8,6 @@ import java.util.Date;
 
 @Getter
 public class CageResponse {
-
     private final Long id;
     private final Long cageId;
     private final String snum;

@@ -14,9 +14,7 @@ import java.util.Date;
 @Getter
 @Setter
 public class UpdateAlarmRequest {
-
     private String name;
     private Long cycle;
     private Date recent;
-
 }

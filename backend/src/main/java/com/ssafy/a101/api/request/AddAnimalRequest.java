@@ -15,7 +15,6 @@ import java.util.Date;
 @AllArgsConstructor // 모든 필드 값을 파라미터로 받는 생성자 추가
 @Getter
 public class AddAnimalRequest {
-
     private Long cage_id;
     private Long dict_id;
     private  String name;
@@ -24,7 +23,6 @@ public class AddAnimalRequest {
     private  String issue;
     private  Date created_at;
     private  String photo;
-
     public Animal toEntity(Cage cage, Dictionary dictionary) {
         return Animal.builder()
                 .cageId(cage)
