@@ -14,5 +14,5 @@ public class UpdateUserRequest {
     private String userId;
     private String password;
     private String nickname;
-    private Long number;
+    private String number;
 }

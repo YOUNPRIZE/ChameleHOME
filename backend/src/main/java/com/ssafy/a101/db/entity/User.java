@@ -32,7 +32,7 @@ public class User {
     private String nickname;
 
     @Column(name = "number", updatable = true)
-    private Long number;
+    private String number;
 
 //    @Column(name = "user_img", updatable = true)
 //    private String user_img;
@@ -45,13 +45,13 @@ public class User {
 //    }
 
     @Builder
-    public User(String userId, String password, String nickname, Long number) {
+    public User(String userId, String password, String nickname, String number) {
         this.userId = userId;
         this.password = password;
         this.nickname = nickname;
         this.number = number;
     }
-    public void update(String password, String nickname, Long number){
+    public void update(String password, String nickname, String number){
 //        this.userId = userId;
         this.password = password;
         this.nickname = nickname;
