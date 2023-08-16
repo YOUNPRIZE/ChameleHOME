@@ -34,8 +34,12 @@ def generate_frames():
     # Set width and height  320,240
     #cap.set(3,512)
     #cap.set(4,384)
-    cap.set(3,640)
-    cap.set(4,480)
+
+    #cap.set(3,640)
+    #cap.set(4,480)
+    
+    cap.set(3,300)
+    cap.set(4,300)
 
     # Start loop 
     while True:
@@ -212,7 +216,7 @@ def on_connect(client, userdata, flags, rc):
     # arg2 : userdata 
 
     # subscribe topic "angle"
-    client.subscribe("2/angle")
+    client.subscribe("1/angle")
 
 
 def on_message(client, userdata, msg):
@@ -248,19 +252,20 @@ def main():
     # multithreading mqtt_tjhread, app_thread
     try:
         t1 = threading.Thread(target=mqtt_thread)
-        t2 = threading.Thread(target=recognize)
+        #t2 = threading.Thread(target=recognize)
         t1.start()
-        t2.start()
-        ssl_context = ssl.SSLContext(ssl.PROTOCOL_TLS)
-        ssl_context.load_cert_chain(certfile='cert.pem', keyfile='key.pem', password='ssafy')
+        #t2.start()
+        #ssl_context = ssl.SSLContext(ssl.PROTOCOL_TLS)
+        #ssl_context.load_cert_chain(certfile='fullchain1.pem', keyfile='privkey.pem')
         while True:
-            app.run(host='0.0.0.0', port=8008, debug=True, ssl_context=ssl_context)
+            #app.run(host='0.0.0.0', port=443, debug=True, ssl_context=ssl_context)
+            app.run(host='0.0.0.0', port=443, ssl_context=('./fullchain1.crt', './privkey.key'))
             #app.run(host='0.0.0.0', port='8008', debug=True)
 
     # to exit use Keyboard Interrupt
     except KeyboardInterrupt:
         t1.join()
-        t2.join()
+        #t2.join()
 
 
 if __name__ == '__main__':
