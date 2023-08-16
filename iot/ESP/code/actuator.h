@@ -113,7 +113,7 @@ struct LEDControl {
   }
 
   bool statusCheck() {
-    return status > 0;
+    return status;
   }
 };
 
@@ -135,11 +135,6 @@ void actuatorInit() {
   // LED setup
   ledcSetup(ch, freq, resolution);
   ledcAttachPin(LED, ch);
-}
-
-// Validation check (if any)
-void validation_check() {
-  
 }
 
 // Humidity auto operation
@@ -204,7 +199,7 @@ Status getStatus(WaterMotor water_motor, Humidifier humidifier, HeatPad heat_pad
 }
 
 // Operate modules based on the value of RPI4
-void actuate(const Status set_flag, WaterMotor water_motor, Humidifier humidifier, HeatPad heat_pad, CoolingFan cool_fan, LEDControl led_ctrl) {
+void actuate(Status set_flag, WaterMotor water_motor, Humidifier humidifier, HeatPad heat_pad, CoolingFan cool_fan, LEDControl led_ctrl) {
   if (set_flag.waterfall) water_motor.on();
   else water_motor.off();
 
