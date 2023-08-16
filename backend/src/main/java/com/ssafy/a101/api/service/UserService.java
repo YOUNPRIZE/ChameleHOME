@@ -34,7 +34,7 @@ public class UserService {
                 .userId(dto.getUserId())
                 .password(encoder.encode(dto.getPassword()))
                 .nickname(dto.getNickname())
-                .number(dto.getNumber())
+                .email(dto.getEmail())
                 .build()).getId();
     }
 
@@ -74,7 +74,7 @@ public class UserService {
     @Transactional
     public User update(Long id, UpdateUserRequest request) {
         User user = userRepository.findById(id).orElseThrow(() -> new IllegalArgumentException());
-        user.update(request.getPassword(), request.getNickname(), request.getNumber());
+        user.update(request.getPassword(), request.getNickname(), request.getEmail());
         return user;
     }
 
