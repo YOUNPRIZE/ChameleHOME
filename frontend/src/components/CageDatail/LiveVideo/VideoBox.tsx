@@ -11,7 +11,7 @@ export default function VideoBox({url}:{url:string}):JSX.Element {
   return (
     // 동영상 컨테이너
     <div className={`${style.videoContainer}`}>
-      <iframe src={url} width={0.35*vh} height={0.35*vh} title='liveCage' id="content"></iframe>
+      <iframe src={`https://${url}`} width={0.35*vh} height={0.35*vh} title='liveCage' id="content"></iframe>
     </div>
   )
 }

@@ -1,3 +1,4 @@
+/* 이미지 영역 */
 .imgContainer{
   width: 100%;
   height: 40vh;
@@ -9,6 +10,8 @@
   object-fit: cover;
 }
 
+
+/* 사용자 정보 영역 */
 .cardContainer {
   position: fixed;
   top: 40vh;
@@ -28,7 +31,7 @@
   height: 25vh;
   border-radius: 50px / 50px;
   box-shadow: 3px 3px 20px 3px gray;
-  padding: 2vh 10vw;
+  padding: 4vh 10vw;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -36,15 +39,35 @@
 
 .myName {
   font-weight: bold;
-  font-size: 4vh;
+  font-size: 3vh;
 }
 
 .infoIcon {
   font-size: 3vh;
 }
 
+.iconBox {
+  width: 4vh;
+  height: 4vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 5px 5px;
+  box-shadow: 3px 3px 10px 3px gray;
+}
+
 .infoText {
-  font-size: 2vh;
+  font-size: 1.7vh;
+  font-weight: bold;
+}
+
+.updateInput {
+  width: 80%;
+  height: 100%;
+  border-radius: 5px 5px;
+  font-size: 1.7vh;
+  font-weight: bold;
+  text-align: center;
 }
 
 .logOut {
@@ -54,12 +77,13 @@
 }
 
 .infoContainer {
-  padding: 0vh 3vw;
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
+
+/* 버튼 컨테이너 */
 .farContainer {
   display: flex;
   justify-content: space-between;
@@ -80,4 +104,5 @@
   box-shadow: 4px 4px 5px 3px lightgray;
   border: none;
   font-size: 3vmin;
+  font-weight: bold;
 }

@@ -70,24 +70,27 @@ export const myCagesStore = create<myCages>() (
 // 현재 케이지 환경 정보
 interface nowCageValue {
   cageId: number;
-  temp : number;
-  hum : number;
-  uv : string;
+  temp : number | null;
+  hum : number | null;
+  uv : number | null;
   setCageId : (val:number) => void;
-  setTemp : (val:number) => void;
-  setHum : (val:number) => void;
-  setUv : (val:string) => void;
+  setTemp : (val:number | null) => void;
+  setHum : (val:number | null) => void;
+  setUv : (val:number | null) => void;
 }
 
 export const nowCageValueStore = create<nowCageValue>() (
+  persist(
   set => ({
     cageId: 0,
-    temp: 0,
-    hum : 0,
-    uv : "",
+    temp: null,
+    hum : null,
+    uv : null,
     setCageId : (cageId) => set({ cageId }),
     setTemp : (temp) => set({ temp }),
     setHum : (hum) => set({ hum }),
     setUv : (uv) => set({ uv }),
-  })
+  }),
+  {name:"nowCage"}
+  )
 )

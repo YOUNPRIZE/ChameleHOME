@@ -35,9 +35,9 @@ export default function CageInfo():JSX.Element {
     // 케이지 아이디 판단
     if (nowCage.cageId !== cageId) {
       nowCage.setCageId(cageId);
-      nowCage.setTemp(0);
-      nowCage.setHum(0);
-      nowCage.setUv("");
+      nowCage.setTemp(null);
+      nowCage.setHum(null);
+      nowCage.setUv(null);
     }
     // Mqtt 연결
     const client = new Client("i9a101.p.ssafy.io", 9001, "client");
@@ -65,7 +65,7 @@ export default function CageInfo():JSX.Element {
       // 토픽에 따라 상태 정보 업데이트
       nowCage.setTemp(Number(sensorInfo.Temp));
       nowCage.setHum(Number(sensorInfo.Humid));
-      nowCage.setUv(sensorInfo.uv === "0"? "Off" : "On");
+      nowCage.setUv(Number(sensorInfo.uv));
     };
     // 컴포넌트가 언마운트되면 연결 해제
     return () => {
@@ -77,14 +77,25 @@ export default function CageInfo():JSX.Element {
   
   // 환경 세팅 조절 후 Mqtt로 세팅값 보내기
   const updateCage = myCagesStore(state => state.updateCage);
-  const handleSetting = (setting:[number,number,boolean]) => {
+  const handleSetting = (setting:[number, number, number]) => {
     const client = clientRef.current;
     // mycage와 client가 유효할 때만 함수 실행
-    if (nowCage.uv !== "" && client?.isConnected() && myCage) {
+    if (nowCage.uv !== null && client?.isConnected() && myCage) {
       // 세팅값 조절하기
       myCage.set_temp += setting[0];
       myCage.set_hum += setting[1];
-      myCage.set_uv = setting[2]? Math.abs(myCage.set_uv-1) : myCage.set_uv;
+      myCage.set_uv = Math.abs(myCage.set_uv - setting[2]);
+      // 세팅값 예외 처리
+      if (myCage.set_temp < 0 || myCage.set_temp > 50) {
+        alert("허용 범위 밖의 온도입니다.")
+        myCage.set_temp -= setting[0]
+        return
+      }
+      if (myCage.set_hum < 0 || myCage.set_hum > 100) {
+        alert("허용 범위 밖의 습도입니다.")
+        myCage.set_hum -= setting[1]
+        return
+      }
       // 조절한 세팅값 저장
       try {
         // 데이터베이스 수정
@@ -92,7 +103,7 @@ export default function CageInfo():JSX.Element {
         // 로컬 스토리지 수정
         updateCage(myCage);
         // 세팅값 Mqtt로 보내기
-        const payload = {Temp: myCage?.set_temp, Humid: myCage?.set_temp, Uv: myCage?.set_uv,};
+        const payload = {Temp: myCage?.set_temp, Humid: myCage?.set_temp, uv: myCage?.set_uv,};
         const message = new Message(JSON.stringify(payload));
         message.destinationName = `${myCage?.snum}/setval`;
         client.send(message);
