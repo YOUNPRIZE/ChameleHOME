@@ -44,6 +44,25 @@ public class EmailService {
         return message;
     }
 
+    private MimeMessage alarmMessage(String to, String alarmName) throws Exception {
+        MimeMessage  message = emailSender.createMimeMessage();
+
+        message.addRecipients(RecipientType.TO, to); //보내는 대상
+        message.setSubject("[파충류치원] " + alarmName + " 알림"); //제목
+
+        String msgg="";
+        msgg+= "<div style='margin:20px;'>";
+        msgg+= "<h1>[파충류치원] 먹이 알림입니다.</h1>";
+        msgg+= "<div style='font-size:130%'><strong>";
+//        msgg+= "<strong>";
+        msgg+= alarmName + "</strong><div><br/> ";
+        msgg+= "<p>감사합니다.<p>";
+        message.setText(msgg, "utf-8", "html");//내용
+        message.setFrom(new InternetAddress("younprizee@gmail.com","파충류치원"));//보내는 사람
+
+        return message;
+    }
+
     public static String createKey() {
         StringBuffer key = new StringBuffer();
         Random rnd = new Random();
@@ -72,6 +91,18 @@ public class EmailService {
     @Async
     public String sendSimpleMessage(String to)throws Exception {
         MimeMessage message = createMessage(to);
+        try{ //예외처리
+            emailSender.send(message);
+        }catch(MailException es){
+            es.printStackTrace();
+            throw new IllegalArgumentException();
+        }
+        return ePw;
+    }
+
+    @Async
+    public String sendAlarmMessage(String to, String alarmName) throws Exception {
+        MimeMessage message = alarmMessage(to, alarmName);
         try{ //예외처리
             emailSender.send(message);
         }catch(MailException es){
