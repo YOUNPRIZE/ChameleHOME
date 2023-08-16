@@ -18,15 +18,6 @@ public class UserService {
 
     private final UserRepository userRepository;
 
-//    public User save(AddUserRequest dto) {
-//
-////        return userRepository.save(User.builder()
-////                        .userId(dto.toEntity().getUserId())
-////                .email(dto.getEmail())
-////                .password(dto.getPassword())
-////                .build()).getId();save(request.toEntity());
-//            return userRepository.save(dto.toEntity());
-//    }
     @Value("${jwt.token.secret}")
     private String key;
 
@@ -45,6 +36,13 @@ public class UserService {
                 .nickname(dto.getNickname())
                 .number(dto.getNumber())
                 .build()).getId();
+    }
+
+    public int check(String userId) {
+        int[] res = new int[1];
+        userRepository.findByUserId(userId)
+                .ifPresent(user -> res[0] = 1);
+        return res[0];
     }
 
     public String login (LoginUserRequest dto) {
