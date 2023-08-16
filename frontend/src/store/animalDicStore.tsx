@@ -5,7 +5,7 @@ export interface dicAnimal {
   spices: string;
   lifespan: string;
   feed: string;
-  feedCycle: string;
+  feed_cycle: string;
   temp: string;
   lighting: string;
   humidity: string;
