@@ -16,7 +16,7 @@ public class AddUserRequest {
     private String userId;
     private String password;
     private String nickname;
-    private Long number;
+    private String number;
 
     public User toEntity() {
         return User.builder()
