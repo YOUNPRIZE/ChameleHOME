@@ -20,10 +20,7 @@ import java.util.stream.Collectors;
 @RestController
 @CrossOrigin("*")
 public class Auto_setController {
-
     private final Auto_setService autoSetService;
-
-
 
     // 전체 세팅 조회
     @GetMapping("/api/{cage_id}/setting")
@@ -32,28 +29,18 @@ public class Auto_setController {
                 .stream()
                 .map(Auto_setResponse::new)
                 .collect(Collectors.toList());
-
         return ResponseEntity.ok()
                 .body(autosets);
     }
-
-
-
-
-
-
-
 
     // 특정 세팅 조회
     @GetMapping("/api/setting/{set_id}")
     public ResponseEntity<Auto_setResponse> findAutoset(@PathVariable long set_id){
         Auto_set autoset = autoSetService.findById(set_id);
-
         return ResponseEntity.ok()
                 .body(new Auto_setResponse(autoset));
         //id에 들어온 값을 조회한다.
     }
-
 
     //세팅 추가
     @PostMapping("/api/setting")
@@ -63,41 +50,20 @@ public class Auto_setController {
                 .body(autoSet);
     }
 
-    //세팅 수정\
+    //세팅 수정
     @PutMapping("/api/setting/{set_id}")
     public ResponseEntity<Auto_set> updateAutoset(@PathVariable long set_id,
                                                   @RequestBody UpdateAuto_setRequest request) {
         Auto_set updateAutoset = autoSetService.update(set_id, request);
-
         return ResponseEntity.ok()
                 .body(updateAutoset);
-
     }
-
 
     //세팅 삭제
     @DeleteMapping("/api/setting/{set_id}")
     public ResponseEntity<Void> deleteAutoset(@PathVariable long set_id){
         autoSetService.delete(set_id);
-
         return ResponseEntity.ok()
                 .build();
     }
-
-
-    // MQTT 존
-    // auto set controller 에서 값을 받아온다음 그 값을 전달을 해야한다.
-
-    //온도 전달
-
-
-    // 습도 전달
-
-    // uv 전달
-
-
-
-
-
-    
 }

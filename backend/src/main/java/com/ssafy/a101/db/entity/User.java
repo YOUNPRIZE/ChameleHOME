@@ -6,8 +6,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.util.Collection;
-import java.util.List;
 
 @Table(name = "users")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -22,9 +20,6 @@ public class User {
     @Column(name = "user_id", updatable = false)
     private String userId;
 
-//    @Column(name = "email", updatable = false)
-//    private String email;
-
     @Column(name = "password", updatable = true)
     private String password;
 
@@ -33,9 +28,6 @@ public class User {
 
     @Column(name = "email", updatable = true)
     private String email;
-
-//    @Column(name = "user_img", updatable = true)
-//    private String user_img;
 
 //    @Builder
 //    public User(String email, String password, String nickname) {
@@ -52,13 +44,7 @@ public class User {
         this.email = email;
     }
     public void update(String password, String nickname){
-//        this.userId = userId;
         this.password = password;
         this.nickname = nickname;
-//        this.email = email;
     }
-//    public User update(String nickname){
-//        this.nickname = nickname;
-//        return this;
-//    }
 }

@@ -51,7 +51,6 @@ public class A101Application {
 			Long autoSetCageId =autoSet.getCageId();
 
 			//if (autoSet.getTime().equals(formattedTime)) {
-			System.out.println("케이지 아이디 값입니다." + autoSetCageId);
 
 			 //mqtt 통신 부분 / start 까지
 				new Thread(new Runnable() {
@@ -65,9 +64,6 @@ public class A101Application {
 								",\"Humid\"" + ":" + "\"" + hum + "\"" +
 								",\"uv\"" + ":" + "\"" + uv + "\"" +
 								"}";
-
-						System.out.println(msg);
-
 						sender.send("1/setval", msg);  //  토픽,  보낼 메세지
 						sender.close(); // 작업 완료되면 종료
 					}

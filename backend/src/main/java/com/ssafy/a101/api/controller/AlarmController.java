@@ -18,7 +18,6 @@ import java.util.stream.Collectors;
 @RestController
 @CrossOrigin("*")
 public class AlarmController {
-
     private final AlarmService alarmService;
 
     // 전체 알람 조회
@@ -28,22 +27,17 @@ public class AlarmController {
                 .stream()
                 .map(AlarmResponse::new)
                 .collect(Collectors.toList());
-
         return ResponseEntity.ok()
                 .body(alarms);
     }
-
-
 
     // 특정 알람 조회
     @GetMapping("/api/alarm/{arm_id}")
     public ResponseEntity<AlarmResponse> findAlarm(@PathVariable long arm_id){
         Alarm alarm = alarmService.findByid(arm_id);
-
         return ResponseEntity.ok()
                 .body(new AlarmResponse(alarm));
     }
-
 
     // 알람 추가
     @PostMapping("/api/alarm")
@@ -53,19 +47,14 @@ public class AlarmController {
                 .body(savedAlarm);
     }
 
-
-
     // 알람 수정
     @PutMapping("/api/alarm/{arm_id}")
     public ResponseEntity<Alarm> updateAlarm(@PathVariable Long arm_id,
                                              @RequestBody UpdateAlarmRequest request){
         Alarm updatedAlarm = alarmService.update(arm_id, request);
-
         return ResponseEntity.ok()
                 .body(updatedAlarm);
     }
-
-
 
     // 알람 삭제
     @DeleteMapping("/api/alarm/{arm_id}")
@@ -74,6 +63,4 @@ public class AlarmController {
         return ResponseEntity.ok()
                 .build();
     }
-
-
 }

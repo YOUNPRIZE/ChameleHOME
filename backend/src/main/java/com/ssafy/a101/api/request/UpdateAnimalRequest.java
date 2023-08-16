@@ -19,5 +19,4 @@ public class UpdateAnimalRequest {
     private  String issue;
     private  Date created_at;
     private  String photo;
-
 }
