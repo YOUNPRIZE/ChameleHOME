@@ -28,6 +28,7 @@
 }
 
 .warningText {
+  margin-top: 1.5vh;
   color: red;
   font-size: 1.5vh;
   font-weight: bold;

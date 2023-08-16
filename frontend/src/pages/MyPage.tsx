@@ -8,7 +8,7 @@ import { userInfoStore, userInfoState } from 'store/userInfoStore';
 import style from 'styles/MyPage.module.css'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faArrowRightToBracket, faSpellCheck, faPhone } from '@fortawesome/free-solid-svg-icons'
+import { faArrowRightToBracket, faSpellCheck, faEnvelope } from '@fortawesome/free-solid-svg-icons'
 import testImg from 'assets/test.jpg'
 
 
@@ -48,8 +48,8 @@ export default function MyPage():JSX.Element {
             <span className={style.infoText}>{userInfo.user.nickname}</span>
           </div>
           <div className={style.infoContainer}>
-            <FontAwesomeIcon icon={faPhone} className={style.infoIcon}/>
-            <span className={style.infoText}>{userInfo.user.number}</span>
+            <FontAwesomeIcon icon={faEnvelope} className={style.infoIcon}/>
+            <span className={style.infoText}>{userInfo.user.email}</span>
           </div>
         </div>
         {/* 회원 정보 수정, 탈퇴 영역 */}

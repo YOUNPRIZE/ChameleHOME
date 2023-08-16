@@ -24,7 +24,7 @@ const axiosAuth = async (url:string, method:string, data?:Partial<User>) => {
 };
 
 // 케이지 기능 관련 api 함수
-const axiosCage = async (url:string, method:string, data?:Partial<myCage>) => {
+const axiosCage = async (url:string, method:string, data?:Partial<myCage> | string) => {
   try {
     const response = await axios({
       method: method,
