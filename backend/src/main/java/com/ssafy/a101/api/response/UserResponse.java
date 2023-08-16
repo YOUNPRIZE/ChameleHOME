@@ -9,7 +9,7 @@ public class UserResponse {
     private final String userId;
     private final String password;
     private final String nickname;
-    private final String number;
+    private final String email;
 
 
     public UserResponse(User user){
@@ -17,6 +17,6 @@ public class UserResponse {
         this.userId = user.getUserId();
         this.password = user.getPassword();
         this.nickname = user.getNickname();
-        this.number = user.getNumber();
+        this.email = user.getEmail();
     }
 }
