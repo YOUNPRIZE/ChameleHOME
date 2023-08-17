@@ -8,6 +8,7 @@
 #include <DHT_U.h>
 #include <iostream>
 #include <HardwareSerial.h>
+#include <WiFi.h>
 
 // Macros
 #define DHTPIN 13     // Digital pin connected to the DHT sensor 
@@ -15,14 +16,24 @@
 #define BROCKERIP "" // MQTT Broker server IP
 #define WIFINAME "" // WiFi name
 #define WIFIPW "" // WiFi password
+#define USRNAME "" // MQTT User name
+#define USRPW "" // MQTT User password
 #define PORT 1883 // The MQTT port
-#define MINTEMP 20 // Minimum temperature
-#define MAXTEMP 50 // Maximum temperature
-#define MINHUMID 20 // Minimum humidity
-#define MAXHUMID 50 // Maximum humidity
 #define TXD_PIN 17 // Serial transmit pin
 #define RXD_PIN 16 // Serial receive pin
 
+// Setting static IP
+IPAddress STATICIP(); // ESP32가 사용할 IP address
+IPAddress GATEWAY();    // Gateway IP address (공유기 IP주소)
+
+IPAddress SUBNET();   // subnet mask
+IPAddress PRIMARYDNS();     // primary DNS server IP address
+IPAddress SECONDARYDNS();   // secondary DNS server IP address
+
+const int MINTEMP = 20; // Minimum temperature
+const int MAXTEMP = 50; // Maximum temperature
+const int MINHUMID = 20; // Minimum humidity
+const int MAXHUMID = 80; // Maximum humidity
 // Struct
 struct Info {
   float temp, humid;
