@@ -1,14 +1,11 @@
 package com.ssafy.a101;
 
 import com.ssafy.a101.api.request.UpdateAlarmRequest;
-import com.ssafy.a101.api.request.UpdateAutoSetRequest;
 import com.ssafy.a101.api.request.UpdateCageRequest;
 import com.ssafy.a101.api.service.AlarmService;
-import com.ssafy.a101.api.service.AutoSetService;
 import com.ssafy.a101.api.service.CageService;
 import com.ssafy.a101.api.service.EmailService;
 import com.ssafy.a101.config.MqttPubConfig;
-import com.ssafy.a101.db.entity.AutoSet;
 import com.ssafy.a101.db.entity.Cage;
 import com.ssafy.a101.db.entity.User;
 import com.ssafy.a101.db.repository.AlarmRepository;
@@ -20,22 +17,15 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ConfigurableApplicationContext;
-import org.springframework.format.datetime.DateFormatter;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 
-import java.sql.Time;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.time.ZoneId;
-import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
-import java.util.Optional;
 
 @SpringBootApplication
 @EnableScheduling
