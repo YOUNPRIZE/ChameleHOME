@@ -47,6 +47,7 @@ export default function CageInfo():JSX.Element {
         userName: "FRONT",
         password: "1234",
         useSSL:true,
+        timeout:1,
         onSuccess: () => { 
           // 커넥트에 성공(구독)
           client.subscribe(`${myCage?.snum}/sensorval`);
