@@ -18,7 +18,7 @@ public class DictionaryService {
     public List<Dictionary> findAll(){ return dictionaryRepository.findAll();}
 
 
-    // 특정 도담 조회
+    // 특정 도감 조회
     public Dictionary findById(Long id){
         return dictionaryRepository.findById(id)
                 .orElseThrow(()-> new IllegalArgumentException("조회안됨"));

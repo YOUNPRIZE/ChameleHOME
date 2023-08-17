@@ -18,20 +18,20 @@
   object-fit: contain;
 }
 
-/* 텍스트 정보 */
+/* 텍스트 정보(이름, 종, 성별) */
 .basicInfoContainer{
-  padding: 2vh 10vw;
-  height: 15vh;
+  padding: 3vh 10vw;
+  height: 20vh;
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
-.textContainer {
+.basicInnerContainer {
   height: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: space-evenly;
+  justify-content: space-between;
 }
 
 .infoName {
@@ -41,10 +41,18 @@
   text-align: start;
 }
 
-.infoSpecies {
+.infoTextLeft {
   margin: 0px 0px;
   font-size: 2vh;
   font-weight: bold;
+  text-align: start;
+}
+
+.infoTextRight {
+  margin: 0px 0px;
+  font-size: 2vh;
+  font-weight: bold;
+  text-align: end;
 }
 
 .infoGender {
@@ -61,6 +69,17 @@
   font-size: 10vh;
 }
 
+/* 수정, 삭제 버튼 */
+.btnBox {
+  width: 90%;
+  margin: 0px auto;
+  display: flex;
+  justify-content: space-between;
+}
+
+.btnTag{
+  width: 45%;
+}
 
 
 

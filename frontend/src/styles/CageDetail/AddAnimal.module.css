@@ -35,15 +35,15 @@
 
 /* 도감 이미지 */
 .cageImgContainer {
-  width: 40vmin;
-  height: 40vmin;
+  width: 70vw;
+  height: 25vh;
   margin: 5vh auto;
 }
 
 .cageImg {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain;
 }
 
 /* 도감 드롭다운 */
@@ -60,4 +60,5 @@
 .issueInput {
   width: 90vw;
   height: 30vh;
+  margin-bottom: 2vh;
 }

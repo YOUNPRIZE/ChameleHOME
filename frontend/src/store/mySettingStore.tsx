@@ -1,93 +1,19 @@
-import { Today } from '@mui/icons-material';
 import {create} from 'zustand'
 import {persist} from 'zustand/middleware'
-
-const test1:{ [key: number]: Array<autoSetting> } = {
-  1: [
-    {
-      setting_pk: 1,
-      cage_id: 1,
-      time: "12:30",
-      set_temp: 30,
-      set_hum : null,
-      set_uv : null,
-    },
-    {
-      setting_pk: 2,
-      cage_id: 1,
-      time: "17:30",
-      set_temp: 25,
-      set_hum : null,
-      set_uv : null,
-    },
-    {
-      setting_pk: 3,
-      cage_id: 1,
-      time: "20:30",
-      set_temp: null,
-      set_hum : 50,
-      set_uv : null,
-    },
-    {
-      setting_pk: 4,
-      cage_id: 1,
-      time: "11:30",
-      set_temp: null,
-      set_hum : 50,
-      set_uv : null,
-    },
-    {
-      setting_pk: 5,
-      cage_id: 1,
-      time: "05:30",
-      set_temp: null,
-      set_hum : 50,
-      set_uv : null,
-    },
-    {
-      setting_pk: 6,
-      cage_id: 1,
-      time: "11:30",
-      set_temp: null,
-      set_hum : null,
-      set_uv : true,
-    },
-  ],
-  2 :[],
-  3 :[],
-  4 :[],
-  5 :[],
-}
-
-const test2:{ [key: number]: Array<alarmSetting> } = {
-  1: [
-    {
-      alarm_pk: 1,
-      cage_id: 1,
-      name: "먹이알람",
-      cycle : 7200,
-      recent_date : new Date("2023-08-05 11:00:00"),
-    },
-  ],
-  2 :[],
-  3 :[],
-  4 :[],
-  5 :[],
-}
 
 
 // 자동화 설정 세팅
 export interface autoSetting {
-  setting_pk: number;
-  cage_id: number;
+  set_id: number;
+  cageId: number;
   time: string;
   set_temp: number | null;
   set_hum: number | null;
-  set_uv: boolean | null;
+  set_uv: number | null;
 }
 
 interface autoSettingState {
-  settingsInCages: { [key: number]: Array<autoSetting> };
+  settings: Array<autoSetting>;
   addSetting: (setting: autoSetting) => void;
   updateSetting: (setting: autoSetting) => void;
   deleteSetting: (id: number) => void;
@@ -97,11 +23,37 @@ interface autoSettingState {
 export const autoSettingStore = create<autoSettingState>()(
   persist(
   set => ({
-      settingsInCages: test1,
-      addSetting: (setting: autoSetting) => {console.log(setting)},
-      updateSetting: (setting: autoSetting) => {console.log(setting)},
-      deleteSetting: (id: number) => {console.log(id)},
-      setSetting: (settings: Array<autoSetting>) => {console.log(settings)},
+      settings: [],
+      // 세팅 추가
+      addSetting: (setting: autoSetting) => {
+        set((state) => {
+          state.settings.push(setting);
+          return {...state}
+        })
+      },
+      // 세팅 수정
+      updateSetting: (inputSetting: autoSetting) => {
+        set((state) => {
+          const settingIndex = state.settings.findIndex(setting => setting.set_id === inputSetting.set_id);
+          if (settingIndex === -1) {
+            return state;
+          }
+          const updatedsettings = [...state.settings];
+          updatedsettings[settingIndex] = inputSetting;
+          return { ...state, settings: updatedsettings };
+        });
+      },
+      // 세팅 삭제
+      deleteSetting: (id: number) => {        
+        set((state) => {
+          const updatedSettings = state.settings.filter(setting => setting.set_id !== id);
+          return { ...state, settings: updatedSettings };
+        })
+      },
+      // 기존 세팅 데이터 저장
+      setSetting: (settings: Array<autoSetting>) => {
+        set(state => {return {...state, settings:settings}})
+      },
     }),
   {name:'autoSettings'}
   )
@@ -110,15 +62,15 @@ export const autoSettingStore = create<autoSettingState>()(
 
 // 알람 설정 세팅
 export interface alarmSetting {
-  alarm_pk: number;
-  cage_id: number;
+  arm_id: number;
+  cageId: number;
   name: string;
   cycle : number;
-  recent_date : Date;
+  recent : Date;
 }
 
 interface alarmSettingState {
-  settingsInCages: { [key: number]: Array<alarmSetting> };
+  settings: Array<alarmSetting>;
   addSetting: (setting: alarmSetting) => void;
   updateSetting: (setting: alarmSetting) => void;
   deleteSetting: (id: number) => void;
@@ -128,11 +80,37 @@ interface alarmSettingState {
 export const alarmSettingStore = create<alarmSettingState>()(
   persist(
   set => ({
-      settingsInCages: test2,
-      addSetting: (setting: alarmSetting) => {console.log(setting)},
-      updateSetting: (setting: alarmSetting) => {console.log(setting)},
-      deleteSetting: (id: number) => {console.log(id)},
-      setSetting: (settings: Array<alarmSetting>) => {console.log(settings)},
+      settings: [],
+      // 알람 추가
+      addSetting: (setting: alarmSetting) => {
+        set((state) => {
+          state.settings.push(setting);
+          return {...state}
+        })
+      },
+      // 알람 수정
+      updateSetting: (inputSetting: alarmSetting) => {
+        set((state) => {
+          const settingIndex = state.settings.findIndex(setting => setting.arm_id === inputSetting.arm_id);
+          if (settingIndex === -1) {
+            return state;
+          }
+          const updatedsettings = [...state.settings];
+          updatedsettings[settingIndex] = inputSetting;
+          return { ...state, settings: updatedsettings };
+        });
+      },
+      // 알람 삭제
+      deleteSetting: (id: number) => {
+        set((state) => {
+          const updatedSettings = state.settings.filter(setting => setting.arm_id !== id);
+          return { ...state, settings: updatedSettings };
+        })
+      },
+      // 기존 알람 데이터 저장
+      setSetting: (settings: Array<alarmSetting>) => {
+        set(state => {return {...state, settings:settings}})
+      },
     }),
   {name:'alarmSetting'}
   )

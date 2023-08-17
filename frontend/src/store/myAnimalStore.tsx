@@ -1,89 +1,22 @@
 import {create} from 'zustand'
 import {persist} from 'zustand/middleware'
 
-// 테스트 동물 데이터
-const test = {
-  1 : [
-    {
-      animalId : 1,
-      cageId : 1,
-      species : "공비단뱀",
-      name : "뱀1",
-      gender : "female",
-      birth : new Date("2022-02-01"),
-      issue : "특이사항 없음",
-      created_at : new Date(),
-      photo: "Ball_Python.jpg"
-    },
-    {
-      animalId : 2,
-      cageId : 1,
-      species : "서부구렁이",
-      name : "뱀2",
-      gender : "male",
-      birth : new Date("2022-02-01"),
-      issue : "특이사항 없음",
-      created_at : new Date(),
-      photo:"Black_Rat_Snake.jpg"
-    },
-    {
-      animalId : 3,
-      cageId : 1,
-      species : "왕뱀",
-      name : "뱀3",
-      gender : "male",
-      birth : new Date("2022-02-01"),
-      issue : "특이사항 없음",
-      created_at : new Date(),
-      photo:"Boa_Constrictor.jpg"
-    },
-    {
-      animalId : 4,
-      cageId : 1,
-      species : "모렐리아브레들리",
-      name : "뱀4",
-      gender : "male",
-      birth : new Date("2022-02-01"),
-      issue : "특이사항 없음",
-      created_at : new Date(),
-      photo:"Bredl's_Python.jpg"
-    },
-  ],
-  2: [
-    {
-      animalId : 5,
-      cageId : 2,
-      species : "버마왕뱀",
-      name : "뱀5",
-      gender : "male",
-      age : 5,
-      birth : new Date("2022-02-01"),
-      issue : "특이사항 없음",
-      created_at : new Date(),
-      photo: "Burmese_Python.jpg"
-    },
-  ],
-  3 : [],
-  4 : [],
-  5 : [],
-}
-
 // 개별 동물 정의
 export interface Animal {
-  animalId : number;
+  id : number;
   cageId : number;
-  species : string;
+  dict_id : number;
   name : string;
   gender : string;
   birth : Date;
-  issue : string;
+  issue : string|null;
   created_at : Date;
   photo: string;
 }
 
 // 케이지별 동물들 리스트 정의
 export interface MyAnimal {
-  animalsInCages: { [key: number]: Array<Animal> };
+  animals: Array<Animal>;
   addAnimal: (animal: Animal) => void;
   updateAnimal: (animal: Animal) => void;
   deleteAnimal: (id: number) => void;
@@ -94,12 +27,41 @@ export interface MyAnimal {
 export const myAnimalStore = create<MyAnimal>() (
   persist(
     set => ({
-      animalsInCages : test,
-      addAnimal: (animal: Animal) => console.log(animal),
-      updateAnimal: (animal: Animal) => console.log(animal),
-      deleteAnimal: (id: number) => console.log(id),
-      setAnimals: (animals: Array<Animal>) => console.log(animals),
-    }),
+      animals : [],
+      // 동물 추가하기
+      addAnimal: (animal: Animal) => {
+        set((state) => {
+          state.animals.push(animal);
+          return {...state}
+        })
+      },
+      // 동물 데이터 업데이트
+      updateAnimal: (animal: Animal) => {
+        set((state) => {
+          // id와 일치하는 동물의 인덱스 탐색
+          const animalIndex = state.animals.findIndex(a => a.id === animal.id);
+          // id와 일치하는 케이지를 찾지 못한 경우, 현재 상태를 변경하지 않고 반환
+          if (animalIndex === -1) {
+            return state;
+          };
+          // 업데이트된 동물를 담는 새로운 배열을 생성
+          const updatedAnimals = [...state.animals];
+          updatedAnimals[animalIndex] = animal;
+          // 업데이트된 animals 배열을 가진 새로운 상태를 반환
+          return { ...state, animals: updatedAnimals };
+        });
+      },
+      // 특정 동물 삭제 
+      deleteAnimal: (id: number) => {
+          set((state) => {
+          const updatedAnimals = state.animals.filter(animal => animal.id !== id);
+          return { ...state, animals: updatedAnimals };
+        });
+      },
+      // 기존 동물 데이터 입력
+      setAnimals: (animals: Array<Animal>) => set(
+        state => {return {...state, animals:animals}})
+      }),
     {name:'myAnimls'}
   )
 )

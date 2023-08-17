@@ -7,7 +7,6 @@ import lombok.Setter;
 @Getter
 @Setter
 public class StoreResponse {
-
     private final Long store_id;
     private final String name;
     private final String itme;

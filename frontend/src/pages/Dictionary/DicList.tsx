@@ -1,7 +1,7 @@
-// 훅 import 
+// 훅 | 함수 import 
 import { useEffect } from 'react'
 // 상태 정보 import
-import { nowPageStore } from 'store/myPageStore';
+import { nowPageStore } from 'store/myExtraStore';
 import { animalDicStore } from 'store/animalDicStore'
 // 컴포넌트 import
 import DicItemShort from 'components/Dictionary/DicItemShort';
@@ -18,7 +18,7 @@ export default function DicList():JSX.Element {
   const changePage = nowPageStore(state => state.setPage);
   useEffect(() => {
     changePage("도감 목록");
-  })
+  }, [])
 
   // 페이지 렌더링
   return (
