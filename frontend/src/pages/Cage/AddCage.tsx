@@ -24,6 +24,7 @@ export default function AddCage():JSX.Element {
   const userID = userInfoStore(state => state.user).id
   const [animalToBreed, setAnimalToBreed] = useState("기타");
   const [animalImg, setanimalImg] = useState(process.env.PUBLIC_URL+"/images/Not_Choosed.jpg")
+  const [snumWarning, setSnumWarning] = useState("")
   const cageName = useRef<HTMLInputElement>(null);
   const cageSerial = useRef<HTMLInputElement>(null);
 
@@ -66,7 +67,7 @@ export default function AddCage():JSX.Element {
       navigate("/Cages")
     }
     catch {
-
+      setSnumWarning("이미 등록된 케이지입니다!")
     }
   }
   
@@ -98,6 +99,7 @@ export default function AddCage():JSX.Element {
       {/* 케이지 시리얼넘버 입력 */}
       <input type="text" placeholder="시리얼 넘버를 입력해주세요." 
       className={`${style.inputCageInfo} ${style.boxShadow}`} ref={cageSerial}/>
+      <p className="text-danger fw-bold">{snumWarning}</p>
       {/* 케이지 추가하기 버튼 */}
       <AddBtn feature={handleAddCage}/>
     </div>
