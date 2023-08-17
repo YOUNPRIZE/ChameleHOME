@@ -1,14 +1,18 @@
 package com.ssafy.a101;
 
 import com.ssafy.a101.api.request.UpdateAlarmRequest;
+import com.ssafy.a101.api.request.UpdateAutoSetRequest;
+import com.ssafy.a101.api.request.UpdateCageRequest;
 import com.ssafy.a101.api.service.AlarmService;
+import com.ssafy.a101.api.service.AutoSetService;
+import com.ssafy.a101.api.service.CageService;
 import com.ssafy.a101.api.service.EmailService;
 import com.ssafy.a101.config.MqttPubConfig;
-import com.ssafy.a101.db.entity.Auto_set;
+import com.ssafy.a101.db.entity.AutoSet;
 import com.ssafy.a101.db.entity.Cage;
 import com.ssafy.a101.db.entity.User;
 import com.ssafy.a101.db.repository.AlarmRepository;
-import com.ssafy.a101.db.repository.Auto_setRepository;
+import com.ssafy.a101.db.repository.AutoSetRepository;
 import com.ssafy.a101.db.repository.CageRepository;
 import org.eclipse.paho.client.mqttv3.MqttException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,6 +46,8 @@ public class A101Application {
 	private EmailService emailService;
 	@Autowired
 	private AlarmService alarmService;
+	@Autowired
+	private CageService cageService;
 
 	public static void main(String[] args) throws MqttException {
 		ConfigurableApplicationContext context = SpringApplication.run(A101Application.class, args);
@@ -81,24 +87,24 @@ public class A101Application {
 			}
 		}));
 	}
-
 	@Transactional
-	@Scheduled(cron = "0 * * * * *") // 매 분의 0초마다 실행
+	@Scheduled(cron = "0 * * * * *")
 	public void checkAlarms() throws MqttException {
 		MqttPubConfig sender = new MqttPubConfig();
 		LocalTime currentTime = LocalTime.now();
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss");
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:00");
 		String formattedTime = currentTime.format(formatter);
-		Auto_setRepository auto_setRepository = context.getBean(Auto_setRepository.class);
-
-		auto_setRepository.findAll().forEach((autoSet -> {
-			Long autoSetCageId =autoSet.getCageId();
-			//if (autoSet.getTime().equals(formattedTime)) {
+		System.out.println(formattedTime);
+		AutoSetRepository autoSetRepository = context.getBean(AutoSetRepository.class);
+		autoSetRepository.findAll().forEach((autoSet -> {
+			UpdateCageRequest updateCageRequest = new UpdateCageRequest();
+			if (autoSet.getTime().equals(formattedTime)) {
 			 //mqtt 통신 부분 / start 까지
 				new Thread(new Runnable() {
 				Long temp = autoSet.getSet_temp();
 				Long hum = autoSet.getSet_hum();
 				Long uv = autoSet.getSet_id();
+
 					@Override
 					public void run() {
 						String msg = "{" +
@@ -110,7 +116,11 @@ public class A101Application {
 						sender.close(); // 작업 완료되면 종료
 					}
 				}).start();
-			//}
+				updateCageRequest.setSet_temp(autoSet.getSet_temp());
+				updateCageRequest.setSet_hum(autoSet.getSet_hum());
+				updateCageRequest.setSet_uv(autoSet.getSet_uv());
+				cageService.updateEnv(autoSet.getCageId(), updateCageRequest);
+			}
 		}));
 	}
 }
