@@ -34,7 +34,7 @@ public class UserService {
                 .userId(dto.getUserId())
                 .password(encoder.encode(dto.getPassword()))
                 .nickname(dto.getNickname())
-                .email(dto.getEmail())
+                .number(dto.getNumber())
                 .build()).getId();
     }
 
