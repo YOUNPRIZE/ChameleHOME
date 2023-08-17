@@ -2,8 +2,9 @@
 import { useState,useEffect } from 'react';
 import { useNavigate } from 'react-router-dom'
 // 상태 정보 import
-import { nowPageStore, nowLoadingStore } from 'store/myExtraStore';
-import { userInfoStore } from 'store/userInfoStore';
+import { nowPageStore } from 'store/myExtraStore';
+// 컴포넌트 import
+import TodayAlarmModal from 'components/TodayAlarmModal';
 // 스타일 import
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBell, faArrowLeft } from '@fortawesome/free-solid-svg-icons'
@@ -28,12 +29,19 @@ export default function Header():JSX.Element {
     navigate(-1); // -1을 전달하여 뒤로 이동
   };
 
+  // 경고 알람 모달창 조작 
+  const [show, setShow] = useState(false);
+  const handleClose = ():void => {
+    setShow(false)
+  }
+
   // 컴포넌트 렌더링
   return (
     <div className={`${style.Header} z-3`}>
+      <TodayAlarmModal show={show} handleClose={handleClose}/>
       <FontAwesomeIcon icon={faArrowLeft} className={style.headerIcon} onClick={handleGoBack}/>
       <h1 className={style.pageName}>{pageName}</h1> 
-      <FontAwesomeIcon icon={faBell} className={style.headerIcon}/>
+      <FontAwesomeIcon icon={faBell} className={style.headerIcon} onClick={() => setShow(true)}/>
     </div>
   )
 }
