@@ -93,7 +93,7 @@ public class A101Application {
 		autoSetRepository.findAll().forEach((autoSet -> {
 			UpdateCageRequest updateCageRequest = new UpdateCageRequest();
 			if (autoSet.getTime().equals(formattedTime)) {
-			 //mqtt 통신 부분 / start 까지
+				//mqtt 통신 부분 / start 까지
 				new Thread(new Runnable() {
 				Long temp = autoSet.getSet_temp();
 				Long hum = autoSet.getSet_hum();

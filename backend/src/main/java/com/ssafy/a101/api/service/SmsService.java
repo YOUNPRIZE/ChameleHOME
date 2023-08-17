@@ -67,6 +67,7 @@ public class SmsService {
                 .countryCode("82")
                 .from(phone)
                 .content("[파충류치원]\n 인증번호 [" + smsConfirmNum + "]를 입력해주세요")
+//                .content("[파충류치원]\n정화니 도마뱀 케이지의\n 밥주기 알람\n입니다.")
                 .messages(messages)
                 .build();
 
