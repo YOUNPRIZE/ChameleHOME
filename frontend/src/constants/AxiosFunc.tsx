@@ -7,7 +7,7 @@ import { autoSetting, alarmSetting } from "store/mySettingStore";
 const serverUrl = "https://i9a101.p.ssafy.io/api"
 
 // 회원 기능 관련 api 함수
-const axiosAuth = async (url:string, method:string, data?:Partial<User>) => {
+const axiosAuth = async (url:string, method:string, data?:Partial<User>|{to:string}) => {
   try {
     const response = await axios({
       method: method,

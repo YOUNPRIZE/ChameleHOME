@@ -48,7 +48,7 @@ export default function CageDeatil():JSX.Element {
       const settingInfos = await axiosAuto(`${cageId}/setting`, "GET")
       setAutoSetting(settingInfos)
       // 알람세팅 db에서 가져오기
-      const alarmInfos = await axiosAlarm(`${cageId}/alarms`, "GET")
+      const alarmInfos = await axiosAlarm(`alarm/cage/${cageId}`, "GET")
       setAlarmSetting(alarmInfos)
     }
     catch {
