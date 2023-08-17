@@ -6,7 +6,7 @@ import { userInfoStore } from 'store/userInfoStore';
 import style from 'styles/MyPage.module.css'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faArrowRightToBracket, faSpellCheck, faEnvelope } from '@fortawesome/free-solid-svg-icons'
+import { faArrowRightToBracket, faSpellCheck, faPhone } from '@fortawesome/free-solid-svg-icons'
 
 export default function UserInfoBox():JSX.Element {
   // 상태정보 받아오기
@@ -34,8 +34,8 @@ export default function UserInfoBox():JSX.Element {
           <span className={style.infoText}>{user.nickname}</span>
       </div>
       <div className={style.infoContainer}>
-        <FontAwesomeIcon icon={faEnvelope} className={style.infoIcon}/>
-        <span className={style.infoText}>{user.email}</span>
+        <FontAwesomeIcon icon={faPhone} className={style.infoIcon}/>
+        <span className={style.infoText}>{user.number}</span>
       </div>
     </div>
   )

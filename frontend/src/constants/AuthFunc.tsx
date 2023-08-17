@@ -10,10 +10,12 @@ const checkPassword = (pw:string | null | undefined) => {
 }
 
 // 이메일 유효성 검사
-const checkEmail = (email:string | null) => {
-  if (!email) return false;
-  const emailRegEx = /^[A-Za-z0-9]([-_.]?[A-Za-z0-9])*@[A-Za-z0-9]([-_.]?[A-Za-z0-9])*\.[A-Za-z]{2,3}$/;
-  return emailRegEx.test(email)
+const checkNumber = (number:string | null) => {
+  if (!number) return false;
+    // 숫자만 입력시
+    var regExp = /^01(?:0|1|[6-9])(?:\d{3}|\d{4})\d{4}$/
+    // 형식에 맞는 경우 true 리턴
+    return regExp.test(number)
 }
 
 // 로그인 함수
@@ -34,4 +36,4 @@ const loginRequest = async(id:string, pw:string) => {
   }
 };
 
-export { checkPassword, checkEmail, loginRequest }
+export { checkPassword, checkNumber, loginRequest }
