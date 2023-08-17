@@ -18,13 +18,13 @@ LEDControl led_ctrl;
 Info now_val, set_val;
 
 // Flags for controlling actuator
-bool temp_flag, humid_flag;
+bool temp_flag, humid_flag, led_flag;
 
 // Actuator status
 Status status_flag;
 
 // Error flag
-bool err_flag;
+bool err_flag, flag;
 
 // Timer 
 uint32_t delay_ms;
@@ -45,11 +45,17 @@ void onConnectionEstablished()
       err_flag = false;
       return;
     }
-    // Extract temperature, humidity, and LED values from payload
-    set_val.temp = doc["temp"];
-    set_val.humid = doc["humid"];
-    set_val.light = doc["uv"];
+    led_flag = doc["uv"];
 
+    // Extract temperature, humidity, and LED values from payload
+    String tmp = doc["Temp"];
+    if(tmp.toFloat() > MINTEMP) {
+      set_val.temp = tmp.toFloat();
+      String hud = doc["Humid"];
+      set_val.humid = hud.toFloat();
+      String uv = doc["uv"];
+      set_val.light = uv.toInt();
+    }
     // Set flags based on received values
     if(set_val.temp) temp_flag = true;
     if(set_val.humid) humid_flag = true;
@@ -58,19 +64,14 @@ void onConnectionEstablished()
 
 // Function to operate modules based on web settings
 void autoSet(Status set_flag) {
+  if(set_val.light) { led_ctrl.on(); }
+  if(!set_val.light) { led_ctrl.off(); }
   if(temp_flag && set_flag.islock) {
-    autoTemp(set_val, now_val, heat_pad, cool_fan, temp_flag, err_flag);
+    autoTemp(set_val, now_val, heat_pad, cool_fan, temp_flag);
   }
   if(humid_flag && set_flag.islock) {
-    autoHumid(set_val, now_val, humidifier, cool_fan, humid_flag, err_flag);
+    autoHumid(set_val, now_val, humidifier, cool_fan, humid_flag);
   }
-  if((temp_flag || humid_flag) && err_flag) {
-    mqtt.errorTx(error_topic, "Desired value is out of range");
-    err_flag = false;
-    humid_flag = temp_flag = false;
-  }
-  if(!status_flag.led && set_val.light) { led_ctrl.on(); }
-  if(status_flag.led && !set_val.light) { led_ctrl.off(); }
 }
 
 void setup() {
@@ -91,29 +92,25 @@ void setup() {
 void loop() {
   unsigned long cur_time = millis();
   String data = "";
-  
+
   // Read RPI4 data
   Status set_flag;
   set_flag = userial.rx();
-  err_flag = userial.errorCheck();
-  if(!status_flag.islock && err_flag) {
-    userial.tx("error _There is no key_");
-    err_flag = false;
-  }
 
-  // Operate actuators based on RPI4 data
+  status_flag.islock = set_flag.islock;
+  //Operate actuators based on RPI4 data
   if(set_flag.led != -1 && !set_flag.islock) {
     actuate(set_flag, water_motor, humidifier, heat_pad, cool_fan, led_ctrl);
     status_flag = getStatus(water_motor, humidifier, heat_pad, cool_fan, led_ctrl);
-
     // Transmit status data to RPI4
-    data = mqtt.makeStatusJson(status_flag) + "\n";
+    data = mqtt.makeStatusJson(status_flag);
     userial.tx(data.c_str());
   }
 
   // Operate actuators based on web settings
-  autoSet(set_flag);
-
+  if(status_flag.islock) {
+    autoSet(set_flag);
+  }
   if (cur_time - prev_time >= interval_time) {
     prev_time = cur_time;
 
@@ -122,18 +119,18 @@ void loop() {
 
     // Get temperature and humidity data from sensors
     now_val = sensor.sensing();
-
+    now_val.light = status_flag.led;
     // Update data for MQTT and web
     mqtt.updateData(now_val);
-    now_val.light = status_flag.led;
 
     // Transmit status data to RPI4 
-    data = mqtt.makeStatusJson(status_flag) + "\n";
-    userial.tx(data.c_str());
 
+    data = mqtt.makeStatusJson(status_flag);
+    userial.tx(data.c_str());
     // Transmit temperature and humidity data to web
     mqtt.makeJson();
     mqtt.tx();
+    mqtt.ipTx();
   }
 
   client.loop();
