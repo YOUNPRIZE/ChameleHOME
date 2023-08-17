@@ -7,9 +7,19 @@
     <list default="true" id="029f519a-ddbc-43c1-a158-06f30e3a49f3" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.gradle/8.1.1/checksums/checksums.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.1.1/checksums/checksums.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+<<<<<<< HEAD
       <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/ssafy/a101/api/controller/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ssafy/a101/api/controller/UserController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.yml" afterDir="false" />
+=======
+<<<<<<< HEAD
+      <change beforePath="$PROJECT_DIR$/SQL/데이터 추가 sql.sql" beforeDir="false" afterPath="$PROJECT_DIR$/SQL/데이터 추가 sql.sql" afterDir="false" />
+=======
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ssafy/a101/A101Application.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ssafy/a101/A101Application.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ssafy/a101/api/controller/AlarmController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ssafy/a101/api/controller/AlarmController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ssafy-tcp4320268601883/.lck" beforeDir="false" />
+>>>>>>> d916f7a5977be3b47ff1614931145014a4267b83
+>>>>>>> 4d4557fd82e73e0aa05fac0814ec5cdde7fc8a01
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
