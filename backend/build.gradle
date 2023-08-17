@@ -47,6 +47,7 @@ dependencies {
 	implementation 'mysql:mysql-connector-java:8.0.26' // MySQL JDBC 드라이버 의존성 추가
 //	implementation group: 'io.springfox', name: 'springfox-boot-starter', version: '3.0.0' // Swagger
 	implementation 'org.springframework.boot:spring-boot-starter-mail'
+	implementation group: 'org.apache.httpcomponents', name: 'httpclient', version: '4.5.13'
 
 	runtimeOnly 'com.h2database:h2'
 	runtimeOnly 'com.github.gavlyukovskiy:p6spy-spring-boot-starter:1.7.1'
