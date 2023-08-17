@@ -60,7 +60,7 @@ public class A101Application {
 				Cage cage = cageRepository.findById(cageId).get();
 				User user = cage.getId();
 				try {
-					emailService.sendAlarmMessage(user.getEmail(), alarm.getName());
+					emailService.sendAlarmMessage(user.getNumber(), alarm.getName());
 				} catch (Exception e) {
 					throw new RuntimeException(e);
 				}

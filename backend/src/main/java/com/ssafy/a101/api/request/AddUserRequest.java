@@ -15,14 +15,14 @@ public class AddUserRequest {
     private String userId;
     private String password;
     private String nickname;
-    private String email;
+    private String number;
 
     public User toEntity() {
         return User.builder()
                 .userId(getUserId())
                 .password(getPassword())
                 .nickname(getNickname())
-                .email(getEmail())
+                .number(getNumber())
                 .build();
     }
 }
