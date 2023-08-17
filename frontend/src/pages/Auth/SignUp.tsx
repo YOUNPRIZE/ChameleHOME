@@ -55,8 +55,10 @@ export default function SignUp():JSX.Element {
     // 아이디 검증
     if(!id.current?.value || id.current?.value.length < 4){
       setIdWarning("4글자 이상으로 입력해주세요");
+      id.current?.focus();
     } else if (!checkPassword(pw1.current?.value)) {
       setpw1Warning("8~16글자의 영어, 숫자 조합을 입력해주세요.");
+      pw1.current?.focus();
     } else if (pw1.current?.value !== pw2.current?.value) {
       setpw2Warning("패스워드가 다릅니다!");
       pw2.current?.focus();
