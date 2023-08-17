@@ -1,7 +1,12 @@
+/* 전체 영역 */
+.totalBox {
+  height: 100%;
+}
+
 /* 이미지 영역 */
 .imgContainer{
   width: 100%;
-  height: 40vh;
+  height: 35vh;
 }
 
 .profileImg {
@@ -14,7 +19,7 @@
 /* 사용자 정보 영역 */
 .cardContainer {
   position: fixed;
-  top: 40vh;
+  top: 35vh;
   background-color: white;
   width: 100%;
   height: 50vh;
