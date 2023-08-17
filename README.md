@@ -141,26 +141,30 @@
 </br>
 <h4>📱 FrontEnd</h4>
 
-| 상세             |  버전  |
-| ---------------- | :----: |
-| React            | 5.0.1  |
-| zustand          | 4.3.9  |
-| react-router-dom | 6.14.2 |
-| TypeScript       | 5.1.6  |
+| 상세             |  버전   |
+| ---------------- | :-----: |
+| React            |  5.0.1  |
+| zustand          |  4.3.9  |
+| react-router-dom | 6.14.2  |
+| TypeScript       |  5.1.6  |
+| Node.js          | 18.17.0 |
+| NPM              |  9.6.7  |
 
 </br>
 <h4>💾 BackEnd</h4>
 
-| 상세       |    버전     |
-| :--------- | :---------: |
-| JDK (Zulu) |   11.0.19   |
-| SpringBoot |   2.7.13    |
-| Mqttv3     |    1.2.5    |
-| JWT        |    0.9.1    |
-| MySQL      |   8.0.26    |
-| Ubuntu     | 20.04.6 LTS |
-| Nginx      |   1.18.0    |
-| Docker     |   24.0.5    |
+| 상세           |    버전     |
+| :------------- | :---------: |
+| JDK (Zulu)     |   11.0.19   |
+| SpringBoot     |   2.7.13    |
+| Mqttv3         |    1.2.5    |
+| JWT            |    0.9.1    |
+| MySQL          |   8.0.26    |
+| Ubuntu         | 20.04.6 LTS |
+| Nginx          |   1.18.0    |
+| Docker         |   24.0.5    |
+| Docker-compose |   2.20.2    |
+| Jenkins        |   2.401.3   |
 
 </br>
 
