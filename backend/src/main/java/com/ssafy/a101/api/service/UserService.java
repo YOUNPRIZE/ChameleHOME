@@ -18,15 +18,6 @@ public class UserService {
 
     private final UserRepository userRepository;
 
-//    public User save(AddUserRequest dto) {
-//
-////        return userRepository.save(User.builder()
-////                        .userId(dto.toEntity().getUserId())
-////                .email(dto.getEmail())
-////                .password(dto.getPassword())
-////                .build()).getId();save(request.toEntity());
-//            return userRepository.save(dto.toEntity());
-//    }
     @Value("${jwt.token.secret}")
     private String key;
 
@@ -43,8 +34,15 @@ public class UserService {
                 .userId(dto.getUserId())
                 .password(encoder.encode(dto.getPassword()))
                 .nickname(dto.getNickname())
-                .number(dto.getNumber())
+                .email(dto.getEmail())
                 .build()).getId();
+    }
+
+    public int check(String userId) {
+        int[] res = new int[1];
+        userRepository.findByUserId(userId)
+                .ifPresent(user -> res[0] = 1);
+        return res[0];
     }
 
     public String login (LoginUserRequest dto) {
@@ -74,9 +72,10 @@ public class UserService {
     }
 
     @Transactional
-    public User update(Long id, UpdateUserRequest request) {
+    public User update(Long id, UpdateUserRequest dto) {
         User user = userRepository.findById(id).orElseThrow(() -> new IllegalArgumentException());
-        user.update(request.getPassword(), request.getNickname(), request.getNumber());
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+        user.update(encoder.encode(dto.getPassword()), dto.getNickname());
         return user;
     }
 

@@ -14,7 +14,6 @@ import java.util.Date;
 @AllArgsConstructor
 @Getter
 public class AddCageRequest {
-
     private Long id;
     private String cage_name;
     private String snum;
@@ -24,10 +23,8 @@ public class AddCageRequest {
     private Date created_at;
     private String category;
 
-
     public Cage toEntity(CageRepository cageRepository){
         return Cage.builder()
-//                .id(id)
                 .cage_name(cage_name)
                 .snum(snum)
                 .set_temp(set_temp)
@@ -37,5 +34,4 @@ public class AddCageRequest {
                 .category(category)
                 .build();
     }
-
 }
