@@ -13,6 +13,7 @@ import json
 import threading
 from time import sleep
 
+#mutex = threading.Lock()
 
 def is_on(i):
     if i == "ON":
@@ -32,9 +33,12 @@ def is_off(i):
 def recieve_thread():
     while True:
         if ser.readable():
+            #mutex.acquire()
             res = ser.readline()
+            #mutex.release()
+            print(res)
             data = json.loads(res.decode()[:-1])
-            print(data)
+            #print(data)
             win.temp_val.setText(data["Temp"][0:2])
             win.humid_val.setText(data["Humid"][0:2])
             
@@ -43,12 +47,11 @@ def recieve_thread():
             win.humidifier_btn.setChecked(data["humidifier"])
             win.heat_btn.setChecked(data["heat_pad"])
 
-
 #transmit Actuator data to ESP32 with Serial
 def act_publish():
     pub_data = { "LED" : 0, "heat_pad" : False, "cooling_fan" : False, "humidifier" : False, "waterfall" : False, "lock" : 1}
     if not win.lock_btn.isChecked():
-        return
+        pub_data["lock"] = 1
     else:
         pub_data["lock"] =  0
     pub_data["LED"] = win.horizontalSlider.value()
@@ -57,7 +60,9 @@ def act_publish():
     pub_data["humidifier"] = win.humidifier_btn.isChecked()
     pub_data["waterfall"] = win.waterfall_btn.isChecked()
     pub_data = json.dumps(pub_data)
+    #mutex.acquire()
     ser.write(pub_data.encode('utf-8'))
+    #mutex.release()
     
 class MyApp(QMainWindow, Ui_MainWindow):
     def __init__(self):

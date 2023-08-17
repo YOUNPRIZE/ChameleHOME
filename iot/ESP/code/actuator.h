@@ -113,7 +113,7 @@ struct LEDControl {
   }
 
   bool statusCheck() {
-    return status > 0;
+    return status;
   }
 };
 
@@ -137,13 +137,8 @@ void actuatorInit() {
   ledcAttachPin(LED, ch);
 }
 
-// Validation check (if any)
-void validation_check() {
-  
-}
-
 // Humidity auto operation
-void autoHumid(const Info set_val, Info now_val, Humidifier humidifier, CoolingFan cool_fan, bool& humid_flag, bool& err_flag) {
+void autoHumid(const Info set_val, Info now_val, Humidifier humidifier, CoolingFan cool_fan, bool& humid_flag) {
   // #1. Desired humidity is lower than the current humidity
   if (set_val.humid < now_val.humid - 3) {
     humidifier.on();
@@ -164,12 +159,11 @@ void autoHumid(const Info set_val, Info now_val, Humidifier humidifier, CoolingF
   else if (set_val.humid > MAXHUMID || set_val.humid < MINHUMID) {
     humidifier.off();
     cool_fan.off();
-    err_flag = true;
   }
 }
 
 // Temperature auto operation
-void autoTemp(const Info set_val, Info now_val, HeatPad heat_pad, CoolingFan cool_fan, bool& temp_flag, bool& err_flag) {
+void autoTemp(const Info set_val, Info now_val, HeatPad heat_pad, CoolingFan cool_fan, bool& temp_flag) {
   // #1. Desired temperature is lower than the current temperature
   if (set_val.temp < now_val.temp - 3) {
     heat_pad.off();
@@ -190,7 +184,6 @@ void autoTemp(const Info set_val, Info now_val, HeatPad heat_pad, CoolingFan coo
   else if (set_val.temp > MAXTEMP || set_val.temp < MINTEMP) {
     heat_pad.off();
     cool_fan.off();
-    err_flag = true;
   }
 }
 
@@ -206,7 +199,7 @@ Status getStatus(WaterMotor water_motor, Humidifier humidifier, HeatPad heat_pad
 }
 
 // Operate modules based on the value of RPI4
-void actuate(const Status set_flag, WaterMotor water_motor, Humidifier humidifier, HeatPad heat_pad, CoolingFan cool_fan, LEDControl led_ctrl) {
+void actuate(Status set_flag, WaterMotor water_motor, Humidifier humidifier, HeatPad heat_pad, CoolingFan cool_fan, LEDControl led_ctrl) {
   if (set_flag.waterfall) water_motor.on();
   else water_motor.off();
 
