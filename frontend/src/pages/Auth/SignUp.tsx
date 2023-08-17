@@ -2,7 +2,7 @@
 import {useRef, useEffect, useState} from "react"
 import { Link, useNavigate } from "react-router-dom"
 import { axiosAuth } from "constants/AxiosFunc";
-import { checkPassword, checkEmail, loginRequest } from "constants/AuthFunc";
+import { checkPassword, checkNumber, loginRequest } from "constants/AuthFunc";
 // 상태정보 import
 import { User, userInfoStore } from "store/userInfoStore";
 import { nowLoadingStore } from 'store/myExtraStore';
@@ -17,17 +17,18 @@ import Button from 'react-bootstrap/Button';
 // 회원가입 페이지
 export default function SignUp():JSX.Element {
   // 상태정보
-  const setUserInfo = userInfoStore(state => state.setUserInfo)
+  const setUserInfo = userInfoStore(state => state.setUserInfo);
   const setIsLoading = nowLoadingStore(state => state.setIsLoading);
+  const navigate = useNavigate();
 
   // 입력 변수
   const id = useRef<HTMLInputElement>(null);
   const pw1 = useRef<HTMLInputElement>(null);
   const pw2 = useRef<HTMLInputElement>(null);
   const nick = useRef<HTMLInputElement>(null);
-  const email = useRef<HTMLInputElement>(null);
-  const emailVal = useRef<HTMLInputElement>(null);
-  const [emailCode, setEmailCode] = useState(null);
+  const number = useRef<HTMLInputElement>(null);
+  const numberVal = useRef<HTMLInputElement>(null);
+  const [numberCode, setNumberCode] = useState(null);
   const [joinInfo, setJoinInfo] = useState<Partial<User>>({userId:"", password:""});
 
   // 경고 메시지
@@ -35,8 +36,8 @@ export default function SignUp():JSX.Element {
   const [pw1Warning, setpw1Warning] = useState("");
   const [pw2Warning, setpw2Warning] = useState("");
   const [nickWarning, setnickWarning] = useState("");
-  const [emailWarning, setEmailWarning] = useState("");
-  const [emailValWarning, setEmailValWarning] = useState("");
+  const [numberWarning, setNumberWarning] = useState("");
+  const [numberValWarning, setnumberValWarning] = useState("");
 
   // 경고 메시지 초기화 함수
   const resetWarning = ():void => {
@@ -44,8 +45,8 @@ export default function SignUp():JSX.Element {
     setpw1Warning("");
     setpw2Warning("");
     setnickWarning("");
-    setEmailWarning("");
-    setEmailCode(null);
+    setNumberWarning("");
+    setNumberCode(null);
   }
 
   // 입력값 검증 함수
@@ -65,9 +66,9 @@ export default function SignUp():JSX.Element {
     } else if (!nick.current?.value) {
       setnickWarning("닉네임를 입력해주세요.");
       nick.current?.focus();
-    } else if (!checkEmail(email.current!.value)) {
-      setEmailWarning("이메일 형식을 확인해주세요.");
-      email.current?.focus();
+    } else if (!checkNumber(number.current!.value)) {
+      setNumberWarning("-를 빼고 번호만 입력해주세요");
+      number.current?.focus();
     } else {
       try {
         // 아이디 중복 검증
@@ -79,16 +80,16 @@ export default function SignUp():JSX.Element {
         }
         // 이메일 인증 번호 받기
         setIsLoading(true);  // 로딩창 전환
-        const emailInfo = email.current?.value;
-        const validCode = await axiosAuth(`user/join/email/${emailInfo}`, "GET")
-        setEmailCode(validCode);
+        const numberInfo = number.current!.value;
+        const validCode = await axiosAuth("user/join/sms", "POST", {to : numberInfo})
         const signupData = { 
           userId: id.current?.value,
           password: pw1.current?.value,
           nickname: nick.current?.value,
-          email: email.current?.value,
+          number: number.current?.value,
         };
-        setJoinInfo(signupData)
+        setNumberCode(validCode);
+        setJoinInfo(signupData);
       } catch {
         // 에러 발생
       } finally {
@@ -100,41 +101,43 @@ export default function SignUp():JSX.Element {
   // 회원등록 및 로그인 함수
   const handleJoin = async() => {
     // 인증 코드가 유효하지 않을 시
-    if (emailVal.current?.value !== emailCode) {
-      setEmailValWarning("인증 코드를 다릅니다!")
-      emailVal.current?.focus();
+    if (Number(numberVal.current?.value) !== numberCode) {
+      setnumberValWarning("인증 코드를 다릅니다!")
+      numberVal.current?.focus();
       return
     }
     try {
       // 맞으면 회원가입 진행
-      const joinedInfo = await axiosAuth("user/join", "POST", joinInfo)
+      const joinedInfo = await axiosAuth("user/join", "POST", joinInfo);
       // 이후 로그인까지 진행
       if(!joinInfo.userId || !joinInfo.password) return;
-      const userInfo = await loginRequest(joinInfo.userId, joinInfo.password)
-      setUserInfo(userInfo)
+      const userInfo = await loginRequest(joinInfo.userId, joinInfo.password);
+      setUserInfo(userInfo);
     }
     catch {
       // 에러 처리
+      alert("이미 등록된 전화번호입니다.")
+      navigate('/Login')
     }
   }
   
   // 페이지 렌더링
   return (
     <div className={style.authForm}>
-      {!emailCode &&
+      {!numberCode &&
         <Form className="w-75 h-100 mx-auto d-flex flex-column justify-content-center">
           <SignUpText name="아이디" placeholder="아이디 입력" warning={idWarning} ref={id}/>
           <SignUpPassword name="비밀번호" placeholder="비밀번호 입력" warning={pw1Warning} ref={pw1}/>
           <SignUpPassword name="비밀번호 확인" placeholder="비밀번호 확인" warning={pw2Warning} ref={pw2}/>
           <SignUpText name="닉네임" placeholder="닉네임 입력" warning={nickWarning} ref={nick}/>
-          <SignUpText name="이메일" placeholder="이메일을 입력" warning={emailWarning} ref={email}/>
+          <SignUpText name="전화번호" placeholder="전화번호를 입력" warning={numberWarning} ref={number}/>
           <Link to="/Login" className={style.additionalLink}>이미 계정이 있으신가요?</Link>
           <Button size="lg" className={style.loginBtn} variant='success' onClick={handleValidation}>회원가입</Button>
         </Form>
       }
-      {emailCode &&
+      {numberCode &&
         <Form className="w-75 h-100 mx-auto d-flex flex-column justify-content-center">
-          <SignUpText name="이메일 인증" placeholder="이메일 인증" warning={emailValWarning} ref={emailVal}/>
+          <SignUpText name="전화번호 인증" placeholder="전화번호인증" warning={numberValWarning} ref={numberVal}/>
           <Link to="/Login" className={style.additionalLink}>이미 계정이 있으신가요?</Link>
           <Button size="lg" className={style.loginBtn} variant='success' onClick={handleJoin}>회원가입</Button>
         </Form>
