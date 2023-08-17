@@ -40,7 +40,7 @@ interface warningAlarm {
 
 export const warningAlarmStore = create<warningAlarm>()(persist(
   set =>({
-  warnings: ['test'],
+  warnings: [],
   addWarnings: (warning:string) => set((state) => {
     state.warnings.push(warning);
     return {...state}
