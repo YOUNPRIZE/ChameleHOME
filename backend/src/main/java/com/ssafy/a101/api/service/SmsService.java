@@ -32,8 +32,6 @@ import java.util.Random;
 @Service
 @RequiredArgsConstructor
 public class SmsService {
-//    private final String smsConfirmNum = createSmsKey();
-
     @Value("${naver-cloud-sms.accessKey}")
     private String accessKey;
 
@@ -69,6 +67,7 @@ public class SmsService {
                 .countryCode("82")
                 .from(phone)
                 .content("[파충류치원]\n 인증번호 [" + smsConfirmNum + "]를 입력해주세요")
+//                .content("[파충류치원]\n정화니 도마뱀 케이지의\n 밥주기 알람\n입니다.")
                 .messages(messages)
                 .build();
 
@@ -126,5 +125,47 @@ public class SmsService {
             key.append((rnd.nextInt(10)));
         }
         return key.toString();
+    }
+
+    public SmsResponse sendAlarm(Message messageDto, String name) throws JsonProcessingException, RestClientException, URISyntaxException, InvalidKeyException, NoSuchAlgorithmException, UnsupportedEncodingException {
+
+        // 현재시간
+        String time = Long.toString(System.currentTimeMillis());
+
+        // 헤더세팅
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        headers.set("x-ncp-apigw-timestamp", time);
+        headers.set("x-ncp-iam-access-key", accessKey);
+        headers.set("x-ncp-apigw-signature-v2", getSignature(time)); // signature 서명
+
+        List<Message> messages = new ArrayList<>();
+        messages.add(messageDto);
+
+        String smsConfirmNum = createSmsKey();
+
+        // api 요청 양식에 맞춰 세팅
+        SmsRequest request = SmsRequest.builder()
+                .type("SMS")
+                .contentType("COMM")
+                .countryCode("82")
+                .from(phone)
+                .content("[파충류치원]\n"+ name +"\n알람입니다.")
+                .messages(messages)
+                .build();
+
+        //request를 json형태로 body로 변환
+        ObjectMapper objectMapper = new ObjectMapper();
+        String body = objectMapper.writeValueAsString(request);
+        // body와 header을 합친다
+        HttpEntity<String> httpBody = new HttpEntity<>(body, headers);
+
+        RestTemplate restTemplate = new RestTemplate();
+        restTemplate.setRequestFactory(new HttpComponentsClientHttpRequestFactory());
+        //restTemplate를 통해 외부 api와 통신
+
+        SmsResponse smsResponseDto = restTemplate.postForObject(new URI("https://sens.apigw.ntruss.com/sms/v2/services/"+ serviceId +"/messages"), httpBody, SmsResponse.class);
+        SmsResponse responseDto = new SmsResponse(smsConfirmNum);
+        return responseDto;
     }
 }
