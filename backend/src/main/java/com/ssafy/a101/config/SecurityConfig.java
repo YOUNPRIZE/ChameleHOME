@@ -28,7 +28,7 @@ public class SecurityConfig {
                 .csrf().disable()
                 .cors().and()
                 .authorizeRequests()
-                .antMatchers("/api/user/join/**", "/api/user/login", "/api/user/auth/**").permitAll()
+                .antMatchers("/api/user/join/**", "/api/user/login").permitAll()
                 .antMatchers("/api/**").authenticated()
                 .and()
                 .sessionManagement()
