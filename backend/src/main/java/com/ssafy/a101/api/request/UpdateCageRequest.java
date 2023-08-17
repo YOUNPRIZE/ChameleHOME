@@ -21,4 +21,6 @@ public class UpdateCageRequest {
     private Long set_uv;
     private Date created_at;
     private String category;
+
+
 }
