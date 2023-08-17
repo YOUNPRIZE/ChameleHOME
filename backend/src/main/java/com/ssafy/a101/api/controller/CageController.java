@@ -19,7 +19,6 @@ import java.util.stream.Collectors;
 @RestController
 @CrossOrigin("*")
 public class CageController {
-
     @Autowired
     private final CageService cageService;
 
@@ -30,7 +29,6 @@ public class CageController {
                 .stream()
                 .map(CageResponse::new)
                 .collect(Collectors.toList());
-
         return ResponseEntity.ok()
                 .body(cages);
     }
@@ -39,11 +37,8 @@ public class CageController {
     @GetMapping("/api/cage/{cage_id}")
     public ResponseEntity<CageResponse> findCage(@PathVariable long cage_id){
         Cage cage = cageService.findById(cage_id);
-
         return ResponseEntity.ok()
                 .body(new CageResponse(cage));
-
-
     }
 
     // 케이지 추가
@@ -54,8 +49,6 @@ public class CageController {
                 .body(savedCage);
     }
 
-
-
     // 케이지 수정
     @PutMapping("/api/cage/{cage_id}")
     public ResponseEntity<Cage> updateCage(@PathVariable long cage_id,
@@ -65,7 +58,6 @@ public class CageController {
                 .body(updateCage);
     }
 
-
     // 케이지 삭제
     @DeleteMapping("/api/cage/{cage_id}")
     public ResponseEntity<Cage>  deleteCage(@PathVariable long cage_id){
@@ -74,6 +66,4 @@ public class CageController {
                 .build();
 
     }
-
-
 }

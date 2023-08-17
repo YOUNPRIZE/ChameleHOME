@@ -13,7 +13,6 @@ import java.util.Date;
 @Getter
 @Setter
 public class UpdateCageRequest {
-
    // private Long id;
     private String snum;
     private String cage_name;
@@ -22,5 +21,6 @@ public class UpdateCageRequest {
     private Long set_uv;
     private Date created_at;
     private String category;
+
 
 }

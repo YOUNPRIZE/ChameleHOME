@@ -3,13 +3,11 @@ package com.ssafy.a101.db.entity;
 
 import lombok.*;
 import javax.persistence.*;
-import java.sql.Time;
-import java.util.Date;
 
 @Entity
 @Getter
 @Setter
-public class Auto_set {
+public class AutoSet {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -33,7 +31,7 @@ public class Auto_set {
     private Long set_uv;
 
     @Builder
-    public Auto_set(Cage cageId,String time, Long set_temp, Long set_hum, Long set_uv){
+    public AutoSet(Cage cageId,String time, Long set_temp, Long set_hum, Long set_uv){
         this.cageId = cageId;
         this.time = time;
         this.set_temp = set_temp;
@@ -55,6 +53,6 @@ public class Auto_set {
         return null;
     }
 
-    public Auto_set() {}
+    public AutoSet() {}
 
 }

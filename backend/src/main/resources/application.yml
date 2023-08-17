@@ -41,9 +41,26 @@ spring:
   h2:
     console:
       enabled: true
+  mail:
+    smtp:
+      auth: true
+      port: 465
+      socketFactory:
+        class: javax.net.ssl.SSLSocketFactory
+        fallback: false
+        port: 465
+      starttls:
+        required: true
+        enable: true
+
 jwt:
   token:
    secret: VlwEyVBsYt9V7zq57TejMnVUyzblYcfPQye08f7MGVA9XkHa
+
 #jwt:
 #  issuer: ysang10@naver.com
 #  secret_key: study-springboot
+
+AdminMail:
+  id: younprizee@gmail.com
+  password: ouzxlsfcxnzhflri

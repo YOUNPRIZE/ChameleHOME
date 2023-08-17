@@ -18,7 +18,6 @@ import java.util.List;
 @RequiredArgsConstructor // final  이 붙거나 @notnull  이 붙은 필드 생성자 추가
 @Service //빈으로 등록
 public class AnimalService {
-
     private final AnimalRepository animalRepository;
     private final DictionaryRepository dictionaryRepository;
     private final CageRepository cageRepository;
@@ -38,28 +37,21 @@ public class AnimalService {
                 .orElseThrow(() -> new IllegalArgumentException("해당 케이지를 찾을 수 없습니다."));
         Dictionary dictionary = dictionaryRepository.findById(request.getDict_id())
                 .orElseThrow(() -> new IllegalArgumentException("해당 딕셔너리를 찾을 수 없습니다."));
-
         Animal animal = request.toEntity(cage, dictionary);
-
         return animalRepository.save(animal);
     }
-
 
     // 동물 정보 수정
     @Transactional
     public Animal update(long id, UpdateAnimalRequest request){
         Animal animal = animalRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("not found 업데이트: " + id));
-
         animal.update(request.getName(), request.getGender(), request.getBirth(), request.getIssue(), request.getCreated_at(), request.getPhoto());
         return animal;
     }
-
 
     // 동물 삭제
     public void delete(long id){
         animalRepository.deleteById(id);
     }
-
-
 }

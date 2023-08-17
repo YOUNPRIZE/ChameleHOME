@@ -21,7 +21,7 @@ public class Cage {
     @JoinColumn(name = "id", referencedColumnName = "id")
     private  User id;
 
-    @Column(name = "snum" ,unique = true)
+    @Column(name = "snum", unique = true)
     private  String snum;
 
     @Column(name = "cage_name", updatable = true)
@@ -63,6 +63,12 @@ public class Cage {
         this.set_uv = set_uv;
         this.created_at = created_at;
         this.category = category;
+    }
+
+    public void updateEnv(Long set_temp, Long set_hum, Long set_uv) {
+        this.set_temp = set_temp;
+        this.set_hum = set_hum;
+        this.set_uv = set_uv;
     }
     
     public Cage() {}

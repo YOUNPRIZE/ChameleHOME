@@ -8,7 +8,5 @@ import lombok.Getter;
 public class LoginUserRequest {
     private String userId;
     private String password;
-
-    public LoginUserRequest() {
-    }
+    public LoginUserRequest() {}
 }

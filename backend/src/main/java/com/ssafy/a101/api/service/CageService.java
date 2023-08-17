@@ -16,7 +16,6 @@ import java.util.List;
 @RequiredArgsConstructor
 @Service
 public class CageService {
-
     private final CageRepository cageRepository;
     private final UserRepository userRepository;
 
@@ -29,13 +28,11 @@ public class CageService {
                 .orElseThrow(()-> new IllegalArgumentException("값이 없네용"));
     }
 
-
     // 케이지 추가
     public Cage save(AddCageRequest request) {
         User user = userRepository.findById(request.getId()).orElseThrow(() -> new IllegalArgumentException("유저를 찾을 수 없습니다."));
         Cage cage = request.toEntity(cageRepository);
         cage.setId(user);
-//        return cageRepository.save(request.toEntity());
         return cageRepository.save(cage);
     }
 
@@ -49,12 +46,16 @@ public class CageService {
 
         return cage;
     }
+    // 환경 수정
+    @Transactional
+    public Cage updateEnv(long cage_id, UpdateCageRequest request) {
+        Cage cage = cageRepository.findById(cage_id)
+                .orElseThrow(() -> new IllegalArgumentException("Cage Not Found"));
+        cage.updateEnv(request.getSet_temp(), request.getSet_hum(), request.getSet_uv());
 
-
+        return cage;
+    }
 
     // 케이지 삭제
     public void delete(Long cage_id){cageRepository.deleteById(cage_id);}
-
-
-
 }

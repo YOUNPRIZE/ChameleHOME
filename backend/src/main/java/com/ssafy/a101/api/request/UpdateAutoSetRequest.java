@@ -13,12 +13,9 @@ import java.util.Date;
 @AllArgsConstructor
 @Getter
 @Setter
-public class UpdateAuto_setRequest {
-
+public class UpdateAutoSetRequest {
     private String time;
     private Long set_temp;
     private Long set_hum;
     private Long set_uv;
-
-
 }
