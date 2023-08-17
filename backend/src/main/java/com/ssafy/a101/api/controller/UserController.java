@@ -45,11 +45,11 @@ public class UserController {
         return ResponseEntity.ok().body(response);
     }
 
-    @GetMapping("/join/email/{email}")
-    public  ResponseEntity<String> email(@PathVariable String email) throws Exception {
-        String code = emailService.sendSimpleMessage(email);
-        return ResponseEntity.ok().body(code);
-    }
+//    @GetMapping("/join/number/{email}")
+//    public  ResponseEntity<String> email(@PathVariable String email) throws Exception {
+//        String code = emailService.sendSimpleMessage(email);
+//        return ResponseEntity.ok().body(code);
+//    }
 
     @PostMapping("/join/sms")
     public ResponseEntity<String> sendSms(@RequestBody Message message) throws UnsupportedEncodingException, URISyntaxException, NoSuchAlgorithmException, InvalidKeyException, JsonProcessingException {
@@ -64,7 +64,7 @@ public class UserController {
     }
 
     // 회원 정보 조회
-    @GetMapping("/auth/{userId}")
+    @GetMapping("/{userId}")
     public ResponseEntity<UserResponse> findUser(@PathVariable String userId){
         User user = userService.findByUserId(userId);
         return ResponseEntity.ok()
