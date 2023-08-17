@@ -106,7 +106,7 @@ export default function CageInfo():JSX.Element {
         // 로컬 스토리지 수정
         updateCage(myCage);
         // 세팅값 Mqtt로 보내기
-        const payload = {Temp: myCage?.set_temp, Humid: myCage?.set_temp, uv: myCage?.set_uv,};
+        const payload = {Temp: myCage?.set_temp, Humid: myCage?.set_hum, uv: myCage?.set_uv,};
         const message = new Message(JSON.stringify(payload));
         message.destinationName = `${myCage?.snum}/setval`;
         client.send(message);
