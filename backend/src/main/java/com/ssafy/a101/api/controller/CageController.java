@@ -2,11 +2,11 @@ package com.ssafy.a101.api.controller;
 
 import com.ssafy.a101.api.request.AddCageRequest;
 import com.ssafy.a101.api.request.UpdateCageRequest;
-import com.ssafy.a101.api.response.ArticleResponse;
 import com.ssafy.a101.api.response.CageResponse;
 import com.ssafy.a101.api.service.CageService;
 import com.ssafy.a101.db.entity.Cage;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -17,8 +17,9 @@ import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @RestController
+@CrossOrigin("*")
 public class CageController {
-
+    @Autowired
     private final CageService cageService;
 
     // 사용자의 모든 케이지 조회
@@ -28,7 +29,6 @@ public class CageController {
                 .stream()
                 .map(CageResponse::new)
                 .collect(Collectors.toList());
-
         return ResponseEntity.ok()
                 .body(cages);
     }
@@ -37,11 +37,8 @@ public class CageController {
     @GetMapping("/api/cage/{cage_id}")
     public ResponseEntity<CageResponse> findCage(@PathVariable long cage_id){
         Cage cage = cageService.findById(cage_id);
-
         return ResponseEntity.ok()
                 .body(new CageResponse(cage));
-
-
     }
 
     // 케이지 추가
@@ -52,8 +49,6 @@ public class CageController {
                 .body(savedCage);
     }
 
-
-
     // 케이지 수정
     @PutMapping("/api/cage/{cage_id}")
     public ResponseEntity<Cage> updateCage(@PathVariable long cage_id,
@@ -63,7 +58,6 @@ public class CageController {
                 .body(updateCage);
     }
 
-
     // 케이지 삭제
     @DeleteMapping("/api/cage/{cage_id}")
     public ResponseEntity<Cage>  deleteCage(@PathVariable long cage_id){
@@ -72,6 +66,4 @@ public class CageController {
                 .build();
 
     }
-
-
 }
