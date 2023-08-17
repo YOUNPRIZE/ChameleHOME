@@ -1,8 +1,5 @@
-import { useNavigate } from "react-router-dom"
+export default function AddBtn(props:{feature:Function, command?:string}):JSX.Element {
 
-export default function AddBtn(props:{feature:Function}):JSX.Element {
-  // 페이지 이동 함수
-  const navigate = useNavigate();
   // 버튼 스타일
   const AddBtnStyle = {
     width:"90%",
@@ -19,7 +16,7 @@ export default function AddBtn(props:{feature:Function}):JSX.Element {
   return (
     <>
       <button className={``} onClick={() => props.feature()} style={AddBtnStyle}>
-        추가하기
+        {props.command ? props.command : "추가하기"}
       </button>
     </>
   )

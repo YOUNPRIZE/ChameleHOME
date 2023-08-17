@@ -10,36 +10,9 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTemperatureThreeQuarters, faDroplet, faLightbulb } from '@fortawesome/free-solid-svg-icons'
 
 
-interface Props {
-  cage: myCage;
-}
-
-export default function CageItemLong(props:Props):JSX.Element {
+export default function CageItemLong(props:{cage:myCage}):JSX.Element {
   // 이미지 변수
-  const imgUrl:string = process.env.PUBLIC_URL+`/images/${props.cage.category}.jpeg`
-
-  // 케이지 내부 환경 정보
-  const [nowTem, setNowTem] = useState(0);
-  const [nowHum, setNowHum] = useState(0);
-  const [nowUv, setnowUv] = useState(true);
-
-  // 실시간 케이지 내부 환경 반영
-  useEffect(() => {
-    let idx: number = 0;
-    const setCircum = () => {
-      // 실시간 정보 받아오기(코드 변경해야함)
-      const tmpTem: number[] = [30, 31, 32, 31];
-      const tmpHum: number[] = [50, 60, 70, 60];
-      const tmpUv: boolean[] = [true, false, true, false];
-      idx = (idx + 1) % 4;
-      // 변수 확정
-      setNowTem(tmpTem[idx]);
-      setNowHum(tmpHum[idx]);
-      setnowUv(tmpUv[idx]);
-    };
-    const intervalId = setInterval(setCircum, 1000);
-    return () => clearInterval(intervalId);
-  }, []);
+  const imgUrl:string = process.env.PUBLIC_URL+`/images/${props.cage.category}.jpg`
 
   // 클릭하면 케이지 상세페이지로 이동
   const navigate = useNavigate();
@@ -54,19 +27,19 @@ export default function CageItemLong(props:Props):JSX.Element {
         <img src={imgUrl} alt="" className={style.img}/>
       </div>
       <div className={` ${style.infoContainer}`}>
-        <p className={style.cageName}>{props.cage.cageName}</p>
+        <p className={style.cageName}>{props.cage.cage_name}</p>
         <div className={style.cageInfo}>
           <div className={style.eachInfo}>
             <FontAwesomeIcon icon={faTemperatureThreeQuarters} style={{color: "#000000",}} />
-            <span> {nowTem}</span>
+            <span> {props.cage.set_temp}</span>
           </div>
           <div className={style.eachInfo}>
             <FontAwesomeIcon icon={faDroplet} style={{color: "#000000",}} />
-            <span> {nowHum}</span>
+            <span> {props.cage.set_hum}</span>
           </div>
           <div className={style.eachInfo}>
             <FontAwesomeIcon icon={faLightbulb} style={{color: "#000000",}} />
-            <span> {nowUv? 'on' : 'off'}</span>
+            <span> {props.cage.set_uv === 0? 'Off' : 'On'}</span>
           </div>
         </div>
       </div>
