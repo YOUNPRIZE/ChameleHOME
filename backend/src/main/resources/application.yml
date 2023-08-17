@@ -63,7 +63,7 @@ jwt:
 
 AdminMail:
   id: younprizee@gmail.com
-  password: ouzxlsfcxnzhflri]
+  password: ouzxlsfcxnzhflri
 
 naver-cloud-sms:
   accessKey: "xkC9OY1wWfm58EL3IsTm"
