@@ -7,7 +7,7 @@ export interface User {
   userId: string | undefined;
   password: string | undefined,
   nickname: string;
-  email: string;
+  number: string;
 };
 
 // 상태 정보 정의
@@ -28,7 +28,7 @@ export const userInfoStore = create<userInfoState>()(
         userId: "",
         password: "",
         nickname: "",
-        email: "",
+        number: "",
       },
       isLoggedIn: false,
       // 로그인 메서드
@@ -49,7 +49,7 @@ export const userInfoStore = create<userInfoState>()(
           userId:"",
           password: "",
           nickname:"",
-          email:"",
+          number:"",
         },
         isLoggedIn: false
       }})
@@ -61,7 +61,7 @@ export const userInfoStore = create<userInfoState>()(
         id: state.user.id,
         userId: state.user.userId,
         nickname: state.user.nickname,
-        email: state.user.email,
+        number: state.user.number,
       },
       isLoggedIn: state.isLoggedIn
     })
