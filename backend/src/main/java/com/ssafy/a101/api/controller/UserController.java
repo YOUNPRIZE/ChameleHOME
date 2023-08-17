@@ -1,11 +1,15 @@
 package com.ssafy.a101.api.controller;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.ssafy.a101.api.request.AddUserRequest;
 import com.ssafy.a101.api.request.LoginUserRequest;
 import com.ssafy.a101.api.request.UpdateUserRequest;
+import com.ssafy.a101.api.response.SmsResponse;
 import com.ssafy.a101.api.response.UserResponse;
 import com.ssafy.a101.api.service.EmailService;
+import com.ssafy.a101.api.service.SmsService;
 import com.ssafy.a101.api.service.UserService;
+import com.ssafy.a101.db.entity.Message;
 import com.ssafy.a101.db.entity.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -13,6 +17,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.constraints.Email;
+import java.io.UnsupportedEncodingException;
+import java.net.URISyntaxException;
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
 
 @RequiredArgsConstructor
 @RestController
@@ -21,6 +29,7 @@ import javax.validation.constraints.Email;
 public class UserController {
     private final UserService userService;
     private final EmailService emailService;
+    private final SmsService smsService;
 
     // 회원 가입
     @PostMapping("/join")
@@ -40,6 +49,12 @@ public class UserController {
     public  ResponseEntity<String> email(@PathVariable String email) throws Exception {
         String code = emailService.sendSimpleMessage(email);
         return ResponseEntity.ok().body(code);
+    }
+
+    @PostMapping("/join/sms")
+    public ResponseEntity<String> sendSms(@RequestBody Message message) throws UnsupportedEncodingException, URISyntaxException, NoSuchAlgorithmException, InvalidKeyException, JsonProcessingException {
+        SmsResponse response = smsService.sendSms(message);
+        return ResponseEntity.ok().body(response.getSmsConfirmNum());
     }
 
     // 로그인

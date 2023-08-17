@@ -64,3 +64,9 @@ jwt:
 AdminMail:
   id: younprizee@gmail.com
   password: ouzxlsfcxnzhflri
+
+naver-cloud-sms:
+  accessKey: "xkC9OY1wWfm58EL3IsTm"
+  secretKey: "MlBLFP5aTnjrUTjVem6WzuVQrZ9WhZL2O96AaRtU"
+  serviceId: "ncp:sms:kr:275924573004:a101"
+  senderPhone: "01040905168"
