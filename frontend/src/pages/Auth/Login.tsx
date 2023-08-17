@@ -66,7 +66,7 @@ export default function Login():JSX.Element {
         <img src={reptile01} alt="" className={style.imgSize}/>
         <SignUpText name="아이디" placeholder="아이디 입력" warning={idWarning} ref={id}/>
         <SignUpPassword name="비밀번호" placeholder="비밀번호 입력" warning={pwWarning} ref={pw}/>
-        <div className='d-flex justify-content-between mt-3 w-100'>
+        <div className={`${style.textBox}`}>
           <a href="#" className={style.additionalLink}>비밀번호 찾기</a>
           <Link to="/SignUp" className={style.additionalLink}>회원가입</Link>
         </div>
