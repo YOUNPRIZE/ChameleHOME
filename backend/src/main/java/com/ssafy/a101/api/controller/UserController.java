@@ -45,12 +45,6 @@ public class UserController {
         return ResponseEntity.ok().body(response);
     }
 
-//    @GetMapping("/join/number/{email}")
-//    public  ResponseEntity<String> email(@PathVariable String email) throws Exception {
-//        String code = emailService.sendSimpleMessage(email);
-//        return ResponseEntity.ok().body(code);
-//    }
-
     @PostMapping("/join/sms")
     public ResponseEntity<String> sendSms(@RequestBody Message message) throws UnsupportedEncodingException, URISyntaxException, NoSuchAlgorithmException, InvalidKeyException, JsonProcessingException {
         SmsResponse response = smsService.sendSms(message);

@@ -5,8 +5,10 @@ import com.ssafy.a101.api.request.UpdateCageRequest;
 import com.ssafy.a101.api.service.AlarmService;
 import com.ssafy.a101.api.service.CageService;
 import com.ssafy.a101.api.service.EmailService;
+import com.ssafy.a101.api.service.SmsService;
 import com.ssafy.a101.config.MqttPubConfig;
 import com.ssafy.a101.db.entity.Cage;
+import com.ssafy.a101.db.entity.Message;
 import com.ssafy.a101.db.entity.User;
 import com.ssafy.a101.db.repository.AlarmRepository;
 import com.ssafy.a101.db.repository.AutoSetRepository;
@@ -38,6 +40,8 @@ public class A101Application {
 	private AlarmService alarmService;
 	@Autowired
 	private CageService cageService;
+	@Autowired
+	private SmsService smsService;
 
 	public static void main(String[] args) throws MqttException {
 		ConfigurableApplicationContext context = SpringApplication.run(A101Application.class, args);
@@ -60,7 +64,8 @@ public class A101Application {
 				Cage cage = cageRepository.findById(cageId).get();
 				User user = cage.getId();
 				try {
-					emailService.sendAlarmMessage(user.getNumber(), alarm.getName());
+					Message sms = new Message(user.getNumber());
+					smsService.sendAlarm(sms, alarm.getName());
 				} catch (Exception e) {
 					throw new RuntimeException(e);
 				}
@@ -84,12 +89,11 @@ public class A101Application {
 		LocalTime currentTime = LocalTime.now();
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:00");
 		String formattedTime = currentTime.format(formatter);
-		System.out.println(formattedTime);
 		AutoSetRepository autoSetRepository = context.getBean(AutoSetRepository.class);
 		autoSetRepository.findAll().forEach((autoSet -> {
 			UpdateCageRequest updateCageRequest = new UpdateCageRequest();
 			if (autoSet.getTime().equals(formattedTime)) {
-			 //mqtt 통신 부분 / start 까지
+				//mqtt 통신 부분 / start 까지
 				new Thread(new Runnable() {
 				Long temp = autoSet.getSet_temp();
 				Long hum = autoSet.getSet_hum();

@@ -6,8 +6,8 @@
   <component name="ChangeListManager">
     <list default="true" id="029f519a-ddbc-43c1-a158-06f30e3a49f3" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ssafy/a101/api/controller/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ssafy/a101/api/controller/UserController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ssafy/a101/config/SecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ssafy/a101/config/SecurityConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ssafy/a101/A101Application.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ssafy/a101/A101Application.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ssafy/a101/api/service/SmsService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ssafy/a101/api/service/SmsService.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
