@@ -51,7 +51,7 @@ def recieve_thread():
 def act_publish():
     pub_data = { "LED" : 0, "heat_pad" : False, "cooling_fan" : False, "humidifier" : False, "waterfall" : False, "lock" : 1}
     if not win.lock_btn.isChecked():
-        return
+        pub_data["lock"] = 1
     else:
         pub_data["lock"] =  0
     pub_data["LED"] = win.horizontalSlider.value()
