@@ -26,12 +26,13 @@
   font-size: 2vh;
 }
 
-.addBtn {
-  background-color: #5cb15a;
-  color: white;
-}
-
 .dropdownItems{
   width: 80vw;
+}
+
+.warningText {
+  color: red;
+  font-size: 1.5vh;
+  font-weight: bold;
 }
 

@@ -1,6 +1,10 @@
+// 혹|함수 import
 import { useState,useEffect } from 'react';
 import { useNavigate } from 'react-router-dom'
-import { nowPageStore } from 'store/myPageStore';
+// 상태 정보 import
+import { nowPageStore, nowLoadingStore } from 'store/myExtraStore';
+import { userInfoStore } from 'store/userInfoStore';
+// 스타일 import
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBell, faArrowLeft } from '@fortawesome/free-solid-svg-icons'
 import style from 'styles/Header.module.css';

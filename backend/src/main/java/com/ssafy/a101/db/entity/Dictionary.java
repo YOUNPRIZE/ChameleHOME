@@ -40,29 +40,29 @@ public class Dictionary {
     @Column(name = "environment", nullable = true)
     private String environment;
 
-    @Column(name = "from", nullable = true)
-    private String from;
+    @Column(name = "home", nullable = true)
+    private String home;
 
     @Column(name = "img", nullable = true)
     private String img;
 
     @Builder
-    public Dictionary(String spices, String lifespan, String feed, String feed_cycle, String temp, String lighting, String humidity,String info, String environment, String from, String img ) {
-        this.spices = spices;
-        this.lifespan = lifespan;
-                   this.feed = feed;
-                   this.feed_cycle = feed_cycle;
-                   this.temp = temp;
-                   this.lighting = lighting;
-                   this.humidity = humidity;
-                   this.info = info;
-                   this.environment = environment;
-                   this.from =  from;
-                   this.img = img;
+    public Dictionary(String spices, String lifespan, String feed, String feed_cycle, String temp, String lighting, String humidity,String info, String environment, String home, String img ) {
+    this.spices = spices;
+    this.lifespan = lifespan;
+    this.feed = feed;
+    this.feed_cycle = feed_cycle;
+    this.temp = temp;
+    this.lighting = lighting;
+    this.humidity = humidity;
+    this.info = info;
+    this.environment = environment;
+    this.home =  home;
+    this.img = img;
 
     }
 
-    public void update(String spices ,String lifespan, String feed, String feed_cycle, String temp, String lighting, String humidity,String info, String environment, String from, String img) {
+    public void update(String spices ,String lifespan, String feed, String feed_cycle, String temp, String lighting, String humidity,String info, String environment, String home, String img) {
         this.spices = spices;
         this.lifespan = lifespan;
         this.feed = feed;
@@ -72,7 +72,7 @@ public class Dictionary {
         this.humidity = humidity;
         this.info = info;
         this.environment = environment;
-        this.from =  from;
+        this.home =  home;
         this.img = img;
 
     }

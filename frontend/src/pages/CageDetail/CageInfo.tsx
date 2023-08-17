@@ -1,155 +1,129 @@
 // 훅 import 
-import { useNavigate, Link, useParams } from 'react-router-dom';
-import { useEffect, useState } from 'react'
-import { Client, Message } from 'paho-mqtt';
+import {useParams } from 'react-router-dom';
+import { useEffect, useRef } from 'react'
+import { Message, Client } from 'paho-mqtt';
+import { axiosCage } from 'constants/AxiosFunc';
 // 상태 정보 import
-import { nowPageStore } from 'store/myPageStore';
+import { nowPageStore } from 'store/myExtraStore';
 import { myCagesStore } from 'store/myCageStore';
-import { myAnimalStore } from 'store/myAnimalStore';
+import { nowCageValueStore } from 'store/myCageStore';
+import { nowLoadingStore } from 'store/myExtraStore';
 // 컴포넌트 import
-import AnimalItemShort from 'components/CageDatail/Animal/AnimalItemShort';
+import AnimalBox from 'components/CageDatail/CageInfo/AnimalBox';
+import InnerCageInfo from 'components/CageDatail/CageInfo/InnerCageInfo';
+import SettingBtnBox from 'components/CageDatail/CageInfo/SettingBtnBox';
 // 스타일 import
-import style from 'styles/CageDetail/CageDetail.module.css'
 import 'bootstrap/dist/css/bootstrap.min.css'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { IconDefinition } from '@fortawesome/fontawesome-svg-core'
-import { faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons'
-import { faTemperatureThreeQuarters, faDroplet, faLightbulb, faCaretUp, faCaretDown } from '@fortawesome/free-solid-svg-icons'
-import { faTv, faClock, faBellConcierge, faPencil } from '@fortawesome/free-solid-svg-icons'
-
 
 export default function CageInfo():JSX.Element {
   // 페이지명 변경
   const changePage = nowPageStore(state => state.setPage);
   useEffect(() => {
     changePage("케이지 정보");
-  })
+  }, [])
 
-  // 케이지, 동물들 정보
+  // 상태정보, props 받기
   const cageId = Number(useParams().cageId);
   const myCage = myCagesStore(state => (state.cages)).find((cage) => (cage.cageId === cageId));
-  const myAnimals  = myAnimalStore(state => (state.animalsInCages[cageId]));
+  const nowCage = nowCageValueStore();
+  const setIsLoading = nowLoadingStore(state => state.setIsLoading);
 
-  // 상단 동물들 표시 컨트롤
-  const [mainCageOrder, setMainCageOrder] = useState(0);
-  const handleCageOrder = (move:number):void => {
-    const numberAnimal = Math.ceil(myAnimals.length / 2)
-    if (numberAnimal !== 0) {
-      setMainCageOrder((mainCageOrder + move + numberAnimal) % (numberAnimal))
-    }
-  }
-
-  // 실시간 케이지 내부 환경 정보
-  const [nowTem, setNowTem] = useState(0);
-  const [nowHum, setNowHum] = useState(0);
-  const [nowUv, setNowUv] = useState("");
-
+  // 케이지 내부 센서값 받기
+  const clientRef = useRef<Client|null>(null);
   useEffect(() => {
-    // MQTT 브로커에 커넥트
-    const client = new Client("18.233.166.123", 3000, "client");
-    client.connect({
-      // 커넥트에 성공
-      onSuccess: () => {
-        console.log("MQTT Connection Success");
-        client.subscribe("serialnumber/sensorval"); // 센서 정보를 받을 토픽
-      },
-      // 
-      onFailure: (err) => {
-        console.log("MQTT Connection Error:", err);
-      }
-    });
-
-    // 토픽에서 메시지를 받을 때 실행되는 콜백 함수
-    client.onMessageArrived = (message: Message) => {
-      const topic = message.destinationName;
-      const payload = message.payloadString;
-      // 토픽에 따라 상태 정보 업데이트
-      const sensorInfo = JSON.parse(payload);
-      setNowTem(Number(sensorInfo.Temp));
-      setNowHum(Number(sensorInfo.Humid));
-      setNowUv(sensorInfo.uv === "0"? "Off" : "On");
-      console.log(sensorInfo)
+    setIsLoading(true)
+    // 케이지 아이디 판단
+    if (nowCage.cageId !== cageId) {
+      nowCage.setCageId(cageId);
+      nowCage.setTemp(null);
+      nowCage.setHum(null);
+      nowCage.setUv(null);
+    }
+    // Mqtt 연결
+    const client = new Client("i9a101.p.ssafy.io", 9001, "client");
+    clientRef.current = client;
+    if (!client.isConnected()) {
+      client.connect({
+        userName: "FRONT",
+        password: "1234",
+        useSSL:true,
+        timeout:1,
+        onSuccess: () => { 
+          // 커넥트에 성공(구독)
+          client.subscribe(`${myCage?.snum}/sensorval`);
+          setIsLoading(false);
+        },
+        onFailure: () => { 
+          // 커넥트 실패
+          setIsLoading(false);
+        }
+      });
     };
-
-    // 컴포넌트가 언마운트되면 MQTT 연결 해제
+    // 토픽을 통해 센서값 받기
+    client.onMessageArrived = (message: Message) => {
+      const payload = message.payloadString;
+      const sensorInfo = JSON.parse(payload);
+      // 토픽에 따라 상태 정보 업데이트
+      nowCage.setTemp(Number(sensorInfo.Temp));
+      nowCage.setHum(Number(sensorInfo.Humid));
+      nowCage.setUv(Number(sensorInfo.uv));
+    };
+    // 컴포넌트가 언마운트되면 연결 해제
     return () => {
-      client.disconnect();
+      if (client.isConnected()) {
+        client.disconnect();
+      }
     };
   }, []);
+  
+  // 환경 세팅 조절 후 Mqtt로 세팅값 보내기
+  const updateCage = myCagesStore(state => state.updateCage);
+  const handleSetting = (setting:[number, number, number]) => {
+    const client = clientRef.current;
+    // mycage와 client가 유효할 때만 함수 실행
+    if (nowCage.uv !== null && client?.isConnected() && myCage) {
+      // 세팅값 조절하기
+      myCage.set_temp += setting[0];
+      myCage.set_hum += setting[1];
+      myCage.set_uv = Math.abs(myCage.set_uv - setting[2]);
+      // 세팅값 예외 처리
+      if (myCage.set_temp < 0 || myCage.set_temp > 50) {
+        alert("허용 범위 밖의 온도입니다.")
+        myCage.set_temp -= setting[0]
+        return
+      }
+      if (myCage.set_hum < 0 || myCage.set_hum > 100) {
+        alert("허용 범위 밖의 습도입니다.")
+        myCage.set_hum -= setting[1]
+        return
+      }
+      // 조절한 세팅값 저장
+      try {
+        // 데이터베이스 수정
+        const updatedCageInfo = axiosCage(`cage/${cageId}`, "PUT", myCage);
+        // 로컬 스토리지 수정
+        updateCage(myCage);
+        // 세팅값 Mqtt로 보내기
+        const payload = {Temp: myCage?.set_temp, Humid: myCage?.set_temp, uv: myCage?.set_uv,};
+        const message = new Message(JSON.stringify(payload));
+        message.destinationName = `${myCage?.snum}/setval`;
+        client.send(message);
+      }
+      catch {
+        // 오류 처리
+      }
+    }
+  }
 
   // 페이지 렌더링
   return (
     <>
     {/* 동물 컨테이너 */}
-    <div className={`${style.animalContainer} ${style.mainContainer}`}>
-      {/* 동물 보기 상단바 */}
-      <div className={`${style.animalTop}`}>
-        <span>내 파충류들</span>
-        <Link to={`./AnimalList`} className={style.noDeco}>목록 보기</Link>
-      </div>
-      {/* 각 동물 정보*/}
-      <div className={`row ${style.animalsContent} d-flex `}>
-        <div className={`col-1 ${style.moveIcon}`}>
-          <FontAwesomeIcon icon={faChevronLeft} style={{color: "#000000",}} onClick={() => handleCageOrder(-1)}/>
-        </div>
-        <div className='d-flex justify-content-center align-items-center col-10 mx-0 px-0 gx-5'>
-          {myAnimals.length !== 0 ? 
-          myAnimals.map((animal, index) => (
-            <AnimalItemShort key={animal.animalId} cageId={cageId} animal={animal} index={index} order={mainCageOrder}/>
-          ))
-          : <h1 className={style.noCage}>케이지가 비었어요!</h1> }
-        </div>
-        <div className={`col-1 ${style.moveIcon} justify-content-end`}>
-          <FontAwesomeIcon icon={faChevronRight} style={{color: "#000000",}} onClick={() => handleCageOrder(1)}/>
-        </div>
-      </div>
-    </div>
+    <AnimalBox cageId={cageId}/>
     {/* 실시간 환경 정보 컨테이너 */}
-    <div className={`${style.settingContatiner} ${style.mainContainer}`}>
-      <EachCageInfo live={`${nowTem}℃`} setting={`${myCage?.setTemp}℃`} icon={faTemperatureThreeQuarters}/>
-      <EachCageInfo live={`${nowHum}%`} setting={`${myCage?.setHum}%`} icon={faDroplet}/>
-      <EachCageInfo live={nowUv} setting={myCage?.setUv? "On":"Off"} icon={faLightbulb}/>
-    </div>
+    <InnerCageInfo handleSetting={handleSetting}/>
     {/* 추가 세팅 컨테이너 */}
-    <div className={`${style.btnContainer}`}>
-      <SettingBtn link={"LiveVideo"} feature={"실시간 영상"} icon={faTv} />
-      <SettingBtn link={"AutoSetting"} feature={"자동화 설정"} icon={faClock}/>
-      <SettingBtn link={"AlarmSetting"} feature={"알람 설정"} icon={faBellConcierge}/>
-    </div>
+    <SettingBtnBox/>
     </>
-  )
-}
-
-
-// 케이지 환경 개별 컴포넌트
-function EachCageInfo(props: { live: string | undefined, setting: string | undefined, icon: IconDefinition }): JSX.Element {
-  // 컴포넌트 렌더링
-  return (
-    <div className={`${style.eachInfoContainer}`}>
-      <FontAwesomeIcon icon={props.icon} style={{ color: "#000000", fontSize:"5vh" }}/>
-      <div>
-        <div className={`${style.eachInfoText}`}>현재 : {props.live}</div>
-        <div className={`${style.eachInfoText}`}>설정 : {props.setting}</div>
-      </div>
-      <FontAwesomeIcon icon={faCaretUp} style={{ color: "green" , fontSize:"7vh" }} />
-      <FontAwesomeIcon icon={faCaretDown} style={{ color: "red" , fontSize:"7vh" }} />
-    </div>
-  );
-}
-
-
-// 추가 세팅 버튼 컴포넌트
-function SettingBtn(props: {link:string, feature:string, icon: IconDefinition}): JSX.Element {
-  // 페이지 이동 함수
-  const navigate = useNavigate();
-  const handleLink = ():void => {
-    navigate(`./${props.link}`)
-  }
-  // 컴포넌트 렌더링
-  return (
-    <div className={`${style.settingBtn}`} onClick={handleLink}>
-      <FontAwesomeIcon icon={props.icon} style={{fontSize:"5vh"}}/>
-      <div style={{fontSize:"1.5vh"}}>{props.feature}</div>
-    </div>
   )
 }
