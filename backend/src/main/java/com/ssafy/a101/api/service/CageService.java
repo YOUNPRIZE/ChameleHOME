@@ -46,6 +46,15 @@ public class CageService {
 
         return cage;
     }
+    // 환경 수정
+    @Transactional
+    public Cage updateEnv(long cage_id, UpdateCageRequest request) {
+        Cage cage = cageRepository.findById(cage_id)
+                .orElseThrow(() -> new IllegalArgumentException("Cage Not Found"));
+        cage.updateEnv(request.getSet_temp(), request.getSet_hum(), request.getSet_uv());
+
+        return cage;
+    }
 
     // 케이지 삭제
     public void delete(Long cage_id){cageRepository.deleteById(cage_id);}
