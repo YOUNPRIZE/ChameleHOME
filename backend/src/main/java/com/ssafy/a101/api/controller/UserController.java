@@ -64,7 +64,7 @@ public class UserController {
     }
 
     // 회원 정보 조회
-    @GetMapping("/{userId}")
+    @GetMapping("/auth/{userId}")
     public ResponseEntity<UserResponse> findUser(@PathVariable String userId){
         User user = userService.findByUserId(userId);
         return ResponseEntity.ok()

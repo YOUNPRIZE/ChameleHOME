@@ -26,8 +26,8 @@ public class User {
     @Column(name = "nickname", updatable = true)
     private String nickname;
 
-    @Column(name = "email", updatable = true)
-    private String email;
+    @Column(name = "number", updatable = false)
+    private String number;
 
 //    @Builder
 //    public User(String email, String password, String nickname) {
@@ -37,11 +37,11 @@ public class User {
 //    }
 
     @Builder
-    public User(String userId, String password, String nickname, String email) {
+    public User(String userId, String password, String nickname, String number) {
         this.userId = userId;
         this.password = password;
         this.nickname = nickname;
-        this.email = email;
+        this.number = number;
     }
     public void update(String password, String nickname){
         this.password = password;
