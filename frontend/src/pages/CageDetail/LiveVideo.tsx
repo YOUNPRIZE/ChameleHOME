@@ -41,6 +41,7 @@ export default function LiveVideo():JSX.Element {
         password: '1234',
         // https 보안을 위해 사용
         useSSL: true,
+        timeout:1,
         // 커넥트에 성공
         onSuccess: () => {
           client.subscribe(`${myCage?.snum}/ip`);
