@@ -1,13 +1,12 @@
 import {create} from 'zustand'
 import {persist} from 'zustand/middleware'
 
-// 현재 페이지 정의
-export interface nowPageState {
+// 현재 페이지
+interface nowPageState {
   pageName: string;
   setPage: (nowPage: string) => void;
 }
 
-// 현재 페이지 상태 정보
 export const nowPageStore = create<nowPageState>()(
   persist(
   set => ({
@@ -18,16 +17,35 @@ export const nowPageStore = create<nowPageState>()(
   )
 )
 
-// 로딩중 정의
-export interface nowLoading {
+
+// 로딩
+interface nowLoading {
   isLoading: boolean;
   setIsLoading: (status:boolean) => void;
 }
 
-// 로딩중 상태 정보
 export const nowLoadingStore = create<nowLoading>()(set => ({
   isLoading: false,
   setIsLoading:(status:boolean) => set({isLoading: status})
   }),
 )
+
+
+// 경고메시지
+interface warningAlarm {
+  warnings: Array<string>;
+  addWarnings: (warning:string) => void;
+  cleanWarnings: () => void;
+}
+
+export const warningAlarmStore = create<warningAlarm>()(persist(
+  set =>({
+  warnings: [],
+  addWarnings: (warning:string) => set((state) => {
+    state.warnings.push(warning);
+    return {...state}
+  }),
+  cleanWarnings: () => set({warnings: []})
+  }), {name: "warnings"}
+))
 
