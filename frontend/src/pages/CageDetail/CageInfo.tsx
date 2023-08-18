@@ -7,7 +7,7 @@ import { axiosCage } from 'constants/AxiosFunc';
 import { nowPageStore } from 'store/myExtraStore';
 import { myCagesStore } from 'store/myCageStore';
 import { nowCageValueStore } from 'store/myCageStore';
-import { nowLoadingStore } from 'store/myExtraStore';
+import { nowLoadingStore, warningAlarmStore } from 'store/myExtraStore';
 // 컴포넌트 import
 import AnimalBox from 'components/CageDatail/CageInfo/AnimalBox';
 import InnerCageInfo from 'components/CageDatail/CageInfo/InnerCageInfo';
@@ -27,6 +27,7 @@ export default function CageInfo():JSX.Element {
   const myCage = myCagesStore(state => (state.cages)).find((cage) => (cage.cageId === cageId));
   const nowCage = nowCageValueStore();
   const setIsLoading = nowLoadingStore(state => state.setIsLoading);
+  const addWarnings = warningAlarmStore(state => state.addWarnings);
 
   // 케이지 내부 센서값 받기
   const clientRef = useRef<Client|null>(null);
@@ -56,6 +57,7 @@ export default function CageInfo():JSX.Element {
         onFailure: () => { 
           // 커넥트 실패
           setIsLoading(false);
+          addWarnings(`케이지와의 연결에 실패하였습니다.`)
         }
       });
     };
@@ -104,7 +106,7 @@ export default function CageInfo():JSX.Element {
         // 로컬 스토리지 수정
         updateCage(myCage);
         // 세팅값 Mqtt로 보내기
-        const payload = {Temp: myCage?.set_temp, Humid: myCage?.set_temp, uv: myCage?.set_uv,};
+        const payload = {Temp: myCage?.set_temp, Humid: myCage?.set_hum, uv: myCage?.set_uv,};
         const message = new Message(JSON.stringify(payload));
         message.destinationName = `${myCage?.snum}/setval`;
         client.send(message);
@@ -112,6 +114,8 @@ export default function CageInfo():JSX.Element {
       catch {
         // 오류 처리
       }
+    } else {
+      addWarnings(`${myCage?.cage_name} 케이지와의 연결이 불안정합니다.`)
     }
   }
 

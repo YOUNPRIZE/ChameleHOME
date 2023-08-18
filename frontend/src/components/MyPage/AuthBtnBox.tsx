@@ -10,13 +10,13 @@ export default function AuthBtnBox({handleShowModal}:{handleShowModal:Function})
   // 페이지 렌더링
   return(
     <div className={`${style.farContainer} ${style.btnContainer} row`}>
-      <button className={`${style.btn} col-5`} onClick={() => handleShowModal(0)}>
+      <button className={`${style.btn}`} onClick={() => handleShowModal(0)}>
         닉네임 수정
       </button>
-      <button className={`${style.btn} col-5`} onClick={() => handleShowModal(1)}>
+      <button className={`${style.btn} col-7`} onClick={() => handleShowModal(1)}>
         비밀번호 변경
       </button>
-      <button className={`${style.btn} col-5 bg-danger`} onClick={() => handleShowModal(2)}>
+      <button className={`${style.btn} col-4 bg-danger`} onClick={() => handleShowModal(2)}>
         회원 탈퇴
       </button>
     </div>

@@ -1,3 +1,4 @@
+/* 헤더 */
 .Header {
   color: white;
   background-color: #5cb15a;
@@ -21,4 +22,17 @@
 
 .headerIcon {
   font-size: 3vh;
+}
+
+
+/* 경고 알람 */
+.modalTitle {
+  font-size: 3vh;
+  font-weight: bold;
+}
+
+.warningText {
+  padding: 2vh 5vw;
+  font-size: 2vh;
+  font-weight:bold;
 }

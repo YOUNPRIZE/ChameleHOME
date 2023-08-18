@@ -5,7 +5,7 @@ import { Client, Message } from 'paho-mqtt';
 // 상태 정보 import
 import { myCagesStore } from 'store/myCageStore';
 import { nowPageStore } from 'store/myExtraStore';
-import { nowLoadingStore } from 'store/myExtraStore';
+import { nowLoadingStore, warningAlarmStore } from 'store/myExtraStore';
 // 컴포넌트 import
 import VideoBox from 'components/CageDatail/LiveVideo/VideoBox';
 import MoveBtnBox from 'components/CageDatail/LiveVideo/MoveBtnBox';
@@ -22,6 +22,7 @@ export default function LiveVideo():JSX.Element {
   const cageId = Number(useParams().cageId);
   const myCage = myCagesStore(state => (state.cages)).find((cage) => (cage.cageId === cageId));
   const setIsLoading = nowLoadingStore(state => state.setIsLoading);
+  const addWarnings = warningAlarmStore(state => state.addWarnings);
 
   // 변수 선언
   const clientRef = useRef<Client|null>(null);
@@ -40,6 +41,7 @@ export default function LiveVideo():JSX.Element {
         password: '1234',
         // https 보안을 위해 사용
         useSSL: true,
+        timeout:1,
         // 커넥트에 성공
         onSuccess: () => {
           client.subscribe(`${myCage?.snum}/ip`);
@@ -48,6 +50,7 @@ export default function LiveVideo():JSX.Element {
         // 커넥트 실패
         onFailure: (err) => { 
           setIsLoading(false)
+          addWarnings(`${myCage?.cage_name} 케이지와의 연결에 실패하였습니다.`)
         }
       });
     };

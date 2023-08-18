@@ -2,19 +2,18 @@
 #include "header.h"
 
 // Set topics to communicate
-char* topic = "serialnumber/sensorval";
-char* get_topic = "serialnumber/setval";
-char* common_topic = "actset";
-char* status_topic = "actstatus";
+char* topic = "1/sensorval";
+char* get_topic = "1/setval";
 char* error_topic = "error";
+char* ip_topic = "1/ip";
 
 // Define client
 EspMQTTClient client(
   WIFINAME,
   WIFIPW,
   BROCKERIP,
-  "MQTTUsername",
-  "MQTTPassword",
+  USRNAME,
+  USRPW,
   "ESP32",
   PORT
 );
@@ -31,6 +30,11 @@ struct MQTT {
 
   // Initialize the MQTT client
   void init() {
+    // static IP for SSAFY WiFi
+    // if (!WiFi.config(STATICIP, GATEWAY, SUBNET, PRIMARYDNS, SECONDARYDNS)) {
+    //   Serial.println("STA failed to configure");
+    // }
+    // WiFi.begin(WIFINAME, WIFIPW);
     client.enableDebuggingMessages();
     client.enableHTTPWebUpdater();
     client.enableOTA();
@@ -72,6 +76,7 @@ struct MQTT {
 
     // Serialize JSON data and return as String
     serializeJson(doc, data);
+    data += "\n";
     return data;
   }
 
@@ -91,6 +96,11 @@ struct MQTT {
   void tx() {
     client.publish(topic, data);
     data = "";
+  }
+
+  // Transmit sensor data
+  void ipTx() {
+    client.publish(ip_topic, "192.168.204.97");
   }
 
   // Error check for required keys in JSON data
