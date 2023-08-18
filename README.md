@@ -61,67 +61,67 @@
 
 <h4>회원가입</h4>
 
-![회원가입](./assets/회원가입.gif)
+![회원가입](./exec/assets/회원가입.gif)
 
 </hr>
 
 <h4>전화번호 인증</h4>
 
-![전화번호인증](./assets/전화번호인증.gif)
+![전화번호인증](./exec/assets/전화번호인증.gif)
 
 </hr>
 
 <h4>메인 페이지</h4>
 
-![메인페이지](./assets/메인페이지.gif)
+![메인페이지](./exec/assets/메인페이지.gif)
 
 </hr>
 
 <h4>케이지 만들기</h4>
 
-![케이지 만들기](./assets/케이지-만들기.gif)
+![케이지 만들기](./exec/assets/케이지-만들기.gif)
 
 </hr>
 
 <h4>동물 추가</h4>
 
-![동물추가](./assets/동물추가.gif)
+![동물추가](./exec/assets/동물추가.gif)
 
 </hr>
 
 <h4>동물 상세</h4>
 
-![동물 상세](./assets/동물 상세.gif)
+![동물 상세](./exec/assets/동물 상세.gif)
 
 </hr>
 
 <h4>실시간 영상</h4>
 
-![실시간 영상](./assets/실시간-영상.gif)
+![실시간 영상](./exec/assets/실시간-영상.gif)
 
 </hr>
 
 <h4>자동화 설정</h4>
 
-![자동화 설정](./assets/자동화-설정.gif)
+![자동화 설정](./exec/assets/자동화-설정.gif)
 
 </hr>
 
 <h4>알림 추가</h4>
 
-![알림 추가](./assets/알림-추가.gif)
+![알림 추가](./exec/assets/알림-추가.gif)
 
 </hr>
 
 <h4>도감</h4>
 
-![도감](./assets/도감.gif)
+![도감](./exec/assets/도감.gif)
 
 </hr>
 
 <h4>로그아웃</h4>
 
-![로그아웃](./assets/로그아웃.gif)
+![로그아웃](./exec/assets/로그아웃.gif)
 
 </hr>
 
@@ -182,7 +182,7 @@
 
 <h4>System Architecture</h4>
 
-![System Architecture](./assets/Architecture.png)
+![System Architecture](./exec/assets/Architecture.png)
 
 ## 5️⃣ 컴포넌트 구조 및 프로토타입
 
@@ -356,7 +356,7 @@
 
 ## 6️⃣ 데이터베이스 모델링 (ERD)
 
-![ERD](./assets/erd.png)
+![ERD](./exec/assets/erd.png)
 
 ## 7️⃣ Convention
 
