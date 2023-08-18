@@ -1,0 +1,58 @@
+server:
+  port: 8000
+
+spring:
+  jackson:
+    serialization:
+      fail-on-empty-beans: false
+#    objectMapper:git
+#      serializationInclusion: NON_NULL
+#      propertyNamingStrategy: SNAKE_CASE
+#      dateFormat: yyyy-MM-dd HH:mm:ss
+#      timeZone: Asia/Seoul
+#    builder:
+#      features:
+#        WRITE_DATE_KEYS_AS_TIMESTAMPS: false
+
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://i9a101.p.ssafy.io:3306/test?serverTimezone=UTC&useUnicode=true&characterEncoding=utf8
+    username: root
+    password: A967788!
+
+  jpa:
+    open-in-view: true
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+        ddl-auto: update
+    defer-datasource-initialization: true
+  h2:
+    console:
+      enabled: true
+  mail:
+    smtp:
+      auth: true
+      port: 465
+      socketFactory:
+        class: javax.net.ssl.SSLSocketFactory
+        fallback: false
+        port: 465
+      starttls:
+        required: true
+        enable: true
+
+jwt:
+  token:
+   secret: VlwEyVBsYt9V7zq57TejMnVUyzblYcfPQye08f7MGVA9XkHa
+
+AdminMail:
+  id: younprizee@gmail.com
+  password: ouzxlsfcxnzhflri
+
+naver-cloud-sms:
+  accessKey: "xkC9OY1wWfm58EL3IsTm"
+  secretKey: "MlBLFP5aTnjrUTjVem6WzuVQrZ9WhZL2O96AaRtU"
+  serviceId: "ncp:sms:kr:275924573004:a101"
+  senderPhone: "01040905168"
