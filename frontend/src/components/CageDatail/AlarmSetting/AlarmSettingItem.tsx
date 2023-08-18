@@ -1,5 +1,6 @@
 // 훅/함수 import
 import { axiosAlarm } from 'constants/AxiosFunc';
+import { useEffect, useState } from 'react';
 // 상태 정보 import
 import { alarmSetting, alarmSettingStore } from 'store/mySettingStore';
 // 스타일 import
@@ -11,12 +12,24 @@ import { faPenToSquare, faTrash } from '@fortawesome/free-solid-svg-icons'
 export default function AlarmSettingItem(props:{setting:alarmSetting, showUpdateModal:Function}):JSX.Element {
   // 날짜 형식 맞추기(string타입으로 전달됨)
   const setting:alarmSetting = props.setting
-  const recent_date = new Date(setting.recent)
+  const recentDate = new Date(setting.recent)
 
   // 주기 계산(일, 시간, 분 별로)
   const dayCycle:number = Math.floor(setting.cycle / 1440);
   const hourCycle:number = Math.floor((setting.cycle % 1440) / 60)
-  const minuteCycle:number = Math.floor(setting.cycle % 60) 
+  const minuteCycle:number = Math.floor(setting.cycle % 60)
+
+  // 오늘 날짜인지 계산
+  const [todayAlarm, setTodayAlarm] = useState(false)
+  useEffect(() => {
+    setTodayAlarm(false)
+    const recent = String(recentDate).split(" ");
+    const today = String(new Date()).split(" ");
+    if (today[1] === recent[1] && today[2] === recent[2] && today[3] === recent[3]) {
+      setTodayAlarm(true)
+    }
+  }, [props.setting])
+
 
   // 세팅 삭제
   const deleteSetting = alarmSettingStore(state => state.deleteSetting)
@@ -34,7 +47,7 @@ export default function AlarmSettingItem(props:{setting:alarmSetting, showUpdate
 
   // 컴포넌트 렌더링
   return (
-    <div className={`${style.settingContainer}`}>
+    <div className={`${style.settingContainer} ${todayAlarm && style.todayAlarm}`}>
       {/* 상단 부분 */}
       <div className={`${style.topContent}`}>
         {/* 시간 표시 */}
@@ -53,7 +66,7 @@ export default function AlarmSettingItem(props:{setting:alarmSetting, showUpdate
         </p>
         <p className={`${style.alarmInfo}`}>
           <span className={`${style.alarmCategory}`}>다음 알람</span>
-        {recent_date.toLocaleString().slice(0,-3)}</p>
+        {recentDate.toLocaleString().slice(0,-3)}</p>
       </div>
     </div>
   )
