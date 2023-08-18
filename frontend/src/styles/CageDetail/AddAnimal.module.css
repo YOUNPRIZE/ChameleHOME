@@ -50,8 +50,10 @@
 .dropdownItems {
   width: 90vw;
   font-size: 1.5vh;
+  padding-bottom: 10vh;
   font-weight: bold;
   text-align: center;
+  z-index: 0;
 }
 
 /* 생일 정보*/

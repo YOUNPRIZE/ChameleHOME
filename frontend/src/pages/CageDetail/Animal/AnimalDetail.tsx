@@ -1,5 +1,5 @@
 // 훅 import 
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate, Link } from 'react-router-dom';
 import { useEffect } from 'react'
 import { getAge } from 'constants/CommonFunc';
 import { axiosAnimal } from 'constants/AxiosFunc';
@@ -75,7 +75,7 @@ export default function AnimalDetail():JSX.Element {
       {/* 이름, 종, 생일*/}
       <div className={`${style.basicInnerContainer}`}>
         <h1 className={`${style.infoName}`}>{myAnimal?.name}</h1>
-        <p className={`${style.infoTextLeft}`}>{dictInfo?.spices}</p>
+        <Link to={`/Dictionary/${dictInfo?.spices}`} className={`${style.infoTextLeft}`}>{dictInfo?.spices}</Link>
         <p className={`${style.infoTextLeft}`}>{birth.toLocaleDateString()}</p>
       </div>
       {/* 성별, 나이 */}

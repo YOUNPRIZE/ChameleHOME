@@ -83,6 +83,10 @@
   font-weight: bold;
 }
 
+.todayAlarm {
+  border: solid 10px #5cb15a;
+}
+
 
 
 /* 자동화 설정 모달 */
